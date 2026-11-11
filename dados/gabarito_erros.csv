@@ -1,0 +1,1799 @@
+tabela,id_registro,codigo_estudante,tipo_erro,coluna,valor_com_erro,valor_original,acao_esperada,valor_esperado
+estudos,,E143,chave_sem_par,codigo_estudante,ausente em estudos,E143,sinalizar,
+estudos,,E146,chave_sem_par,codigo_estudante,ausente em estudos,E146,sinalizar,
+estudos,,E067,chave_sem_par,codigo_estudante,ausente em estudos,E067,sinalizar,
+renda,,E038,chave_sem_par,codigo_estudante,ausente em renda,E038,sinalizar,
+renda,,E125,chave_sem_par,codigo_estudante,ausente em renda,E125,sinalizar,
+gastos,G-E136-2026-07-19,E136,categoria_vazia,categoria,,alimentacao,preencher,nao_informado
+gastos,G-E007-2026-08-05,E007,categoria_vazia,categoria,,estudos,preencher,nao_informado
+gastos,G-E115-2026-10-16,E115,categoria_vazia,categoria,,lazer,preencher,nao_informado
+gastos,G-E055-2026-10-22,E055,categoria_vazia,categoria,,assinaturas,preencher,nao_informado
+gastos,G-E097-2026-07-12,E097,categoria_vazia,categoria,,alimentacao,preencher,nao_informado
+gastos,G-E074-2026-08-23,E074,categoria_vazia,categoria,,alimentacao,preencher,nao_informado
+gastos,G-E013-2026-06-21,E013,categoria_vazia,categoria,,outros,preencher,nao_informado
+gastos,G-E124-2026-09-12,E124,categoria_vazia,categoria,,alimentacao,preencher,nao_informado
+gastos,G-E047-2026-08-13,E047,categoria_vazia,categoria,,outros,preencher,nao_informado
+gastos,G-E023-2026-05-08,E023,categoria_vazia,categoria,,alimentacao,preencher,nao_informado
+gastos,G-E078-2026-07-14,E078,categoria_vazia,categoria,,transporte,preencher,nao_informado
+gastos,G-E071-2026-09-15,E071,categoria_vazia,categoria,,transporte,preencher,nao_informado
+gastos,G-E005-2026-06-04,E005,categoria_vazia,categoria,,transporte,preencher,nao_informado
+gastos,G-E039-2026-10-02,E039,categoria_vazia,categoria,,transporte,preencher,nao_informado
+gastos,G-E095-2026-08-13,E095,categoria_vazia,categoria,,transporte,preencher,nao_informado
+gastos,G-E067-2026-06-09,E067,categoria_vazia,categoria,,outros,preencher,nao_informado
+gastos,G-E038-2026-05-08,E038,categoria_vazia,categoria,,alimentacao,preencher,nao_informado
+gastos,G-E142-2026-10-20,E142,categoria_vazia,categoria,,assinaturas,preencher,nao_informado
+gastos,G-E087-2026-10-13,E087,categoria_vazia,categoria,,alimentacao,preencher,nao_informado
+gastos,G-E075-2026-08-09,E075,categoria_vazia,categoria,,alimentacao,preencher,nao_informado
+gastos,G-E054-2026-06-04,E054,categoria_vazia,categoria,,transporte,preencher,nao_informado
+gastos,G-E124-2026-05-18,E124,categoria_vazia,categoria,,assinaturas,preencher,nao_informado
+gastos,G-E147-2026-10-04,E147,categoria_vazia,categoria,,estudos,preencher,nao_informado
+gastos,G-E061-2026-10-05,E061,categoria_vazia,categoria,,assinaturas,preencher,nao_informado
+gastos,G-E078-2026-06-17,E078,categoria_vazia,categoria,,alimentacao,preencher,nao_informado
+gastos,G-E037-2026-10-19,E037,categoria_vazia,categoria,,alimentacao,preencher,nao_informado
+gastos,G-E078-2026-07-11,E078,categoria_vazia,categoria,,outros,preencher,nao_informado
+gastos,G-E020-2026-08-17,E020,categoria_vazia,categoria,,alimentacao,preencher,nao_informado
+gastos,G-E076-2026-08-04,E076,categoria_vazia,categoria,,lazer,preencher,nao_informado
+gastos,G-E140-2026-07-06,E140,categoria_vazia,categoria,,alimentacao,preencher,nao_informado
+gastos,G-E150-2026-09-14,E150,categoria_vazia,categoria,,transporte,preencher,nao_informado
+gastos,G-E087-2026-06-09,E087,categoria_vazia,categoria,,lazer,preencher,nao_informado
+gastos,G-E081-2026-07-23,E081,categoria_vazia,categoria,,alimentacao,preencher,nao_informado
+gastos,G-E036-2026-10-15,E036,categoria_vazia,categoria,,lazer,preencher,nao_informado
+gastos,G-E053-2026-08-21,E053,categoria_vazia,categoria,,transporte,preencher,nao_informado
+gastos,G-E148-2026-08-20,E148,categoria_vazia,categoria,,alimentacao,preencher,nao_informado
+gastos,G-E146-2026-10-14,E146,categoria_vazia,categoria,,alimentacao,preencher,nao_informado
+gastos,G-E089-2026-07-06,E089,categoria_vazia,categoria,,alimentacao,preencher,nao_informado
+gastos,G-E127-2026-07-18,E127,categoria_vazia,categoria,,alimentacao,preencher,nao_informado
+gastos,G-E130-2026-08-02,E130,categoria_vazia,categoria,,alimentacao,preencher,nao_informado
+gastos,G-E019-2026-10-06,E019,categoria_vazia,categoria,,transporte,preencher,nao_informado
+gastos,G-E049-2026-08-18,E049,categoria_vazia,categoria,,alimentacao,preencher,nao_informado
+gastos,G-E001-2026-07-13,E001,categoria_vazia,categoria,,alimentacao,preencher,nao_informado
+gastos,G-E140-2026-07-03,E140,categoria_vazia,categoria,,outros,preencher,nao_informado
+gastos,G-E123-2026-07-10,E123,categoria_vazia,categoria,,alimentacao,preencher,nao_informado
+gastos,G-E143-2026-06-06,E143,categoria_vazia,categoria,,outros,preencher,nao_informado
+gastos,G-E124-2026-08-19,E124,categoria_vazia,categoria,,assinaturas,preencher,nao_informado
+gastos,G-E052-2026-08-06,E052,categoria_vazia,categoria,,alimentacao,preencher,nao_informado
+gastos,G-E035-2026-06-14,E035,categoria_vazia,categoria,,alimentacao,preencher,nao_informado
+gastos,G-E142-2026-07-16,E142,categoria_vazia,categoria,,assinaturas,preencher,nao_informado
+gastos,G-E107-2026-06-18,E107,categoria_vazia,categoria,,alimentacao,preencher,nao_informado
+gastos,G-E058-2026-06-11,E058,categoria_vazia,categoria,,outros,preencher,nao_informado
+gastos,G-E041-2026-05-24,E041,categoria_vazia,categoria,,transporte,preencher,nao_informado
+gastos,G-E050-2026-08-19,E050,categoria_vazia,categoria,,lazer,preencher,nao_informado
+gastos,G-E009-2026-07-09,E009,categoria_vazia,categoria,,lazer,preencher,nao_informado
+gastos,G-E110-2026-06-21,E110,categoria_vazia,categoria,,estudos,preencher,nao_informado
+gastos,G-E001-2026-08-09,E001,categoria_vazia,categoria,,alimentacao,preencher,nao_informado
+gastos,G-E100-2026-07-14,E100,categoria_vazia,categoria,,estudos,preencher,nao_informado
+gastos,G-E116-2026-05-05,E116,categoria_vazia,categoria,,outros,preencher,nao_informado
+gastos,G-E006-2026-10-06,E006,categoria_vazia,categoria,,transporte,preencher,nao_informado
+gastos,G-E026-2026-06-16,E026,categoria_vazia,categoria,,alimentacao,preencher,nao_informado
+gastos,G-E022-2026-07-18,E022,categoria_vazia,categoria,,alimentacao,preencher,nao_informado
+gastos,G-E027-2026-10-02,E027,categoria_vazia,categoria,,transporte,preencher,nao_informado
+gastos,G-E111-2026-08-17,E111,categoria_vazia,categoria,,outros,preencher,nao_informado
+gastos,G-E078-2026-09-16,E078,categoria_vazia,categoria,,alimentacao,preencher,nao_informado
+gastos,G-E085-2026-07-18,E085,categoria_vazia,categoria,,lazer,preencher,nao_informado
+gastos,G-E105-2026-05-11,E105,categoria_vazia,categoria,,lazer,preencher,nao_informado
+gastos,G-E091-2026-07-23,E091,categoria_vazia,categoria,,lazer,preencher,nao_informado
+gastos,G-E062-2026-09-04,E062,categoria_vazia,categoria,,lazer,preencher,nao_informado
+gastos,G-E069-2026-08-08,E069,categoria_vazia,categoria,,transporte,preencher,nao_informado
+gastos,G-E031-2026-10-19,E031,categoria_vazia,categoria,,alimentacao,preencher,nao_informado
+gastos,G-E094-2026-07-09,E094,categoria_vazia,categoria,,alimentacao,preencher,nao_informado
+gastos,G-E148-2026-09-01,E148,categoria_vazia,categoria,,alimentacao,preencher,nao_informado
+gastos,G-E047-2026-05-12,E047,categoria_vazia,categoria,,alimentacao,preencher,nao_informado
+gastos,G-E060-2026-10-05,E060,categoria_vazia,categoria,,alimentacao,preencher,nao_informado
+gastos,G-E141-2026-08-16,E141,categoria_vazia,categoria,,alimentacao,preencher,nao_informado
+gastos,G-E034-2026-05-01,E034,categoria_vazia,categoria,,alimentacao,preencher,nao_informado
+gastos,G-E133-2026-07-10,E133,categoria_vazia,categoria,,alimentacao,preencher,nao_informado
+gastos,G-E036-2026-07-16,E036,categoria_vazia,categoria,,lazer,preencher,nao_informado
+gastos,G-E028-2026-07-26,E028,categoria_vazia,categoria,,transporte,preencher,nao_informado
+gastos,G-E067-2026-09-06,E067,categoria_vazia,categoria,,outros,preencher,nao_informado
+gastos,G-E109-2026-07-15,E109,categoria_vazia,categoria,,transporte,preencher,nao_informado
+gastos,G-E132-2026-08-10,E132,categoria_vazia,categoria,,lazer,preencher,nao_informado
+gastos,G-E117-2026-07-15,E117,categoria_vazia,categoria,,lazer,preencher,nao_informado
+gastos,G-E027-2026-08-18,E027,categoria_vazia,categoria,,outros,preencher,nao_informado
+gastos,G-E123-2026-06-06,E123,categoria_vazia,categoria,,alimentacao,preencher,nao_informado
+gastos,G-E106-2026-05-10,E106,categoria_vazia,categoria,,transporte,preencher,nao_informado
+gastos,G-E109-2026-05-03,E109,categoria_vazia,categoria,,alimentacao,preencher,nao_informado
+gastos,G-E068-2026-06-22,E068,categoria_vazia,categoria,,transporte,preencher,nao_informado
+gastos,G-E066-2026-09-06,E066,categoria_vazia,categoria,,alimentacao,preencher,nao_informado
+gastos,G-E141-2026-07-10,E141,categoria_vazia,categoria,,alimentacao,preencher,nao_informado
+gastos,G-E023-2026-07-03,E023,categoria_vazia,categoria,,transporte,preencher,nao_informado
+gastos,G-E031-2026-05-03,E031,categoria_vazia,categoria,,alimentacao,preencher,nao_informado
+gastos,G-E112-2026-06-19,E112,valor_vazio,valor,,17.33,remover,
+gastos,G-E112-2026-10-04,E112,valor_vazio,valor,,47.43,remover,
+gastos,G-E099-2026-10-06,E099,valor_vazio,valor,,42.99,remover,
+gastos,G-E139-2026-10-11,E139,valor_vazio,valor,,16.19,remover,
+gastos,G-E071-2026-08-06,E071,valor_vazio,valor,,2.57,remover,
+gastos,G-E109-2026-09-10,E109,valor_vazio,valor,,102.51,remover,
+gastos,G-E030-2026-09-10,E030,valor_vazio,valor,,71.10,remover,
+gastos,G-E082-2026-07-18,E082,valor_vazio,valor,,4.35,remover,
+gastos,G-E139-2026-10-02,E139,valor_vazio,valor,,15.11,remover,
+gastos,G-E046-2026-05-02,E046,valor_vazio,valor,,19.75,remover,
+gastos,G-E018-2026-05-16,E018,valor_vazio,valor,,37.21,remover,
+gastos,G-E005-2026-08-04,E005,valor_vazio,valor,,78.02,remover,
+gastos,G-E117-2026-07-08,E117,valor_vazio,valor,,27.04,remover,
+gastos,G-E004-2026-10-01,E004,valor_vazio,valor,,32.58,remover,
+gastos,G-E124-2026-07-16,E124,valor_vazio,valor,,19.33,remover,
+gastos,G-E051-2026-10-19,E051,valor_vazio,valor,,12.06,remover,
+gastos,G-E109-2026-10-17,E109,valor_vazio,valor,,101.58,remover,
+gastos,G-E148-2026-07-08,E148,valor_vazio,valor,,14.29,remover,
+gastos,G-E029-2026-05-09,E029,valor_vazio,valor,,40.37,remover,
+gastos,G-E064-2026-07-01,E064,valor_vazio,valor,,7.59,remover,
+gastos,G-E101-2026-10-03,E101,valor_vazio,valor,,13.23,remover,
+gastos,G-E082-2026-06-16,E082,valor_vazio,valor,,37.07,remover,
+gastos,G-E099-2026-06-04,E099,valor_vazio,valor,,19.94,remover,
+gastos,G-E044-2026-09-09,E044,valor_vazio,valor,,176.91,remover,
+gastos,G-E027-2026-09-14,E027,valor_vazio,valor,,40.27,remover,
+gastos,G-E059-2026-07-01,E059,valor_vazio,valor,,23.09,remover,
+gastos,G-E079-2026-07-20,E079,valor_vazio,valor,,7.36,remover,
+gastos,G-E003-2026-09-11,E003,valor_vazio,valor,,34.80,remover,
+gastos,G-E147-2026-10-16,E147,valor_vazio,valor,,19.86,remover,
+gastos,G-E099-2026-08-13,E099,valor_vazio,valor,,33.54,remover,
+gastos,G-E012-2026-08-06,E012,valor_vazio,valor,,28.74,remover,
+gastos,G-E107-2026-06-06,E107,valor_vazio,valor,,21.15,remover,
+gastos,G-E052-2026-07-21,E052,valor_vazio,valor,,2.00,remover,
+gastos,G-E070-2026-08-10,E070,valor_vazio,valor,,7.04,remover,
+gastos,G-E107-2026-06-04,E107,valor_vazio,valor,,18.09,remover,
+gastos,G-E010-2026-10-11,E010,valor_vazio,valor,,2.00,remover,
+gastos,G-E070-2026-05-16,E070,valor_vazio,valor,,11.94,remover,
+gastos,G-E096-2026-10-14,E096,valor_vazio,valor,,33.25,remover,
+gastos,G-E032-2026-07-09,E032,valor_vazio,valor,,45.80,remover,
+gastos,G-E040-2026-07-16,E040,valor_vazio,valor,,4.10,remover,
+gastos,G-E142-2026-10-06,E142,valor_vazio,valor,,66.45,remover,
+gastos,G-E141-2026-06-11,E141,valor_vazio,valor,,63.37,remover,
+gastos,G-E093-2026-10-01,E093,valor_vazio,valor,,13.57,remover,
+gastos,G-E115-2026-09-04,E115,valor_vazio,valor,,74.92,remover,
+gastos,G-E106-2026-06-14,E106,valor_vazio,valor,,24.28,remover,
+gastos,G-E026-2026-06-14,E026,valor_vazio,valor,,49.03,remover,
+gastos,G-E055-2026-06-16,E055,valor_vazio,valor,,20.50,remover,
+gastos,G-E008-2026-09-12,E008,valor_vazio,valor,,29.27,remover,
+gastos,G-E033-2026-05-05,E033,valor_vazio,valor,,2.00,remover,
+gastos,G-E082-2026-10-02,E082,valor_vazio,valor,,17.60,remover,
+gastos,G-E017-2026-08-12,E017,valor_vazio,valor,,2.30,remover,
+gastos,G-E132-2026-09-08,E132,valor_vazio,valor,,46.39,remover,
+gastos,G-E021-2026-08-18,E021,valor_vazio,valor,,15.55,remover,
+gastos,G-E126-2026-08-18,E126,valor_vazio,valor,,22.97,remover,
+gastos,G-E073-2026-10-11,E073,valor_vazio,valor,,47.15,remover,
+gastos,G-E080-2026-05-01,E080,valor_vazio,valor,,99.26,remover,
+gastos,G-E065-2026-06-01,E065,valor_vazio,valor,,30.21,remover,
+gastos,G-E107-2026-05-01,E107,valor_vazio,valor,,7.45,remover,
+gastos,G-E035-2026-07-07,E035,valor_vazio,valor,,12.27,remover,
+gastos,G-E017-2026-05-04,E017,valor_vazio,valor,,20.71,remover,
+gastos,G-E128-2026-07-03,E128,valor_vazio,valor,,76.42,remover,
+gastos,G-E017-2026-07-06,E017,valor_vazio,valor,,9.73,remover,
+gastos,G-E069-2026-07-09,E069,valor_vazio,valor,,12.82,remover,
+gastos,G-E063-2026-09-19,E063,valor_vazio,valor,,7.73,remover,
+gastos,G-E111-2026-07-06,E111,valor_vazio,valor,,46.26,remover,
+gastos,G-E133-2026-08-14,E133,valor_vazio,valor,,65.90,remover,
+gastos,G-E102-2026-06-12,E102,valor_vazio,valor,,19.15,remover,
+gastos,G-E145-2026-09-11,E145,valor_vazio,valor,,26.12,remover,
+gastos,G-E011-2026-08-07,E011,valor_vazio,valor,,12.26,remover,
+gastos,G-E029-2026-08-09,E029,valor_vazio,valor,,4.76,remover,
+gastos,G-E097-2026-05-02,E097,valor_vazio,valor,,36.77,remover,
+gastos,G-E093-2026-09-14,E093,valor_vazio,valor,,14.69,remover,
+gastos,G-E053-2026-08-03,E053,valor_vazio,valor,,27.01,remover,
+gastos,G-E058-2026-06-07,E058,valor_vazio,valor,,4.08,remover,
+gastos,G-E108-2026-05-25,E108,valor_vazio,valor,,17.72,remover,
+gastos,G-E095-2026-10-19,E095,valor_vazio,valor,,26.36,remover,
+gastos,G-E149-2026-06-20,E149,valor_vazio,valor,,38.28,remover,
+gastos,G-E124-2026-05-21,E124,valor_vazio,valor,,2.58,remover,
+gastos,G-E148-2026-08-15,E148,valor_vazio,valor,,9.53,remover,
+gastos,G-E056-2026-05-10,E056,valor_vazio,valor,,4.18,remover,
+gastos,G-E047-2026-05-10,E047,valor_vazio,valor,,9.18,remover,
+gastos,G-E133-2026-06-20,E133,valor_vazio,valor,,82.64,remover,
+gastos,G-E038-2026-06-02,E038,valor_vazio,valor,,37.23,remover,
+gastos,G-E059-2026-07-13,E059,valor_vazio,valor,,11.55,remover,
+gastos,G-E119-2026-05-08,E119,valor_vazio,valor,,3.66,remover,
+gastos,G-E003-2026-09-01,E003,valor_vazio,valor,,26.65,remover,
+gastos,G-E110-2026-07-13,E110,valor_vazio,valor,,86.53,remover,
+gastos,G-E082-2026-08-07,E082,valor_vazio,valor,,41.32,remover,
+gastos,G-E129-2026-10-12,E129,valor_vazio,valor,,27.19,remover,
+gastos,G-E048-2026-09-03,E048,valor_vazio,valor,,5.32,remover,
+gastos,G-E085-2026-10-11,E085,valor_vazio,valor,,56.68,remover,
+gastos,G-E135-2026-09-16,E135,valor_vazio,valor,,7.10,remover,
+gastos,G-E087-2026-10-18,E087,valor_vazio,valor,,45.43,remover,
+gastos,G-E118-2026-08-04,E118,valor_outlier,valor,8379.23,49.95,remover,
+gastos,G-E072-2026-09-08,E072,valor_outlier,valor,4323.21,24.75,remover,
+gastos,G-E016-2026-08-16,E016,valor_outlier,valor,6112.94,78.34,remover,
+gastos,G-E084-2026-06-18,E084,valor_outlier,valor,4988.06,5.76,remover,
+gastos,G-E002-2026-05-19,E002,valor_outlier,valor,8076.71,181.09,remover,
+gastos,G-E030-2026-08-03,E030,valor_outlier,valor,7382.02,59.76,remover,
+gastos,G-E039-2026-05-14,E039,valor_outlier,valor,8037.57,7.98,remover,
+gastos,G-E091-2026-05-05,E091,valor_outlier,valor,6543.14,2.00,remover,
+gastos,G-E046-2026-05-18,E046,valor_outlier,valor,6602.95,5.89,remover,
+gastos,G-E129-2026-06-14,E129,valor_outlier,valor,3542.10,21.51,remover,
+gastos,G-E016-2026-10-13,E016,valor_outlier,valor,4944.11,28.74,remover,
+gastos,G-E024-2026-06-07,E024,valor_outlier,valor,4357.61,5.02,remover,
+gastos,G-E099-2026-08-10,E099,valor_outlier,valor,3021.87,19.73,remover,
+gastos,G-E119-2026-10-22,E119,valor_outlier,valor,7650.91,25.15,remover,
+gastos,G-E126-2026-08-08,E126,valor_outlier,valor,8848.15,27.11,remover,
+gastos,G-E132-2026-10-17,E132,valor_outlier,valor,8681.63,15.38,remover,
+gastos,G-E138-2026-07-12,E138,valor_outlier,valor,6206.36,32.46,remover,
+gastos,G-E084-2026-10-23,E084,valor_outlier,valor,3908.57,12.16,remover,
+gastos,G-E095-2026-10-16,E095,valor_outlier,valor,8872.54,41.64,remover,
+gastos,G-E117-2026-05-02,E117,valor_outlier,valor,3243.90,6.40,remover,
+gastos,G-E093-2026-08-09,E093,valor_outlier,valor,6099.71,9.89,remover,
+gastos,G-E060-2026-05-04,E060,valor_outlier,valor,3557.65,20.68,remover,
+gastos,G-E138-2026-05-06,E138,valor_outlier,valor,8583.04,27.94,remover,
+gastos,G-E042-2026-09-06,E042,valor_outlier,valor,6367.84,9.42,remover,
+gastos,G-E147-2026-08-12,E147,valor_outlier,valor,4832.66,26.78,remover,
+gastos,G-E019-2026-08-08,E019,valor_outlier,valor,4520.92,13.04,remover,
+gastos,G-E069-2026-08-11,E069,valor_outlier,valor,7450.12,8.42,remover,
+gastos,G-E112-2026-10-09,E112,valor_outlier,valor,8612.55,16.76,remover,
+gastos,G-E109-2026-08-01,E109,valor_outlier,valor,6661.58,138.30,remover,
+gastos,G-E064-2026-05-14,E064,valor_outlier,valor,5731.64,3.94,remover,
+gastos,G-E028-2026-09-06,E028,valor_outlier,valor,8363.79,68.18,remover,
+gastos,G-E124-2026-06-01,E124,valor_outlier,valor,4807.81,3.32,remover,
+gastos,G-E111-2026-09-11,E111,valor_outlier,valor,6526.42,16.22,remover,
+gastos,G-E049-2026-06-18,E049,valor_outlier,valor,5791.31,36.20,remover,
+gastos,G-E067-2026-05-07,E067,valor_outlier,valor,3918.33,49.67,remover,
+gastos,G-E046-2026-09-06,E046,valor_outlier,valor,6809.64,4.11,remover,
+gastos,G-E012-2026-06-04,E012,valor_outlier,valor,4586.97,47.07,remover,
+gastos,G-E150-2026-10-20,E150,valor_negativo,valor,-43.25,43.25,remover,
+gastos,G-E109-2026-09-07,E109,valor_negativo,valor,-117.95,117.95,remover,
+gastos,G-E087-2026-09-10,E087,valor_negativo,valor,-15.74,15.74,remover,
+gastos,G-E002-2026-10-07,E002,valor_negativo,valor,-53.20,53.20,remover,
+gastos,G-E016-2026-07-19,E016,valor_negativo,valor,-12.48,12.48,remover,
+gastos,G-E006-2026-10-10,E006,valor_negativo,valor,-7.22,7.22,remover,
+gastos,G-E010-2026-07-21,E010,valor_negativo,valor,-2.29,2.29,remover,
+gastos,G-E041-2026-06-07,E041,valor_negativo,valor,-11.89,11.89,remover,
+gastos,G-E123-2026-08-21,E123,valor_negativo,valor,-44.69,44.69,remover,
+gastos,G-E094-2026-06-12,E094,valor_negativo,valor,-57.27,57.27,remover,
+gastos,G-E090-2026-08-17,E090,valor_negativo,valor,-33.22,33.22,remover,
+gastos,G-E063-2026-07-09,E063,valor_negativo,valor,-169.65,169.65,remover,
+gastos,G-E110-2026-05-06,E110,valor_negativo,valor,-56.96,56.96,remover,
+gastos,G-E066-2026-07-09,E066,valor_negativo,valor,-4.31,4.31,remover,
+gastos,G-E139-2026-07-02,E139,valor_negativo,valor,-43.43,43.43,remover,
+gastos,G-E060-2026-10-01,E060,valor_negativo,valor,-8.73,8.73,remover,
+gastos,G-E013-2026-06-18,E013,valor_negativo,valor,-109.59,109.59,remover,
+gastos,G-E042-2026-09-18,E042,valor_negativo,valor,-3.12,3.12,remover,
+gastos,G-E089-2026-08-19,E089,valor_negativo,valor,-42.97,42.97,remover,
+gastos,G-E042-2026-07-16,E042,valor_negativo,valor,-2.00,2.00,remover,
+gastos,G-E003-2026-08-21,E003,valor_negativo,valor,-19.60,19.60,remover,
+gastos,G-E113-2026-10-02,E113,valor_negativo,valor,-10.95,10.95,remover,
+gastos,G-E132-2026-07-17,E132,valor_negativo,valor,-16.02,16.02,remover,
+gastos,G-E059-2026-06-01,E059,valor_negativo,valor,-19.12,19.12,remover,
+gastos,G-E008-2026-08-09,E008,valor_negativo,valor,-42.79,42.79,remover,
+gastos,G-E045-2026-05-03,E045,valor_negativo,valor,-48.91,48.91,remover,
+gastos,G-E120-2026-09-12,E120,valor_negativo,valor,-19.00,19.00,remover,
+gastos,G-E056-2026-08-10,E056,valor_negativo,valor,-32.62,32.62,remover,
+gastos,G-E005-2026-09-09,E005,valor_negativo,valor,-151.00,151.00,remover,
+gastos,G-E118-2026-06-02,E118,valor_negativo,valor,-25.98,25.98,remover,
+gastos,G-E129-2026-09-12,E129,valor_negativo,valor,-35.41,35.41,remover,
+gastos,G-E074-2026-08-22,E074,valor_negativo,valor,-45.59,45.59,remover,
+gastos,G-E036-2026-06-21,E036,valor_negativo,valor,-79.43,79.43,remover,
+gastos,G-E084-2026-09-02,E084,valor_negativo,valor,-6.99,6.99,remover,
+gastos,G-E106-2026-08-05,E106,valor_negativo,valor,-31.37,31.37,remover,
+gastos,G-E046-2026-09-02,E046,valor_negativo,valor,-41.61,41.61,remover,
+gastos,G-E104-2026-10-14,E104,valor_negativo,valor,-41.93,41.93,remover,
+gastos,G-E082-2026-06-01,E082,valor_negativo,valor,-48.20,48.20,remover,
+gastos,G-E088-2026-05-06,E088,valor_negativo,valor,-10.96,10.96,remover,
+gastos,G-E090-2026-09-07,E090,valor_negativo,valor,-33.80,33.80,remover,
+gastos,G-E040-2026-10-19,E040,valor_negativo,valor,-35.84,35.84,remover,
+gastos,G-E059-2026-07-07,E059,valor_negativo,valor,-13.34,13.34,remover,
+gastos,G-E094-2026-09-05,E094,valor_negativo,valor,-10.75,10.75,remover,
+gastos,G-E004-2026-07-06,E004,valor_negativo,valor,-6.49,6.49,remover,
+gastos,G-E055-2026-10-23,E055,valor_negativo,valor,-35.00,35.00,remover,
+gastos,G-E110-2026-08-17,E110,valor_negativo,valor,-54.98,54.98,remover,
+gastos,G-E079-2026-06-01,E079,valor_negativo,valor,-55.80,55.80,remover,
+gastos,G-E041-2026-06-16,E041,valor_negativo,valor,-52.68,52.68,remover,
+gastos,G-E095-2026-09-02,E095,valor_negativo,valor,-8.95,8.95,remover,
+gastos,G-E090-2026-05-13,E090,valor_negativo,valor,-23.58,23.58,remover,
+gastos,G-E107-2026-05-08,E107,valor_negativo,valor,-17.96,17.96,remover,
+gastos,G-E020-2026-06-01,E020,valor_negativo,valor,-66.34,66.34,remover,
+gastos,G-E011-2026-09-11,E011,valor_negativo,valor,-53.71,53.71,remover,
+gastos,G-E002-2026-05-06,E002,valor_negativo,valor,-12.63,12.63,remover,
+gastos,G-E062-2026-05-16,E062,valor_negativo,valor,-18.42,18.42,remover,
+gastos,G-E021-2026-07-19,E021,valor_negativo,valor,-12.70,12.70,remover,
+gastos,G-E133-2026-09-11,E133,data_formato,data_gasto,15/09/2026,2026-09-15,corrigir,2026-09-15
+gastos,G-E068-2026-07-06,E068,data_formato,data_gasto,06/07/2026,2026-07-06,corrigir,2026-07-06
+gastos,G-E025-2026-05-13,E025,data_formato,data_gasto,29/05/2026,2026-05-29,corrigir,2026-05-29
+gastos,G-E149-2026-07-04,E149,data_formato,data_gasto,03/07/2026,2026-07-03,corrigir,2026-07-03
+gastos,G-E063-2026-09-01,E063,data_formato,data_gasto,01/09/2026,2026-09-01,corrigir,2026-09-01
+gastos,G-E070-2026-05-18,E070,data_formato,data_gasto,26/05/2026,2026-05-26,corrigir,2026-05-26
+gastos,G-E080-2026-05-03,E080,data_formato,data_gasto,10/05/2026,2026-05-10,corrigir,2026-05-10
+gastos,G-E016-2026-07-06,E016,data_formato,data_gasto,07/07/2026,2026-07-07,corrigir,2026-07-07
+gastos,G-E066-2026-06-15,E066,data_formato,data_gasto,26/06/2026,2026-06-26,corrigir,2026-06-26
+gastos,G-E128-2026-07-12,E128,data_formato,data_gasto,18/07/2026,2026-07-18,corrigir,2026-07-18
+gastos,G-E100-2026-06-25,E100,data_formato,data_gasto,30/06/2026,2026-06-30,corrigir,2026-06-30
+gastos,G-E115-2026-09-03,E115,data_formato,data_gasto,03/09/2026,2026-09-03,corrigir,2026-09-03
+gastos,G-E057-2026-06-03,E057,data_formato,data_gasto,02/06/2026,2026-06-02,corrigir,2026-06-02
+gastos,G-E010-2026-10-15,E010,data_formato,data_gasto,18/10/2026,2026-10-18,corrigir,2026-10-18
+gastos,G-E036-2026-07-20,E036,data_formato,data_gasto,27/07/2026,2026-07-27,corrigir,2026-07-27
+gastos,G-E087-2026-10-21,E087,data_formato,data_gasto,30/10/2026,2026-10-30,corrigir,2026-10-30
+gastos,G-E037-2026-08-16,E037,data_formato,data_gasto,19/08/2026,2026-08-19,corrigir,2026-08-19
+gastos,G-E046-2026-08-16,E046,data_formato,data_gasto,31/08/2026,2026-08-31,corrigir,2026-08-31
+gastos,G-E041-2026-05-14,E041,data_formato,data_gasto,20/05/2026,2026-05-20,corrigir,2026-05-20
+gastos,G-E101-2026-10-19,E101,data_formato,data_gasto,22/10/2026,2026-10-22,corrigir,2026-10-22
+gastos,G-E010-2026-09-03,E010,data_formato,data_gasto,04/09/2026,2026-09-04,corrigir,2026-09-04
+gastos,G-E099-2026-08-04,E099,data_formato,data_gasto,09/08/2026,2026-08-09,corrigir,2026-08-09
+gastos,G-E017-2026-07-07,E017,data_formato,data_gasto,13/07/2026,2026-07-13,corrigir,2026-07-13
+gastos,G-E016-2026-06-06,E016,data_formato,data_gasto,09/06/2026,2026-06-09,corrigir,2026-06-09
+gastos,G-E116-2026-06-22,E116,data_formato,data_gasto,28/06/2026,2026-06-28,corrigir,2026-06-28
+gastos,G-E128-2026-09-11,E128,data_formato,data_gasto,14/09/2026,2026-09-14,corrigir,2026-09-14
+gastos,G-E041-2026-05-01,E041,data_formato,data_gasto,01/05/2026,2026-05-01,corrigir,2026-05-01
+gastos,G-E017-2026-06-14,E017,data_formato,data_gasto,18/06/2026,2026-06-18,corrigir,2026-06-18
+gastos,G-E031-2026-10-11,E031,data_formato,data_gasto,16/10/2026,2026-10-16,corrigir,2026-10-16
+gastos,G-E005-2026-10-11,E005,data_formato,data_gasto,14/10/2026,2026-10-14,corrigir,2026-10-14
+gastos,G-E059-2026-09-15,E059,data_formato,data_gasto,10/09/2026,2026-09-10,corrigir,2026-09-10
+gastos,G-E086-2026-09-06,E086,data_formato,data_gasto,06/09/2026,2026-09-06,corrigir,2026-09-06
+gastos,G-E026-2026-08-19,E026,data_formato,data_gasto,28/08/2026,2026-08-28,corrigir,2026-08-28
+gastos,G-E093-2026-08-16,E093,data_formato,data_gasto,22/08/2026,2026-08-22,corrigir,2026-08-22
+gastos,G-E051-2026-10-21,E051,data_formato,data_gasto,21/10/2026,2026-10-21,corrigir,2026-10-21
+gastos,G-E088-2026-10-09,E088,data_formato,data_gasto,11/10/2026,2026-10-11,corrigir,2026-10-11
+gastos,G-E070-2026-07-13,E070,data_formato,data_gasto,19/07/2026,2026-07-19,corrigir,2026-07-19
+gastos,G-E060-2026-05-11,E060,data_formato,data_gasto,15/05/2026,2026-05-15,corrigir,2026-05-15
+gastos,G-E104-2026-07-08,E104,data_formato,data_gasto,12/07/2026,2026-07-12,corrigir,2026-07-12
+gastos,G-E028-2026-07-06,E028,data_formato,data_gasto,06/07/2026,2026-07-06,corrigir,2026-07-06
+gastos,G-E025-2026-09-06,E025,data_formato,data_gasto,08/09/2026,2026-09-08,corrigir,2026-09-08
+gastos,G-E050-2026-05-18,E050,data_formato,data_gasto,26/05/2026,2026-05-26,corrigir,2026-05-26
+gastos,G-E043-2026-06-09,E043,data_formato,data_gasto,07/06/2026,2026-06-07,corrigir,2026-06-07
+gastos,G-E108-2026-08-08,E108,data_formato,data_gasto,12/08/2026,2026-08-12,corrigir,2026-08-12
+gastos,G-E149-2026-07-19,E149,data_formato,data_gasto,27/07/2026,2026-07-27,corrigir,2026-07-27
+gastos,G-E150-2026-10-21,E150,data_formato,data_gasto,26/10/2026,2026-10-26,corrigir,2026-10-26
+gastos,G-E090-2026-08-20,E090,data_formato,data_gasto,24/08/2026,2026-08-24,corrigir,2026-08-24
+gastos,G-E145-2026-10-21,E145,data_formato,data_gasto,26/10/2026,2026-10-26,corrigir,2026-10-26
+gastos,G-E029-2026-09-08,E029,data_formato,data_gasto,08/09/2026,2026-09-08,corrigir,2026-09-08
+gastos,G-E119-2026-07-13,E119,data_formato,data_gasto,19/07/2026,2026-07-19,corrigir,2026-07-19
+gastos,G-E044-2026-10-12,E044,data_formato,data_gasto,15/10/2026,2026-10-15,corrigir,2026-10-15
+gastos,G-E123-2026-06-17,E123,data_formato,data_gasto,21/06/2026,2026-06-21,corrigir,2026-06-21
+gastos,G-E049-2026-10-17,E049,data_formato,data_gasto,24/10/2026,2026-10-24,corrigir,2026-10-24
+gastos,G-E079-2026-10-10,E079,data_formato,data_gasto,22/10/2026,2026-10-22,corrigir,2026-10-22
+gastos,G-E072-2026-05-03,E072,data_formato,data_gasto,10/05/2026,2026-05-10,corrigir,2026-05-10
+gastos,G-E114-2026-05-10,E114,data_formato,data_gasto,17/05/2026,2026-05-17,corrigir,2026-05-17
+gastos,G-E129-2026-08-09,E129,data_formato,data_gasto,14/08/2026,2026-08-14,corrigir,2026-08-14
+gastos,G-E149-2026-06-05,E149,data_formato,data_gasto,06/06/2026,2026-06-06,corrigir,2026-06-06
+gastos,G-E040-2026-07-06,E040,data_formato,data_gasto,11/07/2026,2026-07-11,corrigir,2026-07-11
+gastos,G-E126-2026-07-18,E126,data_formato,data_gasto,22/07/2026,2026-07-22,corrigir,2026-07-22
+gastos,G-E078-2026-10-01,E078,data_formato,data_gasto,01/10/2026,2026-10-01,corrigir,2026-10-01
+gastos,G-E082-2026-06-13,E082,data_formato,data_gasto,14/06/2026,2026-06-14,corrigir,2026-06-14
+gastos,G-E032-2026-05-05,E032,data_formato,data_gasto,11/05/2026,2026-05-11,corrigir,2026-05-11
+gastos,G-E122-2026-07-02,E122,data_formato,data_gasto,03/07/2026,2026-07-03,corrigir,2026-07-03
+gastos,G-E087-2026-08-04,E087,data_formato,data_gasto,03/08/2026,2026-08-03,corrigir,2026-08-03
+gastos,G-E091-2026-09-17,E091,data_formato,data_gasto,22/09/2026,2026-09-22,corrigir,2026-09-22
+gastos,G-E088-2026-05-22,E088,data_formato,data_gasto,31/05/2026,2026-05-31,corrigir,2026-05-31
+gastos,G-E068-2026-05-10,E068,data_formato,data_gasto,12/05/2026,2026-05-12,corrigir,2026-05-12
+gastos,G-E084-2026-06-15,E084,data_formato,data_gasto,14/06/2026,2026-06-14,corrigir,2026-06-14
+gastos,G-E009-2026-06-11,E009,data_formato,data_gasto,12/06/2026,2026-06-12,corrigir,2026-06-12
+gastos,G-E099-2026-09-17,E099,data_formato,data_gasto,22/09/2026,2026-09-22,corrigir,2026-09-22
+gastos,G-E040-2026-07-09,E040,data_formato,data_gasto,14/07/2026,2026-07-14,corrigir,2026-07-14
+gastos,G-E070-2026-08-08,E070,data_formato,data_gasto,16/08/2026,2026-08-16,corrigir,2026-08-16
+gastos,G-E023-2026-10-21,E023,data_formato,data_gasto,23/10/2026,2026-10-23,corrigir,2026-10-23
+gastos,G-E148-2026-07-06,E148,data_formato,data_gasto,11/07/2026,2026-07-11,corrigir,2026-07-11
+gastos,G-E134-2026-10-08,E134,data_formato,data_gasto,11/10/2026,2026-10-11,corrigir,2026-10-11
+gastos,G-E023-2026-05-05,E023,data_formato,data_gasto,11/05/2026,2026-05-11,corrigir,2026-05-11
+gastos,G-E100-2026-08-14,E100,data_formato,data_gasto,24/08/2026,2026-08-24,corrigir,2026-08-24
+gastos,G-E019-2026-06-02,E019,data_formato,data_gasto,03/06/2026,2026-06-03,corrigir,2026-06-03
+gastos,G-E101-2026-07-05,E101,data_formato,data_gasto,07/07/2026,2026-07-07,corrigir,2026-07-07
+gastos,G-E059-2026-05-25,E059,data_formato,data_gasto,31/05/2026,2026-05-31,corrigir,2026-05-31
+gastos,G-E045-2026-08-18,E045,data_formato,data_gasto,26/08/2026,2026-08-26,corrigir,2026-08-26
+gastos,G-E072-2026-09-25,E072,data_formato,data_gasto,26/09/2026,2026-09-26,corrigir,2026-09-26
+gastos,G-E089-2026-09-17,E089,data_formato,data_gasto,22/09/2026,2026-09-22,corrigir,2026-09-22
+gastos,G-E128-2026-06-20,E128,data_formato,data_gasto,29/06/2026,2026-06-29,corrigir,2026-06-29
+gastos,G-E126-2026-10-18,E126,data_formato,data_gasto,27/10/2026,2026-10-27,corrigir,2026-10-27
+gastos,G-E091-2026-06-19,E091,data_formato,data_gasto,26/06/2026,2026-06-26,corrigir,2026-06-26
+gastos,G-E061-2026-08-18,E061,data_formato,data_gasto,26/08/2026,2026-08-26,corrigir,2026-08-26
+gastos,G-E021-2026-05-12,E021,data_formato,data_gasto,14/05/2026,2026-05-14,corrigir,2026-05-14
+gastos,G-E136-2026-05-24,E136,data_formato,data_gasto,31/05/2026,2026-05-31,corrigir,2026-05-31
+gastos,G-E037-2026-10-17,E037,data_formato,data_gasto,24/10/2026,2026-10-24,corrigir,2026-10-24
+gastos,G-E028-2026-08-03,E028,data_formato,data_gasto,02/08/2026,2026-08-02,corrigir,2026-08-02
+gastos,G-E133-2026-10-12,E133,data_formato,data_gasto,14/10/2026,2026-10-14,corrigir,2026-10-14
+gastos,G-E014-2026-06-02,E014,data_formato,data_gasto,01/06/2026,2026-06-01,corrigir,2026-06-01
+gastos,G-E002-2026-07-22,E002,data_formato,data_gasto,28/07/2026,2026-07-28,corrigir,2026-07-28
+gastos,G-E104-2026-08-13,E104,data_formato,data_gasto,21/08/2026,2026-08-21,corrigir,2026-08-21
+gastos,G-E110-2026-10-07,E110,data_formato,data_gasto,09/10/2026,2026-10-09,corrigir,2026-10-09
+gastos,G-E127-2026-09-23,E127,data_formato,data_gasto,27/09/2026,2026-09-27,corrigir,2026-09-27
+gastos,G-E133-2026-10-06,E133,data_formato,data_gasto,05/10/2026,2026-10-05,corrigir,2026-10-05
+gastos,G-E068-2026-06-23,E068,data_formato,data_gasto,28/06/2026,2026-06-28,corrigir,2026-06-28
+gastos,G-E061-2026-08-05,E061,data_formato,data_gasto,05/08/2026,2026-08-05,corrigir,2026-08-05
+gastos,G-E075-2026-07-07,E075,data_formato,data_gasto,16/07/2026,2026-07-16,corrigir,2026-07-16
+gastos,G-E064-2026-10-05,E064,data_formato,data_gasto,16/10/2026,2026-10-16,corrigir,2026-10-16
+gastos,G-E115-2026-06-08,E115,data_formato,data_gasto,05/06/2026,2026-06-05,corrigir,2026-06-05
+gastos,G-E012-2026-07-05,E012,data_formato,data_gasto,05/07/2026,2026-07-05,corrigir,2026-07-05
+gastos,G-E045-2026-10-22,E045,data_formato,data_gasto,29/10/2026,2026-10-29,corrigir,2026-10-29
+gastos,G-E061-2026-06-04,E061,data_formato,data_gasto,07/06/2026,2026-06-07,corrigir,2026-06-07
+gastos,G-E071-2026-10-18,E071,data_formato,data_gasto,25/10/2026,2026-10-25,corrigir,2026-10-25
+gastos,G-E134-2026-07-18,E134,data_formato,data_gasto,29/07/2026,2026-07-29,corrigir,2026-07-29
+gastos,G-E088-2026-07-18,E088,data_formato,data_gasto,22/07/2026,2026-07-22,corrigir,2026-07-22
+gastos,G-E052-2026-10-20,E052,data_formato,data_gasto,31/10/2026,2026-10-31,corrigir,2026-10-31
+gastos,G-E005-2026-07-11,E005,data_formato,data_gasto,13/07/2026,2026-07-13,corrigir,2026-07-13
+gastos,G-E022-2026-09-10,E022,data_formato,data_gasto,13/09/2026,2026-09-13,corrigir,2026-09-13
+gastos,G-E131-2026-07-17,E131,data_formato,data_gasto,30/07/2026,2026-07-30,corrigir,2026-07-30
+gastos,G-E124-2026-09-16,E124,data_formato,data_gasto,26/09/2026,2026-09-26,corrigir,2026-09-26
+gastos,G-E124-2026-08-16,E124,data_formato,data_gasto,23/08/2026,2026-08-23,corrigir,2026-08-23
+gastos,G-E128-2026-08-14,E128,data_formato,data_gasto,22/08/2026,2026-08-22,corrigir,2026-08-22
+gastos,G-E071-2026-06-10,E071,data_formato,data_gasto,10/06/2026,2026-06-10,corrigir,2026-06-10
+gastos,G-E080-2026-05-16,E080,data_formato,data_gasto,24/05/2026,2026-05-24,corrigir,2026-05-24
+gastos,G-E002-2026-10-20,E002,data_formato,data_gasto,29/10/2026,2026-10-29,corrigir,2026-10-29
+gastos,G-E001-2026-09-21,E001,data_formato,data_gasto,23/09/2026,2026-09-23,corrigir,2026-09-23
+gastos,G-E029-2026-09-18,E029,data_formato,data_gasto,22/09/2026,2026-09-22,corrigir,2026-09-22
+gastos,G-E096-2026-05-03,E096,data_formato,data_gasto,05/05/2026,2026-05-05,corrigir,2026-05-05
+gastos,G-E148-2026-09-21,E148,data_formato,data_gasto,22/09/2026,2026-09-22,corrigir,2026-09-22
+gastos,G-E100-2026-05-13,E100,data_formato,data_gasto,25/05/2026,2026-05-25,corrigir,2026-05-25
+gastos,G-E049-2026-10-18,E049,data_formato,data_gasto,25/10/2026,2026-10-25,corrigir,2026-10-25
+gastos,G-E120-2026-08-18,E120,data_formato,data_gasto,28/08/2026,2026-08-28,corrigir,2026-08-28
+gastos,G-E116-2026-08-22,E116,data_formato,data_gasto,29/08/2026,2026-08-29,corrigir,2026-08-29
+gastos,G-E002-2026-09-07,E002,data_formato,data_gasto,03/09/2026,2026-09-03,corrigir,2026-09-03
+gastos,G-E105-2026-07-05,E105,data_formato,data_gasto,06/07/2026,2026-07-06,corrigir,2026-07-06
+gastos,G-E031-2026-05-01,E031,data_formato,data_gasto,01/05/2026,2026-05-01,corrigir,2026-05-01
+gastos,G-E097-2026-09-19,E097,data_formato,data_gasto,26/09/2026,2026-09-26,corrigir,2026-09-26
+gastos,G-E102-2026-09-20,E102,data_formato,data_gasto,28/09/2026,2026-09-28,corrigir,2026-09-28
+gastos,G-E017-2026-07-11,E017,data_formato,data_gasto,20/07/2026,2026-07-20,corrigir,2026-07-20
+gastos,G-E102-2026-05-20,E102,data_formato,data_gasto,24/05/2026,2026-05-24,corrigir,2026-05-24
+gastos,G-E001-2026-05-13,E001,data_formato,data_gasto,17/05/2026,2026-05-17,corrigir,2026-05-17
+gastos,G-E007-2026-09-09,E007,data_formato,data_gasto,16/09/2026,2026-09-16,corrigir,2026-09-16
+gastos,G-E134-2026-05-20,E134,data_formato,data_gasto,25/05/2026,2026-05-25,corrigir,2026-05-25
+gastos,G-E111-2026-08-20,E111,data_formato,data_gasto,25/08/2026,2026-08-25,corrigir,2026-08-25
+gastos,G-E110-2026-10-02,E110,data_formato,data_gasto,02/10/2026,2026-10-02,corrigir,2026-10-02
+gastos,G-E016-2026-05-14,E016,data_formato,data_gasto,16/05/2026,2026-05-16,corrigir,2026-05-16
+gastos,G-E088-2026-07-15,E088,data_formato,data_gasto,20/07/2026,2026-07-20,corrigir,2026-07-20
+gastos,G-E039-2026-08-07,E039,data_formato,data_gasto,05/08/2026,2026-08-05,corrigir,2026-08-05
+gastos,G-E005-2026-09-14,E005,data_formato,data_gasto,26/09/2026,2026-09-26,corrigir,2026-09-26
+gastos,G-E101-2026-10-04,E101,data_formato,data_gasto,04/10/2026,2026-10-04,corrigir,2026-10-04
+gastos,G-E052-2026-08-22,E052,data_formato,data_gasto,29/08/2026,2026-08-29,corrigir,2026-08-29
+gastos,G-E084-2026-08-05,E084,data_formato,data_gasto,08/08/2026,2026-08-08,corrigir,2026-08-08
+gastos,G-E074-2026-10-07,E074,data_formato,data_gasto,08/10/2026,2026-10-08,corrigir,2026-10-08
+gastos,G-E039-2026-06-01,E039,data_formato,data_gasto,01/06/2026,2026-06-01,corrigir,2026-06-01
+gastos,G-E112-2026-07-08,E112,data_formato,data_gasto,08/07/2026,2026-07-08,corrigir,2026-07-08
+gastos,G-E108-2026-07-25,E108,data_formato,data_gasto,27/07/2026,2026-07-27,corrigir,2026-07-27
+gastos,G-E066-2026-07-19,E066,data_formato,data_gasto,28/07/2026,2026-07-28,corrigir,2026-07-28
+gastos,G-E104-2026-08-16,E104,data_formato,data_gasto,25/08/2026,2026-08-25,corrigir,2026-08-25
+gastos,G-E071-2026-07-24,E071,data_formato,data_gasto,30/07/2026,2026-07-30,corrigir,2026-07-30
+gastos,G-E091-2026-10-14,E091,data_formato,data_gasto,23/10/2026,2026-10-23,corrigir,2026-10-23
+gastos,G-E098-2026-09-08,E098,data_formato,data_gasto,09/09/2026,2026-09-09,corrigir,2026-09-09
+gastos,G-E004-2026-06-26,E004,data_formato,data_gasto,29/06/2026,2026-06-29,corrigir,2026-06-29
+gastos,G-E012-2026-05-02,E012,data_formato,data_gasto,03/05/2026,2026-05-03,corrigir,2026-05-03
+gastos,G-E073-2026-07-14,E073,data_formato,data_gasto,25/07/2026,2026-07-25,corrigir,2026-07-25
+gastos,G-E052-2026-07-07,E052,data_formato,data_gasto,09/07/2026,2026-07-09,corrigir,2026-07-09
+gastos,G-E121-2026-10-14,E121,data_formato,data_gasto,21/10/2026,2026-10-21,corrigir,2026-10-21
+gastos,G-E096-2026-05-09,E096,data_formato,data_gasto,11/05/2026,2026-05-11,corrigir,2026-05-11
+gastos,G-E114-2026-05-05,E114,data_formato,data_gasto,05/05/2026,2026-05-05,corrigir,2026-05-05
+gastos,G-E058-2026-08-02,E058,data_formato,data_gasto,04/08/2026,2026-08-04,corrigir,2026-08-04
+gastos,G-E087-2026-06-14,E087,data_formato,data_gasto,19/06/2026,2026-06-19,corrigir,2026-06-19
+gastos,G-E085-2026-06-03,E085,data_formato,data_gasto,05/06/2026,2026-06-05,corrigir,2026-06-05
+gastos,G-E123-2026-07-24,E123,data_formato,data_gasto,30/07/2026,2026-07-30,corrigir,2026-07-30
+gastos,G-E137-2026-07-12,E137,data_formato,data_gasto,18/07/2026,2026-07-18,corrigir,2026-07-18
+gastos,G-E072-2026-08-17,E072,data_formato,data_gasto,29/08/2026,2026-08-29,corrigir,2026-08-29
+gastos,G-E033-2026-05-11,E033,data_formato,data_gasto,17/05/2026,2026-05-17,corrigir,2026-05-17
+gastos,G-E094-2026-10-06,E094,data_formato,data_gasto,12/10/2026,2026-10-12,corrigir,2026-10-12
+gastos,G-E072-2026-09-04,E072,data_formato,data_gasto,07/09/2026,2026-09-07,corrigir,2026-09-07
+gastos,G-E036-2026-10-03,E036,data_formato,data_gasto,02/10/2026,2026-10-02,corrigir,2026-10-02
+gastos,G-E028-2026-06-03,E028,data_formato,data_gasto,07/06/2026,2026-06-07,corrigir,2026-06-07
+gastos,G-E025-2026-06-12,E025,data_formato,data_gasto,14/06/2026,2026-06-14,corrigir,2026-06-14
+gastos,G-E099-2026-07-01,E099,data_formato,data_gasto,02/07/2026,2026-07-02,corrigir,2026-07-02
+gastos,G-E097-2026-05-12,E097,data_formato,data_gasto,23/05/2026,2026-05-23,corrigir,2026-05-23
+gastos,G-E095-2026-10-15,E095,data_formato,data_gasto,26/10/2026,2026-10-26,corrigir,2026-10-26
+gastos,G-E070-2026-10-23,E070,data_formato,data_gasto,27/10/2026,2026-10-27,corrigir,2026-10-27
+gastos,G-E057-2026-06-06,E057,data_formato,data_gasto,06/06/2026,2026-06-06,corrigir,2026-06-06
+gastos,G-E101-2026-07-10,E101,data_formato,data_gasto,16/07/2026,2026-07-16,corrigir,2026-07-16
+gastos,G-E088-2026-07-16,E088,data_formato,data_gasto,20/07/2026,2026-07-20,corrigir,2026-07-20
+gastos,G-E129-2026-10-17,E129,data_formato,data_gasto,23/10/2026,2026-10-23,corrigir,2026-10-23
+gastos,G-E107-2026-06-24,E107,data_formato,data_gasto,26/06/2026,2026-06-26,corrigir,2026-06-26
+gastos,G-E140-2026-05-12,E140,data_formato,data_gasto,17/05/2026,2026-05-17,corrigir,2026-05-17
+gastos,G-E130-2026-07-03,E130,data_formato,data_gasto,04/07/2026,2026-07-04,corrigir,2026-07-04
+gastos,G-E028-2026-10-01,E028,data_formato,data_gasto,02/10/2026,2026-10-02,corrigir,2026-10-02
+gastos,G-E040-2026-05-08,E040,data_formato,data_gasto,15/05/2026,2026-05-15,corrigir,2026-05-15
+gastos,G-E034-2026-06-10,E034,data_formato,data_gasto,10/06/2026,2026-06-10,corrigir,2026-06-10
+gastos,G-E010-2026-06-18,E010,data_formato,data_gasto,26/06/2026,2026-06-26,corrigir,2026-06-26
+gastos,G-E131-2026-06-13,E131,data_formato,data_gasto,16/06/2026,2026-06-16,corrigir,2026-06-16
+gastos,G-E076-2026-05-12,E076,data_formato,data_gasto,13/05/2026,2026-05-13,corrigir,2026-05-13
+gastos,G-E106-2026-05-04,E106,data_formato,data_gasto,11/05/2026,2026-05-11,corrigir,2026-05-11
+gastos,G-E118-2026-08-18,E118,data_formato,data_gasto,26/08/2026,2026-08-26,corrigir,2026-08-26
+gastos,G-E092-2026-06-04,E092,data_formato,data_gasto,04/06/2026,2026-06-04,corrigir,2026-06-04
+gastos,G-E054-2026-06-11,E054,data_formato,data_gasto,21/06/2026,2026-06-21,corrigir,2026-06-21
+gastos,G-E017-2026-10-02,E017,data_formato,data_gasto,04/10/2026,2026-10-04,corrigir,2026-10-04
+gastos,G-E027-2026-07-03,E027,data_formato,data_gasto,02/07/2026,2026-07-02,corrigir,2026-07-02
+gastos,G-E072-2026-07-17,E072,data_formato,data_gasto,29/07/2026,2026-07-29,corrigir,2026-07-29
+gastos,G-E134-2026-09-14,E134,data_formato,data_gasto,18/09/2026,2026-09-18,corrigir,2026-09-18
+gastos,G-E021-2026-07-03,E021,data_formato,data_gasto,02/07/2026,2026-07-02,corrigir,2026-07-02
+gastos,G-E111-2026-06-15,E111,data_formato,data_gasto,17/06/2026,2026-06-17,corrigir,2026-06-17
+gastos,G-E136-2026-10-07,E136,data_formato,data_gasto,06/10/2026,2026-10-06,corrigir,2026-10-06
+gastos,G-E094-2026-08-24,E094,data_formato,data_gasto,30/08/2026,2026-08-30,corrigir,2026-08-30
+gastos,G-E126-2026-08-05,E126,data_formato,data_gasto,05/08/2026,2026-08-05,corrigir,2026-08-05
+gastos,G-E097-2026-08-07,E097,data_formato,data_gasto,08/08/2026,2026-08-08,corrigir,2026-08-08
+gastos,G-E140-2026-07-09,E140,data_formato,data_gasto,17/07/2026,2026-07-17,corrigir,2026-07-17
+gastos,G-E011-2026-10-14,E011,data_formato,data_gasto,25/10/2026,2026-10-25,corrigir,2026-10-25
+gastos,G-E104-2026-10-04,E104,data_formato,data_gasto,09/10/2026,2026-10-09,corrigir,2026-10-09
+gastos,G-E086-2026-05-12,E086,data_formato,data_gasto,17/05/2026,2026-05-17,corrigir,2026-05-17
+gastos,G-E063-2026-10-22,E063,data_formato,data_gasto,29/10/2026,2026-10-29,corrigir,2026-10-29
+gastos,G-E052-2026-07-05,E052,data_formato,data_gasto,07/07/2026,2026-07-07,corrigir,2026-07-07
+gastos,G-E101-2026-10-01,E101,data_formato,data_gasto,01/10/2026,2026-10-01,corrigir,2026-10-01
+gastos,G-E132-2026-08-02,E132,data_formato,data_gasto,03/08/2026,2026-08-03,corrigir,2026-08-03
+gastos,G-E103-2026-09-12,E103,data_formato,data_gasto,20/09/2026,2026-09-20,corrigir,2026-09-20
+gastos,G-E008-2026-06-04,E008,data_formato,data_gasto,03/06/2026,2026-06-03,corrigir,2026-06-03
+gastos,G-E134-2026-08-17,E134,data_formato,data_gasto,30/08/2026,2026-08-30,corrigir,2026-08-30
+gastos,G-E076-2026-08-07,E076,data_formato,data_gasto,07/08/2026,2026-08-07,corrigir,2026-08-07
+gastos,G-E129-2026-07-04,E129,data_formato,data_gasto,04/07/2026,2026-07-04,corrigir,2026-07-04
+gastos,G-E027-2026-07-05,E027,data_formato,data_gasto,05/07/2026,2026-07-05,corrigir,2026-07-05
+gastos,G-E108-2026-08-11,E108,data_formato,data_gasto,15/08/2026,2026-08-15,corrigir,2026-08-15
+gastos,G-E068-2026-09-06,E068,data_formato,data_gasto,06/09/2026,2026-09-06,corrigir,2026-09-06
+gastos,G-E065-2026-07-09,E065,data_formato,data_gasto,16/07/2026,2026-07-16,corrigir,2026-07-16
+gastos,G-E139-2026-08-08,E139,data_formato,data_gasto,15/08/2026,2026-08-15,corrigir,2026-08-15
+gastos,G-E062-2026-10-04,E062,data_formato,data_gasto,04/10/2026,2026-10-04,corrigir,2026-10-04
+gastos,G-E102-2026-10-08,E102,data_formato,data_gasto,12/10/2026,2026-10-12,corrigir,2026-10-12
+gastos,G-E087-2026-05-07,E087,data_formato,data_gasto,13/05/2026,2026-05-13,corrigir,2026-05-13
+gastos,G-E080-2026-07-13,E080,data_formato,data_gasto,21/07/2026,2026-07-21,corrigir,2026-07-21
+gastos,G-E057-2026-09-09,E057,data_formato,data_gasto,08/09/2026,2026-09-08,corrigir,2026-09-08
+gastos,G-E029-2026-05-19,E029,data_formato,data_gasto,27/05/2026,2026-05-27,corrigir,2026-05-27
+gastos,G-E138-2026-06-18,E138,data_formato,data_gasto,29/06/2026,2026-06-29,corrigir,2026-06-29
+gastos,G-E118-2026-09-01,E118,data_formato,data_gasto,03/09/2026,2026-09-03,corrigir,2026-09-03
+gastos,G-E071-2026-10-05,E071,data_formato,data_gasto,15/10/2026,2026-10-15,corrigir,2026-10-15
+gastos,G-E111-2026-10-12,E111,data_formato,data_gasto,16/10/2026,2026-10-16,corrigir,2026-10-16
+gastos,G-E127-2026-07-16,E127,data_formato,data_gasto,25/07/2026,2026-07-25,corrigir,2026-07-25
+gastos,G-E059-2026-09-05,E059,data_formato,data_gasto,05/09/2026,2026-09-05,corrigir,2026-09-05
+gastos,G-E052-2026-09-07,E052,data_formato,data_gasto,11/09/2026,2026-09-11,corrigir,2026-09-11
+gastos,G-E094-2026-07-20,E094,data_formato,data_gasto,23/07/2026,2026-07-23,corrigir,2026-07-23
+gastos,G-E011-2026-09-05,E011,data_formato,data_gasto,06/09/2026,2026-09-06,corrigir,2026-09-06
+gastos,G-E016-2026-06-01,E016,data_formato,data_gasto,01/06/2026,2026-06-01,corrigir,2026-06-01
+gastos,G-E105-2026-08-19,E105,data_formato,data_gasto,22/08/2026,2026-08-22,corrigir,2026-08-22
+gastos,G-E109-2026-05-06,E109,data_formato,data_gasto,07/05/2026,2026-05-07,corrigir,2026-05-07
+gastos,G-E106-2026-10-18,E106,data_formato,data_gasto,26/10/2026,2026-10-26,corrigir,2026-10-26
+gastos,G-E086-2026-06-08,E086,data_formato,data_gasto,06/06/2026,2026-06-06,corrigir,2026-06-06
+gastos,G-E018-2026-06-17,E018,data_formato,data_gasto,21/06/2026,2026-06-21,corrigir,2026-06-21
+gastos,G-E014-2026-08-12,E014,data_formato,data_gasto,21/08/2026,2026-08-21,corrigir,2026-08-21
+gastos,G-E059-2026-05-02,E059,data_formato,data_gasto,02/05/2026,2026-05-02,corrigir,2026-05-02
+gastos,G-E091-2026-05-20,E091,data_formato,data_gasto,28/05/2026,2026-05-28,corrigir,2026-05-28
+gastos,G-E069-2026-09-14,E069,data_formato,data_gasto,17/09/2026,2026-09-17,corrigir,2026-09-17
+gastos,G-E022-2026-05-12,E022,data_formato,data_gasto,22/05/2026,2026-05-22,corrigir,2026-05-22
+gastos,G-E035-2026-09-09,E035,data_formato,data_gasto,11/09/2026,2026-09-11,corrigir,2026-09-11
+gastos,G-E045-2026-05-20,E045,data_formato,data_gasto,29/05/2026,2026-05-29,corrigir,2026-05-29
+gastos,G-E010-2026-10-20,E010,data_formato,data_gasto,22/10/2026,2026-10-22,corrigir,2026-10-22
+gastos,G-E100-2026-10-10,E100,data_formato,data_gasto,16/10/2026,2026-10-16,corrigir,2026-10-16
+gastos,G-E036-2026-10-01,E036,data_formato,data_gasto,01/10/2026,2026-10-01,corrigir,2026-10-01
+gastos,G-E114-2026-09-06,E114,data_formato,data_gasto,12/09/2026,2026-09-12,corrigir,2026-09-12
+gastos,G-E056-2026-07-11,E056,data_formato,data_gasto,14/07/2026,2026-07-14,corrigir,2026-07-14
+gastos,G-E073-2026-05-17,E073,data_formato,data_gasto,22/05/2026,2026-05-22,corrigir,2026-05-22
+gastos,G-E120-2026-10-12,E120,data_formato,data_gasto,14/10/2026,2026-10-14,corrigir,2026-10-14
+gastos,G-E009-2026-08-06,E009,data_formato,data_gasto,12/08/2026,2026-08-12,corrigir,2026-08-12
+gastos,G-E052-2026-10-18,E052,data_formato,data_gasto,30/10/2026,2026-10-30,corrigir,2026-10-30
+gastos,G-E138-2026-05-07,E138,data_formato,data_gasto,06/05/2026,2026-05-06,corrigir,2026-05-06
+gastos,G-E034-2026-05-20,E034,data_formato,data_gasto,21/05/2026,2026-05-21,corrigir,2026-05-21
+gastos,G-E036-2026-06-22,E036,data_formato,data_gasto,27/06/2026,2026-06-27,corrigir,2026-06-27
+gastos,G-E036-2026-07-17,E036,data_formato,data_gasto,23/07/2026,2026-07-23,corrigir,2026-07-23
+gastos,G-E042-2026-07-08,E042,data_formato,data_gasto,11/07/2026,2026-07-11,corrigir,2026-07-11
+gastos,G-E146-2026-08-02,E146,data_formato,data_gasto,02/08/2026,2026-08-02,corrigir,2026-08-02
+gastos,G-E102-2026-08-14,E102,data_formato,data_gasto,20/08/2026,2026-08-20,corrigir,2026-08-20
+gastos,G-E080-2026-08-09,E080,data_formato,data_gasto,16/08/2026,2026-08-16,corrigir,2026-08-16
+gastos,G-E110-2026-05-08,E110,data_formato,data_gasto,20/05/2026,2026-05-20,corrigir,2026-05-20
+gastos,G-E052-2026-10-13,E052,data_formato,data_gasto,22/10/2026,2026-10-22,corrigir,2026-10-22
+gastos,G-E058-2026-09-18,E058,data_formato,data_gasto,22/09/2026,2026-09-22,corrigir,2026-09-22
+gastos,G-E010-2026-06-01,E010,data_formato,data_gasto,01/06/2026,2026-06-01,corrigir,2026-06-01
+gastos,G-E115-2026-07-04,E115,data_formato,data_gasto,02/07/2026,2026-07-02,corrigir,2026-07-02
+gastos,G-E068-2026-05-08,E068,data_formato,data_gasto,07/05/2026,2026-05-07,corrigir,2026-05-07
+gastos,G-E038-2026-10-15,E038,data_formato,data_gasto,28/10/2026,2026-10-28,corrigir,2026-10-28
+gastos,G-E027-2026-10-14,E027,data_formato,data_gasto,21/10/2026,2026-10-21,corrigir,2026-10-21
+gastos,G-E094-2026-08-14,E094,data_formato,data_gasto,12/08/2026,2026-08-12,corrigir,2026-08-12
+gastos,G-E135-2026-10-22,E135,data_formato,data_gasto,29/10/2026,2026-10-29,corrigir,2026-10-29
+gastos,G-E061-2026-05-11,E061,data_formato,data_gasto,13/05/2026,2026-05-13,corrigir,2026-05-13
+gastos,G-E059-2026-07-09,E059,data_formato,data_gasto,10/07/2026,2026-07-10,corrigir,2026-07-10
+gastos,G-E088-2026-09-19,E088,data_formato,data_gasto,30/09/2026,2026-09-30,corrigir,2026-09-30
+gastos,G-E101-2026-08-02,E101,data_formato,data_gasto,02/08/2026,2026-08-02,corrigir,2026-08-02
+gastos,G-E099-2026-05-08,E099,data_formato,data_gasto,18/05/2026,2026-05-18,corrigir,2026-05-18
+gastos,G-E107-2026-08-20,E107,data_formato,data_gasto,26/08/2026,2026-08-26,corrigir,2026-08-26
+gastos,G-E101-2026-06-04,E101,data_formato,data_gasto,03/06/2026,2026-06-03,corrigir,2026-06-03
+gastos,G-E076-2026-08-21,E076,data_formato,data_gasto,25/08/2026,2026-08-25,corrigir,2026-08-25
+gastos,G-E096-2026-06-01,E096,data_formato,data_gasto,07/06/2026,2026-06-07,corrigir,2026-06-07
+gastos,G-E009-2026-07-07,E009,data_formato,data_gasto,16/07/2026,2026-07-16,corrigir,2026-07-16
+gastos,G-E150-2026-09-19,E150,data_formato,data_gasto,25/09/2026,2026-09-25,corrigir,2026-09-25
+gastos,G-E116-2026-06-20,E116,data_formato,data_gasto,26/06/2026,2026-06-26,corrigir,2026-06-26
+gastos,G-E013-2026-10-16,E013,data_formato,data_gasto,21/10/2026,2026-10-21,corrigir,2026-10-21
+gastos,G-E090-2026-08-10,E090,data_formato,data_gasto,14/08/2026,2026-08-14,corrigir,2026-08-14
+gastos,G-E047-2026-10-17,E047,data_formato,data_gasto,28/10/2026,2026-10-28,corrigir,2026-10-28
+gastos,G-E149-2026-07-02,E149,data_formato,data_gasto,02/07/2026,2026-07-02,corrigir,2026-07-02
+gastos,G-E109-2026-07-04,E109,data_formato,data_gasto,07/07/2026,2026-07-07,corrigir,2026-07-07
+gastos,G-E071-2026-09-03,E071,data_formato,data_gasto,03/09/2026,2026-09-03,corrigir,2026-09-03
+gastos,G-E097-2026-09-09,E097,data_formato,data_gasto,14/09/2026,2026-09-14,corrigir,2026-09-14
+gastos,G-E114-2026-08-01,E114,data_formato,data_gasto,01/08/2026,2026-08-01,corrigir,2026-08-01
+gastos,G-E013-2026-07-15,E013,data_formato,data_gasto,23/07/2026,2026-07-23,corrigir,2026-07-23
+gastos,G-E008-2026-07-16,E008,data_formato,data_gasto,23/07/2026,2026-07-23,corrigir,2026-07-23
+gastos,G-E102-2026-06-13,E102,data_formato,data_gasto,19/06/2026,2026-06-19,corrigir,2026-06-19
+gastos,G-E082-2026-10-16,E082,data_formato,data_gasto,15/10/2026,2026-10-15,corrigir,2026-10-15
+gastos,G-E111-2026-09-07,E111,data_formato,data_gasto,09/09/2026,2026-09-09,corrigir,2026-09-09
+gastos,G-E113-2026-07-01,E113,data_formato,data_gasto,01/07/2026,2026-07-01,corrigir,2026-07-01
+gastos,G-E106-2026-07-16,E106,data_formato,data_gasto,20/07/2026,2026-07-20,corrigir,2026-07-20
+gastos,G-E128-2026-05-11,E128,data_formato,data_gasto,16/05/2026,2026-05-16,corrigir,2026-05-16
+gastos,G-E114-2026-07-13,E114,data_formato,data_gasto,13/07/2026,2026-07-13,corrigir,2026-07-13
+gastos,G-E014-2026-10-17,E014,data_formato,data_gasto,21/10/2026,2026-10-21,corrigir,2026-10-21
+gastos,G-E119-2026-05-18,E119,data_formato,data_gasto,27/05/2026,2026-05-27,corrigir,2026-05-27
+gastos,G-E101-2026-05-16,E101,data_formato,data_gasto,31/05/2026,2026-05-31,corrigir,2026-05-31
+gastos,G-E144-2026-06-16,E144,data_formato,data_gasto,22/06/2026,2026-06-22,corrigir,2026-06-22
+gastos,G-E124-2026-10-23,E124,data_formato,data_gasto,27/10/2026,2026-10-27,corrigir,2026-10-27
+gastos,G-E113-2026-06-05,E113,data_formato,data_gasto,05/06/2026,2026-06-05,corrigir,2026-06-05
+gastos,G-E062-2026-08-03,E062,data_formato,data_gasto,06/08/2026,2026-08-06,corrigir,2026-08-06
+gastos,G-E148-2026-06-01,E148,data_formato,data_gasto,03/06/2026,2026-06-03,corrigir,2026-06-03
+gastos,G-E140-2026-07-10,E140,data_formato,data_gasto,17/07/2026,2026-07-17,corrigir,2026-07-17
+gastos,G-E141-2026-07-09,E141,data_formato,data_gasto,11/07/2026,2026-07-11,corrigir,2026-07-11
+gastos,G-E121-2026-09-08,E121,data_formato,data_gasto,12/09/2026,2026-09-12,corrigir,2026-09-12
+gastos,G-E086-2026-06-19,E086,data_formato,data_gasto,23/06/2026,2026-06-23,corrigir,2026-06-23
+gastos,G-E053-2026-08-18,E053,data_formato,data_gasto,19/08/2026,2026-08-19,corrigir,2026-08-19
+gastos,G-E036-2026-09-17,E036,data_formato,data_gasto,22/09/2026,2026-09-22,corrigir,2026-09-22
+gastos,G-E055-2026-05-02,E055,data_formato,data_gasto,02/05/2026,2026-05-02,corrigir,2026-05-02
+gastos,G-E110-2026-05-11,E110,data_formato,data_gasto,21/05/2026,2026-05-21,corrigir,2026-05-21
+gastos,G-E049-2026-07-09,E049,data_formato,data_gasto,08/07/2026,2026-07-08,corrigir,2026-07-08
+gastos,G-E048-2026-05-08,E048,data_formato,data_gasto,08/05/2026,2026-05-08,corrigir,2026-05-08
+gastos,G-E149-2026-05-01,E149,data_formato,data_gasto,02/05/2026,2026-05-02,corrigir,2026-05-02
+gastos,G-E091-2026-08-08,E091,data_formato,data_gasto,11/08/2026,2026-08-11,corrigir,2026-08-11
+gastos,G-E134-2026-10-05,E134,data_formato,data_gasto,06/10/2026,2026-10-06,corrigir,2026-10-06
+gastos,G-E046-2026-10-15,E046,data_formato,data_gasto,25/10/2026,2026-10-25,corrigir,2026-10-25
+gastos,G-E003-2026-09-09,E003,data_formato,data_gasto,14/09/2026,2026-09-14,corrigir,2026-09-14
+gastos,G-E122-2026-09-05,E122,data_formato,data_gasto,03/09/2026,2026-09-03,corrigir,2026-09-03
+gastos,G-E074-2026-10-08,E074,data_formato,data_gasto,08/10/2026,2026-10-08,corrigir,2026-10-08
+gastos,G-E075-2026-05-13,E075,data_formato,data_gasto,20/05/2026,2026-05-20,corrigir,2026-05-20
+gastos,G-E061-2026-06-19,E061,data_formato,data_gasto,27/06/2026,2026-06-27,corrigir,2026-06-27
+gastos,G-E012-2026-10-19,E012,data_formato,data_gasto,25/10/2026,2026-10-25,corrigir,2026-10-25
+gastos,G-E007-2026-08-18,E007,data_formato,data_gasto,29/08/2026,2026-08-29,corrigir,2026-08-29
+gastos,G-E081-2026-10-14,E081,data_formato,data_gasto,25/10/2026,2026-10-25,corrigir,2026-10-25
+gastos,G-E047-2026-06-15,E047,data_formato,data_gasto,28/06/2026,2026-06-28,corrigir,2026-06-28
+gastos,G-E002-2026-05-09,E002,data_formato,data_gasto,13/05/2026,2026-05-13,corrigir,2026-05-13
+gastos,G-E074-2026-09-08,E074,data_formato,data_gasto,10/09/2026,2026-09-10,corrigir,2026-09-10
+gastos,G-E085-2026-09-11,E085,data_formato,data_gasto,17/09/2026,2026-09-17,corrigir,2026-09-17
+gastos,G-E025-2026-10-14,E025,data_formato,data_gasto,18/10/2026,2026-10-18,corrigir,2026-10-18
+gastos,G-E030-2026-08-07,E030,data_formato,data_gasto,13/08/2026,2026-08-13,corrigir,2026-08-13
+gastos,G-E077-2026-05-07,E077,data_formato,data_gasto,06/05/2026,2026-05-06,corrigir,2026-05-06
+gastos,G-E047-2026-08-17,E047,data_formato,data_gasto,28/08/2026,2026-08-28,corrigir,2026-08-28
+gastos,G-E081-2026-06-01,E081,data_formato,data_gasto,01/06/2026,2026-06-01,corrigir,2026-06-01
+gastos,G-E067-2026-07-21,E067,data_formato,data_gasto,26/07/2026,2026-07-26,corrigir,2026-07-26
+gastos,G-E064-2026-07-25,E064,data_formato,data_gasto,30/07/2026,2026-07-30,corrigir,2026-07-30
+gastos,G-E022-2026-06-07,E022,data_formato,data_gasto,07/06/2026,2026-06-07,corrigir,2026-06-07
+gastos,G-E113-2026-07-15,E113,data_formato,data_gasto,23/07/2026,2026-07-23,corrigir,2026-07-23
+gastos,G-E094-2026-10-14,E094,data_formato,data_gasto,22/10/2026,2026-10-22,corrigir,2026-10-22
+gastos,G-E133-2026-08-03,E133,data_formato,data_gasto,02/08/2026,2026-08-02,corrigir,2026-08-02
+gastos,G-E008-2026-07-02,E008,data_formato,data_gasto,02/07/2026,2026-07-02,corrigir,2026-07-02
+gastos,G-E048-2026-08-03,E048,data_formato,data_gasto,06/08/2026,2026-08-06,corrigir,2026-08-06
+gastos,G-E040-2026-09-14,E040,data_formato,data_gasto,24/09/2026,2026-09-24,corrigir,2026-09-24
+gastos,G-E076-2026-07-01,E076,data_formato,data_gasto,01/07/2026,2026-07-01,corrigir,2026-07-01
+gastos,G-E078-2026-09-08,E078,data_formato,data_gasto,12/09/2026,2026-09-12,corrigir,2026-09-12
+gastos,G-E027-2026-06-04,E027,data_formato,data_gasto,05/06/2026,2026-06-05,corrigir,2026-06-05
+gastos,G-E070-2026-08-14,E070,data_formato,data_gasto,25/08/2026,2026-08-25,corrigir,2026-08-25
+gastos,G-E110-2026-06-14,E110,data_formato,data_gasto,17/06/2026,2026-06-17,corrigir,2026-06-17
+gastos,G-E058-2026-10-09,E058,data_formato,data_gasto,10/10/2026,2026-10-10,corrigir,2026-10-10
+gastos,G-E056-2026-05-18,E056,data_formato,data_gasto,18/05/2026,2026-05-18,corrigir,2026-05-18
+gastos,G-E064-2026-08-12,E064,data_formato,data_gasto,16/08/2026,2026-08-16,corrigir,2026-08-16
+gastos,G-E130-2026-05-19,E130,data_formato,data_gasto,22/05/2026,2026-05-22,corrigir,2026-05-22
+gastos,G-E008-2026-06-03,E008,data_formato,data_gasto,02/06/2026,2026-06-02,corrigir,2026-06-02
+gastos,G-E093-2026-06-12,E093,data_formato,data_gasto,16/06/2026,2026-06-16,corrigir,2026-06-16
+gastos,G-E006-2026-07-11,E006,data_formato,data_gasto,16/07/2026,2026-07-16,corrigir,2026-07-16
+gastos,G-E081-2026-05-04,E081,data_formato,data_gasto,10/05/2026,2026-05-10,corrigir,2026-05-10
+gastos,G-E058-2026-05-13,E058,data_formato,data_gasto,22/05/2026,2026-05-22,corrigir,2026-05-22
+gastos,G-E074-2026-06-19,E074,data_formato,data_gasto,28/06/2026,2026-06-28,corrigir,2026-06-28
+gastos,G-E029-2026-06-04,E029,data_formato,data_gasto,04/06/2026,2026-06-04,corrigir,2026-06-04
+gastos,G-E129-2026-09-11,E129,data_formato,data_gasto,11/09/2026,2026-09-11,corrigir,2026-09-11
+gastos,G-E053-2026-05-09,E053,data_formato,data_gasto,09/05/2026,2026-05-09,corrigir,2026-05-09
+gastos,G-E080-2026-08-20,E080,valor_formato,valor,"R$ 20,91",20.91,corrigir,20.91
+gastos,G-E086-2026-08-19,E086,valor_formato,valor,"R$ 5,43",5.43,corrigir,5.43
+gastos,G-E143-2026-06-03,E143,valor_formato,valor,"R$ 76,80",76.80,corrigir,76.80
+gastos,G-E039-2026-07-09,E039,valor_formato,valor,"R$ 21,03",21.03,corrigir,21.03
+gastos,G-E047-2026-05-01,E047,valor_formato,valor,"R$ 21,71",21.71,corrigir,21.71
+gastos,G-E117-2026-08-19,E117,valor_formato,valor,"R$ 27,57",27.57,corrigir,27.57
+gastos,G-E057-2026-09-24,E057,valor_formato,valor,"R$ 17,99",17.99,corrigir,17.99
+gastos,G-E133-2026-06-14,E133,valor_formato,valor,"R$ 28,88",28.88,corrigir,28.88
+gastos,G-E037-2026-06-04,E037,valor_formato,valor,"R$ 41,47",41.47,corrigir,41.47
+gastos,G-E084-2026-06-12,E084,valor_formato,valor,"R$ 12,45",12.45,corrigir,12.45
+gastos,G-E066-2026-07-12,E066,valor_formato,valor,"R$ 74,70",74.70,corrigir,74.70
+gastos,G-E014-2026-09-02,E014,valor_formato,valor,"R$ 25,63",25.63,corrigir,25.63
+gastos,G-E087-2026-08-05,E087,valor_formato,valor,"R$ 38,20",38.20,corrigir,38.20
+gastos,G-E150-2026-08-10,E150,valor_formato,valor,"R$ 49,73",49.73,corrigir,49.73
+gastos,G-E055-2026-08-06,E055,valor_formato,valor,"R$ 2,00",2.00,corrigir,2.00
+gastos,G-E007-2026-10-02,E007,valor_formato,valor,"R$ 13,97",13.97,corrigir,13.97
+gastos,G-E136-2026-08-10,E136,valor_formato,valor,"R$ 81,81",81.81,corrigir,81.81
+gastos,G-E111-2026-07-16,E111,valor_formato,valor,"R$ 67,38",67.38,corrigir,67.38
+gastos,G-E066-2026-09-05,E066,valor_formato,valor,"R$ 16,95",16.95,corrigir,16.95
+gastos,G-E148-2026-06-09,E148,valor_formato,valor,"R$ 21,92",21.92,corrigir,21.92
+gastos,G-E121-2026-09-10,E121,valor_formato,valor,"R$ 34,39",34.39,corrigir,34.39
+gastos,G-E121-2026-08-08,E121,valor_formato,valor,"R$ 23,16",23.16,corrigir,23.16
+gastos,G-E139-2026-07-20,E139,valor_formato,valor,"R$ 23,85",23.85,corrigir,23.85
+gastos,G-E090-2026-07-07,E090,valor_formato,valor,"R$ 41,97",41.97,corrigir,41.97
+gastos,G-E034-2026-08-10,E034,valor_formato,valor,"R$ 13,55",13.55,corrigir,13.55
+gastos,G-E075-2026-10-01,E075,valor_formato,valor,"R$ 21,11",21.11,corrigir,21.11
+gastos,G-E056-2026-05-13,E056,valor_formato,valor,"R$ 4,42",4.42,corrigir,4.42
+gastos,G-E075-2026-08-03,E075,valor_formato,valor,"R$ 55,71",55.71,corrigir,55.71
+gastos,G-E042-2026-07-02,E042,valor_formato,valor,"R$ 10,16",10.16,corrigir,10.16
+gastos,G-E046-2026-08-10,E046,valor_formato,valor,"R$ 9,96",9.96,corrigir,9.96
+gastos,G-E007-2026-07-05,E007,valor_formato,valor,"R$ 20,82",20.82,corrigir,20.82
+gastos,G-E010-2026-10-08,E010,valor_formato,valor,"R$ 11,35",11.35,corrigir,11.35
+gastos,G-E127-2026-10-13,E127,valor_formato,valor,"R$ 10,23",10.23,corrigir,10.23
+gastos,G-E042-2026-07-04,E042,valor_formato,valor,"R$ 7,11",7.11,corrigir,7.11
+gastos,G-E118-2026-06-18,E118,valor_formato,valor,"R$ 28,23",28.23,corrigir,28.23
+gastos,G-E091-2026-07-02,E091,valor_formato,valor,"R$ 31,44",31.44,corrigir,31.44
+gastos,G-E150-2026-06-18,E150,valor_formato,valor,"R$ 77,70",77.70,corrigir,77.70
+gastos,G-E103-2026-07-09,E103,valor_formato,valor,"R$ 16,36",16.36,corrigir,16.36
+gastos,G-E023-2026-09-10,E023,valor_formato,valor,"R$ 42,36",42.36,corrigir,42.36
+gastos,G-E081-2026-07-17,E081,valor_formato,valor,"R$ 30,22",30.22,corrigir,30.22
+gastos,G-E080-2026-07-02,E080,valor_formato,valor,"R$ 14,61",14.61,corrigir,14.61
+gastos,G-E051-2026-08-19,E051,valor_formato,valor,"R$ 25,77",25.77,corrigir,25.77
+gastos,G-E023-2026-08-07,E023,valor_formato,valor,"R$ 52,52",52.52,corrigir,52.52
+gastos,G-E116-2026-06-16,E116,valor_formato,valor,"R$ 9,22",9.22,corrigir,9.22
+gastos,G-E120-2026-07-02,E120,valor_formato,valor,"R$ 8,86",8.86,corrigir,8.86
+gastos,G-E044-2026-09-05,E044,valor_formato,valor,"R$ 16,30",16.30,corrigir,16.30
+gastos,G-E069-2026-05-14,E069,valor_formato,valor,"R$ 12,23",12.23,corrigir,12.23
+gastos,G-E098-2026-10-09,E098,valor_formato,valor,"R$ 11,61",11.61,corrigir,11.61
+gastos,G-E063-2026-05-09,E063,valor_formato,valor,"R$ 5,69",5.69,corrigir,5.69
+gastos,G-E110-2026-10-22,E110,valor_formato,valor,"R$ 132,49",132.49,corrigir,132.49
+gastos,G-E102-2026-07-01,E102,valor_formato,valor,"R$ 36,97",36.97,corrigir,36.97
+gastos,G-E038-2026-06-12,E038,valor_formato,valor,"R$ 10,29",10.29,corrigir,10.29
+gastos,G-E009-2026-07-22,E009,valor_formato,valor,"R$ 52,85",52.85,corrigir,52.85
+gastos,G-E051-2026-06-21,E051,valor_formato,valor,"R$ 17,68",17.68,corrigir,17.68
+gastos,G-E118-2026-06-17,E118,valor_formato,valor,"R$ 60,67",60.67,corrigir,60.67
+gastos,G-E070-2026-07-03,E070,valor_formato,valor,"R$ 12,52",12.52,corrigir,12.52
+gastos,G-E132-2026-06-08,E132,valor_formato,valor,"R$ 2,10",2.10,corrigir,2.10
+gastos,G-E104-2026-07-14,E104,valor_formato,valor,"R$ 31,68",31.68,corrigir,31.68
+gastos,G-E042-2026-07-12,E042,valor_formato,valor,"R$ 3,87",3.87,corrigir,3.87
+gastos,G-E106-2026-08-09,E106,valor_formato,valor,"R$ 13,24",13.24,corrigir,13.24
+gastos,G-E013-2026-10-17,E013,valor_formato,valor,"R$ 32,22",32.22,corrigir,32.22
+gastos,G-E036-2026-05-09,E036,valor_formato,valor,"R$ 4,54",4.54,corrigir,4.54
+gastos,G-E070-2026-10-07,E070,valor_formato,valor,"R$ 20,06",20.06,corrigir,20.06
+gastos,G-E028-2026-10-03,E028,valor_formato,valor,"R$ 21,88",21.88,corrigir,21.88
+gastos,G-E075-2026-09-11,E075,valor_formato,valor,"R$ 45,37",45.37,corrigir,45.37
+gastos,G-E113-2026-07-07,E113,valor_formato,valor,"R$ 23,28",23.28,corrigir,23.28
+gastos,G-E066-2026-07-14,E066,valor_formato,valor,"R$ 12,03",12.03,corrigir,12.03
+gastos,G-E039-2026-07-06,E039,valor_formato,valor,"R$ 8,35",8.35,corrigir,8.35
+gastos,G-E145-2026-05-11,E145,valor_formato,valor,"R$ 38,38",38.38,corrigir,38.38
+gastos,G-E031-2026-09-04,E031,valor_formato,valor,"R$ 8,25",8.25,corrigir,8.25
+gastos,G-E058-2026-06-13,E058,valor_formato,valor,"R$ 11,50",11.50,corrigir,11.50
+gastos,G-E042-2026-08-12,E042,valor_formato,valor,"R$ 15,47",15.47,corrigir,15.47
+gastos,G-E130-2026-08-10,E130,valor_formato,valor,"R$ 4,41",4.41,corrigir,4.41
+gastos,G-E019-2026-06-21,E019,valor_formato,valor,"R$ 3,52",3.52,corrigir,3.52
+gastos,G-E017-2026-06-12,E017,valor_formato,valor,"R$ 18,72",18.72,corrigir,18.72
+gastos,G-E038-2026-09-10,E038,valor_formato,valor,"R$ 13,95",13.95,corrigir,13.95
+gastos,G-E080-2026-05-20,E080,valor_formato,valor,"R$ 13,70",13.70,corrigir,13.70
+gastos,G-E050-2026-07-03,E050,valor_formato,valor,"R$ 72,28",72.28,corrigir,72.28
+gastos,G-E067-2026-10-15,E067,valor_formato,valor,"R$ 5,05",5.05,corrigir,5.05
+gastos,G-E145-2026-05-02,E145,valor_formato,valor,"R$ 16,93",16.93,corrigir,16.93
+gastos,G-E028-2026-06-09,E028,valor_formato,valor,"R$ 27,93",27.93,corrigir,27.93
+gastos,G-E098-2026-09-09,E098,valor_formato,valor,"R$ 5,00",5.00,corrigir,5.00
+gastos,G-E063-2026-07-06,E063,valor_formato,valor,"R$ 16,11",16.11,corrigir,16.11
+gastos,G-E136-2026-05-22,E136,valor_formato,valor,"R$ 51,17",51.17,corrigir,51.17
+gastos,G-E038-2026-06-19,E038,valor_formato,valor,"R$ 9,15",9.15,corrigir,9.15
+gastos,G-E118-2026-09-06,E118,valor_formato,valor,"R$ 15,97",15.97,corrigir,15.97
+gastos,G-E025-2026-06-03,E025,valor_formato,valor,"R$ 6,03",6.03,corrigir,6.03
+gastos,G-E058-2026-09-08,E058,valor_formato,valor,"R$ 9,14",9.14,corrigir,9.14
+gastos,G-E006-2026-10-07,E006,valor_formato,valor,"R$ 23,37",23.37,corrigir,23.37
+gastos,G-E096-2026-09-17,E096,valor_formato,valor,"R$ 50,33",50.33,corrigir,50.33
+gastos,G-E070-2026-06-10,E070,valor_formato,valor,"R$ 10,43",10.43,corrigir,10.43
+gastos,G-E002-2026-08-20,E002,valor_formato,valor,"R$ 110,74",110.74,corrigir,110.74
+gastos,G-E053-2026-09-16,E053,valor_formato,valor,"R$ 17,72",17.72,corrigir,17.72
+gastos,G-E051-2026-08-03,E051,valor_formato,valor,"R$ 14,85",14.85,corrigir,14.85
+gastos,G-E141-2026-09-08,E141,valor_formato,valor,"R$ 18,68",18.68,corrigir,18.68
+gastos,G-E004-2026-10-02,E004,valor_formato,valor,"R$ 34,07",34.07,corrigir,34.07
+gastos,G-E030-2026-09-20,E030,valor_formato,valor,"R$ 3,82",3.82,corrigir,3.82
+gastos,G-E133-2026-05-13,E133,valor_formato,valor,"R$ 33,26",33.26,corrigir,33.26
+gastos,G-E062-2026-05-03,E062,valor_formato,valor,"R$ 65,37",65.37,corrigir,65.37
+gastos,G-E093-2026-08-04,E093,valor_formato,valor,"R$ 9,43",9.43,corrigir,9.43
+gastos,G-E047-2026-07-12,E047,valor_formato,valor,"R$ 4,75",4.75,corrigir,4.75
+gastos,G-E115-2026-09-18,E115,valor_formato,valor,"R$ 7,64",7.64,corrigir,7.64
+gastos,G-E103-2026-05-01,E103,valor_formato,valor,"R$ 70,10",70.10,corrigir,70.10
+gastos,G-E062-2026-07-01,E062,valor_formato,valor,"R$ 65,37",65.37,corrigir,65.37
+gastos,G-E146-2026-08-04,E146,valor_formato,valor,"R$ 64,68",64.68,corrigir,64.68
+gastos,G-E047-2026-10-16,E047,valor_formato,valor,"R$ 4,72",4.72,corrigir,4.72
+gastos,G-E091-2026-10-11,E091,valor_formato,valor,"R$ 2,96",2.96,corrigir,2.96
+gastos,G-E123-2026-09-28,E123,valor_formato,valor,"R$ 20,36",20.36,corrigir,20.36
+gastos,G-E042-2026-09-11,E042,valor_formato,valor,"R$ 3,18",3.18,corrigir,3.18
+gastos,G-E063-2026-07-08,E063,valor_formato,valor,"R$ 16,47",16.47,corrigir,16.47
+gastos,G-E117-2026-05-13,E117,valor_formato,valor,"R$ 34,88",34.88,corrigir,34.88
+gastos,G-E086-2026-07-12,E086,valor_formato,valor,"R$ 32,56",32.56,corrigir,32.56
+gastos,G-E145-2026-09-17,E145,valor_formato,valor,"R$ 8,04",8.04,corrigir,8.04
+gastos,G-E135-2026-06-13,E135,valor_formato,valor,"R$ 39,23",39.23,corrigir,39.23
+gastos,G-E031-2026-08-06,E031,valor_formato,valor,"R$ 6,93",6.93,corrigir,6.93
+gastos,G-E034-2026-09-16,E034,valor_formato,valor,"R$ 14,87",14.87,corrigir,14.87
+gastos,G-E105-2026-05-14,E105,valor_formato,valor,"R$ 14,61",14.61,corrigir,14.61
+gastos,G-E041-2026-05-07,E041,valor_formato,valor,"R$ 28,78",28.78,corrigir,28.78
+gastos,G-E039-2026-07-18,E039,valor_formato,valor,"R$ 10,37",10.37,corrigir,10.37
+gastos,G-E014-2026-06-18,E014,valor_formato,valor,"R$ 8,52",8.52,corrigir,8.52
+gastos,G-E131-2026-08-07,E131,valor_formato,valor,"R$ 8,21",8.21,corrigir,8.21
+gastos,G-E060-2026-07-13,E060,valor_formato,valor,"R$ 36,39",36.39,corrigir,36.39
+gastos,G-E116-2026-07-04,E116,valor_formato,valor,"R$ 10,39",10.39,corrigir,10.39
+gastos,G-E039-2026-08-25,E039,valor_formato,valor,"R$ 35,23",35.23,corrigir,35.23
+gastos,G-E084-2026-08-07,E084,valor_formato,valor,"R$ 12,45",12.45,corrigir,12.45
+gastos,G-E075-2026-08-19,E075,valor_formato,valor,"R$ 46,98",46.98,corrigir,46.98
+gastos,G-E143-2026-10-17,E143,valor_formato,valor,"R$ 88,57",88.57,corrigir,88.57
+gastos,G-E113-2026-08-09,E113,valor_formato,valor,"R$ 20,08",20.08,corrigir,20.08
+gastos,G-E119-2026-07-20,E119,valor_formato,valor,"R$ 191,80",191.80,corrigir,191.80
+gastos,G-E028-2026-05-18,E028,valor_formato,valor,"R$ 10,27",10.27,corrigir,10.27
+gastos,G-E036-2026-09-16,E036,valor_formato,valor,"R$ 2,21",2.21,corrigir,2.21
+gastos,G-E006-2026-05-06,E006,valor_formato,valor,"R$ 20,26",20.26,corrigir,20.26
+gastos,G-E104-2026-10-01,E104,valor_formato,valor,"R$ 71,25",71.25,corrigir,71.25
+gastos,G-E098-2026-07-17,E098,valor_formato,valor,"R$ 40,15",40.15,corrigir,40.15
+gastos,G-E121-2026-06-03,E121,valor_formato,valor,"R$ 69,45",69.45,corrigir,69.45
+gastos,G-E102-2026-06-07,E102,valor_formato,valor,"R$ 6,91",6.91,corrigir,6.91
+gastos,G-E052-2026-10-05,E052,valor_formato,valor,"R$ 2,14",2.14,corrigir,2.14
+gastos,G-E090-2026-06-17,E090,valor_formato,valor,"R$ 8,10",8.10,corrigir,8.10
+gastos,G-E078-2026-09-12,E078,valor_formato,valor,"R$ 28,73",28.73,corrigir,28.73
+gastos,G-E077-2026-06-02,E077,valor_formato,valor,"R$ 26,94",26.94,corrigir,26.94
+gastos,G-E065-2026-08-16,E065,valor_formato,valor,"R$ 5,29",5.29,corrigir,5.29
+gastos,G-E009-2026-08-17,E009,valor_formato,valor,"R$ 52,85",52.85,corrigir,52.85
+gastos,G-E043-2026-05-15,E043,valor_formato,valor,"R$ 40,83",40.83,corrigir,40.83
+gastos,G-E141-2026-10-23,E141,valor_formato,valor,"R$ 90,52",90.52,corrigir,90.52
+gastos,G-E106-2026-07-08,E106,valor_formato,valor,"R$ 25,79",25.79,corrigir,25.79
+gastos,G-E118-2026-10-10,E118,valor_formato,valor,"R$ 63,98",63.98,corrigir,63.98
+gastos,G-E009-2026-09-20,E009,valor_formato,valor,"R$ 52,85",52.85,corrigir,52.85
+gastos,G-E044-2026-05-10,E044,valor_formato,valor,"R$ 5,14",5.14,corrigir,5.14
+gastos,G-E108-2026-05-12,E108,valor_formato,valor,"R$ 13,19",13.19,corrigir,13.19
+gastos,G-E123-2026-05-11,E123,valor_formato,valor,"R$ 11,28",11.28,corrigir,11.28
+gastos,G-E080-2026-08-15,E080,valor_formato,valor,"R$ 12,44",12.44,corrigir,12.44
+gastos,G-E056-2026-07-14,E056,valor_formato,valor,"R$ 10,35",10.35,corrigir,10.35
+gastos,G-E121-2026-10-01,E121,valor_formato,valor,"R$ 7,45",7.45,corrigir,7.45
+gastos,G-E089-2026-06-20,E089,valor_formato,valor,"R$ 22,08",22.08,corrigir,22.08
+gastos,G-E108-2026-09-05,E108,valor_formato,valor,"R$ 64,61",64.61,corrigir,64.61
+gastos,G-E092-2026-05-04,E092,valor_formato,valor,"R$ 55,44",55.44,corrigir,55.44
+gastos,G-E138-2026-06-09,E138,valor_formato,valor,"R$ 29,52",29.52,corrigir,29.52
+gastos,G-E099-2026-09-23,E099,valor_formato,valor,"R$ 22,26",22.26,corrigir,22.26
+gastos,G-E086-2026-06-20,E086,valor_formato,valor,"R$ 8,99",8.99,corrigir,8.99
+gastos,G-E113-2026-08-03,E113,valor_formato,valor,"R$ 15,69",15.69,corrigir,15.69
+gastos,G-E139-2026-06-06,E139,valor_formato,valor,"R$ 11,64",11.64,corrigir,11.64
+gastos,G-E145-2026-07-10,E145,valor_formato,valor,"R$ 5,00",5.00,corrigir,5.00
+gastos,G-E133-2026-09-03,E133,valor_formato,valor,"R$ 10,04",10.04,corrigir,10.04
+gastos,G-E051-2026-07-05,E051,valor_formato,valor,"R$ 15,28",15.28,corrigir,15.28
+gastos,G-E042-2026-08-08,E042,valor_formato,valor,"R$ 4,83",4.83,corrigir,4.83
+gastos,G-E005-2026-09-16,E005,valor_formato,valor,"R$ 56,57",56.57,corrigir,56.57
+gastos,G-E129-2026-07-13,E129,valor_formato,valor,"R$ 8,57",8.57,corrigir,8.57
+gastos,G-E028-2026-08-18,E028,valor_formato,valor,"R$ 97,15",97.15,corrigir,97.15
+gastos,G-E076-2026-05-23,E076,valor_formato,valor,"R$ 9,11",9.11,corrigir,9.11
+gastos,G-E084-2026-07-18,E084,valor_formato,valor,"R$ 40,53",40.53,corrigir,40.53
+gastos,G-E034-2026-05-10,E034,valor_formato,valor,"R$ 8,30",8.30,corrigir,8.30
+gastos,G-E110-2026-05-10,E110,valor_formato,valor,"R$ 22,36",22.36,corrigir,22.36
+gastos,G-E087-2026-05-04,E087,valor_formato,valor,"R$ 10,79",10.79,corrigir,10.79
+gastos,G-E094-2026-07-15,E094,valor_formato,valor,"R$ 76,46",76.46,corrigir,76.46
+gastos,G-E106-2026-05-11,E106,valor_formato,valor,"R$ 39,24",39.24,corrigir,39.24
+gastos,G-E020-2026-07-08,E020,valor_formato,valor,"R$ 72,26",72.26,corrigir,72.26
+gastos,G-E050-2026-09-16,E050,valor_formato,valor,"R$ 27,56",27.56,corrigir,27.56
+gastos,G-E020-2026-07-05,E020,valor_formato,valor,"R$ 63,37",63.37,corrigir,63.37
+gastos,G-E112-2026-05-02,E112,valor_formato,valor,"R$ 38,35",38.35,corrigir,38.35
+gastos,G-E005-2026-06-03,E005,valor_formato,valor,"R$ 272,98",272.98,corrigir,272.98
+gastos,G-E055-2026-10-01,E055,valor_formato,valor,"R$ 4,75",4.75,corrigir,4.75
+gastos,G-E088-2026-05-21,E088,valor_formato,valor,"R$ 16,56",16.56,corrigir,16.56
+gastos,G-E039-2026-06-08,E039,valor_formato,valor,"R$ 16,07",16.07,corrigir,16.07
+gastos,G-E011-2026-07-23,E011,valor_formato,valor,"R$ 7,25",7.25,corrigir,7.25
+gastos,G-E057-2026-08-02,E057,valor_formato,valor,"R$ 60,01",60.01,corrigir,60.01
+gastos,G-E104-2026-06-08,E104,valor_formato,valor,"R$ 46,32",46.32,corrigir,46.32
+gastos,G-E051-2026-06-04,E051,valor_formato,valor,"R$ 15,97",15.97,corrigir,15.97
+gastos,G-E031-2026-10-03,E031,categoria_variacao,categoria,Assinaturas,assinaturas,corrigir,assinaturas
+gastos,G-E047-2026-05-02,E047,categoria_variacao,categoria,alim.,alimentacao,corrigir,alimentacao
+gastos,G-E102-2026-05-06,E102,categoria_variacao,categoria,alim.,alimentacao,corrigir,alimentacao
+gastos,G-E147-2026-06-07,E147,categoria_variacao,categoria,Assinaturas,assinaturas,corrigir,assinaturas
+gastos,G-E025-2026-08-01,E025,categoria_variacao,categoria,Transporte,transporte,corrigir,transporte
+gastos,G-E006-2026-06-06,E006,categoria_variacao,categoria,Alimentacao,alimentacao,corrigir,alimentacao
+gastos,G-E135-2026-06-08,E135,categoria_variacao,categoria,OUTROS,outros,corrigir,outros
+gastos,G-E054-2026-08-14,E054,categoria_variacao,categoria,Transporte,transporte,corrigir,transporte
+gastos,G-E034-2026-09-19,E034,categoria_variacao,categoria,OUTROS,outros,corrigir,outros
+gastos,G-E122-2026-06-02,E122,categoria_variacao,categoria,alim.,alimentacao,corrigir,alimentacao
+gastos,G-E129-2026-07-05,E129,categoria_variacao,categoria,ESTUDOS,estudos,corrigir,estudos
+gastos,G-E141-2026-05-13,E141,categoria_variacao,categoria,alim.,alimentacao,corrigir,alimentacao
+gastos,G-E086-2026-10-11,E086,categoria_variacao,categoria,Alimentacao,alimentacao,corrigir,alimentacao
+gastos,G-E131-2026-09-11,E131,categoria_variacao,categoria,Alimentacao,alimentacao,corrigir,alimentacao
+gastos,G-E096-2026-08-13,E096,categoria_variacao,categoria,ALIMENTACAO,alimentacao,corrigir,alimentacao
+gastos,G-E078-2026-09-03,E078,categoria_variacao,categoria,laser,lazer,corrigir,lazer
+gastos,G-E035-2026-06-18,E035,categoria_variacao,categoria,Alimentacao,alimentacao,corrigir,alimentacao
+gastos,G-E072-2026-05-06,E072,categoria_variacao,categoria,Alimentacao,alimentacao,corrigir,alimentacao
+gastos,G-E096-2026-10-07,E096,categoria_variacao,categoria,LAZER,lazer,corrigir,lazer
+gastos,G-E034-2026-05-07,E034,categoria_variacao,categoria,Lazer,lazer,corrigir,lazer
+gastos,G-E010-2026-07-07,E010,categoria_variacao,categoria,alim.,alimentacao,corrigir,alimentacao
+gastos,G-E098-2026-08-01,E098,categoria_variacao,categoria,laser,lazer,corrigir,lazer
+gastos,G-E037-2026-07-11,E037,categoria_variacao,categoria,transp.,transporte,corrigir,transporte
+gastos,G-E071-2026-07-01,E071,categoria_variacao,categoria,Transporte,transporte,corrigir,transporte
+gastos,G-E109-2026-06-17,E109,categoria_variacao,categoria,LAZER,lazer,corrigir,lazer
+gastos,G-E108-2026-08-10,E108,categoria_variacao,categoria,LAZER,lazer,corrigir,lazer
+gastos,G-E138-2026-09-06,E138,categoria_variacao,categoria,ESTUDOS,estudos,corrigir,estudos
+gastos,G-E120-2026-10-11,E120,categoria_variacao,categoria,Outros,outros,corrigir,outros
+gastos,G-E026-2026-07-17,E026,categoria_variacao,categoria,laser,lazer,corrigir,lazer
+gastos,G-E054-2026-08-17,E054,categoria_variacao,categoria,ALIMENTACAO,alimentacao,corrigir,alimentacao
+gastos,G-E113-2026-05-12,E113,categoria_variacao,categoria,Alimentacao,alimentacao,corrigir,alimentacao
+gastos,G-E026-2026-07-02,E026,categoria_variacao,categoria,Alimentacao,alimentacao,corrigir,alimentacao
+gastos,G-E100-2026-10-05,E100,categoria_variacao,categoria,alim.,alimentacao,corrigir,alimentacao
+gastos,G-E055-2026-10-17,E055,categoria_variacao,categoria,alim.,alimentacao,corrigir,alimentacao
+gastos,G-E087-2026-06-20,E087,categoria_variacao,categoria,Alimentacao,alimentacao,corrigir,alimentacao
+gastos,G-E109-2026-07-01,E109,categoria_variacao,categoria,TRANSPORTE,transporte,corrigir,transporte
+gastos,G-E025-2026-08-07,E025,categoria_variacao,categoria,OUTROS,outros,corrigir,outros
+gastos,G-E086-2026-08-14,E086,categoria_variacao,categoria,alim.,alimentacao,corrigir,alimentacao
+gastos,G-E135-2026-07-04,E135,categoria_variacao,categoria,Alimentacao,alimentacao,corrigir,alimentacao
+gastos,G-E148-2026-10-09,E148,categoria_variacao,categoria,ASSINATURAS,assinaturas,corrigir,assinaturas
+gastos,G-E108-2026-07-10,E108,categoria_variacao,categoria,ALIMENTACAO,alimentacao,corrigir,alimentacao
+gastos,G-E074-2026-09-15,E074,categoria_variacao,categoria,Alimentacao,alimentacao,corrigir,alimentacao
+gastos,G-E140-2026-08-09,E140,categoria_variacao,categoria,LAZER,lazer,corrigir,lazer
+gastos,G-E053-2026-10-02,E053,categoria_variacao,categoria,ASSINATURAS,assinaturas,corrigir,assinaturas
+gastos,G-E089-2026-08-10,E089,categoria_variacao,categoria,Lazer,lazer,corrigir,lazer
+gastos,G-E056-2026-10-09,E056,categoria_variacao,categoria,TRANSPORTE,transporte,corrigir,transporte
+gastos,G-E004-2026-09-16,E004,categoria_variacao,categoria,ASSINATURAS,assinaturas,corrigir,assinaturas
+gastos,G-E030-2026-09-16,E030,categoria_variacao,categoria,Alimentacao,alimentacao,corrigir,alimentacao
+gastos,G-E088-2026-09-09,E088,categoria_variacao,categoria,Assinaturas,assinaturas,corrigir,assinaturas
+gastos,G-E043-2026-06-19,E043,categoria_variacao,categoria,Lazer,lazer,corrigir,lazer
+gastos,G-E041-2026-06-06,E041,categoria_variacao,categoria,Alimentacao,alimentacao,corrigir,alimentacao
+gastos,G-E022-2026-09-06,E022,categoria_variacao,categoria,ALIMENTACAO,alimentacao,corrigir,alimentacao
+gastos,G-E138-2026-05-03,E138,categoria_variacao,categoria,assinatura,assinaturas,corrigir,assinaturas
+gastos,G-E125-2026-08-09,E125,categoria_variacao,categoria,ASSINATURAS,assinaturas,corrigir,assinaturas
+gastos,G-E055-2026-05-05,E055,categoria_variacao,categoria,ALIMENTACAO,alimentacao,corrigir,alimentacao
+gastos,G-E001-2026-07-05,E001,categoria_variacao,categoria,outro,outros,corrigir,outros
+gastos,G-E020-2026-09-13,E020,categoria_variacao,categoria,Estudos,estudos,corrigir,estudos
+gastos,G-E127-2026-07-09,E127,categoria_variacao,categoria,alim.,alimentacao,corrigir,alimentacao
+gastos,G-E121-2026-06-10,E121,categoria_variacao,categoria,alim.,alimentacao,corrigir,alimentacao
+gastos,G-E095-2026-08-14,E095,categoria_variacao,categoria,ALIMENTACAO,alimentacao,corrigir,alimentacao
+gastos,G-E065-2026-08-05,E065,categoria_variacao,categoria,alim.,alimentacao,corrigir,alimentacao
+gastos,G-E058-2026-07-18,E058,categoria_variacao,categoria,Alimentacao,alimentacao,corrigir,alimentacao
+gastos,G-E070-2026-05-24,E070,categoria_variacao,categoria,Lazer,lazer,corrigir,lazer
+gastos,G-E061-2026-07-23,E061,categoria_variacao,categoria,estudo,estudos,corrigir,estudos
+gastos,G-E137-2026-10-19,E137,categoria_variacao,categoria,alim.,alimentacao,corrigir,alimentacao
+gastos,G-E055-2026-05-06,E055,categoria_variacao,categoria,Alimentacao,alimentacao,corrigir,alimentacao
+gastos,G-E116-2026-08-21,E116,categoria_variacao,categoria,Assinaturas,assinaturas,corrigir,assinaturas
+gastos,G-E148-2026-10-07,E148,categoria_variacao,categoria,LAZER,lazer,corrigir,lazer
+gastos,G-E041-2026-09-04,E041,categoria_variacao,categoria,Lazer,lazer,corrigir,lazer
+gastos,G-E008-2026-05-12,E008,categoria_variacao,categoria,ALIMENTACAO,alimentacao,corrigir,alimentacao
+gastos,G-E093-2026-08-17,E093,categoria_variacao,categoria,Assinaturas,assinaturas,corrigir,assinaturas
+gastos,G-E090-2026-07-21,E090,categoria_variacao,categoria,ALIMENTACAO,alimentacao,corrigir,alimentacao
+gastos,G-E146-2026-06-19,E146,categoria_variacao,categoria,Alimentacao,alimentacao,corrigir,alimentacao
+gastos,G-E145-2026-08-19,E145,categoria_variacao,categoria,Transporte,transporte,corrigir,transporte
+gastos,G-E144-2026-06-17,E144,categoria_variacao,categoria,Transporte,transporte,corrigir,transporte
+gastos,G-E041-2026-07-03,E041,categoria_variacao,categoria,assinatura,assinaturas,corrigir,assinaturas
+gastos,G-E053-2026-09-18,E053,categoria_variacao,categoria,alim.,alimentacao,corrigir,alimentacao
+gastos,G-E093-2026-10-06,E093,categoria_variacao,categoria,Alimentacao,alimentacao,corrigir,alimentacao
+gastos,G-E052-2026-05-18,E052,categoria_variacao,categoria,assinatura,assinaturas,corrigir,assinaturas
+gastos,G-E042-2026-07-11,E042,categoria_variacao,categoria,laser,lazer,corrigir,lazer
+gastos,G-E033-2026-09-12,E033,categoria_variacao,categoria,ALIMENTACAO,alimentacao,corrigir,alimentacao
+gastos,G-E013-2026-07-01,E013,categoria_variacao,categoria,alim.,alimentacao,corrigir,alimentacao
+gastos,G-E069-2026-10-02,E069,categoria_variacao,categoria,ALIMENTACAO,alimentacao,corrigir,alimentacao
+gastos,G-E077-2026-09-15,E077,categoria_variacao,categoria,Transporte,transporte,corrigir,transporte
+gastos,G-E111-2026-08-12,E111,categoria_variacao,categoria,alim.,alimentacao,corrigir,alimentacao
+gastos,G-E145-2026-06-17,E145,categoria_variacao,categoria,transp.,transporte,corrigir,transporte
+gastos,G-E005-2026-09-10,E005,categoria_variacao,categoria,Alimentacao,alimentacao,corrigir,alimentacao
+gastos,G-E146-2026-10-11,E146,categoria_variacao,categoria,Assinaturas,assinaturas,corrigir,assinaturas
+gastos,G-E136-2026-09-07,E136,categoria_variacao,categoria,Outros,outros,corrigir,outros
+gastos,G-E036-2026-10-08,E036,categoria_variacao,categoria,outro,outros,corrigir,outros
+gastos,G-E079-2026-07-17,E079,categoria_variacao,categoria,alim.,alimentacao,corrigir,alimentacao
+gastos,G-E033-2026-05-08,E033,categoria_variacao,categoria,Lazer,lazer,corrigir,lazer
+gastos,G-E132-2026-06-04,E132,categoria_variacao,categoria,assinatura,assinaturas,corrigir,assinaturas
+gastos,G-E050-2026-06-02,E050,categoria_variacao,categoria,outro,outros,corrigir,outros
+gastos,G-E024-2026-05-16,E024,categoria_variacao,categoria,ALIMENTACAO,alimentacao,corrigir,alimentacao
+gastos,G-E137-2026-07-17,E137,categoria_variacao,categoria,alim.,alimentacao,corrigir,alimentacao
+gastos,G-E127-2026-07-01,E127,categoria_variacao,categoria,transp.,transporte,corrigir,transporte
+gastos,G-E035-2026-08-06,E035,categoria_variacao,categoria,Alimentacao,alimentacao,corrigir,alimentacao
+gastos,G-E142-2026-05-12,E142,categoria_variacao,categoria,ALIMENTACAO,alimentacao,corrigir,alimentacao
+gastos,G-E074-2026-08-05,E074,categoria_variacao,categoria,alim.,alimentacao,corrigir,alimentacao
+gastos,G-E099-2026-08-16,E099,categoria_variacao,categoria,laser,lazer,corrigir,lazer
+gastos,G-E082-2026-05-01,E082,categoria_variacao,categoria,Transporte,transporte,corrigir,transporte
+gastos,G-E002-2026-07-11,E002,categoria_variacao,categoria,ALIMENTACAO,alimentacao,corrigir,alimentacao
+gastos,G-E083-2026-09-05,E083,categoria_variacao,categoria,alim.,alimentacao,corrigir,alimentacao
+gastos,G-E150-2026-10-06,E150,categoria_variacao,categoria,ALIMENTACAO,alimentacao,corrigir,alimentacao
+gastos,G-E006-2026-05-05,E006,categoria_variacao,categoria,Lazer,lazer,corrigir,lazer
+gastos,G-E117-2026-09-14,E117,categoria_variacao,categoria,Outros,outros,corrigir,outros
+gastos,G-E037-2026-06-21,E037,categoria_variacao,categoria,Lazer,lazer,corrigir,lazer
+gastos,G-E064-2026-06-04,E064,categoria_variacao,categoria,LAZER,lazer,corrigir,lazer
+gastos,G-E021-2026-05-03,E021,categoria_variacao,categoria,Outros,outros,corrigir,outros
+gastos,G-E033-2026-08-06,E033,categoria_variacao,categoria,ALIMENTACAO,alimentacao,corrigir,alimentacao
+gastos,G-E103-2026-10-03,E103,categoria_variacao,categoria,laser,lazer,corrigir,lazer
+gastos,G-E029-2026-07-19,E029,categoria_variacao,categoria,ASSINATURAS,assinaturas,corrigir,assinaturas
+gastos,G-E057-2026-06-15,E057,categoria_variacao,categoria,alim.,alimentacao,corrigir,alimentacao
+gastos,G-E044-2026-10-18,E044,categoria_variacao,categoria,ALIMENTACAO,alimentacao,corrigir,alimentacao
+gastos,G-E091-2026-09-07,E091,categoria_variacao,categoria,Alimentacao,alimentacao,corrigir,alimentacao
+gastos,G-E111-2026-09-04,E111,categoria_variacao,categoria,assinatura,assinaturas,corrigir,assinaturas
+gastos,G-E063-2026-05-03,E063,categoria_variacao,categoria,Outros,outros,corrigir,outros
+gastos,G-E003-2026-06-12,E003,categoria_variacao,categoria,Alimentacao,alimentacao,corrigir,alimentacao
+gastos,G-E097-2026-10-09,E097,categoria_variacao,categoria,transp.,transporte,corrigir,transporte
+gastos,G-E002-2026-05-12,E002,categoria_variacao,categoria,Alimentacao,alimentacao,corrigir,alimentacao
+gastos,G-E135-2026-05-12,E135,categoria_variacao,categoria,Assinaturas,assinaturas,corrigir,assinaturas
+gastos,G-E122-2026-08-17,E122,categoria_variacao,categoria,Alimentacao,alimentacao,corrigir,alimentacao
+gastos,G-E076-2026-10-11,E076,categoria_variacao,categoria,ALIMENTACAO,alimentacao,corrigir,alimentacao
+gastos,G-E112-2026-06-03,E112,categoria_variacao,categoria,Assinaturas,assinaturas,corrigir,assinaturas
+gastos,G-E097-2026-05-15,E097,categoria_variacao,categoria,OUTROS,outros,corrigir,outros
+gastos,G-E111-2026-10-19,E111,categoria_variacao,categoria,Alimentacao,alimentacao,corrigir,alimentacao
+gastos,G-E018-2026-09-13,E018,categoria_variacao,categoria,Alimentacao,alimentacao,corrigir,alimentacao
+gastos,G-E129-2026-08-02,E129,categoria_variacao,categoria,alim.,alimentacao,corrigir,alimentacao
+gastos,G-E112-2026-08-17,E112,categoria_variacao,categoria,OUTROS,outros,corrigir,outros
+gastos,G-E008-2026-05-16,E008,categoria_variacao,categoria,ALIMENTACAO,alimentacao,corrigir,alimentacao
+gastos,G-E034-2026-09-12,E034,categoria_variacao,categoria,outro,outros,corrigir,outros
+gastos,G-E038-2026-07-14,E038,categoria_variacao,categoria,laser,lazer,corrigir,lazer
+gastos,G-E023-2026-05-19,E023,categoria_variacao,categoria,alim.,alimentacao,corrigir,alimentacao
+gastos,G-E142-2026-07-15,E142,categoria_variacao,categoria,Alimentacao,alimentacao,corrigir,alimentacao
+gastos,G-E065-2026-09-04,E065,categoria_variacao,categoria,assinatura,assinaturas,corrigir,assinaturas
+gastos,G-E150-2026-05-10,E150,categoria_variacao,categoria,Alimentacao,alimentacao,corrigir,alimentacao
+gastos,G-E061-2026-05-08,E061,categoria_variacao,categoria,ALIMENTACAO,alimentacao,corrigir,alimentacao
+gastos,G-E028-2026-06-06,E028,categoria_variacao,categoria,ALIMENTACAO,alimentacao,corrigir,alimentacao
+gastos,G-E103-2026-10-10,E103,categoria_variacao,categoria,Outros,outros,corrigir,outros
+gastos,G-E059-2026-05-05,E059,categoria_variacao,categoria,Outros,outros,corrigir,outros
+gastos,G-E135-2026-09-25,E135,categoria_variacao,categoria,laser,lazer,corrigir,lazer
+gastos,G-E124-2026-08-14,E124,categoria_variacao,categoria,Lazer,lazer,corrigir,lazer
+gastos,G-E137-2026-09-06,E137,categoria_variacao,categoria,Lazer,lazer,corrigir,lazer
+gastos,G-E148-2026-05-16,E148,categoria_variacao,categoria,Transporte,transporte,corrigir,transporte
+gastos,G-E045-2026-09-05,E045,categoria_variacao,categoria,alim.,alimentacao,corrigir,alimentacao
+gastos,G-E135-2026-10-07,E135,categoria_variacao,categoria,ALIMENTACAO,alimentacao,corrigir,alimentacao
+gastos,G-E110-2026-05-02,E110,categoria_variacao,categoria,LAZER,lazer,corrigir,lazer
+gastos,G-E143-2026-08-13,E143,categoria_variacao,categoria,alim.,alimentacao,corrigir,alimentacao
+gastos,G-E088-2026-10-07,E088,categoria_variacao,categoria,alim.,alimentacao,corrigir,alimentacao
+gastos,G-E021-2026-09-01,E021,categoria_variacao,categoria,ASSINATURAS,assinaturas,corrigir,assinaturas
+gastos,G-E001-2026-08-13,E001,categoria_variacao,categoria,laser,lazer,corrigir,lazer
+gastos,G-E130-2026-05-03,E130,categoria_variacao,categoria,alim.,alimentacao,corrigir,alimentacao
+gastos,G-E003-2026-10-12,E003,categoria_variacao,categoria,LAZER,lazer,corrigir,lazer
+gastos,G-E036-2026-05-14,E036,categoria_variacao,categoria,LAZER,lazer,corrigir,lazer
+gastos,G-E062-2026-06-12,E062,categoria_variacao,categoria,Outros,outros,corrigir,outros
+gastos,G-E126-2026-10-20,E126,categoria_variacao,categoria,laser,lazer,corrigir,lazer
+gastos,G-E043-2026-07-08,E043,categoria_variacao,categoria,LAZER,lazer,corrigir,lazer
+gastos,G-E039-2026-06-19,E039,categoria_variacao,categoria,Estudos,estudos,corrigir,estudos
+gastos,G-E091-2026-09-19,E091,categoria_variacao,categoria,ESTUDOS,estudos,corrigir,estudos
+gastos,G-E057-2026-06-17,E057,categoria_variacao,categoria,outro,outros,corrigir,outros
+gastos,G-E051-2026-07-12,E051,categoria_variacao,categoria,transp.,transporte,corrigir,transporte
+gastos,G-E148-2026-08-19,E148,categoria_variacao,categoria,LAZER,lazer,corrigir,lazer
+gastos,G-E052-2026-09-12,E052,categoria_variacao,categoria,laser,lazer,corrigir,lazer
+gastos,G-E099-2026-06-03,E099,categoria_variacao,categoria,transp.,transporte,corrigir,transporte
+gastos,G-E128-2026-07-10,E128,categoria_variacao,categoria,assinatura,assinaturas,corrigir,assinaturas
+gastos,G-E137-2026-07-14,E137,categoria_variacao,categoria,ALIMENTACAO,alimentacao,corrigir,alimentacao
+gastos,G-E124-2026-09-18,E124,categoria_variacao,categoria,ALIMENTACAO,alimentacao,corrigir,alimentacao
+gastos,G-E007-2026-07-18,E007,categoria_variacao,categoria,Alimentacao,alimentacao,corrigir,alimentacao
+gastos,G-E077-2026-07-20,E077,categoria_variacao,categoria,ALIMENTACAO,alimentacao,corrigir,alimentacao
+gastos,G-E033-2026-08-09,E033,categoria_variacao,categoria,Estudos,estudos,corrigir,estudos
+gastos,G-E107-2026-05-04,E107,categoria_variacao,categoria,ESTUDOS,estudos,corrigir,estudos
+gastos,G-E002-2026-10-13,E002,categoria_variacao,categoria,ALIMENTACAO,alimentacao,corrigir,alimentacao
+gastos,G-E063-2026-05-17,E063,categoria_variacao,categoria,Alimentacao,alimentacao,corrigir,alimentacao
+gastos,G-E056-2026-07-01,E056,categoria_variacao,categoria,LAZER,lazer,corrigir,lazer
+gastos,G-E140-2026-07-19,E140,categoria_variacao,categoria,laser,lazer,corrigir,lazer
+gastos,G-E095-2026-05-01,E095,categoria_variacao,categoria,ALIMENTACAO,alimentacao,corrigir,alimentacao
+gastos,G-E082-2026-07-23,E082,categoria_variacao,categoria,Alimentacao,alimentacao,corrigir,alimentacao
+gastos,G-E092-2026-08-01,E092,categoria_variacao,categoria,assinatura,assinaturas,corrigir,assinaturas
+gastos,G-E028-2026-10-15,E028,categoria_variacao,categoria,ALIMENTACAO,alimentacao,corrigir,alimentacao
+gastos,G-E114-2026-08-15,E114,categoria_variacao,categoria,Lazer,lazer,corrigir,lazer
+gastos,G-E039-2026-09-06,E039,categoria_variacao,categoria,ALIMENTACAO,alimentacao,corrigir,alimentacao
+gastos,G-E034-2026-09-09,E034,categoria_variacao,categoria,laser,lazer,corrigir,lazer
+gastos,G-E028-2026-08-17,E028,categoria_variacao,categoria,Assinaturas,assinaturas,corrigir,assinaturas
+gastos,G-E134-2026-08-13,E134,categoria_variacao,categoria,ALIMENTACAO,alimentacao,corrigir,alimentacao
+gastos,G-E093-2026-06-10,E093,categoria_variacao,categoria,TRANSPORTE,transporte,corrigir,transporte
+gastos,G-E122-2026-09-07,E122,categoria_variacao,categoria,alim.,alimentacao,corrigir,alimentacao
+gastos,G-E123-2026-08-03,E123,categoria_variacao,categoria,ALIMENTACAO,alimentacao,corrigir,alimentacao
+gastos,G-E100-2026-06-14,E100,categoria_variacao,categoria,ALIMENTACAO,alimentacao,corrigir,alimentacao
+gastos,G-E144-2026-10-08,E144,categoria_variacao,categoria,Lazer,lazer,corrigir,lazer
+gastos,G-E147-2026-07-16,E147,categoria_variacao,categoria,ASSINATURAS,assinaturas,corrigir,assinaturas
+gastos,G-E118-2026-10-08,E118,categoria_variacao,categoria,assinatura,assinaturas,corrigir,assinaturas
+gastos,G-E043-2026-10-01,E043,categoria_variacao,categoria,Alimentacao,alimentacao,corrigir,alimentacao
+gastos,G-E005-2026-07-17,E005,categoria_variacao,categoria,outro,outros,corrigir,outros
+gastos,G-E006-2026-06-03,E006,categoria_variacao,categoria,estudo,estudos,corrigir,estudos
+gastos,G-E110-2026-09-05,E110,categoria_variacao,categoria,alim.,alimentacao,corrigir,alimentacao
+gastos,G-E083-2026-07-06,E083,categoria_variacao,categoria,ALIMENTACAO,alimentacao,corrigir,alimentacao
+gastos,G-E006-2026-07-07,E006,categoria_variacao,categoria,alim.,alimentacao,corrigir,alimentacao
+gastos,G-E101-2026-06-08,E101,categoria_variacao,categoria,Alimentacao,alimentacao,corrigir,alimentacao
+gastos,G-E006-2026-05-17,E006,categoria_variacao,categoria,Alimentacao,alimentacao,corrigir,alimentacao
+gastos,G-E115-2026-06-22,E115,categoria_variacao,categoria,LAZER,lazer,corrigir,lazer
+gastos,G-E139-2026-09-04,E139,categoria_variacao,categoria,Assinaturas,assinaturas,corrigir,assinaturas
+gastos,G-E053-2026-09-01,E053,categoria_variacao,categoria,alim.,alimentacao,corrigir,alimentacao
+gastos,G-E052-2026-05-11,E052,categoria_variacao,categoria,ALIMENTACAO,alimentacao,corrigir,alimentacao
+gastos,G-E090-2026-08-22,E090,categoria_variacao,categoria,Alimentacao,alimentacao,corrigir,alimentacao
+gastos,G-E004-2026-09-07,E004,categoria_variacao,categoria,Estudos,estudos,corrigir,estudos
+gastos,G-E009-2026-05-01,E009,categoria_variacao,categoria,Alimentacao,alimentacao,corrigir,alimentacao
+gastos,G-E142-2026-08-07,E142,categoria_variacao,categoria,Assinaturas,assinaturas,corrigir,assinaturas
+gastos,G-E120-2026-07-15,E120,categoria_variacao,categoria,Alimentacao,alimentacao,corrigir,alimentacao
+gastos,G-E118-2026-10-04,E118,categoria_variacao,categoria,Alimentacao,alimentacao,corrigir,alimentacao
+gastos,G-E026-2026-07-12,E026,categoria_variacao,categoria,laser,lazer,corrigir,lazer
+gastos,G-E048-2026-10-08,E048,categoria_variacao,categoria,ALIMENTACAO,alimentacao,corrigir,alimentacao
+gastos,G-E044-2026-10-02,E044,categoria_variacao,categoria,outro,outros,corrigir,outros
+gastos,G-E136-2026-08-06,E136,categoria_variacao,categoria,alim.,alimentacao,corrigir,alimentacao
+gastos,G-E058-2026-09-02,E058,categoria_variacao,categoria,Transporte,transporte,corrigir,transporte
+gastos,G-E046-2026-06-09,E046,categoria_variacao,categoria,ALIMENTACAO,alimentacao,corrigir,alimentacao
+gastos,G-E082-2026-09-09,E082,categoria_variacao,categoria,ASSINATURAS,assinaturas,corrigir,assinaturas
+gastos,G-E117-2026-08-03,E117,categoria_variacao,categoria,Estudos,estudos,corrigir,estudos
+gastos,G-E039-2026-05-08,E039,categoria_variacao,categoria,Outros,outros,corrigir,outros
+gastos,G-E115-2026-07-16,E115,categoria_variacao,categoria,alim.,alimentacao,corrigir,alimentacao
+gastos,G-E145-2026-10-19,E145,categoria_variacao,categoria,ALIMENTACAO,alimentacao,corrigir,alimentacao
+gastos,G-E115-2026-06-11,E115,categoria_variacao,categoria,ALIMENTACAO,alimentacao,corrigir,alimentacao
+gastos,G-E001-2026-09-13,E001,categoria_variacao,categoria,Alimentacao,alimentacao,corrigir,alimentacao
+gastos,G-E086-2026-09-14,E086,categoria_variacao,categoria,Alimentacao,alimentacao,corrigir,alimentacao
+gastos,G-E131-2026-06-03,E131,categoria_variacao,categoria,alim.,alimentacao,corrigir,alimentacao
+gastos,G-E122-2026-08-10,E122,categoria_variacao,categoria,ASSINATURAS,assinaturas,corrigir,assinaturas
+gastos,G-E064-2026-08-02,E064,categoria_variacao,categoria,laser,lazer,corrigir,lazer
+gastos,G-E108-2026-07-09,E108,categoria_variacao,categoria,transp.,transporte,corrigir,transporte
+gastos,G-E131-2026-08-10,E131,categoria_variacao,categoria,laser,lazer,corrigir,lazer
+gastos,G-E036-2026-06-18,E036,categoria_variacao,categoria,ALIMENTACAO,alimentacao,corrigir,alimentacao
+gastos,G-E104-2026-08-01,E104,categoria_variacao,categoria,Transporte,transporte,corrigir,transporte
+gastos,G-E078-2026-09-15,E078,categoria_variacao,categoria,estudo,estudos,corrigir,estudos
+gastos,G-E064-2026-09-19,E064,categoria_variacao,categoria,ALIMENTACAO,alimentacao,corrigir,alimentacao
+gastos,G-E038-2026-06-18,E038,categoria_variacao,categoria,ALIMENTACAO,alimentacao,corrigir,alimentacao
+gastos,G-E035-2026-05-16,E035,categoria_variacao,categoria,ALIMENTACAO,alimentacao,corrigir,alimentacao
+gastos,G-E078-2026-05-15,E078,categoria_variacao,categoria,alim.,alimentacao,corrigir,alimentacao
+gastos,G-E098-2026-06-08,E098,categoria_variacao,categoria,Transporte,transporte,corrigir,transporte
+gastos,G-E140-2026-09-06,E140,categoria_variacao,categoria,ALIMENTACAO,alimentacao,corrigir,alimentacao
+gastos,G-E127-2026-09-05,E127,categoria_variacao,categoria,ALIMENTACAO,alimentacao,corrigir,alimentacao
+gastos,G-E112-2026-10-08,E112,categoria_variacao,categoria,Lazer,lazer,corrigir,lazer
+gastos,G-E084-2026-06-22,E084,categoria_variacao,categoria,laser,lazer,corrigir,lazer
+gastos,G-E125-2026-06-14,E125,categoria_variacao,categoria,Alimentacao,alimentacao,corrigir,alimentacao
+gastos,G-E043-2026-09-20,E043,categoria_variacao,categoria,laser,lazer,corrigir,lazer
+gastos,G-E127-2026-09-24,E127,categoria_variacao,categoria,Alimentacao,alimentacao,corrigir,alimentacao
+gastos,G-E059-2026-10-22,E059,categoria_variacao,categoria,alim.,alimentacao,corrigir,alimentacao
+gastos,G-E102-2026-05-24,E102,categoria_variacao,categoria,outro,outros,corrigir,outros
+gastos,G-E145-2026-06-02,E145,categoria_variacao,categoria,alim.,alimentacao,corrigir,alimentacao
+gastos,G-E068-2026-05-19,E068,categoria_variacao,categoria,outro,outros,corrigir,outros
+gastos,G-E116-2026-07-07,E116,categoria_variacao,categoria,laser,lazer,corrigir,lazer
+gastos,G-E047-2026-07-02,E047,categoria_variacao,categoria,alim.,alimentacao,corrigir,alimentacao
+gastos,G-E033-2026-10-05,E033,categoria_variacao,categoria,laser,lazer,corrigir,lazer
+gastos,G-E010-2026-10-29,E010,categoria_variacao,categoria,alim.,alimentacao,corrigir,alimentacao
+gastos,G-E093-2026-06-20,E093,categoria_variacao,categoria,OUTROS,outros,corrigir,outros
+gastos,G-E009-2026-06-20,E009,categoria_variacao,categoria,Assinaturas,assinaturas,corrigir,assinaturas
+gastos,G-E135-2026-06-18,E135,categoria_variacao,categoria,OUTROS,outros,corrigir,outros
+gastos,G-E107-2026-09-04,E107,categoria_variacao,categoria,Alimentacao,alimentacao,corrigir,alimentacao
+gastos,G-E117-2026-07-10,E117,categoria_variacao,categoria,Alimentacao,alimentacao,corrigir,alimentacao
+gastos,G-E022-2026-07-17,E022,categoria_variacao,categoria,estudo,estudos,corrigir,estudos
+gastos,G-E009-2026-09-05,E009,categoria_variacao,categoria,ESTUDOS,estudos,corrigir,estudos
+gastos,G-E127-2026-09-15,E127,categoria_variacao,categoria,Alimentacao,alimentacao,corrigir,alimentacao
+gastos,G-E045-2026-06-13,E045,categoria_variacao,categoria,Lazer,lazer,corrigir,lazer
+gastos,G-E114-2026-07-05,E114,categoria_variacao,categoria,OUTROS,outros,corrigir,outros
+gastos,G-E119-2026-08-12,E119,categoria_variacao,categoria,Alimentacao,alimentacao,corrigir,alimentacao
+gastos,G-E011-2026-05-14,E011,categoria_variacao,categoria,ALIMENTACAO,alimentacao,corrigir,alimentacao
+gastos,G-E098-2026-08-17,E098,categoria_variacao,categoria,ASSINATURAS,assinaturas,corrigir,assinaturas
+gastos,G-E141-2026-05-02,E141,categoria_variacao,categoria,ALIMENTACAO,alimentacao,corrigir,alimentacao
+gastos,G-E114-2026-08-14,E114,categoria_variacao,categoria,Alimentacao,alimentacao,corrigir,alimentacao
+gastos,G-E088-2026-10-12,E088,categoria_variacao,categoria,ASSINATURAS,assinaturas,corrigir,assinaturas
+gastos,G-E033-2026-05-10,E033,categoria_variacao,categoria,outro,outros,corrigir,outros
+gastos,G-E026-2026-10-03,E026,categoria_variacao,categoria,LAZER,lazer,corrigir,lazer
+gastos,G-E031-2026-10-15,E031,categoria_variacao,categoria,Transporte,transporte,corrigir,transporte
+gastos,G-E040-2026-09-12,E040,categoria_variacao,categoria,ASSINATURAS,assinaturas,corrigir,assinaturas
+gastos,G-E018-2026-05-22,E018,categoria_variacao,categoria,estudo,estudos,corrigir,estudos
+gastos,G-E003-2026-10-03,E003,categoria_variacao,categoria,assinatura,assinaturas,corrigir,assinaturas
+gastos,G-E139-2026-08-21,E139,categoria_variacao,categoria,alim.,alimentacao,corrigir,alimentacao
+gastos,G-E100-2026-05-09,E100,categoria_variacao,categoria,ALIMENTACAO,alimentacao,corrigir,alimentacao
+gastos,G-E149-2026-10-08,E149,categoria_variacao,categoria,ESTUDOS,estudos,corrigir,estudos
+gastos,G-E044-2026-07-12,E044,categoria_variacao,categoria,outro,outros,corrigir,outros
+gastos,G-E064-2026-09-22,E064,categoria_variacao,categoria,ALIMENTACAO,alimentacao,corrigir,alimentacao
+gastos,G-E071-2026-06-13,E071,categoria_variacao,categoria,LAZER,lazer,corrigir,lazer
+gastos,G-E066-2026-07-05,E066,categoria_variacao,categoria,Alimentacao,alimentacao,corrigir,alimentacao
+gastos,G-E022-2026-07-05,E022,categoria_variacao,categoria,alim.,alimentacao,corrigir,alimentacao
+gastos,G-E004-2026-05-20,E004,categoria_variacao,categoria,ALIMENTACAO,alimentacao,corrigir,alimentacao
+gastos,G-E070-2026-07-20,E070,categoria_variacao,categoria,Estudos,estudos,corrigir,estudos
+gastos,G-E094-2026-06-06,E094,categoria_variacao,categoria,estudo,estudos,corrigir,estudos
+gastos,G-E002-2026-09-23,E002,categoria_variacao,categoria,Alimentacao,alimentacao,corrigir,alimentacao
+gastos,G-E114-2026-10-03,E114,categoria_variacao,categoria,ASSINATURAS,assinaturas,corrigir,assinaturas
+gastos,G-E084-2026-09-08,E084,categoria_variacao,categoria,ASSINATURAS,assinaturas,corrigir,assinaturas
+gastos,G-E037-2026-10-18,E037,categoria_variacao,categoria,alim.,alimentacao,corrigir,alimentacao
+gastos,G-E080-2026-10-15,E080,categoria_variacao,categoria,ASSINATURAS,assinaturas,corrigir,assinaturas
+gastos,G-E036-2026-05-03,E036,categoria_variacao,categoria,TRANSPORTE,transporte,corrigir,transporte
+gastos,G-E093-2026-06-16,E093,categoria_variacao,categoria,Lazer,lazer,corrigir,lazer
+gastos,G-E069-2026-07-18,E069,categoria_variacao,categoria,alim.,alimentacao,corrigir,alimentacao
+gastos,G-E129-2026-09-15,E129,categoria_variacao,categoria,Alimentacao,alimentacao,corrigir,alimentacao
+gastos,G-E030-2026-05-13,E030,categoria_variacao,categoria,outro,outros,corrigir,outros
+gastos,G-E059-2026-10-17,E059,categoria_variacao,categoria,ESTUDOS,estudos,corrigir,estudos
+gastos,G-E065-2026-08-08,E065,categoria_variacao,categoria,Alimentacao,alimentacao,corrigir,alimentacao
+gastos,G-E033-2026-09-22,E033,categoria_variacao,categoria,ASSINATURAS,assinaturas,corrigir,assinaturas
+gastos,G-E058-2026-10-11,E058,categoria_variacao,categoria,alim.,alimentacao,corrigir,alimentacao
+gastos,G-E125-2026-07-21,E125,categoria_variacao,categoria,ALIMENTACAO,alimentacao,corrigir,alimentacao
+gastos,G-E097-2026-07-11,E097,categoria_variacao,categoria,LAZER,lazer,corrigir,lazer
+gastos,G-E041-2026-10-01,E041,categoria_variacao,categoria,Alimentacao,alimentacao,corrigir,alimentacao
+gastos,G-E020-2026-08-16,E020,categoria_variacao,categoria,alim.,alimentacao,corrigir,alimentacao
+gastos,G-E126-2026-07-14,E126,categoria_variacao,categoria,ALIMENTACAO,alimentacao,corrigir,alimentacao
+gastos,G-E026-2026-07-27,E026,categoria_variacao,categoria,ESTUDOS,estudos,corrigir,estudos
+gastos,G-E100-2026-09-02,E100,categoria_variacao,categoria,LAZER,lazer,corrigir,lazer
+gastos,G-E077-2026-06-16,E077,categoria_variacao,categoria,OUTROS,outros,corrigir,outros
+gastos,G-E145-2026-05-07,E145,categoria_variacao,categoria,transp.,transporte,corrigir,transporte
+gastos,G-E121-2026-09-11,E121,categoria_variacao,categoria,alim.,alimentacao,corrigir,alimentacao
+gastos,G-E037-2026-10-14,E037,categoria_variacao,categoria,outro,outros,corrigir,outros
+gastos,G-E062-2026-07-02,E062,categoria_variacao,categoria,Alimentacao,alimentacao,corrigir,alimentacao
+gastos,G-E011-2026-08-08,E011,categoria_variacao,categoria,alim.,alimentacao,corrigir,alimentacao
+gastos,G-E026-2026-10-13,E026,categoria_variacao,categoria,estudo,estudos,corrigir,estudos
+gastos,G-E062-2026-07-17,E062,categoria_variacao,categoria,Assinaturas,assinaturas,corrigir,assinaturas
+gastos,G-E053-2026-10-15,E053,categoria_variacao,categoria,alim.,alimentacao,corrigir,alimentacao
+gastos,G-E090-2026-05-14,E090,categoria_variacao,categoria,OUTROS,outros,corrigir,outros
+gastos,G-E142-2026-05-11,E142,categoria_variacao,categoria,assinatura,assinaturas,corrigir,assinaturas
+gastos,G-E004-2026-10-16,E004,categoria_variacao,categoria,Alimentacao,alimentacao,corrigir,alimentacao
+gastos,G-E026-2026-10-15,E026,categoria_variacao,categoria,LAZER,lazer,corrigir,lazer
+gastos,G-E011-2026-07-20,E011,categoria_variacao,categoria,alim.,alimentacao,corrigir,alimentacao
+gastos,G-E069-2026-07-06,E069,categoria_variacao,categoria,assinatura,assinaturas,corrigir,assinaturas
+gastos,G-E018-2026-10-12,E018,categoria_variacao,categoria,OUTROS,outros,corrigir,outros
+gastos,G-E122-2026-10-19,E122,categoria_variacao,categoria,ASSINATURAS,assinaturas,corrigir,assinaturas
+gastos,G-E113-2026-09-03,E113,categoria_variacao,categoria,Lazer,lazer,corrigir,lazer
+gastos,G-E139-2026-09-10,E139,categoria_variacao,categoria,Alimentacao,alimentacao,corrigir,alimentacao
+gastos,G-E092-2026-09-06,E092,categoria_variacao,categoria,LAZER,lazer,corrigir,lazer
+gastos,G-E095-2026-08-08,E095,categoria_variacao,categoria,outro,outros,corrigir,outros
+gastos,G-E129-2026-06-24,E129,categoria_variacao,categoria,Alimentacao,alimentacao,corrigir,alimentacao
+gastos,G-E045-2026-07-05,E045,categoria_variacao,categoria,laser,lazer,corrigir,lazer
+gastos,G-E143-2026-08-11,E143,categoria_variacao,categoria,laser,lazer,corrigir,lazer
+gastos,G-E082-2026-10-15,E082,categoria_variacao,categoria,estudo,estudos,corrigir,estudos
+gastos,G-E148-2026-09-22,E148,categoria_variacao,categoria,ALIMENTACAO,alimentacao,corrigir,alimentacao
+gastos,G-E026-2026-08-07,E026,categoria_variacao,categoria,assinatura,assinaturas,corrigir,assinaturas
+gastos,G-E015-2026-07-02,E015,categoria_variacao,categoria,laser,lazer,corrigir,lazer
+gastos,G-E013-2026-07-07,E013,categoria_variacao,categoria,Alimentacao,alimentacao,corrigir,alimentacao
+gastos,G-E040-2026-07-03,E040,categoria_variacao,categoria,OUTROS,outros,corrigir,outros
+gastos,G-E148-2026-06-08,E148,categoria_variacao,categoria,OUTROS,outros,corrigir,outros
+gastos,G-E148-2026-08-08,E148,categoria_variacao,categoria,Outros,outros,corrigir,outros
+gastos,G-E057-2026-10-16,E057,categoria_variacao,categoria,OUTROS,outros,corrigir,outros
+gastos,G-E077-2026-06-21,E077,categoria_variacao,categoria,ALIMENTACAO,alimentacao,corrigir,alimentacao
+gastos,G-E067-2026-06-22,E067,categoria_variacao,categoria,transp.,transporte,corrigir,transporte
+gastos,G-E113-2026-09-02,E113,categoria_variacao,categoria,alim.,alimentacao,corrigir,alimentacao
+gastos,G-E006-2026-08-05,E006,categoria_variacao,categoria,Outros,outros,corrigir,outros
+gastos,G-E009-2026-06-22,E009,categoria_variacao,categoria,alim.,alimentacao,corrigir,alimentacao
+gastos,G-E047-2026-10-19,E047,categoria_variacao,categoria,Alimentacao,alimentacao,corrigir,alimentacao
+gastos,G-E037-2026-07-05,E037,categoria_variacao,categoria,OUTROS,outros,corrigir,outros
+gastos,G-E114-2026-07-18,E114,categoria_variacao,categoria,Alimentacao,alimentacao,corrigir,alimentacao
+gastos,G-E048-2026-07-04,E048,categoria_variacao,categoria,assinatura,assinaturas,corrigir,assinaturas
+gastos,G-E124-2026-08-13,E124,categoria_variacao,categoria,Alimentacao,alimentacao,corrigir,alimentacao
+gastos,G-E023-2026-08-04,E023,categoria_variacao,categoria,OUTROS,outros,corrigir,outros
+gastos,G-E090-2026-06-09,E090,categoria_variacao,categoria,Transporte,transporte,corrigir,transporte
+gastos,G-E081-2026-08-19,E081,categoria_variacao,categoria,TRANSPORTE,transporte,corrigir,transporte
+gastos,G-E147-2026-10-19,E147,categoria_variacao,categoria,Alimentacao,alimentacao,corrigir,alimentacao
+gastos,G-E014-2026-10-08,E014,categoria_variacao,categoria,Outros,outros,corrigir,outros
+gastos,G-E105-2026-08-08,E105,categoria_variacao,categoria,OUTROS,outros,corrigir,outros
+gastos,G-E014-2026-09-25,E014,categoria_variacao,categoria,ASSINATURAS,assinaturas,corrigir,assinaturas
+gastos,G-E129-2026-09-16,E129,categoria_variacao,categoria,estudo,estudos,corrigir,estudos
+gastos,G-E059-2026-05-17,E059,categoria_variacao,categoria,ASSINATURAS,assinaturas,corrigir,assinaturas
+gastos,G-E128-2026-07-15,E128,categoria_variacao,categoria,alim.,alimentacao,corrigir,alimentacao
+gastos,G-E036-2026-06-17,E036,categoria_variacao,categoria,alim.,alimentacao,corrigir,alimentacao
+gastos,G-E029-2026-10-09,E029,categoria_variacao,categoria,ALIMENTACAO,alimentacao,corrigir,alimentacao
+gastos,G-E127-2026-10-24,E127,categoria_variacao,categoria,Outros,outros,corrigir,outros
+gastos,G-E097-2026-05-13,E097,categoria_variacao,categoria,alim.,alimentacao,corrigir,alimentacao
+gastos,G-E084-2026-10-15,E084,categoria_variacao,categoria,OUTROS,outros,corrigir,outros
+gastos,G-E015-2026-07-01,E015,categoria_variacao,categoria,transp.,transporte,corrigir,transporte
+gastos,G-E071-2026-07-16,E071,categoria_variacao,categoria,TRANSPORTE,transporte,corrigir,transporte
+gastos,G-E017-2026-08-06,E017,categoria_variacao,categoria,ALIMENTACAO,alimentacao,corrigir,alimentacao
+gastos,G-E003-2026-05-08,E003,categoria_variacao,categoria,alim.,alimentacao,corrigir,alimentacao
+gastos,G-E146-2026-10-12,E146,categoria_variacao,categoria,alim.,alimentacao,corrigir,alimentacao
+gastos,G-E049-2026-10-07,E049,categoria_variacao,categoria,alim.,alimentacao,corrigir,alimentacao
+gastos,G-E045-2026-05-04,E045,categoria_variacao,categoria,ALIMENTACAO,alimentacao,corrigir,alimentacao
+gastos,G-E103-2026-05-11,E103,categoria_variacao,categoria,Alimentacao,alimentacao,corrigir,alimentacao
+gastos,G-E070-2026-09-12,E070,categoria_variacao,categoria,LAZER,lazer,corrigir,lazer
+gastos,G-E026-2026-10-02,E026,categoria_variacao,categoria,OUTROS,outros,corrigir,outros
+gastos,G-E130-2026-07-06,E130,mes_formato,mes_referencia,07/2026,2026-07,corrigir,2026-07
+gastos,G-E132-2026-05-09,E132,mes_formato,mes_referencia,05/2026,2026-05,corrigir,2026-05
+gastos,G-E055-2026-08-07,E055,mes_formato,mes_referencia,08/2026,2026-08,corrigir,2026-08
+gastos,G-E147-2026-05-22,E147,mes_formato,mes_referencia,2026-5,2026-05,corrigir,2026-05
+gastos,G-E065-2026-06-04,E065,mes_formato,mes_referencia,06/2026,2026-06,corrigir,2026-06
+gastos,G-E110-2026-08-14,E110,mes_formato,mes_referencia,08/2026,2026-08,corrigir,2026-08
+gastos,G-E078-2026-05-06,E078,mes_formato,mes_referencia,05/2026,2026-05,corrigir,2026-05
+gastos,G-E035-2026-07-09,E035,mes_formato,mes_referencia,2026-7,2026-07,corrigir,2026-07
+gastos,G-E009-2026-06-21,E009,mes_formato,mes_referencia,06/2026,2026-06,corrigir,2026-06
+gastos,G-E025-2026-08-16,E025,mes_formato,mes_referencia,2026-8,2026-08,corrigir,2026-08
+gastos,G-E024-2026-10-08,E024,mes_formato,mes_referencia,10/2026,2026-10,corrigir,2026-10
+gastos,G-E106-2026-06-12,E106,mes_formato,mes_referencia,06/2026,2026-06,corrigir,2026-06
+gastos,G-E134-2026-08-02,E134,mes_formato,mes_referencia,08/2026,2026-08,corrigir,2026-08
+gastos,G-E117-2026-10-01,E117,mes_formato,mes_referencia,2026-10,2026-10,corrigir,2026-10
+gastos,G-E140-2026-06-06,E140,mes_formato,mes_referencia,2026-6,2026-06,corrigir,2026-06
+gastos,G-E021-2026-06-02,E021,mes_formato,mes_referencia,2026-6,2026-06,corrigir,2026-06
+gastos,G-E126-2026-05-06,E126,mes_formato,mes_referencia,2026-5,2026-05,corrigir,2026-05
+gastos,G-E100-2026-06-15,E100,mes_formato,mes_referencia,06/2026,2026-06,corrigir,2026-06
+gastos,G-E037-2026-06-05,E037,mes_formato,mes_referencia,2026-6,2026-06,corrigir,2026-06
+gastos,G-E148-2026-08-04,E148,mes_formato,mes_referencia,08/2026,2026-08,corrigir,2026-08
+gastos,G-E141-2026-08-20,E141,mes_formato,mes_referencia,08/2026,2026-08,corrigir,2026-08
+gastos,G-E077-2026-06-15,E077,mes_formato,mes_referencia,06/2026,2026-06,corrigir,2026-06
+gastos,G-E064-2026-07-16,E064,mes_formato,mes_referencia,2026-7,2026-07,corrigir,2026-07
+gastos,G-E115-2026-05-14,E115,mes_formato,mes_referencia,05/2026,2026-05,corrigir,2026-05
+gastos,G-E125-2026-08-16,E125,mes_formato,mes_referencia,2026-8,2026-08,corrigir,2026-08
+gastos,G-E134-2026-08-14,E134,mes_formato,mes_referencia,2026-8,2026-08,corrigir,2026-08
+gastos,G-E143-2026-06-01,E143,mes_formato,mes_referencia,2026-6,2026-06,corrigir,2026-06
+gastos,G-E140-2026-10-02,E140,mes_formato,mes_referencia,2026-10,2026-10,corrigir,2026-10
+gastos,G-E119-2026-07-10,E119,mes_formato,mes_referencia,2026-7,2026-07,corrigir,2026-07
+gastos,G-E067-2026-10-08,E067,mes_formato,mes_referencia,10/2026,2026-10,corrigir,2026-10
+gastos,G-E012-2026-09-12,E012,mes_formato,mes_referencia,09/2026,2026-09,corrigir,2026-09
+gastos,G-E013-2026-07-03,E013,mes_formato,mes_referencia,2026-7,2026-07,corrigir,2026-07
+gastos,G-E066-2026-06-03,E066,mes_formato,mes_referencia,06/2026,2026-06,corrigir,2026-06
+gastos,G-E014-2026-10-14,E014,mes_formato,mes_referencia,10/2026,2026-10,corrigir,2026-10
+gastos,G-E015-2026-10-08,E015,mes_formato,mes_referencia,2026-10,2026-10,corrigir,2026-10
+gastos,G-E123-2026-08-13,E123,mes_formato,mes_referencia,2026-8,2026-08,corrigir,2026-08
+gastos,G-E008-2026-08-13,E008,mes_formato,mes_referencia,2026-8,2026-08,corrigir,2026-08
+gastos,G-E031-2026-07-09,E031,mes_formato,mes_referencia,2026-7,2026-07,corrigir,2026-07
+gastos,G-E074-2026-09-02,E074,mes_formato,mes_referencia,09/2026,2026-09,corrigir,2026-09
+gastos,G-E076-2026-08-11,E076,mes_formato,mes_referencia,2026-8,2026-08,corrigir,2026-08
+gastos,G-E144-2026-05-04,E144,mes_formato,mes_referencia,2026-5,2026-05,corrigir,2026-05
+gastos,G-E145-2026-09-03,E145,mes_formato,mes_referencia,09/2026,2026-09,corrigir,2026-09
+gastos,G-E149-2026-08-13,E149,mes_formato,mes_referencia,2026-8,2026-08,corrigir,2026-08
+gastos,G-E025-2026-06-20,E025,mes_formato,mes_referencia,2026-6,2026-06,corrigir,2026-06
+gastos,G-E140-2026-09-04,E140,mes_formato,mes_referencia,2026-9,2026-09,corrigir,2026-09
+gastos,G-E117-2026-09-17,E117,mes_formato,mes_referencia,2026-9,2026-09,corrigir,2026-09
+gastos,G-E037-2026-10-07,E037,mes_formato,mes_referencia,2026-10,2026-10,corrigir,2026-10
+gastos,G-E096-2026-08-16,E096,mes_formato,mes_referencia,08/2026,2026-08,corrigir,2026-08
+gastos,G-E099-2026-07-13,E099,mes_formato,mes_referencia,2026-7,2026-07,corrigir,2026-07
+gastos,G-E135-2026-10-17,E135,mes_formato,mes_referencia,10/2026,2026-10,corrigir,2026-10
+gastos,G-E025-2026-06-01,E025,mes_formato,mes_referencia,2026-6,2026-06,corrigir,2026-06
+gastos,G-E043-2026-10-09,E043,mes_formato,mes_referencia,2026-10,2026-10,corrigir,2026-10
+gastos,G-E039-2026-05-01,E039,mes_formato,mes_referencia,2026-5,2026-05,corrigir,2026-05
+gastos,G-E003-2026-10-09,E003,mes_formato,mes_referencia,2026-10,2026-10,corrigir,2026-10
+gastos,G-E026-2026-09-02,E026,mes_formato,mes_referencia,2026-9,2026-09,corrigir,2026-09
+gastos,G-E055-2026-10-11,E055,mes_formato,mes_referencia,2026-10,2026-10,corrigir,2026-10
+gastos,G-E133-2026-09-12,E133,mes_formato,mes_referencia,09/2026,2026-09,corrigir,2026-09
+gastos,G-E022-2026-08-14,E022,mes_formato,mes_referencia,2026-8,2026-08,corrigir,2026-08
+gastos,G-E126-2026-09-10,E126,mes_formato,mes_referencia,09/2026,2026-09,corrigir,2026-09
+gastos,G-E059-2026-08-02,E059,mes_formato,mes_referencia,2026-8,2026-08,corrigir,2026-08
+gastos,G-E136-2026-07-05,E136,mes_formato,mes_referencia,2026-7,2026-07,corrigir,2026-07
+gastos,G-E059-2026-10-15,E059,mes_formato,mes_referencia,10/2026,2026-10,corrigir,2026-10
+gastos,G-E090-2026-09-12,E090,mes_formato,mes_referencia,2026-9,2026-09,corrigir,2026-09
+gastos,G-E040-2026-09-18,E040,mes_formato,mes_referencia,2026-9,2026-09,corrigir,2026-09
+gastos,G-E120-2026-06-03,E120,mes_formato,mes_referencia,2026-6,2026-06,corrigir,2026-06
+gastos,G-E033-2026-07-06,E033,mes_formato,mes_referencia,2026-7,2026-07,corrigir,2026-07
+gastos,G-E137-2026-05-07,E137,mes_formato,mes_referencia,05/2026,2026-05,corrigir,2026-05
+gastos,G-E033-2026-05-13,E033,mes_formato,mes_referencia,05/2026,2026-05,corrigir,2026-05
+gastos,G-E122-2026-06-14,E122,mes_formato,mes_referencia,2026-6,2026-06,corrigir,2026-06
+gastos,G-E068-2026-08-10,E068,mes_formato,mes_referencia,2026-8,2026-08,corrigir,2026-08
+gastos,G-E014-2026-08-10,E014,mes_formato,mes_referencia,2026-8,2026-08,corrigir,2026-08
+gastos,G-E008-2026-08-10,E008,mes_formato,mes_referencia,2026-8,2026-08,corrigir,2026-08
+gastos,G-E057-2026-09-06,E057,mes_formato,mes_referencia,2026-9,2026-09,corrigir,2026-09
+gastos,G-E054-2026-06-17,E054,mes_formato,mes_referencia,06/2026,2026-06,corrigir,2026-06
+gastos,G-E059-2026-10-21,E059,mes_formato,mes_referencia,2026-10,2026-10,corrigir,2026-10
+gastos,G-E082-2026-09-14,E082,mes_formato,mes_referencia,09/2026,2026-09,corrigir,2026-09
+gastos,G-E081-2026-05-10,E081,mes_formato,mes_referencia,05/2026,2026-05,corrigir,2026-05
+gastos,G-E061-2026-05-22,E061,mes_formato,mes_referencia,05/2026,2026-05,corrigir,2026-05
+gastos,G-E110-2026-09-04,E110,mes_formato,mes_referencia,2026-9,2026-09,corrigir,2026-09
+gastos,G-E016-2026-06-08,E016,mes_formato,mes_referencia,2026-6,2026-06,corrigir,2026-06
+gastos,G-E013-2026-05-12,E013,mes_formato,mes_referencia,2026-5,2026-05,corrigir,2026-05
+gastos,G-E020-2026-05-20,E020,mes_formato,mes_referencia,05/2026,2026-05,corrigir,2026-05
+gastos,G-E147-2026-08-16,E147,mes_formato,mes_referencia,08/2026,2026-08,corrigir,2026-08
+gastos,G-E027-2026-06-16,E027,mes_formato,mes_referencia,2026-6,2026-06,corrigir,2026-06
+gastos,G-E052-2026-05-02,E052,mes_formato,mes_referencia,05/2026,2026-05,corrigir,2026-05
+gastos,G-E129-2026-08-12,E129,mes_formato,mes_referencia,08/2026,2026-08,corrigir,2026-08
+gastos,G-E098-2026-08-04,E098,mes_formato,mes_referencia,08/2026,2026-08,corrigir,2026-08
+gastos,G-E084-2026-05-18,E084,mes_formato,mes_referencia,05/2026,2026-05,corrigir,2026-05
+gastos,G-E004-2026-06-16,E004,mes_formato,mes_referencia,06/2026,2026-06,corrigir,2026-06
+gastos,G-E115-2026-10-13,E115,mes_formato,mes_referencia,2026-10,2026-10,corrigir,2026-10
+gastos,G-E059-2026-08-06,E059,mes_formato,mes_referencia,2026-8,2026-08,corrigir,2026-08
+gastos,G-E112-2026-06-10,E112,mes_formato,mes_referencia,2026-6,2026-06,corrigir,2026-06
+gastos,G-E005-2026-05-10,E005,mes_formato,mes_referencia,05/2026,2026-05,corrigir,2026-05
+gastos,G-E120-2026-10-06,E120,mes_formato,mes_referencia,2026-10,2026-10,corrigir,2026-10
+gastos,G-E004-2026-10-20,E004,mes_formato,mes_referencia,2026-10,2026-10,corrigir,2026-10
+gastos,G-E079-2026-07-05,E079,mes_formato,mes_referencia,07/2026,2026-07,corrigir,2026-07
+gastos,G-E096-2026-10-16,E096,mes_formato,mes_referencia,10/2026,2026-10,corrigir,2026-10
+gastos,G-E010-2026-07-19,E010,mes_formato,mes_referencia,07/2026,2026-07,corrigir,2026-07
+gastos,G-E061-2026-07-02,E061,mes_formato,mes_referencia,07/2026,2026-07,corrigir,2026-07
+gastos,G-E105-2026-07-04,E105,mes_formato,mes_referencia,07/2026,2026-07,corrigir,2026-07
+gastos,G-E023-2026-06-11,E023,mes_formato,mes_referencia,2026-6,2026-06,corrigir,2026-06
+gastos,G-E137-2026-10-16,E137,mes_formato,mes_referencia,10/2026,2026-10,corrigir,2026-10
+gastos,G-E143-2026-06-09,E143,mes_formato,mes_referencia,06/2026,2026-06,corrigir,2026-06
+gastos,G-E061-2026-06-12,E061,mes_formato,mes_referencia,2026-6,2026-06,corrigir,2026-06
+gastos,G-E147-2026-07-01,E147,mes_formato,mes_referencia,07/2026,2026-07,corrigir,2026-07
+gastos,G-E022-2026-06-06,E022,mes_formato,mes_referencia,06/2026,2026-06,corrigir,2026-06
+gastos,G-E091-2026-09-12,E091,mes_formato,mes_referencia,09/2026,2026-09,corrigir,2026-09
+gastos,G-E018-2026-07-15,E018,mes_formato,mes_referencia,2026-7,2026-07,corrigir,2026-07
+gastos,G-E115-2026-08-20,E115,mes_formato,mes_referencia,2026-8,2026-08,corrigir,2026-08
+gastos,G-E078-2026-06-15,E078,mes_formato,mes_referencia,06/2026,2026-06,corrigir,2026-06
+gastos,G-E078-2026-09-04,E078,mes_formato,mes_referencia,2026-9,2026-09,corrigir,2026-09
+gastos,G-E111-2026-07-12,E111,mes_formato,mes_referencia,07/2026,2026-07,corrigir,2026-07
+gastos,G-E117-2026-06-12,E117,mes_formato,mes_referencia,2026-6,2026-06,corrigir,2026-06
+gastos,G-E056-2026-05-24,E056,mes_formato,mes_referencia,05/2026,2026-05,corrigir,2026-05
+gastos,G-E036-2026-05-17,E036,mes_formato,mes_referencia,05/2026,2026-05,corrigir,2026-05
+gastos,G-E026-2026-06-08,E026,mes_formato,mes_referencia,2026-6,2026-06,corrigir,2026-06
+gastos,G-E085-2026-05-09,E085,mes_formato,mes_referencia,05/2026,2026-05,corrigir,2026-05
+gastos,G-E099-2026-09-05,E099,mes_formato,mes_referencia,09/2026,2026-09,corrigir,2026-09
+gastos,G-E016-2026-06-10,E016,mes_formato,mes_referencia,06/2026,2026-06,corrigir,2026-06
+gastos,G-E063-2026-10-08,E063,mes_formato,mes_referencia,2026-10,2026-10,corrigir,2026-10
+gastos,G-E018-2026-09-06,E018,mes_formato,mes_referencia,2026-9,2026-09,corrigir,2026-09
+gastos,G-E009-2026-10-02,E009,mes_formato,mes_referencia,10/2026,2026-10,corrigir,2026-10
+gastos,G-E063-2026-05-27,E063,mes_formato,mes_referencia,05/2026,2026-05,corrigir,2026-05
+gastos,G-E060-2026-06-02,E060,mes_formato,mes_referencia,2026-6,2026-06,corrigir,2026-06
+gastos,G-E027-2026-05-10,E027,mes_formato,mes_referencia,05/2026,2026-05,corrigir,2026-05
+gastos,G-E056-2026-10-15,E056,mes_formato,mes_referencia,10/2026,2026-10,corrigir,2026-10
+gastos,G-E097-2026-08-06,E097,mes_formato,mes_referencia,08/2026,2026-08,corrigir,2026-08
+gastos,G-E130-2026-07-07,E130,mes_formato,mes_referencia,2026-7,2026-07,corrigir,2026-07
+gastos,G-E010-2026-08-13,E010,mes_formato,mes_referencia,08/2026,2026-08,corrigir,2026-08
+gastos,G-E055-2026-06-11,E055,mes_formato,mes_referencia,2026-6,2026-06,corrigir,2026-06
+gastos,G-E032-2026-05-09,E032,mes_formato,mes_referencia,05/2026,2026-05,corrigir,2026-05
+gastos,G-E129-2026-07-10,E129,mes_formato,mes_referencia,2026-7,2026-07,corrigir,2026-07
+gastos,G-E131-2026-05-10,E131,mes_formato,mes_referencia,2026-5,2026-05,corrigir,2026-05
+gastos,G-E081-2026-09-21,E081,mes_formato,mes_referencia,09/2026,2026-09,corrigir,2026-09
+gastos,G-E051-2026-10-16,E051,mes_formato,mes_referencia,2026-10,2026-10,corrigir,2026-10
+gastos,G-E111-2026-07-17,E111,mes_formato,mes_referencia,07/2026,2026-07,corrigir,2026-07
+gastos,G-E081-2026-06-07,E081,mes_formato,mes_referencia,06/2026,2026-06,corrigir,2026-06
+gastos,G-E014-2026-08-06,E014,mes_formato,mes_referencia,2026-8,2026-08,corrigir,2026-08
+gastos,G-E148-2026-07-17,E148,mes_formato,mes_referencia,07/2026,2026-07,corrigir,2026-07
+gastos,G-E136-2026-10-12,E136,mes_formato,mes_referencia,2026-10,2026-10,corrigir,2026-10
+gastos,G-E065-2026-10-13,E065,mes_formato,mes_referencia,2026-10,2026-10,corrigir,2026-10
+gastos,G-E033-2026-06-11,E033,mes_formato,mes_referencia,2026-6,2026-06,corrigir,2026-06
+gastos,G-E061-2026-05-15,E061,mes_formato,mes_referencia,05/2026,2026-05,corrigir,2026-05
+gastos,G-E128-2026-07-09,E128,mes_formato,mes_referencia,2026-7,2026-07,corrigir,2026-07
+gastos,G-E077-2026-06-14,E077,mes_formato,mes_referencia,2026-6,2026-06,corrigir,2026-06
+gastos,G-E036-2026-10-02,E036,mes_formato,mes_referencia,2026-10,2026-10,corrigir,2026-10
+gastos,G-E010-2026-07-06,E010,mes_formato,mes_referencia,07/2026,2026-07,corrigir,2026-07
+gastos,G-E038-2026-09-01,E038,mes_formato,mes_referencia,09/2026,2026-09,corrigir,2026-09
+gastos,G-E138-2026-07-24,E138,mes_formato,mes_referencia,2026-7,2026-07,corrigir,2026-07
+gastos,G-E031-2026-10-21,E031,mes_formato,mes_referencia,2026-10,2026-10,corrigir,2026-10
+gastos,G-E080-2026-09-15,E080,mes_formato,mes_referencia,09/2026,2026-09,corrigir,2026-09
+gastos,G-E070-2026-06-03,E070,mes_formato,mes_referencia,06/2026,2026-06,corrigir,2026-06
+gastos,G-E106-2026-09-10,E106,mes_formato,mes_referencia,09/2026,2026-09,corrigir,2026-09
+gastos,G-E078-2026-08-11,E078,mes_formato,mes_referencia,08/2026,2026-08,corrigir,2026-08
+gastos,G-E076-2026-10-05,E076,mes_formato,mes_referencia,2026-10,2026-10,corrigir,2026-10
+gastos,G-E124-2026-07-03,E124,mes_formato,mes_referencia,2026-7,2026-07,corrigir,2026-07
+gastos,G-E145-2026-10-02,E145,mes_formato,mes_referencia,2026-10,2026-10,corrigir,2026-10
+gastos,G-E143-2026-10-08,E143,mes_formato,mes_referencia,2026-10,2026-10,corrigir,2026-10
+gastos,G-E136-2026-07-04,E136,mes_formato,mes_referencia,07/2026,2026-07,corrigir,2026-07
+gastos,G-E074-2026-07-02,E074,mes_formato,mes_referencia,07/2026,2026-07,corrigir,2026-07
+gastos,G-E091-2026-08-04,E091,mes_formato,mes_referencia,08/2026,2026-08,corrigir,2026-08
+gastos,G-E041-2026-06-12,E041,mes_formato,mes_referencia,06/2026,2026-06,corrigir,2026-06
+gastos,G-E091-2026-07-03,E091,mes_formato,mes_referencia,2026-7,2026-07,corrigir,2026-07
+gastos,G-E058-2026-08-11,E058,mes_formato,mes_referencia,2026-8,2026-08,corrigir,2026-08
+gastos,G-E100-2026-06-09,E100,mes_formato,mes_referencia,06/2026,2026-06,corrigir,2026-06
+gastos,G-E033-2026-06-20,E033,mes_formato,mes_referencia,2026-6,2026-06,corrigir,2026-06
+gastos,G-E060-2026-09-21,E060,mes_formato,mes_referencia,09/2026,2026-09,corrigir,2026-09
+gastos,G-E076-2026-06-18,E076,mes_formato,mes_referencia,06/2026,2026-06,corrigir,2026-06
+gastos,G-E043-2026-10-03,E043,mes_formato,mes_referencia,10/2026,2026-10,corrigir,2026-10
+gastos,G-E134-2026-09-08,E134,mes_formato,mes_referencia,2026-9,2026-09,corrigir,2026-09
+gastos,G-E025-2026-07-08,E025,mes_formato,mes_referencia,07/2026,2026-07,corrigir,2026-07
+gastos,G-E143-2026-09-10,E143,mes_formato,mes_referencia,2026-9,2026-09,corrigir,2026-09
+gastos,G-E058-2026-06-16,E058,mes_formato,mes_referencia,06/2026,2026-06,corrigir,2026-06
+gastos,G-E070-2026-05-23,E070,mes_formato,mes_referencia,05/2026,2026-05,corrigir,2026-05
+gastos,G-E066-2026-05-10,E066,mes_formato,mes_referencia,05/2026,2026-05,corrigir,2026-05
+gastos,G-E004-2026-08-21,E004,mes_formato,mes_referencia,2026-8,2026-08,corrigir,2026-08
+gastos,G-E039-2026-07-14,E039,mes_formato,mes_referencia,07/2026,2026-07,corrigir,2026-07
+gastos,G-E068-2026-06-01,E068,mes_formato,mes_referencia,2026-6,2026-06,corrigir,2026-06
+gastos,G-E078-2026-10-09,E078,mes_formato,mes_referencia,10/2026,2026-10,corrigir,2026-10
+gastos,G-E078-2026-06-16,E078,mes_formato,mes_referencia,06/2026,2026-06,corrigir,2026-06
+gastos,G-E129-2026-09-19,E129,mes_formato,mes_referencia,2026-9,2026-09,corrigir,2026-09
+gastos,G-E089-2026-10-20,E089,mes_formato,mes_referencia,10/2026,2026-10,corrigir,2026-10
+gastos,G-E109-2026-10-18,E109,mes_formato,mes_referencia,2026-10,2026-10,corrigir,2026-10
+gastos,G-E055-2026-09-05,E055,mes_formato,mes_referencia,09/2026,2026-09,corrigir,2026-09
+gastos,G-E018-2026-08-16,E018,mes_formato,mes_referencia,08/2026,2026-08,corrigir,2026-08
+gastos,G-E072-2026-08-15,E072,mes_formato,mes_referencia,2026-8,2026-08,corrigir,2026-08
+gastos,G-E122-2026-06-16,E122,mes_formato,mes_referencia,2026-6,2026-06,corrigir,2026-06
+gastos,G-E149-2026-09-13,E149,duplicado,id_registro,,G-E149-2026-09-13,remover,
+gastos,G-E043-2026-10-22,E043,duplicado,id_registro,,G-E043-2026-10-22,remover,
+gastos,G-E055-2026-05-17,E055,duplicado,id_registro,,G-E055-2026-05-17,remover,
+gastos,G-E056-2026-08-02,E056,duplicado,id_registro,,G-E056-2026-08-02,remover,
+gastos,G-E134-2026-07-09,E134,duplicado,id_registro,,G-E134-2026-07-09,remover,
+gastos,G-E035-2026-09-06,E035,duplicado,id_registro,,G-E035-2026-09-06,remover,
+gastos,G-E107-2026-09-18,E107,duplicado,id_registro,,G-E107-2026-09-18,remover,
+gastos,G-E005-2026-06-25,E005,duplicado,id_registro,,G-E005-2026-06-25,remover,
+gastos,G-E118-2026-09-21,E118,duplicado,id_registro,,G-E118-2026-09-21,remover,
+gastos,G-E113-2026-09-16,E113,duplicado,id_registro,,G-E113-2026-09-16,remover,
+gastos,G-E064-2026-06-13,E064,duplicado,id_registro,,G-E064-2026-06-13,remover,
+gastos,G-E067-2026-07-02,E067,duplicado,id_registro,,G-E067-2026-07-02,remover,
+gastos,G-E138-2026-10-08,E138,duplicado,id_registro,,G-E138-2026-10-08,remover,
+gastos,G-E029-2026-08-19,E029,duplicado,id_registro,,G-E029-2026-08-19,remover,
+gastos,G-E044-2026-05-20,E044,duplicado,id_registro,,G-E044-2026-05-20,remover,
+gastos,G-E119-2026-06-05,E119,duplicado,id_registro,,G-E119-2026-06-05,remover,
+gastos,G-E017-2026-07-04,E017,duplicado,id_registro,,G-E017-2026-07-04,remover,
+gastos,G-E041-2026-09-19,E041,duplicado,id_registro,,G-E041-2026-09-19,remover,
+gastos,G-E047-2026-05-19,E047,duplicado,id_registro,,G-E047-2026-05-19,remover,
+gastos,G-E036-2026-09-11,E036,duplicado,id_registro,,G-E036-2026-09-11,remover,
+gastos,G-E127-2026-05-09,E127,duplicado,id_registro,,G-E127-2026-05-09,remover,
+gastos,G-E118-2026-09-23,E118,duplicado,id_registro,,G-E118-2026-09-23,remover,
+gastos,G-E020-2026-07-10,E020,duplicado,id_registro,,G-E020-2026-07-10,remover,
+gastos,G-E100-2026-09-06,E100,duplicado,id_registro,,G-E100-2026-09-06,remover,
+gastos,G-E098-2026-09-11,E098,duplicado,id_registro,,G-E098-2026-09-11,remover,
+gastos,G-E150-2026-05-12,E150,duplicado,id_registro,,G-E150-2026-05-12,remover,
+gastos,G-E034-2026-10-26,E034,duplicado,id_registro,,G-E034-2026-10-26,remover,
+gastos,G-E070-2026-05-17,E070,duplicado,id_registro,,G-E070-2026-05-17,remover,
+gastos,G-E060-2026-09-08,E060,duplicado,id_registro,,G-E060-2026-09-08,remover,
+gastos,G-E082-2026-10-03,E082,duplicado,id_registro,,G-E082-2026-10-03,remover,
+gastos,G-E007-2026-09-12,E007,duplicado,id_registro,,G-E007-2026-09-12,remover,
+gastos,G-E102-2026-09-18,E102,duplicado,id_registro,,G-E102-2026-09-18,remover,
+gastos,G-E029-2026-09-06,E029,duplicado,id_registro,,G-E029-2026-09-06,remover,
+gastos,G-E012-2026-06-18,E012,duplicado,id_registro,,G-E012-2026-06-18,remover,
+gastos,G-E074-2026-09-03,E074,duplicado,id_registro,,G-E074-2026-09-03,remover,
+gastos,G-E150-2026-10-16,E150,duplicado,id_registro,,G-E150-2026-10-16,remover,
+gastos,G-E147-2026-08-27,E147,duplicado,id_registro,,G-E147-2026-08-27,remover,
+gastos,G-E042-2026-10-12,E042,duplicado,id_registro,,G-E042-2026-10-12,remover,
+gastos,G-E138-2026-07-06,E138,duplicado,id_registro,,G-E138-2026-07-06,remover,
+gastos,G-E042-2026-09-12,E042,duplicado,id_registro,,G-E042-2026-09-12,remover,
+gastos,G-E057-2026-05-09,E057,duplicado,id_registro,,G-E057-2026-05-09,remover,
+gastos,G-E073-2026-08-03,E073,duplicado,id_registro,,G-E073-2026-08-03,remover,
+gastos,G-E148-2026-10-15,E148,duplicado,id_registro,,G-E148-2026-10-15,remover,
+gastos,G-E048-2026-06-02,E048,duplicado,id_registro,,G-E048-2026-06-02,remover,
+gastos,G-E001-2026-07-08,E001,duplicado,id_registro,,G-E001-2026-07-08,remover,
+gastos,G-E001-2026-09-20,E001,duplicado,id_registro,,G-E001-2026-09-20,remover,
+gastos,G-E047-2026-08-02,E047,duplicado,id_registro,,G-E047-2026-08-02,remover,
+gastos,G-E012-2026-06-03,E012,duplicado,id_registro,,G-E012-2026-06-03,remover,
+gastos,G-E010-2026-09-04,E010,duplicado,id_registro,,G-E010-2026-09-04,remover,
+gastos,G-E045-2026-08-11,E045,duplicado,id_registro,,G-E045-2026-08-11,remover,
+gastos,G-E026-2026-07-26,E026,duplicado,id_registro,,G-E026-2026-07-26,remover,
+gastos,G-E002-2026-09-24,E002,duplicado,id_registro,,G-E002-2026-09-24,remover,
+gastos,G-E080-2026-09-19,E080,duplicado,id_registro,,G-E080-2026-09-19,remover,
+gastos,G-E049-2026-07-14,E049,duplicado,id_registro,,G-E049-2026-07-14,remover,
+gastos,G-E084-2026-08-09,E084,duplicado,id_registro,,G-E084-2026-08-09,remover,
+gastos,G-E132-2026-08-06,E132,duplicado,id_registro,,G-E132-2026-08-06,remover,
+gastos,G-E138-2026-10-05,E138,duplicado,id_registro,,G-E138-2026-10-05,remover,
+gastos,G-E105-2026-06-24,E105,duplicado,id_registro,,G-E105-2026-06-24,remover,
+gastos,G-E031-2026-06-20,E031,duplicado,id_registro,,G-E031-2026-06-20,remover,
+gastos,G-E150-2026-06-23,E150,duplicado,id_registro,,G-E150-2026-06-23,remover,
+gastos,G-E043-2026-10-08,E043,duplicado,id_registro,,G-E043-2026-10-08,remover,
+gastos,G-E052-2026-07-09,E052,duplicado,id_registro,,G-E052-2026-07-09,remover,
+gastos,G-E126-2026-08-11,E126,duplicado,id_registro,,G-E126-2026-08-11,remover,
+gastos,G-E005-2026-08-09,E005,duplicado,id_registro,,G-E005-2026-08-09,remover,
+gastos,G-E081-2026-06-08,E081,duplicado,id_registro,,G-E081-2026-06-08,remover,
+gastos,G-E070-2026-07-04,E070,duplicado,id_registro,,G-E070-2026-07-04,remover,
+gastos,G-E141-2026-07-19,E141,duplicado,id_registro,,G-E141-2026-07-19,remover,
+gastos,G-E065-2026-08-01,E065,duplicado,id_registro,,G-E065-2026-08-01,remover,
+gastos,G-E023-2026-07-15,E023,duplicado,id_registro,,G-E023-2026-07-15,remover,
+gastos,G-E067-2026-07-12,E067,duplicado,id_registro,,G-E067-2026-07-12,remover,
+gastos,G-E063-2026-10-05,E063,duplicado,id_registro,,G-E063-2026-10-05,remover,
+gastos,G-E140-2026-08-20,E140,duplicado,id_registro,,G-E140-2026-08-20,remover,
+gastos,G-E116-2026-08-15,E116,duplicado,id_registro,,G-E116-2026-08-15,remover,
+gastos,G-E131-2026-06-18,E131,duplicado,id_registro,,G-E131-2026-06-18,remover,
+gastos,G-E056-2026-05-15,E056,duplicado,id_registro,,G-E056-2026-05-15,remover,
+gastos,G-E080-2026-10-12,E080,duplicado,id_registro,,G-E080-2026-10-12,remover,
+gastos,G-E056-2026-09-04,E056,duplicado,id_registro,,G-E056-2026-09-04,remover,
+gastos,G-E030-2026-07-01,E030,duplicado,id_registro,,G-E030-2026-07-01,remover,
+gastos,G-E098-2026-05-08,E098,duplicado,id_registro,,G-E098-2026-05-08,remover,
+gastos,G-E036-2026-08-01,E036,duplicado,id_registro,,G-E036-2026-08-01,remover,
+gastos,G-E084-2026-10-10,E084,duplicado,id_registro,,G-E084-2026-10-10,remover,
+gastos,G-E140-2026-06-23,E140,duplicado,id_registro,,G-E140-2026-06-23,remover,
+gastos,G-E009-2026-10-04,E009,duplicado,id_registro,,G-E009-2026-10-04,remover,
+gastos,G-E072-2026-05-09,E072,duplicado,id_registro,,G-E072-2026-05-09,remover,
+gastos,G-E129-2026-05-19,E129,duplicado,id_registro,,G-E129-2026-05-19,remover,
+gastos,G-E060-2026-09-12,E060,duplicado,id_registro,,G-E060-2026-09-12,remover,
+gastos,G-E075-2026-06-03,E075,duplicado,id_registro,,G-E075-2026-06-03,remover,
+gastos,G-E026-2026-08-16,E026,duplicado,id_registro,,G-E026-2026-08-16,remover,
+gastos,G-E008-2026-07-07,E008,duplicado,id_registro,,G-E008-2026-07-07,remover,
+gastos,G-E020-2026-06-03,E020,duplicado,id_registro,,G-E020-2026-06-03,remover,
+gastos,G-E016-2026-07-13,E016,duplicado,id_registro,,G-E016-2026-07-13,remover,
+gastos,G-E118-2026-09-18,E118,duplicado,id_registro,,G-E118-2026-09-18,remover,
+gastos,G-E120-2026-05-16,E120,duplicado,id_registro,,G-E120-2026-05-16,remover,
+gastos,G-E005-2026-07-16,E005,duplicado,id_registro,,G-E005-2026-07-16,remover,
+gastos,G-E142-2026-05-09,E142,duplicado,id_registro,,G-E142-2026-05-09,remover,
+gastos,G-E073-2026-05-16,E073,duplicado,id_registro,,G-E073-2026-05-16,remover,
+gastos,G-E003-2026-05-12,E003,duplicado,id_registro,,G-E003-2026-05-12,remover,
+gastos,G-E043-2026-07-19,E043,duplicado,id_registro,,G-E043-2026-07-19,remover,
+gastos,G-E092-2026-05-10,E092,duplicado,id_registro,,G-E092-2026-05-10,remover,
+gastos,G-E111-2026-10-11,E111,duplicado,id_registro,,G-E111-2026-10-11,remover,
+gastos,G-E122-2026-10-03,E122,duplicado,id_registro,,G-E122-2026-10-03,remover,
+gastos,G-E027-2026-06-22,E027,duplicado,id_registro,,G-E027-2026-06-22,remover,
+gastos,G-E109-2026-10-16,E109,duplicado,id_registro,,G-E109-2026-10-16,remover,
+gastos,G-E042-2026-10-22,E042,duplicado,id_registro,,G-E042-2026-10-22,remover,
+gastos,G-E082-2026-06-12,E082,duplicado,id_registro,,G-E082-2026-06-12,remover,
+gastos,G-E011-2026-08-12,E011,duplicado,id_registro,,G-E011-2026-08-12,remover,
+gastos,G-E150-2026-10-15,E150,duplicado,id_registro,,G-E150-2026-10-15,remover,
+gastos,G-E103-2026-09-05,E103,duplicado,id_registro,,G-E103-2026-09-05,remover,
+gastos,G-E105-2026-07-19,E105,duplicado,id_registro,,G-E105-2026-07-19,remover,
+gastos,G-E051-2026-05-05,E051,duplicado,id_registro,,G-E051-2026-05-05,remover,
+gastos,G-E147-2026-07-22,E147,duplicado,id_registro,,G-E147-2026-07-22,remover,
+gastos,G-E122-2026-05-16,E122,duplicado,id_registro,,G-E122-2026-05-16,remover,
+gastos,G-E069-2026-05-11,E069,duplicado,id_registro,,G-E069-2026-05-11,remover,
+gastos,G-E039-2026-07-19,E039,duplicado,id_registro,,G-E039-2026-07-19,remover,
+gastos,G-E105-2026-09-20,E105,duplicado,id_registro,,G-E105-2026-09-20,remover,
+gastos,G-E114-2026-08-22,E114,duplicado,id_registro,,G-E114-2026-08-22,remover,
+gastos,G-E114-2026-07-12,E114,duplicado,id_registro,,G-E114-2026-07-12,remover,
+gastos,G-E098-2026-06-24,E098,duplicado,id_registro,,G-E098-2026-06-24,remover,
+gastos,G-E128-2026-08-07,E128,duplicado,id_registro,,G-E128-2026-08-07,remover,
+gastos,G-E143-2026-09-11,E143,duplicado,id_registro,,G-E143-2026-09-11,remover,
+gastos,G-E127-2026-06-19,E127,duplicado,id_registro,,G-E127-2026-06-19,remover,
+gastos,G-E144-2026-09-04,E144,duplicado,id_registro,,G-E144-2026-09-04,remover,
+gastos,G-E045-2026-06-18,E045,duplicado,id_registro,,G-E045-2026-06-18,remover,
+gastos,G-E117-2026-08-12,E117,duplicado,id_registro,,G-E117-2026-08-12,remover,
+gastos,G-E042-2026-05-22,E042,duplicado,id_registro,,G-E042-2026-05-22,remover,
+gastos,G-E063-2026-08-04,E063,duplicado,id_registro,,G-E063-2026-08-04,remover,
+gastos,G-E055-2026-08-09,E055,duplicado,id_registro,,G-E055-2026-08-09,remover,
+gastos,G-E063-2026-09-12,E063,duplicado,id_registro,,G-E063-2026-09-12,remover,
+gastos,G-E127-2026-10-03,E127,duplicado,id_registro,,G-E127-2026-10-03,remover,
+gastos,G-E109-2026-10-13,E109,duplicado,id_registro,,G-E109-2026-10-13,remover,
+gastos,G-E100-2026-05-08,E100,duplicado,id_registro,,G-E100-2026-05-08,remover,
+gastos,G-E123-2026-06-21,E123,duplicado,id_registro,,G-E123-2026-06-21,remover,
+gastos,G-E141-2026-08-07,E141,duplicado,id_registro,,G-E141-2026-08-07,remover,
+gastos,G-E037-2026-07-03,E037,duplicado,id_registro,,G-E037-2026-07-03,remover,
+gastos,G-E036-2026-10-16,E036,duplicado,id_registro,,G-E036-2026-10-16,remover,
+gastos,G-E046-2026-05-04,E046,duplicado,id_registro,,G-E046-2026-05-04,remover,
+gastos,G-E148-2026-05-19,E148,duplicado,id_registro,,G-E148-2026-05-19,remover,
+gastos,G-E065-2026-10-05,E065,duplicado,id_registro,,G-E065-2026-10-05,remover,
+gastos,G-E072-2026-07-01,E072,duplicado,id_registro,,G-E072-2026-07-01,remover,
+gastos,G-E064-2026-05-07,E064,duplicado,id_registro,,G-E064-2026-05-07,remover,
+gastos,G-E087-2026-07-07,E087,duplicado,id_registro,,G-E087-2026-07-07,remover,
+gastos,G-E037-2026-10-02,E037,duplicado,id_registro,,G-E037-2026-10-02,remover,
+gastos,G-E082-2026-07-01,E082,duplicado,id_registro,,G-E082-2026-07-01,remover,
+gastos,G-E074-2026-08-03,E074,duplicado,id_registro,,G-E074-2026-08-03,remover,
+gastos,G-E040-2026-09-13,E040,duplicado,id_registro,,G-E040-2026-09-13,remover,
+gastos,G-E135-2026-06-01,E135,duplicado,id_registro,,G-E135-2026-06-01,remover,
+gastos,G-E025-2026-07-12,E025,duplicado,id_registro,,G-E025-2026-07-12,remover,
+gastos,G-E109-2026-10-03,E109,duplicado,id_registro,,G-E109-2026-10-03,remover,
+gastos,G-E050-2026-06-22,E050,duplicado,id_registro,,G-E050-2026-06-22,remover,
+gastos,G-E029-2026-05-08,E029,duplicado,id_registro,,G-E029-2026-05-08,remover,
+gastos,G-E083-2026-10-04,E083,duplicado,id_registro,,G-E083-2026-10-04,remover,
+gastos,G-E021-2026-07-12,E021,duplicado,id_registro,,G-E021-2026-07-12,remover,
+gastos,G-E116-2026-10-10,E116,duplicado,id_registro,,G-E116-2026-10-10,remover,
+gastos,G-E024-2026-07-05,E024,duplicado,id_registro,,G-E024-2026-07-05,remover,
+gastos,G-E137-2026-09-02,E137,duplicado,id_registro,,G-E137-2026-09-02,remover,
+gastos,G-E008-2026-09-19,E008,duplicado,id_registro,,G-E008-2026-09-19,remover,
+gastos,G-E142-2026-08-08,E142,duplicado,id_registro,,G-E142-2026-08-08,remover,
+gastos,G-E044-2026-06-15,E044,duplicado,id_registro,,G-E044-2026-06-15,remover,
+gastos,G-E018-2026-06-18,E018,duplicado,id_registro,,G-E018-2026-06-18,remover,
+gastos,G-E081-2026-07-15,E081,duplicado,id_registro,,G-E081-2026-07-15,remover,
+gastos,G-E037-2026-08-19,E037,duplicado,id_registro,,G-E037-2026-08-19,remover,
+gastos,G-E099-2026-09-15,E099,duplicado,id_registro,,G-E099-2026-09-15,remover,
+gastos,G-E090-2026-06-18,E090,duplicado,id_registro,,G-E090-2026-06-18,remover,
+gastos,G-E012-2026-10-05,E012,duplicado,id_registro,,G-E012-2026-10-05,remover,
+gastos,G-E011-2026-07-12,E011,duplicado,id_registro,,G-E011-2026-07-12,remover,
+gastos,G-E026-2026-05-04,E026,duplicado,id_registro,,G-E026-2026-05-04,remover,
+gastos,G-E004-2026-06-02,E004,duplicado,id_registro,,G-E004-2026-06-02,remover,
+gastos,G-E056-2026-06-17,E056,duplicado,id_registro,,G-E056-2026-06-17,remover,
+gastos,G-E113-2026-05-01,E113,duplicado,id_registro,,G-E113-2026-05-01,remover,
+gastos,G-E104-2026-07-04,E104,duplicado,id_registro,,G-E104-2026-07-04,remover,
+gastos,G-E048-2026-09-12,E048,duplicado,id_registro,,G-E048-2026-09-12,remover,
+gastos,G-E031-2026-05-18,E031,duplicado,id_registro,,G-E031-2026-05-18,remover,
+gastos,G-E029-2026-09-14,E029,duplicado,id_registro,,G-E029-2026-09-14,remover,
+gastos,G-E106-2026-07-26,E106,duplicado,id_registro,,G-E106-2026-07-26,remover,
+gastos,G-E145-2026-09-07,E145,duplicado,id_registro,,G-E145-2026-09-07,remover,
+gastos,G-E013-2026-05-16,E013,duplicado,id_registro,,G-E013-2026-05-16,remover,
+gastos,G-E105-2026-06-16,E105,duplicado,id_registro,,G-E105-2026-06-16,remover,
+gastos,G-E015-2026-05-20,E015,duplicado,id_registro,,G-E015-2026-05-20,remover,
+gastos,G-E112-2026-09-04,E112,duplicado,id_registro,,G-E112-2026-09-04,remover,
+gastos,G-E003-2026-07-02,E003,duplicado,id_registro,,G-E003-2026-07-02,remover,
+gastos,G-E125-2026-09-12,E125,duplicado,id_registro,,G-E125-2026-09-12,remover,
+gastos,G-E056-2026-10-08,E056,duplicado,id_registro,,G-E056-2026-10-08,remover,
+gastos,G-E043-2026-10-07,E043,duplicado,id_registro,,G-E043-2026-10-07,remover,
+gastos,G-E061-2026-09-06,E061,duplicado,id_registro,,G-E061-2026-09-06,remover,
+gastos,G-E147-2026-07-08,E147,duplicado,id_registro,,G-E147-2026-07-08,remover,
+gastos,G-E011-2026-06-11,E011,duplicado,id_registro,,G-E011-2026-06-11,remover,
+gastos,G-E087-2026-05-15,E087,duplicado,id_registro,,G-E087-2026-05-15,remover,
+estudos,S-E130-2026-09-04,E130,nota_vazia,nota,,6.8,sinalizar,
+estudos,S-E022-2026-07-04,E022,nota_vazia,nota,,6.8,sinalizar,
+estudos,S-E147-2026-07-02,E147,nota_vazia,nota,,6.4,sinalizar,
+estudos,S-E144-2026-08-04,E144,nota_vazia,nota,,4.4,sinalizar,
+estudos,S-E077-2026-07-01,E077,nota_vazia,nota,,8.1,sinalizar,
+estudos,S-E020-2026-09-01,E020,nota_vazia,nota,,6.5,sinalizar,
+estudos,S-E095-2026-10-03,E095,nota_vazia,nota,,7.9,sinalizar,
+estudos,S-E064-2026-06-02,E064,nota_vazia,nota,,5.8,sinalizar,
+estudos,S-E054-2026-08-04,E054,nota_vazia,nota,,5.5,sinalizar,
+estudos,S-E145-2026-06-02,E145,nota_vazia,nota,,9.7,sinalizar,
+estudos,S-E020-2026-10-02,E020,nota_vazia,nota,,4.7,sinalizar,
+estudos,S-E141-2026-08-03,E141,nota_vazia,nota,,9.0,sinalizar,
+estudos,S-E090-2026-09-02,E090,nota_vazia,nota,,5.8,sinalizar,
+estudos,S-E064-2026-05-04,E064,nota_vazia,nota,,7.9,sinalizar,
+estudos,S-E022-2026-07-02,E022,nota_vazia,nota,,3.7,sinalizar,
+estudos,S-E112-2026-10-03,E112,nota_vazia,nota,,6.1,sinalizar,
+estudos,S-E072-2026-08-03,E072,nota_vazia,nota,,9.3,sinalizar,
+estudos,S-E124-2026-06-01,E124,nota_vazia,nota,,4.6,sinalizar,
+estudos,S-E072-2026-05-02,E072,nota_vazia,nota,,5.4,sinalizar,
+estudos,S-E119-2026-06-03,E119,nota_vazia,nota,,8.3,sinalizar,
+estudos,S-E142-2026-05-03,E142,nota_vazia,nota,,6.3,sinalizar,
+estudos,S-E010-2026-09-04,E010,nota_vazia,nota,,6.7,sinalizar,
+estudos,S-E118-2026-05-03,E118,nota_vazia,nota,,7.1,sinalizar,
+estudos,S-E013-2026-06-02,E013,nota_vazia,nota,,8.8,sinalizar,
+estudos,S-E082-2026-05-01,E082,nota_vazia,nota,,3.5,sinalizar,
+estudos,S-E090-2026-09-01,E090,nota_vazia,nota,,6.5,sinalizar,
+estudos,S-E132-2026-10-04,E132,nota_vazia,nota,,7.6,sinalizar,
+estudos,S-E096-2026-07-01,E096,nota_vazia,nota,,5.2,sinalizar,
+estudos,S-E129-2026-09-02,E129,nota_vazia,nota,,4.8,sinalizar,
+estudos,S-E062-2026-09-03,E062,nota_vazia,nota,,3.0,sinalizar,
+estudos,S-E075-2026-06-02,E075,nota_vazia,nota,,5.0,sinalizar,
+estudos,S-E117-2026-08-04,E117,nota_vazia,nota,,7.5,sinalizar,
+estudos,S-E104-2026-07-01,E104,nota_vazia,nota,,5.4,sinalizar,
+estudos,S-E147-2026-10-04,E147,nota_vazia,nota,,5.6,sinalizar,
+estudos,S-E003-2026-08-02,E003,nota_vazia,nota,,3.7,sinalizar,
+estudos,S-E034-2026-06-04,E034,nota_invalida,nota,15,7.7,remover,
+estudos,S-E114-2026-10-03,E114,nota_invalida,nota,100,6.4,remover,
+estudos,S-E004-2026-08-03,E004,nota_invalida,nota,12,5.1,remover,
+estudos,S-E147-2026-07-03,E147,nota_invalida,nota,100,6.5,remover,
+estudos,S-E053-2026-05-03,E053,nota_invalida,nota,12,4.9,remover,
+estudos,S-E058-2026-07-04,E058,nota_invalida,nota,11,4.3,remover,
+estudos,S-E116-2026-10-04,E116,nota_invalida,nota,12,5.9,remover,
+estudos,S-E074-2026-06-04,E074,nota_invalida,nota,100,3.9,remover,
+estudos,S-E088-2026-07-03,E088,nota_invalida,nota,15,7.5,remover,
+estudos,S-E074-2026-09-02,E074,nota_invalida,nota,100,6.7,remover,
+estudos,S-E058-2026-05-02,E058,nota_invalida,nota,11,6.9,remover,
+estudos,S-E003-2026-05-04,E003,nota_invalida,nota,12,6.4,remover,
+estudos,S-E089-2026-09-02,E089,nota_invalida,nota,15,6.9,remover,
+estudos,S-E092-2026-09-03,E092,nota_invalida,nota,11,4.9,remover,
+estudos,S-E048-2026-10-03,E048,nota_invalida,nota,15,7.8,remover,
+estudos,S-E132-2026-06-02,E132,nota_invalida,nota,11,7.7,remover,
+estudos,S-E047-2026-09-01,E047,nota_invalida,nota,11,7.3,remover,
+estudos,S-E150-2026-05-03,E150,nota_invalida,nota,11,5.7,remover,
+estudos,S-E094-2026-07-02,E094,horas_invalida,horas_semana,379.1,2.6,remover,
+estudos,S-E066-2026-08-02,E066,horas_invalida,horas_semana,349.6,1.6,remover,
+estudos,S-E030-2026-09-02,E030,horas_invalida,horas_semana,287.4,2.4,remover,
+estudos,S-E007-2026-06-04,E007,horas_invalida,horas_semana,295.8,3.0,remover,
+estudos,S-E140-2026-06-01,E140,horas_invalida,horas_semana,330.1,2.6,remover,
+estudos,S-E015-2026-05-04,E015,horas_invalida,horas_semana,264.3,3.1,remover,
+estudos,S-E005-2026-09-02,E005,horas_invalida,horas_semana,228.3,1.7,remover,
+estudos,S-E068-2026-07-01,E068,horas_invalida,horas_semana,397.7,2.7,remover,
+estudos,S-E110-2026-07-01,E110,horas_invalida,horas_semana,345.6,1.6,remover,
+estudos,S-E011-2026-07-04,E011,horas_invalida,horas_semana,259.5,2.2,remover,
+estudos,S-E107-2026-06-01,E107,horas_invalida,horas_semana,274.6,1.8,remover,
+estudos,S-E029-2026-05-03,E029,materia_variacao,materia,Ingles,ingles,corrigir,ingles
+estudos,S-E042-2026-07-03,E042,materia_variacao,materia,BIOLOGIA,biologia,corrigir,biologia
+estudos,S-E014-2026-05-03,E014,materia_variacao,materia,Gestao,gestao,corrigir,gestao
+estudos,S-E064-2026-08-03,E064,materia_variacao,materia,ingl.,ingles,corrigir,ingles
+estudos,S-E017-2026-08-02,E017,materia_variacao,materia,MATEMATICA,matematica,corrigir,matematica
+estudos,S-E070-2026-07-04,E070,materia_variacao,materia,rede.,redes,corrigir,redes
+estudos,S-E080-2026-07-01,E080,materia_variacao,materia,FISICA,fisica,corrigir,fisica
+estudos,S-E034-2026-06-02,E034,materia_variacao,materia,algo.,algoritmos,corrigir,algoritmos
+estudos,S-E109-2026-06-03,E109,materia_variacao,materia,programacao,programacao,corrigir,programacao
+estudos,S-E010-2026-05-01,E010,materia_variacao,materia,PROGRAMACAO,programacao,corrigir,programacao
+estudos,S-E080-2026-10-01,E080,materia_variacao,materia,fisica,fisica,corrigir,fisica
+estudos,S-E039-2026-09-03,E039,materia_variacao,materia,portugues,portugues,corrigir,portugues
+estudos,S-E142-2026-06-01,E142,materia_variacao,materia,ALGORITMOS,algoritmos,corrigir,algoritmos
+estudos,S-E083-2026-08-02,E083,materia_variacao,materia,ingles,ingles,corrigir,ingles
+estudos,S-E046-2026-07-03,E046,materia_variacao,materia,BANCO_DE_DADOS,banco_de_dados,corrigir,banco_de_dados
+estudos,S-E071-2026-10-03,E071,materia_variacao,materia,Portugues,portugues,corrigir,portugues
+estudos,S-E112-2026-10-02,E112,materia_variacao,materia,ESTATISTICA,estatistica,corrigir,estatistica
+estudos,S-E073-2026-09-01,E073,materia_variacao,materia,Ingles,ingles,corrigir,ingles
+estudos,S-E099-2026-09-01,E099,materia_variacao,materia,portugues,portugues,corrigir,portugues
+estudos,S-E149-2026-05-01,E149,materia_variacao,materia,CALCULO,calculo,corrigir,calculo
+estudos,S-E034-2026-09-02,E034,materia_variacao,materia,algo.,algoritmos,corrigir,algoritmos
+estudos,S-E042-2026-09-01,E042,materia_variacao,materia,matematica,matematica,corrigir,matematica
+estudos,S-E084-2026-06-04,E084,materia_variacao,materia,BANCO_DE_DADOS,banco_de_dados,corrigir,banco_de_dados
+estudos,S-E118-2026-10-03,E118,materia_variacao,materia,algoritmos,algoritmos,corrigir,algoritmos
+estudos,S-E068-2026-09-01,E068,materia_variacao,materia,CALCULO,calculo,corrigir,calculo
+estudos,S-E054-2026-09-03,E054,materia_variacao,materia,Calculo,calculo,corrigir,calculo
+estudos,S-E136-2026-10-02,E136,materia_variacao,materia,BANCO_DE_DADOS,banco_de_dados,corrigir,banco_de_dados
+estudos,S-E118-2026-07-04,E118,materia_variacao,materia,programacao,programacao,corrigir,programacao
+estudos,S-E081-2026-08-01,E081,materia_variacao,materia,gest.,gestao,corrigir,gestao
+estudos,S-E043-2026-08-01,E043,materia_variacao,materia,Ingles,ingles,corrigir,ingles
+estudos,S-E089-2026-07-04,E089,materia_variacao,materia,calc.,calculo,corrigir,calculo
+estudos,S-E142-2026-05-02,E142,materia_variacao,materia,CALCULO,calculo,corrigir,calculo
+estudos,S-E145-2026-07-03,E145,materia_variacao,materia,fisi.,fisica,corrigir,fisica
+estudos,S-E135-2026-10-03,E135,materia_variacao,materia,ingl.,ingles,corrigir,ingles
+estudos,S-E121-2026-10-04,E121,materia_variacao,materia,calc.,calculo,corrigir,calculo
+estudos,S-E061-2026-08-03,E061,materia_variacao,materia,esta.,estatistica,corrigir,estatistica
+estudos,S-E016-2026-08-04,E016,materia_variacao,materia,ESTATISTICA,estatistica,corrigir,estatistica
+estudos,S-E081-2026-06-04,E081,materia_variacao,materia,portugues,portugues,corrigir,portugues
+estudos,S-E147-2026-05-01,E147,materia_variacao,materia,ingles,ingles,corrigir,ingles
+estudos,S-E015-2026-10-01,E015,materia_variacao,materia,Quimica,quimica,corrigir,quimica
+estudos,S-E089-2026-09-04,E089,materia_variacao,materia,calculo,calculo,corrigir,calculo
+estudos,S-E025-2026-07-03,E025,materia_variacao,materia,geog.,geografia,corrigir,geografia
+estudos,S-E050-2026-05-01,E050,materia_variacao,materia,programacao,programacao,corrigir,programacao
+estudos,S-E117-2026-10-03,E117,materia_variacao,materia,banc.,banco_de_dados,corrigir,banco_de_dados
+estudos,S-E030-2026-08-04,E030,materia_variacao,materia,PROGRAMACAO,programacao,corrigir,programacao
+estudos,S-E128-2026-07-03,E128,materia_variacao,materia,banco de dados,banco_de_dados,corrigir,banco_de_dados
+estudos,S-E114-2026-07-01,E114,materia_variacao,materia,prog.,programacao,corrigir,programacao
+estudos,S-E112-2026-06-04,E112,materia_variacao,materia,Algoritmos,algoritmos,corrigir,algoritmos
+estudos,S-E066-2026-09-04,E066,materia_variacao,materia,fisica,fisica,corrigir,fisica
+estudos,S-E050-2026-08-01,E050,materia_variacao,materia,programacao,programacao,corrigir,programacao
+estudos,S-E018-2026-05-01,E018,materia_variacao,materia,ESTATISTICA,estatistica,corrigir,estatistica
+estudos,S-E096-2026-10-02,E096,materia_variacao,materia,GEOGRAFIA,geografia,corrigir,geografia
+estudos,S-E001-2026-07-03,E001,materia_variacao,materia,programacao,programacao,corrigir,programacao
+estudos,S-E061-2026-10-04,E061,materia_variacao,materia,INGLES,ingles,corrigir,ingles
+estudos,S-E062-2026-06-01,E062,materia_variacao,materia,portugues,portugues,corrigir,portugues
+estudos,S-E011-2026-07-02,E011,materia_variacao,materia,Estatistica,estatistica,corrigir,estatistica
+estudos,S-E123-2026-08-04,E123,materia_variacao,materia,portugues,portugues,corrigir,portugues
+estudos,S-E052-2026-08-01,E052,materia_variacao,materia,PROGRAMACAO,programacao,corrigir,programacao
+estudos,S-E032-2026-09-01,E032,materia_variacao,materia,Matematica,matematica,corrigir,matematica
+estudos,S-E062-2026-10-04,E062,materia_variacao,materia,banc.,banco_de_dados,corrigir,banco_de_dados
+estudos,S-E053-2026-05-01,E053,materia_variacao,materia,fisica,fisica,corrigir,fisica
+estudos,S-E030-2026-07-04,E030,materia_variacao,materia,PROGRAMACAO,programacao,corrigir,programacao
+estudos,S-E037-2026-09-04,E037,materia_variacao,materia,esta.,estatistica,corrigir,estatistica
+estudos,S-E124-2026-06-02,E124,materia_variacao,materia,ingles,ingles,corrigir,ingles
+estudos,S-E137-2026-09-04,E137,materia_variacao,materia,prog.,programacao,corrigir,programacao
+estudos,S-E080-2026-09-04,E080,materia_variacao,materia,CALCULO,calculo,corrigir,calculo
+estudos,S-E150-2026-09-04,E150,materia_variacao,materia,ingles,ingles,corrigir,ingles
+estudos,S-E120-2026-08-01,E120,materia_variacao,materia,rede.,redes,corrigir,redes
+estudos,S-E142-2026-07-02,E142,materia_variacao,materia,calculo,calculo,corrigir,calculo
+estudos,S-E097-2026-07-02,E097,materia_variacao,materia,Programacao,programacao,corrigir,programacao
+estudos,S-E068-2026-05-01,E068,materia_variacao,materia,Calculo,calculo,corrigir,calculo
+estudos,S-E094-2026-05-03,E094,mes_formato,mes_referencia,2026-5,2026-05,corrigir,2026-05
+estudos,S-E074-2026-07-01,E074,mes_formato,mes_referencia,2026-7,2026-07,corrigir,2026-07
+estudos,S-E024-2026-07-02,E024,mes_formato,mes_referencia,07/2026,2026-07,corrigir,2026-07
+estudos,S-E131-2026-10-03,E131,mes_formato,mes_referencia,2026-10,2026-10,corrigir,2026-10
+estudos,S-E012-2026-06-04,E012,mes_formato,mes_referencia,06/2026,2026-06,corrigir,2026-06
+estudos,S-E009-2026-09-02,E009,mes_formato,mes_referencia,2026-9,2026-09,corrigir,2026-09
+estudos,S-E138-2026-05-03,E138,mes_formato,mes_referencia,05/2026,2026-05,corrigir,2026-05
+estudos,S-E073-2026-05-03,E073,mes_formato,mes_referencia,2026-5,2026-05,corrigir,2026-05
+estudos,S-E075-2026-06-03,E075,mes_formato,mes_referencia,06/2026,2026-06,corrigir,2026-06
+estudos,S-E136-2026-07-02,E136,mes_formato,mes_referencia,07/2026,2026-07,corrigir,2026-07
+estudos,S-E126-2026-06-03,E126,mes_formato,mes_referencia,06/2026,2026-06,corrigir,2026-06
+estudos,S-E138-2026-08-03,E138,mes_formato,mes_referencia,2026-8,2026-08,corrigir,2026-08
+estudos,S-E014-2026-10-04,E014,mes_formato,mes_referencia,10/2026,2026-10,corrigir,2026-10
+estudos,S-E009-2026-07-01,E009,mes_formato,mes_referencia,07/2026,2026-07,corrigir,2026-07
+estudos,S-E135-2026-05-03,E135,mes_formato,mes_referencia,2026-5,2026-05,corrigir,2026-05
+estudos,S-E015-2026-06-01,E015,mes_formato,mes_referencia,2026-6,2026-06,corrigir,2026-06
+estudos,S-E116-2026-07-02,E116,mes_formato,mes_referencia,2026-7,2026-07,corrigir,2026-07
+estudos,S-E126-2026-07-01,E126,mes_formato,mes_referencia,2026-7,2026-07,corrigir,2026-07
+estudos,S-E011-2026-10-03,E011,mes_formato,mes_referencia,2026-10,2026-10,corrigir,2026-10
+estudos,S-E095-2026-05-03,E095,mes_formato,mes_referencia,2026-5,2026-05,corrigir,2026-05
+estudos,S-E042-2026-07-02,E042,mes_formato,mes_referencia,2026-7,2026-07,corrigir,2026-07
+estudos,S-E127-2026-07-02,E127,mes_formato,mes_referencia,07/2026,2026-07,corrigir,2026-07
+estudos,S-E081-2026-08-04,E081,mes_formato,mes_referencia,2026-8,2026-08,corrigir,2026-08
+estudos,S-E104-2026-05-04,E104,mes_formato,mes_referencia,05/2026,2026-05,corrigir,2026-05
+estudos,S-E063-2026-05-02,E063,mes_formato,mes_referencia,2026-5,2026-05,corrigir,2026-05
+estudos,S-E030-2026-05-02,E030,mes_formato,mes_referencia,05/2026,2026-05,corrigir,2026-05
+estudos,S-E052-2026-05-04,E052,mes_formato,mes_referencia,05/2026,2026-05,corrigir,2026-05
+estudos,S-E026-2026-09-01,E026,mes_formato,mes_referencia,09/2026,2026-09,corrigir,2026-09
+estudos,S-E055-2026-06-01,E055,mes_formato,mes_referencia,2026-6,2026-06,corrigir,2026-06
+estudos,S-E037-2026-10-04,E037,mes_formato,mes_referencia,2026-10,2026-10,corrigir,2026-10
+estudos,S-E058-2026-09-02,E058,mes_formato,mes_referencia,09/2026,2026-09,corrigir,2026-09
+estudos,S-E116-2026-08-03,E116,mes_formato,mes_referencia,2026-8,2026-08,corrigir,2026-08
+estudos,S-E050-2026-08-02,E050,mes_formato,mes_referencia,08/2026,2026-08,corrigir,2026-08
+estudos,S-E007-2026-08-02,E007,mes_formato,mes_referencia,2026-8,2026-08,corrigir,2026-08
+estudos,S-E092-2026-05-03,E092,mes_formato,mes_referencia,05/2026,2026-05,corrigir,2026-05
+estudos,S-E086-2026-05-01,E086,duplicado,id_registro,,S-E086-2026-05-01,remover,
+estudos,S-E061-2026-07-01,E061,duplicado,id_registro,,S-E061-2026-07-01,remover,
+estudos,S-E120-2026-06-04,E120,duplicado,id_registro,,S-E120-2026-06-04,remover,
+estudos,S-E022-2026-08-02,E022,duplicado,id_registro,,S-E022-2026-08-02,remover,
+estudos,S-E126-2026-09-01,E126,duplicado,id_registro,,S-E126-2026-09-01,remover,
+estudos,S-E129-2026-10-03,E129,duplicado,id_registro,,S-E129-2026-10-03,remover,
+estudos,S-E021-2026-07-04,E021,duplicado,id_registro,,S-E021-2026-07-04,remover,
+estudos,S-E130-2026-07-04,E130,duplicado,id_registro,,S-E130-2026-07-04,remover,
+estudos,S-E136-2026-10-04,E136,duplicado,id_registro,,S-E136-2026-10-04,remover,
+estudos,S-E057-2026-06-04,E057,duplicado,id_registro,,S-E057-2026-06-04,remover,
+estudos,S-E086-2026-07-02,E086,duplicado,id_registro,,S-E086-2026-07-02,remover,
+estudos,S-E144-2026-08-01,E144,duplicado,id_registro,,S-E144-2026-08-01,remover,
+estudos,S-E125-2026-09-03,E125,duplicado,id_registro,,S-E125-2026-09-03,remover,
+estudos,S-E124-2026-06-04,E124,duplicado,id_registro,,S-E124-2026-06-04,remover,
+estudos,S-E133-2026-07-03,E133,duplicado,id_registro,,S-E133-2026-07-03,remover,
+estudos,S-E062-2026-09-04,E062,duplicado,id_registro,,S-E062-2026-09-04,remover,
+estudos,S-E064-2026-07-01,E064,duplicado,id_registro,,S-E064-2026-07-01,remover,
+estudos,S-E122-2026-08-01,E122,duplicado,id_registro,,S-E122-2026-08-01,remover,
+estudos,S-E042-2026-08-02,E042,duplicado,id_registro,,S-E042-2026-08-02,remover,
+estudos,S-E091-2026-09-03,E091,duplicado,id_registro,,S-E091-2026-09-03,remover,
+estudos,S-E037-2026-06-04,E037,duplicado,id_registro,,S-E037-2026-06-04,remover,
+estudos,S-E047-2026-06-04,E047,duplicado,id_registro,,S-E047-2026-06-04,remover,
+estudos,S-E008-2026-10-03,E008,duplicado,id_registro,,S-E008-2026-10-03,remover,
+estudos,S-E048-2026-06-03,E048,duplicado,id_registro,,S-E048-2026-06-03,remover,
+estudos,S-E006-2026-09-02,E006,duplicado,id_registro,,S-E006-2026-09-02,remover,
+estudos,S-E136-2026-06-01,E136,duplicado,id_registro,,S-E136-2026-06-01,remover,
+estudos,S-E025-2026-10-04,E025,duplicado,id_registro,,S-E025-2026-10-04,remover,
+estudos,S-E041-2026-08-01,E041,duplicado,id_registro,,S-E041-2026-08-01,remover,
+estudos,S-E118-2026-06-04,E118,duplicado,id_registro,,S-E118-2026-06-04,remover,
+estudos,S-E113-2026-05-04,E113,duplicado,id_registro,,S-E113-2026-05-04,remover,
+estudos,S-E028-2026-10-03,E028,duplicado,id_registro,,S-E028-2026-10-03,remover,
+estudos,S-E139-2026-10-02,E139,duplicado,id_registro,,S-E139-2026-10-02,remover,
+estudos,S-E071-2026-08-02,E071,duplicado,id_registro,,S-E071-2026-08-02,remover,
+estudos,S-E123-2026-05-01,E123,duplicado,id_registro,,S-E123-2026-05-01,remover,
+estudos,S-E086-2026-05-03,E086,duplicado,id_registro,,S-E086-2026-05-03,remover,

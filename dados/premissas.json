@@ -1,0 +1,201 @@
+{
+  "versao": 1,
+  "aviso": "RASCUNHO para revisão da equipe Saldo Positivo. Cada número abaixo é uma suposição, e não um fato. A equipe deve confirmar, corrigir e justificar cada uma com o que observa no dia a dia (Etapa 6 do Blueprint). Para a análise de sensibilidade, mude UMA premissa por vez com: python dados/gerar_bases.py --definir chave=valor",
+  "premissas": {
+    "geral.semente": {
+      "valor": 2026,
+      "justificativa": "Número que fixa o sorteio: com a mesma semente, as bases saem idênticas. Mudar a semente gera outra população fictícia com as mesmas regras.",
+      "origem": "rascunho (a confirmar pela equipe)"
+    },
+    "geral.estudantes": {
+      "valor": 150,
+      "justificativa": "Tamanho suficiente para gráficos de dispersão legíveis e para filtrar por nível de ensino sem ficar com grupos minúsculos.",
+      "origem": "rascunho (a confirmar pela equipe)"
+    },
+    "geral.mes_inicial": {
+      "valor": "2026-05",
+      "justificativa": "Primeiro mês de referência. Fixo, e não 'hoje', para que as bases não mudem conforme a data em que forem geradas.",
+      "origem": "rascunho (a confirmar pela equipe)"
+    },
+    "geral.meses": {
+      "valor": 6,
+      "justificativa": "Seis meses dão uma evolução ao longo do tempo (gráfico de linhas) e coincidem com a janela que o site já mostra.",
+      "origem": "rascunho (a confirmar pela equipe)"
+    },
+    "geral.nivel_pesos": {
+      "valor": {"universitario": 0.45, "tecnico": 0.30, "medio": 0.25},
+      "justificativa": "Proporção de cada nível de ensino entre os estudantes. O Blueprint cita os três níveis, mas não diz a proporção; esta é uma suposição.",
+      "origem": "rascunho (a confirmar pela equipe)"
+    },
+    "renda.faixa_por_nivel": {
+      "valor": {"medio": [150, 700], "tecnico": [300, 1400], "universitario": [500, 1600]},
+      "justificativa": "Renda mensal em reais (mínimo e máximo). Sorteada uniformemente dentro da faixa, uma vez por estudante. Blueprint: 'estudantes que trabalham recebem, em geral, até um salário mínimo, e mesada e bolsa seguem valores semelhantes'. Confirmar o salário mínimo vigente e ajustar o teto.",
+      "origem": "Blueprint (valores a confirmar)"
+    },
+    "renda.variacao_mensal": {
+      "valor": 0.06,
+      "justificativa": "Desvio-padrão relativo da renda de um mês para o outro (6%). Estágio e bolsa variam pouco; trabalho informal varia mais.",
+      "origem": "rascunho (a confirmar pela equipe)"
+    },
+    "gastos.parcela_da_renda": {
+      "valor": {
+        "alimentacao": [0.20, 0.35],
+        "transporte": [0.08, 0.18],
+        "lazer": [0.10, 0.20],
+        "assinaturas": [0.03, 0.08],
+        "estudos": [0.02, 0.08],
+        "outros": [0.03, 0.10]
+      },
+      "justificativa": "Fatia da renda que cada estudante destina a cada categoria (mínimo e máximo), sorteada uma vez por estudante. Lazer de 10% a 20% vem do Blueprint ('gasto comum, mas não essencial'). As demais são suposições de ordem de grandeza.",
+      "origem": "Blueprint (lazer) e rascunho (demais)"
+    },
+    "gastos.variacao_mensal": {
+      "valor": 0.15,
+      "justificativa": "Desvio-padrão relativo do gasto de cada categoria de um mês para o outro (15%).",
+      "origem": "rascunho (a confirmar pela equipe)"
+    },
+    "gastos.propensao_a_gastar_dp": {
+      "valor": 0.15,
+      "justificativa": "Há quem gaste mais que o padrão e quem gaste menos. Multiplicador de gasto por estudante, com média 1 e este desvio-padrão. É o que faz alguns meses fecharem no vermelho.",
+      "origem": "rascunho (a confirmar pela equipe)"
+    },
+    "gastos.chance_gasto_extra": {
+      "valor": 0.08,
+      "justificativa": "Chance, em cada mês, de aparecer um gasto inesperado (conserto, consulta, presente) além do padrão.",
+      "origem": "rascunho (a confirmar pela equipe)"
+    },
+    "gastos.gasto_extra_parcela": {
+      "valor": [0.10, 0.30],
+      "justificativa": "Tamanho do gasto inesperado, como fatia da renda do mês (de 10% a 30%).",
+      "origem": "rascunho (a confirmar pela equipe)"
+    },
+    "gastos.transacoes_por_mes": {
+      "valor": {
+        "alimentacao": [6, 12],
+        "transporte": [1, 4],
+        "lazer": [2, 5],
+        "assinaturas": [1, 3],
+        "estudos": [0, 3],
+        "outros": [1, 4]
+      },
+      "justificativa": "Quantos lançamentos por mês em cada categoria (mínimo e máximo). Em 'assinaturas', é o número de assinaturas que a pessoa tem; elas se repetem todo mês com o mesmo valor (gasto fixo).",
+      "origem": "rascunho (a confirmar pela equipe)"
+    },
+    "gastos.chance_passe_transporte": {
+      "valor": 0.60,
+      "justificativa": "Parte dos estudantes paga um passe mensal (gasto fixo, 70% do transporte); os outros pagam corridas avulsas (gasto variável).",
+      "origem": "rascunho (a confirmar pela equipe)"
+    },
+    "pagamento.credito_chance_por_nivel": {
+      "valor": {"medio": [0.0, 0.10], "tecnico": [0.0, 0.35], "universitario": [0.0, 0.50]},
+      "justificativa": "Chance de uma compra ser no cartão de crédito, sorteada uma vez por estudante. Menores de idade raramente têm cartão; universitários têm mais acesso.",
+      "origem": "rascunho (a confirmar pela equipe)"
+    },
+    "pagamento.pesos_sem_credito": {
+      "valor": {"dinheiro": 0.20, "pix": 0.55, "debito": 0.25},
+      "justificativa": "Como se divide o que não é cartão de crédito. Pix é o meio mais usado hoje. Assinaturas nunca são pagas em dinheiro.",
+      "origem": "rascunho (a confirmar pela equipe)"
+    },
+    "estudos.materias_por_nivel": {
+      "valor": {
+        "medio": ["matematica", "portugues", "historia", "geografia", "biologia", "fisica", "quimica", "ingles"],
+        "tecnico": ["matematica", "portugues", "ingles", "programacao", "banco_de_dados", "redes", "gestao"],
+        "universitario": ["calculo", "estatistica", "programacao", "algoritmos", "banco_de_dados", "ingles", "fisica"]
+      },
+      "justificativa": "Lista fixa de matérias de cada nível (a Etapa 7 pede listas fixas para evitar 'Mat.' e 'Matemática' como coisas diferentes). Ajustar aos cursos reais da turma.",
+      "origem": "rascunho (a confirmar pela equipe)"
+    },
+    "estudos.materias_por_estudante": {
+      "valor": 4,
+      "justificativa": "Quantas matérias cada estudante acompanha. Fixo ao longo dos meses.",
+      "origem": "rascunho (a confirmar pela equipe)"
+    },
+    "estudos.horas_semana_total": {
+      "valor": {"media": 10, "dp": 3.5, "min": 2, "max": 25},
+      "justificativa": "Horas de estudo por semana somando todas as matérias, por estudante. Blueprint: 'a maioria estuda entre 5 e 15 horas por semana'. Distribuição normal com esta média e desvio-padrão, limitada entre mínimo e máximo.",
+      "origem": "Blueprint"
+    },
+    "estudos.variacao_mensal_horas": {
+      "valor": 0.20,
+      "justificativa": "Desvio-padrão relativo das horas de um mês para o outro (20%), pela variação da rotina de trabalho e de provas.",
+      "origem": "rascunho (a confirmar pela equipe)"
+    },
+    "estudos.nota_base": {
+      "valor": {"media": 6.5, "dp": 1.4},
+      "justificativa": "Nota típica de cada estudante em cada matéria, antes de qualquer efeito. Média escolar em torno de 6,5 com variação entre estudantes.",
+      "origem": "rascunho (a confirmar pela equipe)"
+    },
+    "estudos.nota_ruido_dp": {
+      "valor": 0.8,
+      "justificativa": "Variação aleatória da nota de uma avaliação para outra, mesmo para o mesmo estudante e a mesma matéria.",
+      "origem": "rascunho (a confirmar pela equipe)"
+    },
+    "efeitos.horas_na_nota": {
+      "valor": 0.15,
+      "justificativa": "PREMISSA INTERNA À ÁREA DE ESTUDOS: cada hora semanal acima do típico da matéria soma 0,15 ponto na nota. Efeito fraco de propósito (10 horas a mais por semana dariam 1,5 ponto), com base na ideia comum de que estudar mais tende a ajudar, sem garantir. Não é testada pelas hipóteses H1 a H4, mas aparece no gráfico de horas por nota. Use 0 para desligar.",
+      "origem": "rascunho (a confirmar pela equipe)"
+    },
+    "efeitos.metodo_na_nota": {
+      "valor": {"resumo": 0.0, "exercicios": 0.0, "videoaula": 0.0, "revisao": 0.0},
+      "justificativa": "Pontos somados à nota conforme o método de estudo. TODOS ZERO por padrão: a hipótese H4 (exercícios e revisão associados a notas maiores) deve ser testada pela análise e não embutida na base. Para a análise de sensibilidade, teste, por exemplo, 'exercicios' com 0.3.",
+      "origem": "rascunho (a confirmar pela equipe)"
+    },
+    "cruzado.lazer_nas_horas": {
+      "valor": 0,
+      "justificativa": "LIGAÇÃO ENTRE ÁREAS, DESLIGADA POR PADRÃO (hipótese H1). Com peso 1, estudantes com 1 desvio-padrão a mais de lazer estudam 10% menos horas. Com 0, lazer e horas de estudo são sorteados de forma independente.",
+      "origem": "decisão da equipe: desligada por padrão"
+    },
+    "cruzado.saldo_na_nota": {
+      "valor": 0,
+      "justificativa": "LIGAÇÃO ENTRE ÁREAS, DESLIGADA POR PADRÃO (hipótese H2 e gráfico principal). Com peso 1, estudantes com 1 desvio-padrão a mais de saldo tiram 0,3 ponto a mais. Com 0, saldo e notas são independentes.",
+      "origem": "decisão da equipe: desligada por padrão"
+    },
+    "cruzado.credito_no_gasto": {
+      "valor": 0,
+      "justificativa": "LIGAÇÃO ENTRE ÁREAS, DESLIGADA POR PADRÃO (hipótese H3). Com peso 1, estudantes com 1 desvio-padrão a mais de uso do crédito gastam 10% a mais. Com 0, o uso do cartão não muda o gasto.",
+      "origem": "decisão da equipe: desligada por padrão"
+    },
+    "erros.ativar": {
+      "valor": true,
+      "justificativa": "Planta erros de qualidade de dados nas bases para que as regras de tratamento da Etapa 7 tenham o que tratar. Use --sem-erros para gerar as bases limpas.",
+      "origem": "Blueprint (Etapa 7)"
+    },
+    "erros.taxas_gastos": {
+      "valor": {
+        "categoria_vazia": 0.005,
+        "valor_vazio": 0.005,
+        "valor_outlier": 0.002,
+        "valor_negativo": 0.003,
+        "data_formato": 0.02,
+        "valor_formato": 0.01,
+        "categoria_variacao": 0.02,
+        "mes_formato": 0.01,
+        "duplicado": 0.01
+      },
+      "justificativa": "Fração das linhas de gastos que recebe cada tipo de erro. Os tipos seguem a lista de problemas da Etapa 7 (vazios, incorretos, formatos diferentes, impossíveis, inconsistentes, duplicados). Taxas pequenas, como em dados reais mal digitados.",
+      "origem": "Blueprint (tipos) e rascunho (taxas)"
+    },
+    "erros.taxas_estudos": {
+      "valor": {
+        "nota_vazia": 0.01,
+        "nota_invalida": 0.005,
+        "horas_invalida": 0.003,
+        "materia_variacao": 0.02,
+        "mes_formato": 0.01,
+        "duplicado": 0.01
+      },
+      "justificativa": "Fração das linhas de estudos que recebe cada tipo de erro.",
+      "origem": "Blueprint (tipos) e rascunho (taxas)"
+    },
+    "erros.estudantes_sem_estudos": {
+      "valor": 3,
+      "justificativa": "Quantos estudantes aparecem em Finanças mas somem da base de Estudos (chave que não bate, Etapa 7). O painel deve avisar e deixá-los fora do cruzamento.",
+      "origem": "Blueprint (tipo) e rascunho (quantidade)"
+    },
+    "erros.estudantes_sem_renda": {
+      "valor": 2,
+      "justificativa": "Quantos estudantes têm gastos mas nenhuma renda registrada: sem renda não há saldo.",
+      "origem": "Blueprint (tipo) e rascunho (quantidade)"
+    }
+  }
+}

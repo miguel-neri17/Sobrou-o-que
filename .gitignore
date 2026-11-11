@@ -1,4 +1,6 @@
 node_modules/
+__pycache__/
+*.pyc
 # capturas geradas por `npm run screenshots` (as que ficam no README estão em docs/screenshots)
 shots/
 *.log
