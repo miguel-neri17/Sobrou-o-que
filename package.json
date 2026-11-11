@@ -1,0 +1,20 @@
+{
+  "name": "sobrou-o-que",
+  "version": "1.0.0",
+  "description": "Painel pessoal de finanças, estudos e investimentos para estudantes. Site estático, sem servidor.",
+  "private": true,
+  "license": "MIT",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "test": "node tests/e2e.test.js",
+    "test:ui": "node tests/ui.test.js",
+    "test:all": "npm test && npm run test:ui",
+    "screenshots": "node scripts/screenshots.js"
+  },
+  "devDependencies": {
+    "jsdom": "22.1.0",
+    "puppeteer-core": "22.15.0"
+  }
+}
