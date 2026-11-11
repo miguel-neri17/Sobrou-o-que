@@ -1,9 +1,9 @@
 # Sobrou o Quê?
 
-[![Testes](https://github.com/SEU_USUARIO/sobrou-o-que/actions/workflows/ci.yml/badge.svg)](https://github.com/SEU_USUARIO/sobrou-o-que/actions/workflows/ci.yml)
+[![Testes](https://github.com/miguel-neri17/Sobrou-o-que/actions/workflows/ci.yml/badge.svg)](https://github.com/miguel-neri17/Sobrou-o-que/actions/workflows/ci.yml)
 [![Licença: MIT](https://img.shields.io/badge/licen%C3%A7a-MIT-1F6F5C.svg)](LICENSE)
 
-**Demonstração:** https://SEU_USUARIO.github.io/sobrou-o-que/
+**Demonstração:** https://miguel-neri17.github.io/Sobrou-o-que/
 
 > **In English:** a personal dashboard for students to track monthly income and spending, study hours and grades, and to simulate savings. It is a static site (plain HTML, CSS and JavaScript, no build step, no server) that keeps each user's data in the browser. The home screen answers the question in the name — *what's left over?* — with the amount that remained, or what was missing when spending passed income. It has password hashing (PBKDF2), validated JSON backup/import, a mobile-first layout, dark mode, and automated tests in jsdom and in a real browser.
 
