@@ -1,0 +1,3 @@
+# Evita avisos e diffs enormes por causa de quebra de linha do Windows (CRLF) x Linux (LF)
+* text=auto eol=lf
+*.png binary

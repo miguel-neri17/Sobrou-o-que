@@ -1,0 +1,6 @@
+node_modules/
+# capturas geradas por `npm run screenshots` (as que ficam no README estão em docs/screenshots)
+shots/
+*.log
+.DS_Store
+Thumbs.db
