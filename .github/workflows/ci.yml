@@ -1,0 +1,21 @@
+name: Testes
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  testes:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      # navegador simulado (jsdom): fluxo de contas, gastos, importação e exportação
+      - run: npm test
+      # navegador real (o Chrome já vem instalado no runner): layout, abas, menu, animação, rolagem lateral
+      - run: npm run test:ui
