@@ -30,7 +30,7 @@ Painel pessoal para estudantes: anote o que **entra e sai**, as **horas de estud
   - **orçamento por categoria**: um limite mensal por categoria, com aviso ao chegar perto (80%) e ao passar.
 - **Estudos:** horas por semana e por dia da semana (as horas somam, e dá para **corrigir ou apagar** o total de um dia), com **meta semanal** em linha tracejada, e notas por matéria com média automática.
 - **Investimentos:** simulador de aportes mensais (juros compostos) e quatro textos curtos de educação financeira. A taxa é só um exemplo para estudar.
-- **Análise:** saldo mês a mês dos **últimos 12 meses** (gráfico e tabela; meses mais antigos continuam guardados, só não aparecem), comparação com o mês anterior (em palavras: "a mais", "a menos"), horas de estudo × nota com os seus meses, e **meta de reserva**: em quantos meses você chega nela com a sua sobra média.
+- **Análise:** saldo mês a mês dos **últimos 12 meses** (gráfico e tabela; meses mais antigos continuam guardados, só não aparecem), comparação com o mês anterior (em palavras: "a mais", "a menos"), horas de estudo × nota com os seus meses, e **meta de reserva**: você informa quanto já guardou, vê o progresso em barra e em quantos meses chega nela (o prazo conta só o que falta, com a sua sobra média).
 - **Dados:** **exportar e importar** tudo em um arquivo `.json`, sem senha dentro.
 - **Contas:** cada pessoa tem seus próprios dados no navegador, protegidos por login.
 - **Interface:** abas embaixo no celular, links no topo no computador, modo claro e escuro que seguem o sistema, com um seletor de **Aparência** (Sistema, Claro ou Escuro) no menu.

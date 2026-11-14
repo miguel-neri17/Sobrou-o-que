@@ -317,6 +317,7 @@
   function renderReserva(serie){
     var box=$('#rsRes'),meta=S.reserva,sm=A.sobraMedia();
     $('#rsMeta').value=meta>0?meta:'';
+    var g=S.guardado;$('#rsGuardado').value=g>0?g:'';
     box.innerHTML='';
     function p(t){box.appendChild(el('p','',t))}
     if(!(meta>0)){
@@ -324,10 +325,16 @@
       p('Defina uma meta para ver em quanto tempo você chega nela.'+(media>0?' Uma referência comum é guardar 3 meses de gastos: com a sua média, seriam '+money(round2(media*3))+'.':''));
       return;
     }
+    var falta=round2(meta-g);
+    if(g>0){
+      p(falta<=0?'Meta atingida: você já guardou '+money(g)+', que cobre a meta de '+money(meta)+'.':'Você já guardou '+money(g)+' de '+money(meta)+' ('+Math.floor(g/meta*100)+'%). Faltam '+money(falta)+'.');
+      box.appendChild(el('div','bar','<i style="--w:'+Math.min(1,g/meta).toFixed(3)+'"></i>'));
+    }
+    if(falta<=0){box.appendChild(el('a','link','Simular em Investimentos')).setAttribute('href','#investimentos');return}
     if(sm===null) p('Informe a renda de pelo menos um mês em Finanças para estimar o prazo.');
     else if(sm<=0) p('Nos meses com renda informada, a sua sobra média é de '+money(sm)+': com ela não dá para formar a reserva. Veja as maiores categorias em Finanças.');
     else{
-      var n=A.mesesParaMeta(meta,sm,TX);
+      var n=A.mesesParaMeta(falta,sm,TX); /* shortcut: o rendimento do que já está guardado é ignorado (prazo conservador), quando quiser incluir, somar g*(1+taxa)^n em mesesParaMeta */
       if(n===null) p('Com a sua sobra média de '+money(sm)+' por mês, a meta de '+money(meta)+' levaria mais de 50 anos.');
       else p('Guardando a sua sobra média de '+money(sm)+' por mês, com a taxa de exemplo de '+TXT+' ao mês, você chega a '+money(meta)+' em '+n+(n===1?' mês':' meses')+(n>=12?' ('+Math.floor(n/12)+(Math.floor(n/12)===1?' ano':' anos')+(n%12?' e '+n%12+(n%12===1?' mês':' meses'):'')+')':'')+'. A taxa é só um exemplo: rendimentos reais mudam.');
     }

@@ -9,7 +9,7 @@
   $('#expBtn').addEventListener('click',function(){
     var u=A.getUser();if(!u) return;
     var n=new Date(),name='sobrou-'+u+'-'+n.getFullYear()+'-'+pad2(n.getMonth()+1)+'-'+pad2(n.getDate())+'.json';
-    var txt=JSON.stringify({app:'sobrou',versao:1,exportadoEm:n.toISOString(),meta:S.meta,months:S.data,recurring:S.recurring,budget:S.budget,reserva:S.reserva,regras:S.regras},null,2);
+    var txt=JSON.stringify({app:'sobrou',versao:1,exportadoEm:n.toISOString(),meta:S.meta,months:S.data,recurring:S.recurring,budget:S.budget,reserva:S.reserva,guardado:S.guardado,regras:S.regras},null,2);
     try{
       var url=URL.createObjectURL(new Blob([txt],{type:'application/json'}));
       var a=document.createElement('a');a.href=url;a.download=name;document.body.appendChild(a);a.click();a.remove();
@@ -31,13 +31,14 @@
       var vis=MON.filter(function(x){return r.months[x.key]}).length,old=r.n-vis;
       if(!vis){dmsg('O arquivo não tem dados dos últimos '+A.MESES+' meses, que são os únicos que o site mostra.');return}
       if(!window.confirm('Importar vai SUBSTITUIR todos os dados atuais de "'+A.getUser()+'" pelos do arquivo ('+vis+' dos últimos '+A.MESES+' meses'+(old>0?'; mais '+old+' mês(es) antigos serão guardados, mas não aparecem nas telas':'')+'). Continuar?')){dmsg('Importação cancelada.');return}
-      var oldData=S.data,oldMeta=S.meta,oldRec=S.recurring,oldBud=S.budget,oldRes=S.reserva,oldReg=S.regras;
+      var oldData=S.data,oldMeta=S.meta,oldRec=S.recurring,oldBud=S.budget,oldRes=S.reserva,oldGua=S.guardado,oldReg=S.regras;
       S.data=r.months;if(r.meta!==null) S.meta=r.meta;
       if(r.recurring!==null) S.recurring=r.recurring; /* arquivo antigo, sem gastos fixos nem orçamento: mantém os atuais */
       if(r.budget!==null) S.budget=r.budget;
       if(r.reserva!==null) S.reserva=r.reserva;
+      if(r.guardado!==null) S.guardado=r.guardado;
       if(r.regras!==null) S.regras=r.regras;
-      if(!A.saveData()){S.data=oldData;S.meta=oldMeta;S.recurring=oldRec;S.budget=oldBud;S.reserva=oldRes;S.regras=oldReg;dmsg('Não foi possível salvar os dados importados (armazenamento cheio ou bloqueado). Nada foi alterado.');return}
+      if(!A.saveData()){S.data=oldData;S.meta=oldMeta;S.recurring=oldRec;S.budget=oldBud;S.reserva=oldRes;S.guardado=oldGua;S.regras=oldReg;dmsg('Não foi possível salvar os dados importados (armazenamento cheio ou bloqueado). Nada foi alterado.');return}
       S.cur=MON.length-1;S.aporteTocado=false;A.endEdit();A.renderAll();
       dmsg('Dados importados: '+vis+' mês(es) dos últimos '+A.MESES+(old>0?' (mais '+old+' antigos guardados)':'')+'.');
     };

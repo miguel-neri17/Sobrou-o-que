@@ -100,14 +100,14 @@
     if(!n) return {err:'O arquivo não tem nenhum mês com dados.'};
     var meta=num(j.meta,2,30);
     /* recurring: null = o arquivo não trouxe gastos fixos (exportação antiga), então os atuais ficam */
-    return {months:months,meta:meta===null?null:Math.round(meta),recurring:Array.isArray(j.recurring)?cleanRecurring(j.recurring):null,budget:isObj(j.budget)?cleanBudget(j.budget):null,reserva:j.reserva===undefined?null:cleanReserva(j.reserva),regras:j.regras===undefined?null:cleanRegras(j.regras),n:n};
+    return {months:months,meta:meta===null?null:Math.round(meta),recurring:Array.isArray(j.recurring)?cleanRecurring(j.recurring):null,budget:isObj(j.budget)?cleanBudget(j.budget):null,reserva:j.reserva===undefined?null:cleanReserva(j.reserva),guardado:j.guardado===undefined?null:cleanReserva(j.guardado),regras:j.regras===undefined?null:cleanRegras(j.regras),n:n};
   }
 
   var KEY_PREFIX='sobrou-v2-'; /* a chave de cada pessoa no localStorage é este prefixo + o login */
   function ukey(){var u=A.getUser();return u?KEY_PREFIX+u:null}
 
   function loadData(){
-    S.data={};S.meta=10;S.recurring=[];S.budget={};S.reserva=0;S.regras={};var k=ukey();if(!k) return;
+    S.data={};S.meta=10;S.recurring=[];S.budget={};S.reserva=0;S.guardado=0;S.regras={};var k=ukey();if(!k) return;
     try{
       var d=JSON.parse(localStorage.getItem(k)||'null');
       if(d&&isObj(d.months)){
@@ -115,6 +115,7 @@
         S.recurring=cleanRecurring(d.recurring);
         S.budget=cleanBudget(d.budget);
         S.reserva=cleanReserva(d.reserva);
+        S.guardado=cleanReserva(d.guardado);
         S.regras=cleanRegras(d.regras);
         var mt=num(d.meta,2,30);if(mt!==null) S.meta=Math.round(mt);
       }
@@ -124,7 +125,7 @@
   /* devolve false se o navegador não deixou gravar (armazenamento cheio ou bloqueado) */
   function saveData(){
     var k=ukey();if(!k) return false;
-    try{localStorage.setItem(k,JSON.stringify({months:S.data,meta:S.meta,recurring:S.recurring,budget:S.budget,reserva:S.reserva,regras:S.regras}));return true}catch(e){return false}
+    try{localStorage.setItem(k,JSON.stringify({months:S.data,meta:S.meta,recurring:S.recurring,budget:S.budget,reserva:S.reserva,guardado:S.guardado,regras:S.regras}));return true}catch(e){return false}
   }
 
   A.KEY_PREFIX=KEY_PREFIX;A.MAX_RECURRING=MAX_RECURRING;A.cleanBudget=cleanBudget;A.cleanRegras=cleanRegras;A.cleanReserva=cleanReserva;
