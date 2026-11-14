@@ -24,6 +24,9 @@
     return out;
   }
 
+  /* meta de reserva (R$) vinda de fora: de 0,01 a 1e9; qualquer outra coisa vira 0 = sem meta */
+  function cleanReserva(v){var n=num(v,0.01,1e9);return n===null?0:round2(n)}
+
   /* modelos de gasto fixo vindos de fora: descarta o inválido, sanea ids e textos, no máximo MAX_RECURRING */
   function cleanRecurring(a){
     var out=[],seen={};
@@ -85,19 +88,20 @@
     if(!n) return {err:'O arquivo não tem nenhum mês com dados.'};
     var meta=num(j.meta,2,30);
     /* recurring: null = o arquivo não trouxe gastos fixos (exportação antiga), então os atuais ficam */
-    return {months:months,meta:meta===null?null:Math.round(meta),recurring:Array.isArray(j.recurring)?cleanRecurring(j.recurring):null,budget:isObj(j.budget)?cleanBudget(j.budget):null,n:n};
+    return {months:months,meta:meta===null?null:Math.round(meta),recurring:Array.isArray(j.recurring)?cleanRecurring(j.recurring):null,budget:isObj(j.budget)?cleanBudget(j.budget):null,reserva:j.reserva===undefined?null:cleanReserva(j.reserva),n:n};
   }
 
   function ukey(){var u=A.getUser();return u?'sobrou-v2-'+u:null}
 
   function loadData(){
-    S.data={};S.meta=10;S.recurring=[];S.budget={};var k=ukey();if(!k) return;
+    S.data={};S.meta=10;S.recurring=[];S.budget={};S.reserva=0;var k=ukey();if(!k) return;
     try{
       var d=JSON.parse(localStorage.getItem(k)||'null');
       if(d&&isObj(d.months)){
         S.data=readMonths(d.months,Infinity);
         S.recurring=cleanRecurring(d.recurring);
         S.budget=cleanBudget(d.budget);
+        S.reserva=cleanReserva(d.reserva);
         var mt=num(d.meta,2,30);if(mt!==null) S.meta=Math.round(mt);
       }
     }catch(e){}
@@ -106,9 +110,9 @@
   /* devolve false se o navegador não deixou gravar (armazenamento cheio ou bloqueado) */
   function saveData(){
     var k=ukey();if(!k) return false;
-    try{localStorage.setItem(k,JSON.stringify({months:S.data,meta:S.meta,recurring:S.recurring,budget:S.budget}));return true}catch(e){return false}
+    try{localStorage.setItem(k,JSON.stringify({months:S.data,meta:S.meta,recurring:S.recurring,budget:S.budget,reserva:S.reserva}));return true}catch(e){return false}
   }
 
-  A.MAX_RECURRING=MAX_RECURRING;A.cleanBudget=cleanBudget;
+  A.MAX_RECURRING=MAX_RECURRING;A.cleanBudget=cleanBudget;A.cleanReserva=cleanReserva;
   A.zw=zw;A.blank=blank;A.cleanMonth=cleanMonth;A.parseImport=parseImport;A.loadData=loadData;A.saveData=saveData;
 })();

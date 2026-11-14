@@ -42,6 +42,72 @@
     return out;
   }
 
+  /* ---------- análise (aba Análise) ----------
+     Só leem os dados e nunca criam meses vazios (M() cria): P(i) devolve um mês em branco sem guardá-lo. */
+  function P(i){return S.data[MON[i].key]||A.blank()}
+  function gastosDe(d){return round2(d.items.reduce(function(a,x){return a+x.v},0))}
+  function horasDe(d){var w=d.weeks.map(sum);return sum(w)/w.length}
+  function notaDe(d){return d.grades.length?sum(d.grades.map(function(g){return g.v}))/d.grades.length:d.nota}
+  function temDados(d){return d.renda>0||d.items.length>0}
+
+  /* um ponto por mês da janela: renda, gastos e sobra (tem = o mês tem algum registro) */
+  function serieSaldo(){
+    return MON.map(function(mo,i){
+      var d=P(i),g=gastosDe(d);
+      return {i:i,key:mo.key,label:mo.abbr,renda:d.renda,gastos:g,sobra:round2(d.renda-g),tem:temDados(d)};
+    });
+  }
+
+  /* média da sobra dos meses em que a renda foi informada (null se nenhum) */
+  function sobraMedia(){
+    var v=serieSaldo().filter(function(x){return x.renda>0}).map(function(x){return x.sobra});
+    return v.length?round2(sum(v)/v.length):null;
+  }
+
+  /* mês m contra o anterior. null se m é o primeiro da janela ou se o anterior está vazio.
+     cats: as 3 categorias que mais mudaram (pela diferença absoluta em R$). */
+  function compara(m){
+    if(m<1) return null;
+    var a=P(m),b=P(m-1);
+    if(!temDados(b)) return null;
+    var ga=gastosDe(a),gb=gastosDe(b);
+    function par(x,y,pct){return {atual:x,ant:y,delta:round2(x-y),pct:pct&&y>0?(x-y)/y*100:null}}
+    var na=notaDe(a),nb=notaDe(b);
+    function porCat(d,k){return round2(d.items.reduce(function(s,i){return s+(i.cat===k?i.v:0)},0))}
+    var cats=CATS.map(function(c){var x=porCat(a,c.k),y=porCat(b,c.k);return {k:c.k,n:c.n,atual:x,ant:y,delta:round2(x-y)}})
+      .filter(function(c){return c.delta!==0})
+      .sort(function(p,q){return Math.abs(q.delta)-Math.abs(p.delta)}).slice(0,3);
+    return {
+      gastos:par(ga,gb,true),
+      sobra:par(round2(a.renda-ga),round2(b.renda-gb),false),
+      horas:{atual:horasDe(a),ant:horasDe(b)},
+      nota:na==null||nb==null?null:{atual:na,ant:nb,delta:round2(na-nb)},
+      cats:cats
+    };
+  }
+
+  function pearson(x,y){
+    var n=x.length,mx=sum(x)/n,my=sum(y)/n,sxx=0,syy=0,sxy=0;
+    for(var i=0;i<n;i++){sxx+=(x[i]-mx)*(x[i]-mx);syy+=(y[i]-my)*(y[i]-my);sxy+=(x[i]-mx)*(y[i]-my)}
+    return sxx===0||syy===0?null:sxy/Math.sqrt(sxx*syy);
+  }
+  /* pares (horas de estudo por semana, nota) dos meses que têm as duas coisas.
+     r (coeficiente de correlação) só existe com 4 meses ou mais: com menos, qualquer número seria ruído. */
+  function horasNota(){
+    var pts=[];
+    MON.forEach(function(mo,i){var d=P(i),h=horasDe(d),n=notaDe(d);if(h>0&&n!=null) pts.push({i:i,label:mo.abbr,horas:h,nota:n})});
+    return {pontos:pts,r:pts.length>=4?pearson(pts.map(function(p){return p.horas}),pts.map(function(p){return p.nota})):null};
+  }
+
+  /* em quantos meses guardando "aporte" por mês (a "taxa" % ao mês) se chega à meta; null se não há aporte, meta
+     ou se passa de 600 meses (50 anos) */
+  function mesesParaMeta(meta,aporte,taxa){
+    if(!(meta>0)||!(aporte>0)) return null;
+    for(var n=1;n<=600;n++) if(fv(aporte,taxa,n)>=meta) return n;
+    return null;
+  }
+
+  A.serieSaldo=serieSaldo;A.sobraMedia=sobraMedia;A.compara=compara;A.horasNota=horasNota;A.mesesParaMeta=mesesParaMeta;
   A.budgetStatus=budgetStatus;
   A.fixosPend=fixosPend;A.lancarFixos=lancarFixos;
   A.M=M;A.money=money;A.total=total;A.sobra=sobra;A.byCat=byCat;A.notaMes=notaMes;

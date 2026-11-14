@@ -281,6 +281,34 @@ body.public main{padding-bottom:0}
 .ext-sum{font-weight:600;margin:14px 0 8px}
 .ext-acts{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
 .ext .tw{max-height:320px;overflow:auto}
+/* aba Análise (gráficos em SVG; acabamento visual fica para a fase de design) */
+.an-svg{display:block;width:100%;height:auto;margin-top:14px}
+#anChart .an-svg{max-width:640px} /* sem limite o gráfico esticaria até a largura do cartão e o texto ficaria gigante */
+.an-sc{max-width:420px}
+.an-axis{stroke:var(--line);stroke-width:1}
+.an-pos{fill:var(--bar)}
+.an-neg{fill:var(--danger-text)}
+.an-dot{fill:var(--brand)}
+.an-v,.an-m,.an-s{font-size:12px;fill:var(--fg);font-family:inherit}
+.an-m,.an-s{fill:var(--muted)}
+/* tabela de dados (não vira "cartão" no celular como a .tbl, porque aqui o cabeçalho de cada coluna importa) */
+.dtab{width:100%;border-collapse:collapse;font-size:13px}
+.dtab th,.dtab td{padding:10px 6px;border-bottom:1px solid var(--line);text-align:left;font-weight:400;vertical-align:top;overflow-wrap:anywhere}
+.dtab thead th{font-weight:500;color:var(--muted)}
+.dtab tbody th{font-weight:500;white-space:nowrap}
+.dtab tr:last-child th,.dtab tr:last-child td{border-bottom:0}
+.dtab .r{text-align:right;white-space:nowrap}
+@media (min-width:641px){.dtab{font-size:15px}.dtab th,.dtab td{padding:10px}}
+@media (max-width:640px){
+  #anChart .an-m{font-size:20px} /* o SVG encolhe com a largura da tela: texto maior para continuar legível */
+  #anChart .an-v{display:none}   /* os valores estão na tabela logo abaixo */
+  .an-list li{flex-direction:column;align-items:flex-start;gap:6px}
+  .an-list .v{white-space:normal;flex-wrap:wrap;gap:4px 12px}
+}
+.an-h{font-size:16px;font-weight:600;margin:22px 0 0}
+.an-d{font-size:14px;font-weight:500}
+.an-d.warn{color:var(--danger-text)}
+.an-d.good{color:var(--brand-text)}
 .bud-fields{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin:14px 0}
 #bList ul{list-style:none;margin:16px 0 0;padding:0}
 #bList li{padding:10px 0;border-top:1px solid var(--line)}

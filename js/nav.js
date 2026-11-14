@@ -21,7 +21,7 @@
 
   /* ---------- rotas ---------- */
   var pubIds=['entrar','cadastro'];
-  var ids=pubIds.concat(['inicio','financas','estudos','investimentos']);
+  var ids=pubIds.concat(['inicio','financas','estudos','investimentos','analise']);
   var loadedFor,focusAfter=null;
   if(!A.getUser()&&(location.hash===''||location.hash==='#'))location.replace('#entrar');
 
