@@ -539,6 +539,53 @@ const submit = (w, f) => f.dispatchEvent(new w.Event('submit', { cancelable: tru
   ok(d.querySelector('#anHN').textContent.toLowerCase().includes('pelo menos 2 meses') && d.querySelectorAll('#anScatter svg').length === 0, 'sem horas e notas a tela diz o que falta');
   ok(d.querySelectorAll('#anRows tr').length === 6 && errs.length === 0, 'tela vazia monta a tabela sem erro ' + JSON.stringify(errs));
 
+  // cenario 11: "Ver com dados de exemplo" (conta @exemplo, sem senha, recarregada a cada entrada) sem tocar nas contas reais
+  const real11 = JSON.stringify({ meta: 10, months: { [key]: { renda: 777, items: [gasto10('r1', 'lazer', 10)], weeks: wk(0), nota: null, grades: [] } } });
+  ({ w, d, errs } = boot((win) => {
+    win.localStorage.setItem('sobrou-users', JSON.stringify({ real: 'abc123' }));
+    win.localStorage.setItem('sobrou-v2-real', real11);
+  }));
+  await sleep(100);
+  const janela = Array.from({ length: 6 }, (_, i) => { const dt = new Date(now.getFullYear(), now.getMonth() - 5 + i, 1); return dt.getFullYear() + '-' + String(dt.getMonth() + 1).padStart(2, '0'); });
+  const ex11 = () => JSON.parse(w.localStorage.getItem('sobrou-v2-@exemplo'));
+  ok(w.location.hash === '#entrar' && d.querySelector('#demoBtn') && d.querySelector('#demoBar').hidden, 'tela de login tem o botao de exemplo e a faixa de aviso comeca escondida');
+
+  d.querySelector('#demoBtn').click(); await sleep(150);
+  ok(w.location.hash === '#inicio', 'o botao entra direto, sem senha');
+  ok(!d.querySelector('#demoBar').hidden && d.querySelector('#demoBar').textContent.toLowerCase().includes('dados de exemplo'), 'faixa avisa que sao dados de exemplo');
+  ok(d.querySelector('[data-who]').textContent === 'Exemplo', 'a conta aparece como "Exemplo", nao como @exemplo');
+  const dm = ex11();
+  ok(JSON.stringify(Object.keys(dm.months)) === JSON.stringify(janela) && Object.values(dm.months).every((m) => m.renda > 0 && m.items.length > 5), 'os 6 meses do exemplo vao para a janela de meses do site (o ultimo e o mes atual)');
+  ok(dm.recurring.length >= 2 && Object.keys(dm.budget).length >= 1 && dm.reserva > 0, 'exemplo traz gastos fixos, orcamento e meta de reserva');
+  ok(d.querySelectorAll('#fxList li').length >= 2, 'o cartao de gastos fixos mostra os modelos do exemplo');
+  ok(d.querySelectorAll('#anRows tr').length === 6 && d.querySelectorAll('#anChart svg rect.an-neg').length === 1 && d.querySelectorAll('#anChart svg rect.an-pos').length === 5, 'a aba Analise mostra os 6 meses, com um no vermelho');
+  ok(d.querySelectorAll('#anScatter svg circle').length >= 4 && d.querySelector('#anHN').textContent.includes('r ='), 'horas x nota com pontos suficientes para o coeficiente');
+  ok(d.querySelector('#bList').textContent.includes('Lazer') && d.querySelector('#bList .bud-over, #bList .bud-near, #bList .bud-ok'), 'o orcamento do exemplo aparece na lista');
+  w.location.hash = '#financas'; await sleep(50);
+  ok(d.querySelectorAll('#fList tr').length > 5 && !d.querySelector('#fList .empty'), 'tela de financas tem os gastos do mes atual do exemplo');
+
+  set('#gDesc', 'Teste meu'); set('#gVal', '5'); set('#gCat', 'outros'); submit(w, d.querySelector('#gForm'));
+  ok(ex11().months[janela[5]].items.some((i) => i.desc === 'Teste meu'), '(preparo) o que se faz no exemplo e salvo enquanto se usa');
+  d.querySelector('#sairSide').click(); await sleep(50);
+  ok(w.location.hash === '#entrar' && d.querySelector('#demoBar').hidden, 'sair volta ao login e esconde a faixa');
+  d.querySelector('#demoBtn').click(); await sleep(150);
+  ok(!ex11().months[janela[5]].items.some((i) => i.desc === 'Teste meu'), 'entrar de novo recarrega o exemplo do zero (o que foi mudado some)');
+
+  ok(w.localStorage.getItem('sobrou-v2-real') === real11 && !JSON.parse(w.localStorage.getItem('sobrou-users'))['@exemplo'], 'a conta real e a lista de contas nao foram tocadas pelo exemplo');
+  d.querySelector('#sairSide').click(); await sleep(50);
+  w.location.hash = '#cadastro'; await sleep(30);
+  set('#cUser', '@exemplo'); set('#cPass', 'segredo1'); set('#cPass2', 'segredo1'); submit(w, d.querySelector('#cForm')); await sleep(100);
+  ok(d.querySelector('#cErr').textContent.includes('3 a 20 letras') && w.location.hash === '#cadastro', 'ninguem consegue criar uma conta chamada @exemplo');
+  w.location.hash = '#entrar'; await sleep(30);
+  set('#lUser', '@exemplo'); set('#lPass', 'qualquer'); submit(w, d.querySelector('#lForm')); await sleep(400);
+  ok(d.querySelector('#lErr').textContent.includes('incorretos') && w.location.hash === '#entrar', 'o formulario de login nao entra na conta de exemplo (so o botao)');
+  ok(errs.length === 0, 'sem erros JS no cenario 11 ' + JSON.stringify(errs));
+
+  ({ w, d, errs } = boot((win) => { win.Storage.prototype.setItem = function () { throw new Error('quota'); }; }));
+  await sleep(100);
+  d.querySelector('#demoBtn').click(); await sleep(150);
+  ok(w.location.hash === '#entrar' && d.querySelector('#lErr').textContent.includes('Não foi possível carregar o exemplo') && d.querySelector('#demoBar').hidden, 'sem poder gravar, avisa e continua no login');
+
   console.log(fails ? '\n' + fails + ' FALHA(S)' : '\nTUDO OK');
   process.exit(fails ? 1 : 0);
 })().catch((e) => { console.error('ERRO NO TESTE', e); process.exit(2); });

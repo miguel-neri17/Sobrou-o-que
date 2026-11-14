@@ -52,6 +52,8 @@
   </section>
 
   <main>
+    <!-- faixa que aparece em todas as telas enquanto se usa a conta de exemplo (nav.js liga e desliga) -->
+    <div class="demo-bar" id="demoBar" role="status" hidden><span>Você está vendo <b>dados de exemplo</b> (estudante simulado). Nada aqui é seu, e o que você mudar some ao sair.</span><button class="btn alt sm" type="button" id="demoSair">Sair do exemplo</button></div>
     <!-- ================= LOGIN ================= -->
     <section class="screen" id="entrar" data-title="Entrar" hidden>
       <div class="lg">
@@ -66,6 +68,7 @@
           <p class="err" id="lErr" role="alert"></p>
         </form>
         <p class="alt">Ainda não tem conta? <a href="#cadastro">Criar conta</a></p>
+        <div class="demo-cta"><p class="tiny">Quer só conhecer? Veja o site com um estudante simulado, sem criar conta e sem senha.</p><button class="btn alt" type="button" id="demoBtn">Ver com dados de exemplo</button></div>
       </div></div></div>
     </section>
 
@@ -277,6 +280,8 @@
 <script src="js/backup.js"></script>
 <script src="js/csv.js"></script>
 <script src="js/extrato.js"></script>
+<script src="js/demo.js"></script>
+<script src="js/exemplo.js"></script>
 <script src="js/nav.js"></script>
 <script src="js/main.js"></script>
 

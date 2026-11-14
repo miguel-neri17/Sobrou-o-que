@@ -87,5 +87,5 @@
     }).catch(function(){btn.disabled=false;er.textContent='Não foi possível criar a conta. Tente de novo.'});
   });
 
-  A.getUser=getUser;
+  A.getUser=getUser;A.setUser=setUser; /* setUser: usado só pelo botão "Ver com dados de exemplo" (exemplo.js) */
 })();
