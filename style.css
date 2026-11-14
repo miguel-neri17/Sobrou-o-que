@@ -7,7 +7,7 @@
   --brand-text:#1A634F;   /* verde usado como texto sobre fundo claro */
   --sobra:#F2A541;        /* laranja do projeto: usado só para "o que sobrou" */
   /* uma cor por categoria de gasto (família do verde, para o laranja da sobra se destacar) */
-  --c-alimentacao:#1F6F5C;--c-transporte:#58A08C;--c-lazer:#2D4F5E;--c-contas:#94BDB0;--c-estudos:#3F8C9F;--c-outros:#8C9A95;
+  --c-alimentacao:#1F6F5C;--c-transporte:#58A08C;--c-lazer:#2D4F5E;--c-assinaturas:#94BDB0;--c-estudos:#3F8C9F;--c-outros:#8C9A95;
   --c-sobra:var(--sobra);
   --bar:var(--brand);     /* barras de estudo que bateram a meta */
   --bar-low:#9CC7BA;      /* barras abaixo da meta */
@@ -28,11 +28,11 @@
   --display:"Chonburi","Iowan Old Style",Georgia,serif;  /* só no valor que sobrou, títulos e nome do site */
 }
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
-  --c-alimentacao:#3FA88E;--c-transporte:#7BC4B0;--c-lazer:#6A9DB3;--c-contas:#B6D8CD;--c-estudos:#5BB4C8;--c-outros:#8C9A95;--bar:#3FA88E;--bar-low:#3A5A51;
+  --c-alimentacao:#3FA88E;--c-transporte:#7BC4B0;--c-lazer:#6A9DB3;--c-assinaturas:#B6D8CD;--c-estudos:#5BB4C8;--c-outros:#8C9A95;--bar:#3FA88E;--bar-low:#3A5A51;
   --bg:#0E1311;--surface:#151D1A;--soft:#1E2824;--line:#2B3732;--field-line:#3F4D47;--fg:#E8EEEB;--muted:#9AA7A1;
   --brand-text:#6CCDB2;--danger-text:#FF9A9A;color-scheme:dark}}
 :root[data-theme="dark"]{
-  --c-alimentacao:#3FA88E;--c-transporte:#7BC4B0;--c-lazer:#6A9DB3;--c-contas:#B6D8CD;--c-estudos:#5BB4C8;--c-outros:#8C9A95;--bar:#3FA88E;--bar-low:#3A5A51;
+  --c-alimentacao:#3FA88E;--c-transporte:#7BC4B0;--c-lazer:#6A9DB3;--c-assinaturas:#B6D8CD;--c-estudos:#5BB4C8;--c-outros:#8C9A95;--bar:#3FA88E;--bar-low:#3A5A51;
   --bg:#0E1311;--surface:#151D1A;--soft:#1E2824;--line:#2B3732;--field-line:#3F4D47;--fg:#E8EEEB;--muted:#9AA7A1;
   --brand-text:#6CCDB2;--danger-text:#FF9A9A;color-scheme:dark}
 
@@ -271,7 +271,7 @@ body.public main{padding-bottom:0}
 .rbar.reveal{animation:grow 700ms var(--ease-out) both}
 @keyframes grow{from{clip-path:inset(0 100% 0 0)}to{clip-path:inset(0 0 0 0)}}
 .c-alimentacao{--seg:var(--c-alimentacao)}.c-transporte{--seg:var(--c-transporte)}.c-lazer{--seg:var(--c-lazer)}
-.c-contas{--seg:var(--c-contas)}.c-estudos{--seg:var(--c-estudos)}.c-outros{--seg:var(--c-outros)}.c-sobra{--seg:var(--c-sobra)}
+.c-assinaturas{--seg:var(--c-assinaturas)}.c-estudos{--seg:var(--c-estudos)}.c-outros{--seg:var(--c-outros)}.c-sobra{--seg:var(--c-sobra)}
 .rcap{color:var(--muted);font-size:14px;margin-top:10px}
 .rleg{list-style:none;margin:10px 0 0;padding:0}
 .rleg li{display:grid;grid-template-columns:14px 1fr auto;align-items:center;gap:10px;padding:9px 0;border-top:1px solid var(--line);font-size:15px}
