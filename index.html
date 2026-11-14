@@ -34,6 +34,8 @@
     </fieldset>
     <div class="databox">
       <p class="side-h">Seus dados</p>
+      <div class="f"><label for="arqSenha">Senha do arquivo (opcional)</label><input id="arqSenha" type="password" autocomplete="new-password" maxlength="100"></div>
+      <p class="hint">Preenchida, protege o arquivo ao exportar. Para abrir um arquivo protegido, preencha antes de importar. Sem a senha ele não abre.</p>
       <button class="btn alt sm" type="button" id="expBtn">Exportar dados</button>
       <button class="btn alt sm" type="button" id="impBtn">Importar dados</button>
       <input type="file" id="impFile" accept=".json,application/json" hidden>

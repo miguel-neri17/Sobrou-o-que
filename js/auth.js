@@ -87,5 +87,6 @@
     }).catch(function(){btn.disabled=false;er.textContent='Não foi possível criar a conta. Tente de novo.'});
   });
 
+  A.toB64=toB64;A.fromB64=fromB64;A.cryptoOk=cryptoOk; /* usados também para proteger o arquivo exportado (backup.js) */
   A.getUser=getUser;A.setUser=setUser; /* setUser: usado só pelo botão "Ver com dados de exemplo" (exemplo.js) */
 })();
