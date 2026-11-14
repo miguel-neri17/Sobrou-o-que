@@ -17,10 +17,11 @@
   var ABBR=['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];
   var FULLN=['janeiro','fevereiro','março','abril','maio','junho','julho','agosto','setembro','outubro','novembro','dezembro'];
 
-  /* o site mostra os 6 últimos meses; MON[MON.length-1] é o mês atual */
+  /* o site mostra os últimos MESES meses; MON[MON.length-1] é o mês atual. Meses mais antigos continuam guardados, só não aparecem. */
+  A.MESES=12;
   A.now=new Date();
   A.MON=[];
-  for(var q=5;q>=0;q--){
+  for(var q=A.MESES-1;q>=0;q--){
     var dt=new Date(A.now.getFullYear(),A.now.getMonth()-q,1);
     A.MON.push({key:A.monthKey(dt.getFullYear(),dt.getMonth()+1),abbr:ABBR[dt.getMonth()],full:FULLN[dt.getMonth()],year:dt.getFullYear()});
   }

@@ -1,6 +1,6 @@
 /* Testes unitários das contas da aba Análise (js/calc.js) e da validação da meta de reserva (js/storage.js).
    Sem navegador: carrega os scripts em um contexto isolado, como o navegador (objeto global Sobrou).
-   Os meses vêm de A.MON (últimos 6 meses a partir de hoje), então os testes funcionam em qualquer data. */
+   Os meses vêm de A.MON (últimos 12 meses a partir de hoje), então os testes funcionam em qualquer data. */
 const fs = require('fs');
 const path = require('path');
 const vm = require('vm');
@@ -44,7 +44,7 @@ let A = carregar();
 mes(A, 3, { renda: 1000, gastos: [['alimentacao', 300], ['lazer', 100]] });
 mes(A, 4, { renda: 500, gastos: [['alimentacao', 700]] });
 let s = A.serieSaldo();
-ok(s.length === 6 && s.every((x, i) => x.label === A.MON[i].abbr && x.key === A.MON[i].key), 'serieSaldo: um ponto por mês da janela, com rótulo e chave');
+ok(s.length === 12 && s.every((x, i) => x.label === A.MON[i].abbr && x.key === A.MON[i].key), 'serieSaldo: um ponto por mês da janela, com rótulo e chave');
 eq([s[3].renda, s[3].gastos, s[3].sobra, s[3].tem], [1000, 400, 600, true], 'serieSaldo: renda, gastos e sobra do mês');
 eq([s[4].sobra, s[4].tem], [-200, true], 'serieSaldo: mês no vermelho tem sobra negativa');
 eq([s[0].renda, s[0].gastos, s[0].sobra, s[0].tem], [0, 0, 0, false], 'serieSaldo: mês sem registro vem zerado e marcado como vazio');
