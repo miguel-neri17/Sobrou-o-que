@@ -84,11 +84,12 @@ const submit = (w, f) => f.dispatchEvent(new w.Event('submit', { cancelable: tru
   ok(errs.length === 0, 'sem erros JS no cenario 1 ' + JSON.stringify(errs));
 
   // cenario 2: conta antiga (senha em texto, gasto sem id)
-  const now = new Date(), key = now.getFullYear() + '-' + (now.getMonth() + 1);
+  // key = formato atual (AAAA-MM); legacyKey = formato antigo (AAAA-M), que ainda precisa ser lido
+  const now = new Date(), key = now.getFullYear() + '-' + String(now.getMonth() + 1).padStart(2, '0'), legacyKey = now.getFullYear() + '-' + (now.getMonth() + 1);
   const z = () => [0, 0, 0, 0, 0, 0, 0, 0];
   ({ w, d, errs } = boot((win) => {
     win.localStorage.setItem('sobrou-users', JSON.stringify({ velho: 'abc123' }));
-    win.localStorage.setItem('sobrou-v2-velho', JSON.stringify({ meta: 10, months: { [key]: { renda: 100, items: [{ d: 2, cat: 'lazer', desc: 'Cinema', v: 30 }], weeks: [z(), z(), z(), z()], nota: null, grades: [] } } }));
+    win.localStorage.setItem('sobrou-v2-velho', JSON.stringify({ meta: 10, months: { [legacyKey]: { renda: 100, items: [{ d: 2, cat: 'lazer', desc: 'Cinema', v: 30 }], weeks: [z(), z(), z(), z()], nota: null, grades: [] } } }));
   }));
   await sleep(100);
   set('#lUser', 'admin'); set('#lPass', 'admin123'); submit(w, d.querySelector('#lForm')); await sleep(2500);
@@ -216,6 +217,52 @@ const submit = (w, f) => f.dispatchEvent(new w.Event('submit', { cancelable: tru
   ok(true, '(cadastro com crypto quebrado cai no catch)');
   submit(w, d.querySelector('#cForm')); await sleep(300);
   ok(!d.querySelector('#cForm .go').disabled && d.querySelector('#cErr').textContent.includes('Não foi possível'), 'cadastro com falha reabilita o botao');
+
+  // cenario 6: categoria "assinaturas" e mes no formato AAAA-MM (dados no formato antigo sao migrados)
+  const login = async (win, doc, u, p) => {
+    doc.querySelector('#lUser').value = u; doc.querySelector('#lPass').value = p;
+    submit(win, doc.querySelector('#lForm')); await sleep(2500);
+  };
+  const stored = (win, u) => JSON.parse(win.localStorage.getItem('sobrou-v2-' + u));
+  // data fixa em maio de 2026: so em meses de 1 a 9 as formas AAAA-M e AAAA-MM sao diferentes
+  const k6 = '2026-05', l6 = '2026-5';
+  const fixDate = (win) => {
+    const Real = win.Date, fixed = new Real(2026, 4, 15, 12).getTime();
+    win.Date = class extends Real { constructor(...a) { a.length ? super(...a) : super(fixed); } static now() { return fixed; } };
+  };
+  const legacyData = { meta: 10, months: { [l6]: { renda: 100, items: [{ id: 'a1', d: 2, cat: 'contas', desc: 'Streaming', v: 30 }], weeks: [z(), z(), z(), z()], nota: null, grades: [] } } };
+  ({ w, d, errs } = boot((win) => {
+    fixDate(win);
+    win.localStorage.setItem('sobrou-users', JSON.stringify({ mig: 'abc123', col: 'abc123' }));
+    win.localStorage.setItem('sobrou-v2-mig', JSON.stringify(legacyData));
+    // o mesmo mes nas duas formas: a forma nova (AAAA-MM) vence
+    win.localStorage.setItem('sobrou-v2-col', JSON.stringify({ meta: 10, months: { [l6]: { renda: 10 }, [k6]: { renda: 20 } } }));
+  }));
+  await sleep(100);
+  await login(w, d, 'mig', 'abc123');
+  w.location.hash = '#financas'; await sleep(50);
+  const catVals = Array.from(d.querySelectorAll('#gCat option')).map((o) => o.value);
+  ok(catVals.includes('assinaturas') && !catVals.includes('contas'), 'categoria se chama assinaturas (nao contas)');
+  ok(d.querySelector('#fList').textContent.includes('Streaming') && d.querySelector('#fList small').textContent === 'Assinaturas', 'gasto salvo como "contas" aparece como Assinaturas');
+  set('#gDesc', 'Spotify'); set('#gVal', '10'); set('#gCat', 'assinaturas'); submit(w, d.querySelector('#gForm'));
+  ok(JSON.stringify(Object.keys(stored(w, 'mig').months)) === JSON.stringify([k6]), 'mes antigo (AAAA-M) migrado para AAAA-MM ao salvar: ' + Object.keys(stored(w, 'mig').months));
+  ok(stored(w, 'mig').months[k6].items.length === 2 && stored(w, 'mig').months[k6].items.every((i) => i.cat === 'assinaturas'), 'categoria contas migrada para assinaturas no armazenamento');
+  ok(d.querySelector('#fCats .c-assinaturas') !== null, 'barra da renda usa a cor de assinaturas');
+
+  // importar arquivo exportado no formato antigo (versao 1, mes AAAA-M e categoria contas)
+  const importOld = async (t) => {
+    const inp = d.querySelector('#impFile');
+    Object.defineProperty(inp, 'files', { value: [new w.File([t], 'x.json', { type: 'application/json' })], configurable: true });
+    inp.dispatchEvent(new w.Event('change')); await sleep(150);
+  };
+  await importOld(JSON.stringify({ app: 'sobrou', versao: 1, months: { [l6]: { renda: 77, items: [{ id: 'z9', d: 4, cat: 'contas', desc: 'Antigo', v: 5 }] } } }));
+  ok(d.querySelector('#dMsg').textContent.startsWith('Dados importados') && JSON.stringify(Object.keys(stored(w, 'mig').months)) === JSON.stringify([k6]) && stored(w, 'mig').months[k6].items[0].cat === 'assinaturas', 'arquivo antigo importa e vira AAAA-MM / assinaturas: ' + d.querySelector('#dMsg').textContent);
+
+  d.querySelector('#sairSide').click(); await sleep(50);
+  await login(w, d, 'col', 'abc123');
+  w.location.hash = '#financas'; await sleep(50);
+  ok(d.querySelector('#rRenda').value === '20', 'mes nas duas formas: a forma AAAA-MM prevalece (renda ' + d.querySelector('#rRenda').value + ')');
+  ok(errs.length === 0, 'sem erros JS no cenario 6 ' + JSON.stringify(errs));
 
   console.log(fails ? '\n' + fails + ' FALHA(S)' : '\nTUDO OK');
   process.exit(fails ? 1 : 0);

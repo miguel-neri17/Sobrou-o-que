@@ -16,7 +16,8 @@
       if(!isObj(i)) return;
       var v=num(i.v,0.01,1e9),d=num(i.d,1,31),desc=str(i.desc,40);
       if(v===null||!desc) return;
-      var cat=CATS.some(function(c){return c.k===i.cat})?i.cat:'outros';
+      var c0=i.cat==='contas'?'assinaturas':i.cat; /* "contas" é o nome antigo de "assinaturas" */
+      var cat=CATS.some(function(c){return c.k===c0})?c0:'outros';
       o.items.push({id:cleanId(i.id,seenI),d:d===null?1:Math.floor(d),cat:cat,desc:desc,v:round2(v)});
     });
     if(Array.isArray(m.weeks)&&m.weeks.length===4){
@@ -38,18 +39,24 @@
     return o;
   }
 
-  var MONTH_KEY=/^\d{4}-(?:[1-9]|1[0-2])$/;
+  /* valida e normaliza os meses de um objeto vindo de fora. Aceita a chave AAAA-MM e a antiga AAAA-M;
+     o resultado só tem AAAA-MM. Se o mesmo mês vier nas duas formas, a AAAA-MM vence. */
+  function readMonths(src,max){
+    var out={},keys=Object.keys(src).filter(function(k){return A.normMonthKey(k)&&isObj(src[k])}).slice(0,max);
+    keys.sort(function(a,b){return (a===A.normMonthKey(a))-(b===A.normMonthKey(b))}); /* formas antigas primeiro, as novas sobrescrevem */
+    keys.forEach(function(k){out[A.normMonthKey(k)]=cleanMonth(src[k])});
+    return out;
+  }
 
   /* lê e valida um arquivo de exportação; devolve {months,meta,n} ou {err} */
   function parseImport(txt){
     var j;try{j=JSON.parse(txt)}catch(e){return {err:'O arquivo não é um JSON válido.'}}
     if(!isObj(j)||j.app!=='sobrou'||!isObj(j.months)) return {err:'Este arquivo não parece ser uma exportação do Sobrou o Quê?.'};
     if(num(j.versao,1,1)===null) return {err:'Esta versão do arquivo não é suportada.'};
-    var keys=Object.keys(j.months).filter(function(k){return MONTH_KEY.test(k)&&isObj(j.months[k])}).slice(0,240);
-    if(!keys.length) return {err:'O arquivo não tem nenhum mês com dados.'};
-    var months={};keys.forEach(function(k){months[k]=cleanMonth(j.months[k])});
+    var months=readMonths(j.months,240),n=Object.keys(months).length;
+    if(!n) return {err:'O arquivo não tem nenhum mês com dados.'};
     var meta=num(j.meta,2,30);
-    return {months:months,meta:meta===null?null:Math.round(meta),n:keys.length};
+    return {months:months,meta:meta===null?null:Math.round(meta),n:n};
   }
 
   function ukey(){var u=A.getUser();return u?'sobrou-v2-'+u:null}
@@ -59,7 +66,7 @@
     try{
       var d=JSON.parse(localStorage.getItem(k)||'null');
       if(d&&isObj(d.months)){
-        Object.keys(d.months).forEach(function(x){if(MONTH_KEY.test(x)&&isObj(d.months[x])) S.data[x]=cleanMonth(d.months[x])});
+        S.data=readMonths(d.months,Infinity);
         var mt=num(d.meta,2,30);if(mt!==null) S.meta=Math.round(mt);
       }
     }catch(e){}

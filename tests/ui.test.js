@@ -9,13 +9,13 @@ let fails = 0;
 const ok = (c, m) => { console.log((c ? 'OK   ' : 'FAIL ') + m); if (!c) fails++; };
 
 function dados(renda) {
-  const now = new Date(), key = now.getFullYear() + '-' + (now.getMonth() + 1);
+  const now = new Date(), key = now.getFullYear() + '-' + String(now.getMonth() + 1).padStart(2, '0');
   const items = [
     { id: 'a1', d: 3, cat: 'alimentacao', desc: 'Mercado', v: 220 },
     { id: 'a2', d: 5, cat: 'alimentacao', desc: 'Lanche', v: 85 },
     { id: 'a3', d: 6, cat: 'transporte', desc: 'Passe do ônibus', v: 120 },
     { id: 'a4', d: 9, cat: 'lazer', desc: 'Cinema com a turma', v: 160 },
-    { id: 'a5', d: 10, cat: 'contas', desc: 'Assinatura de música', v: 21.9 },
+    { id: 'a5', d: 10, cat: 'assinaturas', desc: 'Assinatura de música', v: 21.9 },
     { id: 'a6', d: 11, cat: 'estudos', desc: 'Livro de cálculo', v: 70 },
     { id: 'a7', d: 12, cat: 'outros', desc: 'Presente', v: 45 },
   ];
