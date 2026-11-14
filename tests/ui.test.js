@@ -258,6 +258,7 @@ async function abrir(browser, w, h, renda) {
     const cor = () => pT.evaluate(() => getComputedStyle(document.body).backgroundColor);
     const attr = () => pT.evaluate(() => document.documentElement.getAttribute('data-theme'));
     const escolher = async (valor) => {
+      await pT.waitForSelector('.screen:not([hidden]) .menubtn', { timeout: 10000 }); // após recarregar, a tela demora a reaparecer (CI é mais lento)
       await pT.evaluate(() => { document.querySelector('.screen:not([hidden]) .menubtn').click(); }); await sleep(350);
       await pT.click('input[name="tema"][value="' + valor + '"] + span'); await sleep(120);
       await pT.evaluate(() => { document.querySelector('#menuClose').click(); }); await sleep(300);
@@ -294,12 +295,12 @@ async function abrir(browser, w, h, renda) {
     await pO.click('#demoBtn'); await pO.waitForFunction(() => location.hash === '#inicio');
     const outros = await pO.$eval('.rbar i.c-outros', (e) => getComputedStyle(e).backgroundColor);
     ok(outros === 'rgb(156, 143, 126)', 'sem color-mix, "Outros" continua com o cinza quente próprio (' + outros + ')');
-    await pO.evaluate(() => { location.hash = '#estudos'; }); await sleep(300);
+    await pO.evaluate(() => { location.hash = '#estudos'; }); await pO.waitForSelector('#mMais', { visible: true, timeout: 10000 });
     for (let i = 0; i < 6; i++) await pO.click('#mMais');
     await sleep(300);
     const barras = await pO.evaluate(() => ({ baixa: getComputedStyle(document.querySelector('.col.low .t i')).backgroundColor, ok: (document.querySelector('.col:not(.low) .t i') ? getComputedStyle(document.querySelector('.col:not(.low) .t i')).backgroundColor : 'nenhuma bateu a meta') }));
     ok(barras.baixa === 'rgb(112, 142, 133)' && barras.baixa !== barras.ok, 'sem color-mix, a barra abaixo da meta continua DIFERENTE da que bateu a meta (' + barras.baixa + ')');
-    await pO.evaluate(() => { location.hash = '#financas'; }); await sleep(300);
+    await pO.evaluate(() => { location.hash = '#financas'; }); await pO.waitForSelector('#gDesc', { visible: true, timeout: 10000 });
     await pO.focus('#gDesc');
     const anel = await pO.$eval('#gDesc', (e) => getComputedStyle(e).boxShadow);
     ok(anel !== 'none', 'sem color-mix, o campo em foco ainda mostra um anel (' + anel.slice(0, 40) + ')');
