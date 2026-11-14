@@ -633,6 +633,40 @@ const submit = (w, f) => f.dispatchEvent(new w.Event('submit', { cancelable: tru
   ok(d.documentElement.getAttribute('data-theme') === 'dark', 'se o navegador não deixa guardar, o tema ainda é aplicado nesta visita');
   ok(errs.length === 0, 'sem erros JS no cenario 13 ' + JSON.stringify(errs));
 
+  // cenario 15: corrigir horas de estudo (antes so somava: um erro de digitacao nao tinha conserto)
+  ({ w, d, errs } = boot((win) => { fixDate(win); win.localStorage.setItem('sobrou-users', JSON.stringify({ est: 'abc123' })); }));
+  await sleep(100);
+  await login(w, d, 'est', 'abc123');
+  w.location.hash = '#estudos'; await sleep(50);
+  const h15 = (s, di) => (stored(w, 'est') ? stored(w, 'est').months[k6].weeks[s][di] : 0);
+  const envia15 = (horas, subst) => { set('#eSem', '0'); set('#eDia', '1'); set('#eHoras', horas); d.querySelector('#eSubst').checked = !!subst; d.querySelector('#eSubst').dispatchEvent(new w.Event('change')); submit(w, d.querySelector('#eForm')); };
+  const atual15 = () => d.querySelector('#eAtual').textContent, msg15 = () => d.querySelector('#eMsg').textContent;
+  ok(d.querySelector('#eSubst') && !d.querySelector('#eSubst').checked, 'o formulário de horas tem a caixa "Substituir", desmarcada por padrão');
+  envia15('3', false); envia15('1.5', false);
+  ok(h15(0, 1) === 4.5 && msg15().includes('adicionadas'), 'sem a caixa, as horas continuam somando (3 + 1,5 = 4,5): ' + h15(0, 1));
+  set('#eSem', '0'); set('#eDia', '1'); d.querySelector('#eDia').dispatchEvent(new w.Event('change'));
+  ok(atual15().includes('4,5'), 'o formulário mostra o que já está registrado naquele dia: ' + atual15());
+  envia15('1.5', true);
+  ok(h15(0, 1) === 1.5 && msg15().includes('Total') && !d.querySelector('#eSubst').checked, 'com a caixa, o total do dia é SUBSTITUÍDO (4,5 vira 1,5), e a caixa se desmarca para não sobrescrever sem querer: ' + h15(0, 1) + ' / ' + msg15());
+  ok(atual15().includes('1,5'), 'depois de substituir, o total mostrado é o novo: ' + atual15());
+  envia15('0', true);
+  ok(h15(0, 1) === 0, 'substituir por 0 apaga as horas do dia');
+  envia15('2.2', true);
+  ok(h15(0, 1) === 2, 'substituir também arredonda para meia hora (2,2 vira 2)');
+  const antes15 = h15(0, 1);
+  for (const [hs, sb] of [['0', false], ['', false], ['', true], ['-1', true], ['25', false], ['25', true], ['abc', true]]) {
+    envia15(hs, sb);
+    ok(h15(0, 1) === antes15 && msg15().includes('Informe'), `horas inválidas (${JSON.stringify(hs)}, ${sb ? 'substituir' : 'somar'}) são recusadas sem alterar nada: ${msg15()}`);
+  }
+  ok(h15(0, 2) === 0 && h15(1, 1) === 0, 'só o dia e a semana escolhidos mudam');
+  const set15 = w.Storage.prototype.setItem;
+  w.Storage.prototype.setItem = function () { throw new Error('quota'); };
+  envia15('4', true);
+  w.Storage.prototype.setItem = set15;
+  ok(msg15().includes('Nada foi alterado') && h15(0, 1) === antes15, 'se o navegador não deixa gravar, avisa e mantém o valor anterior: ' + msg15());
+  ok(d.querySelector('#eDias').textContent.length > 0 && atual15().includes('2'), 'a tela volta ao valor anterior depois da falha: ' + atual15());
+  ok(errs.length === 0, 'sem erros JS no cenario 15 ' + JSON.stringify(errs));
+
   console.log(fails ? '\n' + fails + ' FALHA(S)' : '\nTUDO OK');
   process.exit(fails ? 1 : 0);
 })().catch((e) => { console.error('ERRO NO TESTE', e); process.exit(2); });

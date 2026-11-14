@@ -28,7 +28,7 @@ Painel pessoal para estudantes: anote o que **entra e sai**, as **horas de estud
   - **importar extrato do banco em CSV**, com uma tela de revisão antes de salvar: detecta separador, acentos, valores (`R$ 1.234,56`, `-12,50`, `(45,00)`) e datas, avisa o que é duplicado ou inválido, e reimportar o mesmo extrato não duplica nada;
   - **gastos fixos**: marque "Repetir todo mês" ao registrar um gasto e lance todos de uma vez em cada mês, sem digitar de novo;
   - **orçamento por categoria**: um limite mensal por categoria, com aviso ao chegar perto (80%) e ao passar.
-- **Estudos:** horas por semana e por dia da semana, com **meta semanal** em linha tracejada, e notas por matéria com média automática.
+- **Estudos:** horas por semana e por dia da semana (as horas somam, e dá para **corrigir ou apagar** o total de um dia), com **meta semanal** em linha tracejada, e notas por matéria com média automática.
 - **Investimentos:** simulador de aportes mensais (juros compostos) e quatro textos curtos de educação financeira. A taxa é só um exemplo para estudar.
 - **Análise:** saldo mês a mês (gráfico e tabela), comparação com o mês anterior (em palavras: "a mais", "a menos"), horas de estudo × nota com os seus meses, e **meta de reserva**: em quantos meses você chega nela com a sua sobra média.
 - **Dados:** **exportar e importar** tudo em um arquivo `.json`, sem senha dentro.
