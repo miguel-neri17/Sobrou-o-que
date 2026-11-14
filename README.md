@@ -73,7 +73,8 @@ npm run test:all
 | `npm test` | Fluxos completos em navegador simulado (jsdom): contas, gastos, importação e exportação, migração de formatos, extrato CSV, gastos fixos, orçamento, análise e conta de exemplo |
 | `npm run test:csv` | Leitor de extrato: separadores, aspas, valores, datas e duplicados |
 | `npm run test:calc` | Contas da aba Análise: saldo por mês, comparação, horas × nota e prazo da meta |
-| `npm run test:ui` | Layout, abas, menu, animação e rolagem lateral em um navegador real |
+| `npm run test:design` | Sistema visual: contraste das cores nos dois temas (WCAG 2.2), movimento centralizado e "reduzir movimento", nenhuma cor solta fora dos tokens e `DESIGN.md` em dia com o CSS |
+| `npm run test:ui` | Layout, abas, menu, animação, "reduzir movimento", alvos de toque e rolagem lateral em um navegador real |
 | `npm run test:dados` | Gerador das bases simuladas e conversor do estudante de exemplo |
 
 O [GitHub Actions](.github/workflows/ci.yml) roda tudo a cada push e a cada pull request. Para refazer as capturas de tela: `npm run screenshots -- <rotulo> <largura> <altura> [light|dark] [cheio|negativo|vazio|exemplo]`.
@@ -82,7 +83,9 @@ O [GitHub Actions](.github/workflows/ci.yml) roda tudo a cada push e a cada pull
 
 ```
 index.html            todas as telas (abas por #hash) e a ordem dos scripts
-style.css             estilos, com modo claro e escuro
+style.css             estilos, com modo claro e escuro, todos a partir de tokens (cor, espaço, tipo, raio, movimento)
+PRODUCT.md            para quem é o app, o que a pessoa quer fazer, tom e princípios
+DESIGN.md             o sistema visual: tokens, contraste medido, movimento, componentes e dívida visual
 js/                   um arquivo por responsabilidade, carregados como scripts comuns
   util.js state.js    funções pequenas; constantes e estado da tela
   storage.js calc.js  validação e armazenamento; contas (sem mexer na tela)

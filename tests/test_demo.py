@@ -93,6 +93,17 @@ class TestDemo(unittest.TestCase):
         com_nota = sum(1 for m in d["months"] if m["grades"] and any(any(w) for w in m["weeks"]))
         self.assertGreaterEqual(com_nota, 4, "meses com horas e nota para o gráfico e o coeficiente da Análise")
 
+    def test_materias_com_acento_e_nome_de_gente(self):
+        """As bases guardam matérias sem acento (programacao, ingles...). No app elas aparecem para a pessoa,
+        então o exemplo tem de mostrar "Programação" e "Inglês", e não "Programacao"."""
+        sem_acento = {"Programacao", "Ingles", "Calculo", "Matematica", "Portugues", "Historia", "Fisica",
+                      "Quimica", "Gestao", "Estatistica"}
+        nomes = {g["subj"] for m in self.demo["months"] for g in m["grades"]}
+        self.assertFalse(nomes & sem_acento, f"matérias sem acento: {sorted(nomes & sem_acento)}")
+        bonitos = {"Matemática", "Português", "História", "Geografia", "Biologia", "Física", "Química", "Inglês",
+                   "Programação", "Banco de dados", "Redes", "Gestão", "Cálculo", "Estatística", "Algoritmos"}
+        self.assertTrue(nomes <= bonitos, f"matéria fora da lista conhecida: {sorted(nomes - bonitos)}")
+
     def test_horas_e_nota_nao_contradizem_a_premissa(self):
         """As bases simulam que mais horas elevam a nota de leve (efeitos.horas_na_nota > 0). Um exemplo que mostrasse
         "mais horas, notas menores" pareceria defeito do site, então o estudante é escolhido com relação não negativa."""

@@ -26,5 +26,7 @@ jobs:
       - run: npm run test:csv
       # contas da aba Análise (saldo por mês, comparação, horas x nota, prazo da meta de reserva)
       - run: npm run test:calc
+      # sistema visual: contraste das cores (WCAG), movimento centralizado e "reduzir movimento", tokens e DESIGN.md em dia
+      - run: npm run test:design
       # navegador real (o Chrome já vem instalado no runner): layout, abas, menu, animação, rolagem lateral
       - run: npm run test:ui
