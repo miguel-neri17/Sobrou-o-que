@@ -11,10 +11,12 @@
     "test": "node tests/e2e.test.js",
     "test:csv": "node tests/csv.test.js",
     "test:calc": "node tests/calc.test.js",
+    "test:design": "node tests/design.test.js",
     "test:ui": "node tests/ui.test.js",
     "test:dados": "python -m unittest discover -s tests -p \"test_*.py\"",
-    "test:all": "npm test && npm run test:csv && npm run test:calc && npm run test:ui && npm run test:dados",
-    "screenshots": "node scripts/screenshots.js"
+    "test:all": "npm test && npm run test:csv && npm run test:calc && npm run test:design && npm run test:ui && npm run test:dados",
+    "screenshots": "node scripts/screenshots.js",
+    "visual": "node scripts/visual.js"
   },
   "devDependencies": {
     "jsdom": "22.1.0",

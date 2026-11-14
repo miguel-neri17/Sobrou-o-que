@@ -38,6 +38,12 @@ def _cat(c):
     """Categoria no app: o app não tem "nao_informado", o lugar dele é "outros"."""
     return "outros" if c == "nao_informado" else c
 PAGAMENTO = {"dinheiro": "dinheiro", "pix": "pix", "debito": "débito", "credito": "crédito"}
+# as bases guardam as matérias em minúsculas e sem acento (listas fixas, para o tratamento não confundir "Mat." com
+# "Matemática"); no app elas aparecem para a pessoa, então o exemplo usa o nome escrito direito
+MATERIAS = {"matematica": "Matemática", "portugues": "Português", "historia": "História", "geografia": "Geografia",
+            "biologia": "Biologia", "fisica": "Física", "quimica": "Química", "ingles": "Inglês",
+            "programacao": "Programação", "banco_de_dados": "Banco de dados", "redes": "Redes", "gestao": "Gestão",
+            "calculo": "Cálculo", "estatistica": "Estatística", "algoritmos": "Algoritmos"}
 HORAS_TIPICAS = (5, 12)  # horas de estudo por semana: "a maioria estuda entre 5 e 15" (Blueprint), sem os extremos
 
 
@@ -146,7 +152,7 @@ def construir(pasta=ESPERADO, estudante=None):
         est_mes = [e for e in estudos if e["mes_referencia"] == mes]
         horas = sum(float(e["horas_semana"]) for e in est_mes)
         horas_totais.append(horas)
-        notas = [{"id": f"n{i}-{k + 1}", "subj": e["materia"].replace("_", " ").capitalize(), "v": float(e["nota"]),
+        notas = [{"id": f"n{i}-{k + 1}", "subj": MATERIAS.get(e["materia"], e["materia"].replace("_", " ").capitalize()), "v": float(e["nota"]),
                   "label": "Avaliação do mês"} for k, e in enumerate(est_mes) if e["nota"] != ""]
         months.append({"renda": renda[mes], "items": itens, "weeks": _semanas(horas), "grades": notas})
 

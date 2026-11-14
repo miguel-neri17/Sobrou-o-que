@@ -138,6 +138,49 @@ async function abrir(browser, w, h, renda) {
   ok(await page.evaluate(() => location.hash) === '#entrar' && await page.$eval('.tabs', (e) => getComputedStyle(e).display === 'none'), 'celular, sem login: tela de entrada, sem abas');
   ok(await page.$eval('.screen:not([hidden]) .lg-brand', (e) => e.getBoundingClientRect().width >= 389 && e.getBoundingClientRect().height < 160), 'login no celular: faixa verde no topo');
   ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), 'login sem rolagem lateral');
+  ok(await page.$eval('#demoBtn', (e) => getComputedStyle(e).paddingTop === '0px'), 'o botão de exemplo não herda o espaçamento do parágrafo "Ainda não tem conta" (ambos têm a classe alt)');
+  await page.close();
+
+  // ---------- movimento: um desvanecer único na entrada das telas ----------
+  ({ page, errs } = await abrir(browser, 390, 844, 1800));
+  await page.evaluate(() => { location.hash = '#financas'; }); await sleep(30);
+  const ent = await page.evaluate(() => {
+    const s = document.querySelector('.screen:not([hidden])');
+    return { tela: getComputedStyle(s).animationName, dur: getComputedStyle(s).animationDuration, cartao: getComputedStyle(s.querySelector('.card')).animationName };
+  });
+  ok(ent.tela === 'fade' && ent.dur === '0.15s' && ent.cartao === 'none', 'a tela entra com UM desvanecer de 150 ms, e os cartões não têm animação própria (' + ent.tela + ' ' + ent.dur + ', cartão: ' + ent.cartao + ')');
+
+  // ---------- toque: alvos de 44 px nos botões pequenos, mínimo de 24 px nos links soltos e na caixa de marcar ----------
+  await page.evaluate(() => { location.hash = '#estudos'; }); await sleep(300);
+  const alvos = await page.evaluate(() => {
+    const m = (s) => { const r = document.querySelector(s).getBoundingClientRect(); return Math.round(Math.min(r.width, r.height)); };
+    return { mais: m('#mMais'), mes: m('#estudos [data-step="1"]'), link: m('#estudos .card .link, #inicio .card .link') };
+  });
+  ok(alvos.mais >= 44 && alvos.mes >= 44, 'celular: botões "+" e de mês têm pelo menos 44 px de toque (' + alvos.mais + ' e ' + alvos.mes + ')');
+  await page.evaluate(() => { location.hash = '#inicio'; }); await sleep(300);
+  const link = await page.$eval('#inicio .card .link', (e) => Math.round(e.getBoundingClientRect().height));
+  ok(link >= 24, 'celular: links soltos têm pelo menos 24 px de altura (WCAG 2.5.8): ' + link + ' px');
+  await page.evaluate(() => { location.hash = '#financas'; }); await sleep(300);
+  const chk = await page.$eval('#gFixo', (e) => { const r = e.getBoundingClientRect(); return Math.round(Math.min(r.width, r.height)); });
+  ok(chk >= 24, 'caixa de marcar "Repetir todo mês" tem pelo menos 24 px: ' + chk + ' px');
+  ok(errs.length === 0, 'sem erros no console (movimento e toque) ' + JSON.stringify(errs));
+  await page.close();
+
+  // ---------- "reduzir movimento": nada anima ----------
+  ({ page, errs } = await abrir(browser, 390, 844, 1800));
+  await page.emulateMediaFeatures([{ name: 'prefers-reduced-motion', value: 'reduce' }]);
+  await page.evaluate(() => { location.hash = '#financas'; }); await sleep(80);
+  const red = await page.evaluate(() => {
+    const maior = (d) => Math.max(...d.split(',').map((x) => parseFloat(x)));
+    const s = document.querySelector('.screen:not([hidden])');
+    return {
+      tela: getComputedStyle(s).animationName,
+      botao: maior(getComputedStyle(document.querySelector('#financas .btn')).transitionDuration),
+      gaveta: maior(getComputedStyle(document.querySelector('.side')).transitionDuration),
+      pelicula: maior(getComputedStyle(document.querySelector('.scrim')).transitionDuration),
+    };
+  });
+  ok(red.tela === 'none' && red.botao < 0.001 && red.gaveta < 0.001 && red.pelicula < 0.001, '"reduzir movimento": a tela não anima e botão, gaveta e película têm transição praticamente zero (' + JSON.stringify(red) + ')');
   await page.close();
 
   await browser.close();
