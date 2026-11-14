@@ -61,7 +61,7 @@ O estudante de exemplo é escolhido por regra a partir de `dados/esperado/` (as 
 
 ## Testes
 
-Precisa de Node 18 ou mais novo e, para os dados, Python 3.10 ou mais novo (só a biblioteca padrão). Para a bateria no navegador real, um Edge, Chrome ou Chromium instalado.
+Precisa de Node 22.12 ou mais novo e, para os dados, Python 3.10 ou mais novo (só a biblioteca padrão). Para a bateria no navegador real, um Edge, Chrome ou Chromium instalado.
 
 ```bash
 npm ci
