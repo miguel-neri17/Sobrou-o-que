@@ -40,6 +40,7 @@
       loadedFor=user;A.loadData();S.aporteTocado=false;S.cur=MON.length-1;S.intro=!!user;A.endEdit();
       $('#dMsg').textContent='';$('#gMsg').textContent='';A.renderAll();
     }
+    $('#demoBar').hidden=user!==A.DEMO_USER; /* faixa "dados de exemplo" só enquanto se usa a conta de exemplo */
     document.body.classList.toggle('public',pubIds.indexOf(id)>=0);
     $$('.screen').forEach(function(s){
       var on=s.id===id;

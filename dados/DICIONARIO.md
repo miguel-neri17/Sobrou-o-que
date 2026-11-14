@@ -109,7 +109,8 @@ Com isso dá para conferir **cada erro** (o painel pegou?) e **o resultado** (os
 python dados/gerar_bases.py                  # regenera dados/bases, dados/esperado e dados/gabarito_erros.csv
 python dados/gerar_bases.py --sem-erros      # sem erros plantados
 python dados/gerar_bases.py --documentar     # imprime a tabela de premissas
-python -m unittest discover -s tests -p "test_*.py"    # testes do gerador
+python dados/gerar_demo.py                   # regenera js/demo.js, o estudante do botão "Ver com dados de exemplo"
+python -m unittest discover -s tests -p "test_*.py"    # testes do gerador e do conversor do exemplo
 ```
 
 Só precisa do Python 3.10 ou mais novo, sem instalar nada.

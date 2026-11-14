@@ -91,7 +91,8 @@
     return {months:months,meta:meta===null?null:Math.round(meta),recurring:Array.isArray(j.recurring)?cleanRecurring(j.recurring):null,budget:isObj(j.budget)?cleanBudget(j.budget):null,reserva:j.reserva===undefined?null:cleanReserva(j.reserva),n:n};
   }
 
-  function ukey(){var u=A.getUser();return u?'sobrou-v2-'+u:null}
+  var KEY_PREFIX='sobrou-v2-'; /* a chave de cada pessoa no localStorage é este prefixo + o login */
+  function ukey(){var u=A.getUser();return u?KEY_PREFIX+u:null}
 
   function loadData(){
     S.data={};S.meta=10;S.recurring=[];S.budget={};S.reserva=0;var k=ukey();if(!k) return;
@@ -113,6 +114,6 @@
     try{localStorage.setItem(k,JSON.stringify({months:S.data,meta:S.meta,recurring:S.recurring,budget:S.budget,reserva:S.reserva}));return true}catch(e){return false}
   }
 
-  A.MAX_RECURRING=MAX_RECURRING;A.cleanBudget=cleanBudget;A.cleanReserva=cleanReserva;
+  A.KEY_PREFIX=KEY_PREFIX;A.MAX_RECURRING=MAX_RECURRING;A.cleanBudget=cleanBudget;A.cleanReserva=cleanReserva;
   A.zw=zw;A.blank=blank;A.cleanMonth=cleanMonth;A.parseImport=parseImport;A.loadData=loadData;A.saveData=saveData;
 })();

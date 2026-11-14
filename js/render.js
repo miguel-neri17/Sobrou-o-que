@@ -46,7 +46,7 @@
       $('[data-step="-1"]',box).disabled=S.cur===0;
       $('[data-step="1"]',box).disabled=S.cur===MON.length-1;
     });
-    $$('[data-who]').forEach(function(e){e.textContent=A.getUser()||''});
+    $$('[data-who]').forEach(function(e){e.textContent=A.getUser()===A.DEMO_USER?'Exemplo':(A.getUser()||'')});
   }
 
   /* ---------- barra da renda ----------
@@ -79,7 +79,7 @@
 
   function renderInicio(){
     var m=S.cur,d=M(m),s=sobra(m),t=total(m),avg=avgWeeks(m);
-    $('#hello').textContent='Olá, '+(A.getUser()||'');
+    $('#hello').textContent='Olá, '+(A.getUser()===A.DEMO_USER?'estudante de exemplo':(A.getUser()||''));
     $('#inSub').textContent='Resumo de '+MON[m].full+' de '+MON[m].year+'.';
     /* o valor que sobrou (ou, se os gastos passaram da renda, o que faltou) é o protagonista da página */
     var neg=s<0,intro=!!S.intro&&location.hash==='#inicio'&&!reduceMotion();
@@ -281,10 +281,16 @@
     s+='<text class="an-s" x="'+(L+6)+'" y="'+(T+2)+'">nota média</text>';
     [x0,x1].forEach(function(n){s+='<text class="an-s" x="'+X(n)+'" y="'+(H-B+18)+'" text-anchor="middle">'+n+' h</text>'});
     s+='<text class="an-s" x="'+(L+(W-L-R)/2)+'" y="'+(H-4)+'" text-anchor="middle">horas de estudo por semana</text>';
-    pts.forEach(function(q,i){ /* o rótulo do mês alterna entre acima e abaixo do ponto, para meses vizinhos não se cobrirem */
-      var cx=X(q.horas),cy=Y(q.nota);
-      s+='<circle class="an-dot" cx="'+cx.toFixed(1)+'" cy="'+cy.toFixed(1)+'" r="6"><title>'+q.label+': '+dec.format(q.horas)+' h por semana, nota '+dec.format(q.nota)+'</title></circle>'
-        +'<text class="an-s" x="'+cx.toFixed(1)+'" y="'+(i%2?cy+20:cy-11).toFixed(1)+'" text-anchor="middle">'+q.label+'</text>';
+    /* meses com pontos praticamente no mesmo lugar dividem um rótulo ("Jun/Ago"), para os nomes não se cobrirem;
+       os rótulos dos grupos alternam entre acima e abaixo do ponto, para grupos vizinhos também não se cobrirem */
+    var grupos=[];
+    pts.forEach(function(q){
+      var cx=X(q.horas),cy=Y(q.nota),g=grupos.filter(function(k){return Math.abs(k.cx-cx)<14&&Math.abs(k.cy-cy)<14})[0];
+      if(g) g.labels.push(q.label); else grupos.push({cx:cx,cy:cy,labels:[q.label]});
+      s+='<circle class="an-dot" cx="'+cx.toFixed(1)+'" cy="'+cy.toFixed(1)+'" r="6"><title>'+q.label+': '+dec.format(q.horas)+' h por semana, nota '+dec.format(q.nota)+'</title></circle>';
+    });
+    grupos.forEach(function(k,i){
+      s+='<text class="an-s" x="'+k.cx.toFixed(1)+'" y="'+(i%2?k.cy+20:k.cy-11).toFixed(1)+'" text-anchor="middle">'+k.labels.join('/')+'</text>';
     });
     box.innerHTML=s+'</svg>';
     var aviso=' Correlação não mostra causa, e poucos meses variam muito de um ano para o outro.';

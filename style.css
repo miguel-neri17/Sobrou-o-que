@@ -281,6 +281,11 @@ body.public main{padding-bottom:0}
 .ext-sum{font-weight:600;margin:14px 0 8px}
 .ext-acts{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
 .ext .tw{max-height:320px;overflow:auto}
+/* conta de exemplo: faixa de aviso no topo e botão na tela de login (acabamento visual fica para a fase de design) */
+.demo-bar{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:10px 16px;background:var(--soft);border-bottom:1px solid var(--line);font-size:14px}
+.demo-bar b{font-weight:600}
+.demo-cta{margin-top:24px;padding-top:20px;border-top:1px solid var(--line)}
+.demo-cta .btn{margin-top:10px;width:100%}
 /* aba Análise (gráficos em SVG; acabamento visual fica para a fase de design) */
 .an-svg{display:block;width:100%;height:auto;margin-top:14px}
 #anChart .an-svg{max-width:640px} /* sem limite o gráfico esticaria até a largura do cartão e o texto ficaria gigante */
