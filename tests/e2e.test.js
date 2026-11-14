@@ -808,6 +808,43 @@ const submit = (w, f) => f.dispatchEvent(new w.Event('submit', { cancelable: tru
   ok(d.querySelector('#anRows tr th').textContent === 'Jun/25', 'a tabela começa em junho de 2025: ' + d.querySelector('#anRows tr th').textContent);
   ok(errs.length === 0, 'sem erros JS no cenario 16 ' + JSON.stringify(errs));
 
+  // cenario 17: lembrete de backup (os dados ficam so no navegador): aparece na tela Inicio depois de 30 dias sem exportar
+  const DIA = 864e5, hoje17 = new Date(2026, 4, 15, 12).getTime(); // a mesma data fixa de fixDate
+  const boot17 = async (user, dados) => {
+    ({ w, d, errs } = boot((win) => { fixDate(win); win.localStorage.setItem('sobrou-users', JSON.stringify({ [user]: 'abc123' })); if (dados) win.localStorage.setItem('sobrou-v2-' + user, JSON.stringify(dados)); }));
+    await sleep(100); await login(w, d, user, 'abc123'); w.location.hash = '#inicio'; await sleep(50);
+  };
+  const mes17 = { [k6]: { renda: 1000, items: [{ id: 'a', d: 2, cat: 'lazer', desc: 'Cinema', v: 30 }] } };
+  const dicas17 = () => d.querySelector('#inTips').textContent;
+  await boot17('bk', { months: mes17, backupEm: hoje17 - 40 * DIA });
+  ok(dicas17().includes('40 dias') && dicas17().includes('Exportar dados'), 'com dados e 40 dias sem exportar, o Início lembra do backup e diz onde exportar: ' + dicas17());
+  const blobs17 = []; w.URL.createObjectURL = (b) => { blobs17.push(b); return 'blob:z'; }; w.URL.revokeObjectURL = () => {};
+  d.querySelector('#expBtn').click(); await sleep(50);
+  ok(stored(w, 'bk').backupEm === hoje17 && !dicas17().includes('dias sem exportar'), 'exportar zera a contagem (grava a data de hoje) e o lembrete some: ' + dicas17());
+  ok(!('backupEm' in JSON.parse(await readBlob(blobs17[0]))), 'a data do último backup não vai dentro do arquivo exportado');
+  await boot17('bk2', { months: mes17, backupEm: hoje17 - 10 * DIA });
+  ok(!dicas17().includes('sem exportar'), 'com 10 dias sem exportar ainda não incomoda');
+  await boot17('bk3', { months: mes17, backupEm: hoje17 - 30 * DIA });
+  ok(dicas17().includes('30 dias'), 'o lembrete começa nos 30 dias exatos');
+  await boot17('bk4', { months: { [k6]: { renda: 0 } }, backupEm: hoje17 - 90 * DIA });
+  ok(!dicas17().includes('sem exportar'), 'conta sem nenhum dado não tem nada a perder: não lembra');
+  await boot17('bk5', { months: mes17 });
+  ok(!dicas17().includes('sem exportar') && stored(w, 'bk5').backupEm === undefined, 'quem nunca exportou não ganha lembrete logo de cara (a contagem ainda não começou)');
+  w.location.hash = '#financas'; await sleep(50);
+  set('#gDesc', 'Pão'); set('#gVal', '5'); set('#gCat', 'alimentacao'); submit(w, d.querySelector('#gForm'));
+  ok(stored(w, 'bk5').backupEm === hoje17, 'a contagem começa na primeira vez que a pessoa salva algo');
+  for (const ruim of ['abc', -5, hoje17 + 400 * DIA, null]) {
+    await boot17('bk6', { months: mes17, backupEm: ruim });
+    ok(!dicas17().includes('sem exportar') && errs.length === 0, `data de backup inválida (${JSON.stringify(ruim)}) é ignorada, sem erro e sem lembrete`);
+  }
+  await boot17('bk7', { months: mes17, backupEm: hoje17 - 40 * DIA });
+  w.URL.createObjectURL = () => 'blob:q'; w.URL.revokeObjectURL = () => {};
+  const set17 = w.Storage.prototype.setItem; w.Storage.prototype.setItem = function () { throw new Error('quota'); };
+  d.querySelector('#expBtn').click(); await sleep(50);
+  w.Storage.prototype.setItem = set17;
+  ok(d.querySelector('#dMsg').textContent.includes('gerado') && errs.length === 0, 'se o navegador não deixar gravar a data, o arquivo é gerado mesmo assim, sem erro: ' + d.querySelector('#dMsg').textContent);
+  ok(errs.length === 0, 'sem erros JS no cenario 17 ' + JSON.stringify(errs));
+
   console.log(fails ? '\n' + fails + ' FALHA(S)' : '\nTUDO OK');
   process.exit(fails ? 1 : 0);
 })().catch((e) => { console.error('ERRO NO TESTE', e); process.exit(2); });

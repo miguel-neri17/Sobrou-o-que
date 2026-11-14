@@ -116,6 +116,8 @@
     /* categoria que passou do orçamento vem primeiro: é o aviso mais acionável */
     var ob=A.budgetStatus(m).filter(function(x){return x.state==='over'});
     tips=ob.map(function(x){return 'O orçamento de '+x.n+' passou em '+money(x.over)+' neste mês.'}).concat(tips);
+    var dias=S.backupEm?Math.floor((Date.now()-S.backupEm)/864e5):0;
+    if(dias>=A.BACKUP_DIAS&&Object.keys(S.data).some(function(k){return S.data[k].renda>0||S.data[k].items.length})) tips.unshift('Já se passaram '+dias+' dias sem exportar uma cópia dos seus dados. Eles ficam só neste navegador: use Exportar dados no menu.');
     $('#inTips').closest('.tip').classList.toggle('is-warn',ob.length>0||s<0); /* o cartão se destaca quando há orçamento estourado ou gastos acima da renda */
     if(!tips.length) tips.push('Gastos e estudos dentro do esperado neste mês. Continue registrando para comparar com os próximos.');
     $('#inTips').innerHTML=tips.slice(0,2).map(function(x){return '<p>'+x+'</p>'}).join('');

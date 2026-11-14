@@ -14,6 +14,7 @@
       var url=URL.createObjectURL(new Blob([txt],{type:'application/json'}));
       var a=document.createElement('a');a.href=url;a.download=name;document.body.appendChild(a);a.click();a.remove();
       setTimeout(function(){URL.revokeObjectURL(url)},1000);
+      S.backupEm=Date.now();A.saveData();A.renderAll(); /* se não gravar a data, o arquivo já foi gerado: o lembrete só volta antes do tempo */
       dmsg('Arquivo "'+name+'" gerado. Guarde-o com cuidado: ele não tem senha.');
     }catch(e){dmsg('Não foi possível gerar o arquivo neste navegador.')}
   });
