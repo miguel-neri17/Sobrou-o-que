@@ -33,7 +33,7 @@ Painel pessoal para estudantes: anote o que **entra e sai**, as **horas de estud
 - **Análise:** saldo mês a mês (gráfico e tabela), comparação com o mês anterior (em palavras: "a mais", "a menos"), horas de estudo × nota com os seus meses, e **meta de reserva**: em quantos meses você chega nela com a sua sobra média.
 - **Dados:** **exportar e importar** tudo em um arquivo `.json`, sem senha dentro.
 - **Contas:** cada pessoa tem seus próprios dados no navegador, protegidos por login.
-- **Interface:** abas embaixo no celular, links no topo no computador, modo claro e escuro automáticos.
+- **Interface:** abas embaixo no celular, links no topo no computador, modo claro e escuro que seguem o sistema, com um seletor de **Aparência** (Sistema, Claro ou Escuro) no menu.
 
 ## Capturas
 
@@ -94,7 +94,9 @@ js/                   um arquivo por responsabilidade, carregados como scripts c
   backup.js           exportar e importar JSON
   csv.js extrato.js   leitor de extrato; tela de revisão da importação
   demo.js exemplo.js  estudante simulado (gerado); botão "Ver com dados de exemplo"
+  tema.js             seletor de aparência (Sistema, Claro, Escuro)
   nav.js main.js      rotas e menu; inicialização
+fonts/                as fontes (Chonburi e IBM Plex Sans) e suas licenças: o site não pede nada a servidores de fora
 dados/                bases simuladas, dicionário de dados e geradores (Python)
 tests/                testes em Node (jsdom) e em Python
 scripts/              capturas de tela e busca do navegador para os testes
@@ -109,6 +111,7 @@ docs/screenshots/     imagens do README
 - **Gravar é tudo ou nada.** Importar arquivo, importar extrato, lançar gastos fixos, salvar orçamento e salvar a meta restauram o estado anterior se o navegador não deixar gravar.
 - **Formatos antigos continuam funcionando.** O mês é guardado como `AAAA-MM`, mas `AAAA-M` ainda é lido; a categoria `contas` virou `assinaturas` e é convertida ao carregar. Os campos novos do arquivo exportado (gastos fixos, orçamento, meta) são opcionais, e um arquivo antigo, sem eles, mantém o que já existe.
 - **A conta de exemplo não toca em dados reais.** O cadastro só aceita logins com letras minúsculas, números, ponto, hífen e sublinhado, então ninguém tem uma conta chamada `@exemplo`, e o formulário de login não entra nela, só o botão.
+- **Nada sai do navegador, nem as fontes.** Chonburi e IBM Plex Sans ficam na pasta `fonts/`, em vez de vir do Google Fonts (que receberia o endereço IP de quem abre o site). Um teste no navegador real confere que o app não faz nenhum pedido a servidores de fora.
 - **Gráficos sem biblioteca.** Saldo por mês e horas × nota são SVG montado no código, cada um com uma tabela ou texto equivalente para leitor de tela. O coeficiente de correlação só aparece a partir de 4 meses, sempre com o aviso de que correlação não mostra causa.
 
 ## Avisos

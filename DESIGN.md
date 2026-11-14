@@ -9,7 +9,8 @@ Este documento descreve o visual **como ele é hoje**, a partir do `style.css`, 
 - **Vermelho** `--danger` / `--danger-text`: gastos que passaram da renda, orçamento estourado, erros.
 - **Chonburi** (`--display`, serifada): só no valor que sobrou, nos títulos de página e no nome do site. Nunca em rótulo, tabela ou dado.
 - **IBM Plex Sans** (`--font`): todo o resto.
-- Modo **claro e escuro** automáticos (`prefers-color-scheme`), com o escuro também forçável por `data-theme="dark"`.
+- Modo **claro e escuro**: por padrão seguem o sistema (`prefers-color-scheme`), e o menu lateral tem o seletor **Aparência** (Sistema, Claro, Escuro, em `js/tema.js`). A escolha vira o atributo `data-theme` no `<html>` e fica no navegador, na chave `sobrou-tema`; um trecho no `<head>` a aplica antes de qualquer tela, para não piscar o tema errado.
+- **As fontes são hospedadas no projeto** (`fonts/`, só o recorte latin; licença SIL OFL em `fonts/LICENSE.md`): o site não pede nada a servidores de fora, e `font-display: swap` evita texto invisível enquanto elas carregam.
 
 ## 2. Cor
 
@@ -173,7 +174,7 @@ npm run visual -- capturar depois      # depois
 npm run visual -- comparar antes depois
 ```
 
-As capturas usam a fonte de reserva do sistema (sem o Google Fonts) para ficarem determinísticas. **Limite conhecido:** a Análise no computador claro às vezes oscila sozinha, sem nenhuma mudança de código. Uma diferença isolada nessa tela deve ser confirmada recapturando; várias telas diferentes ao mesmo tempo indicam mudança real.
+As capturas usam as fontes do próprio projeto, então são iguais ao que a pessoa vê. **Limite conhecido:** a Análise no computador (em um tema ou em outro) às vezes oscila sozinha, sem nenhuma mudança de código. Uma diferença isolada nessa tela deve ser confirmada recapturando; várias telas diferentes ao mesmo tempo indicam mudança real.
 
 ## 10. Dívida visual conhecida
 

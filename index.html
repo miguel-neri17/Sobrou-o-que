@@ -4,9 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <style>:root{color-scheme:light}html,body{height:100%}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<!-- tema escolhido (Claro ou Escuro) aplicado antes de qualquer tela, para não piscar o tema errado; "Sistema" não guarda atributo. O resto fica em js/tema.js -->
+<script>(function(){try{var t=localStorage.getItem('sobrou-tema'),r=document.documentElement;if(t==='claro')r.setAttribute('data-theme','light');else if(t==='escuro')r.setAttribute('data-theme','dark')}catch(e){}})()</script>
 <title>Sobrou o Quê?</title>
 <meta name="claude:viewport-fit-sides" content="cover">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chonburi&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
 <link rel="stylesheet" href="style.css">
 
 
@@ -19,6 +20,14 @@
       <button class="btn alt sm" type="button" id="menuClose">Fechar</button>
     </div>
     <p class="side-who">Conta: <b data-who></b></p>
+    <fieldset class="tema">
+      <legend>Aparência</legend>
+      <div class="tema-ops">
+        <label class="tema-op"><input type="radio" name="tema" value="sistema" checked><span>Sistema</span></label>
+        <label class="tema-op"><input type="radio" name="tema" value="claro"><span>Claro</span></label>
+        <label class="tema-op"><input type="radio" name="tema" value="escuro"><span>Escuro</span></label>
+      </div>
+    </fieldset>
     <div class="databox">
       <p class="side-h">Seus dados</p>
       <button class="btn alt sm" type="button" id="expBtn">Exportar dados</button>
@@ -290,6 +299,7 @@
 <script src="js/extrato.js"></script>
 <script src="js/demo.js"></script>
 <script src="js/exemplo.js"></script>
+<script src="js/tema.js"></script>
 <script src="js/nav.js"></script>
 <script src="js/main.js"></script>
 

@@ -613,6 +613,26 @@ const submit = (w, f) => f.dispatchEvent(new w.Event('submit', { cancelable: tru
   ok(dlg().hidden && !inerte('main') && d.activeElement && d.activeElement.tagName === 'H1', 'confirmar a importacao tambem fecha, libera a pagina e devolve o foco');
   ok(errs.length === 0, 'sem erros JS no cenario 12 ' + JSON.stringify(errs));
 
+  // cenario 13: alternador de tema (sistema, claro, escuro), lembrado entre visitas e a prova de armazenamento ruim
+  ({ w, d, errs } = boot((win) => { win.localStorage.setItem('sobrou-tema', 'escuro'); }));
+  await sleep(100);
+  ok(d.documentElement.getAttribute('data-theme') === 'dark', 'tema salvo é aplicado antes de qualquer tela, sem piscar o tema errado');
+  const radios13 = Array.from(d.querySelectorAll('input[name="tema"]'));
+  ok(radios13.map((r) => r.value).join() === 'sistema,claro,escuro' && radios13.find((r) => r.checked).value === 'escuro', 'o seletor tem sistema, claro e escuro e mostra o que está salvo');
+  const escolher13 = (v) => { const r = d.querySelector('input[name="tema"][value="' + v + '"]'); r.checked = true; r.dispatchEvent(new w.Event('change', { bubbles: true })); };
+  escolher13('claro');
+  ok(d.documentElement.getAttribute('data-theme') === 'light' && w.localStorage.getItem('sobrou-tema') === 'claro', 'Claro: aplica o tema claro e guarda a escolha');
+  escolher13('sistema');
+  ok(!d.documentElement.hasAttribute('data-theme') && w.localStorage.getItem('sobrou-tema') === 'sistema', 'Sistema: tira o atributo e volta a seguir o sistema');
+  ({ w, d, errs } = boot((win) => { win.localStorage.setItem('sobrou-tema', '"><img src=x onerror=1>'); }));
+  await sleep(100);
+  ok(!d.documentElement.hasAttribute('data-theme') && d.querySelector('input[name="tema"]:checked').value === 'sistema', 'valor estranho guardado no navegador é ignorado: volta para Sistema');
+  ({ w, d, errs } = boot((win) => { win.Storage.prototype.setItem = function () { throw new Error('quota'); }; }));
+  await sleep(100);
+  escolher13('escuro');
+  ok(d.documentElement.getAttribute('data-theme') === 'dark', 'se o navegador não deixa guardar, o tema ainda é aplicado nesta visita');
+  ok(errs.length === 0, 'sem erros JS no cenario 13 ' + JSON.stringify(errs));
+
   console.log(fails ? '\n' + fails + ' FALHA(S)' : '\nTUDO OK');
   process.exit(fails ? 1 : 0);
 })().catch((e) => { console.error('ERRO NO TESTE', e); process.exit(2); });

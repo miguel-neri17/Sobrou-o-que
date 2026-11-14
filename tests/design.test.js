@@ -155,5 +155,22 @@ ok(/\.ext-box[^{]*\{[^}]*max-height/.test(css) || /\.ext\s*\{[^}]*overflow-y/.te
   ok(!/<div class="card wide"[^>]*>\s*<h2>Horas de estudo por semana/.test(html) && !/<div class="card wide"[^>]*>\s*<h2>Horas por dia da semana/.test(html) && cartoes === 2, 'os dois gráficos de barras do Estudos não são cartões de largura total');
 }
 
+/* ---------- 10. fontes hospedadas no projeto: nada sai do navegador ---------- */
+{
+  const html = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
+  const externos = (html + '\n' + css).match(/(?:href|src)=["']https?:\/\/[^"']+|url\(\s*["']?https?:\/\/[^)]+|@import[^;]*https?:\/\/[^;]+/g) || [];
+  ok(externos.length === 0, 'index.html e style.css não carregam nada de fora (fontes, estilos, scripts, imagens)' + (externos.length ? '\n       externos: ' + externos.join(' | ') : ''));
+  const faces = css.match(/@font-face\s*\{[^}]*\}/g) || [];
+  const fam = (n) => faces.filter((f) => new RegExp('font-family\\s*:\\s*["\']?' + n).test(f));
+  ok(fam('Chonburi').length >= 1 && fam('IBM Plex Sans').length >= 1 && faces.every((f) => /url\(\s*["']?fonts\//.test(f) && /font-display\s*:\s*swap/.test(f)), 'o CSS declara @font-face de Chonburi e IBM Plex Sans a partir de fonts/, com font-display: swap (' + faces.length + ' declarações)');
+  const arquivos = [...new Set(faces.map((f) => (/url\(\s*["']?([^"')]+)/.exec(f) || [])[1]).filter(Boolean))];
+  const invalidos = arquivos.filter((a) => { const p = path.join(root, a); return !fs.existsSync(p) || fs.readFileSync(p).slice(0, 4).toString('latin1') !== 'wOF2' || fs.statSync(p).size < 5000; });
+  ok(arquivos.length >= 2 && invalidos.length === 0, `os ${arquivos.length} arquivos de fonte existem, são woff2 de verdade (assinatura wOF2) e não estão vazios` + (invalidos.length ? '\n       problema em: ' + invalidos.join(', ') : ''));
+  const total = arquivos.reduce((s, a) => s + (fs.existsSync(path.join(root, a)) ? fs.statSync(path.join(root, a)).size : 0), 0);
+  ok(total > 0 && total < 150 * 1024, `as fontes pesam ${(total / 1024).toFixed(0)} KB no total (limite: 150 KB)`);
+  const lic = ['fonts/OFL-chonburi.txt', 'fonts/OFL-ibmplexsans.txt'].every((f) => fs.existsSync(path.join(root, f)) && /SIL OPEN FONT LICENSE/i.test(fs.readFileSync(path.join(root, f), 'utf8')));
+  ok(lic && fs.existsSync(path.join(root, 'fonts', 'LICENSE.md')), 'as licenças das fontes (SIL OFL, dos autores) acompanham os arquivos em fonts/');
+}
+
 console.log(fails ? '\n' + fails + ' FALHA(S)' : '\nTUDO OK');
 process.exit(fails ? 1 : 0);
