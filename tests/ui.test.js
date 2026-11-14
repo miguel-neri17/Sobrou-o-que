@@ -166,6 +166,23 @@ async function abrir(browser, w, h, renda) {
   ok(errs.length === 0, 'sem erros no console (movimento e toque) ' + JSON.stringify(errs));
   await page.close();
 
+  // ---------- Finanças no celular: com os lançamentos do exemplo, a tela não pode passar de 4.900 px ----------
+  // (antes do PR 2 eram 6.082 px: cada lançamento empilhava valor e botões embaixo da descrição)
+  for (const largura of [390, 320]) {
+    const ctxF = await browser.createBrowserContext();
+    const pF = await ctxF.newPage();
+    await pF.setViewport({ width: largura, height: 800, deviceScaleFactor: 1, isMobile: true, hasTouch: true });
+    await pF.goto(SITE, { waitUntil: 'networkidle2' });
+    await pF.click('#demoBtn');
+    await pF.waitForFunction(() => location.hash === '#inicio');
+    await pF.evaluate(() => { location.hash = '#financas'; }); await sleep(500);
+    // mede a tela (#financas), e não a página: a faixa de exemplo só existe na conta de exemplo
+    const m = await pF.evaluate(() => ({ h: Math.round(document.querySelector('#financas').getBoundingClientRect().height), lateral: document.documentElement.scrollWidth > document.documentElement.clientWidth, linhas: document.querySelectorAll('#fList tr').length }));
+    if (largura === 390) ok(m.linhas >= 20 && m.h <= 4900, 'Finanças no celular com ' + m.linhas + ' lançamentos tem ' + m.h + ' px (limite: 4.900; antes do PR 2: 6.0xx)');
+    ok(!m.lateral, 'Finanças a ' + largura + ' px sem rolagem lateral');
+    await ctxF.close();
+  }
+
   // ---------- "reduzir movimento": nada anima ----------
   ({ page, errs } = await abrir(browser, 390, 844, 1800));
   await page.emulateMediaFeatures([{ name: 'prefers-reduced-motion', value: 'reduce' }]);

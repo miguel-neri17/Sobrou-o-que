@@ -50,7 +50,7 @@ function contraste(a, b) { const x = lum(a), y = lum(b); return (Math.max(x, y) 
 const OBRIGATORIOS = ['brand', 'on-brand', 'brand-text', 'sobra', 'bg', 'surface', 'soft', 'line', 'field-line', 'fg', 'muted', 'danger', 'danger-text',
   'bar', 'bar-low', 'scrim',
   's-1', 's-2', 's-3', 's-4', 's-5', 's-6', 's-8', 's-10',
-  't-xs', 't-sm', 't-md', 't-base', 't-lg', 't-xl', 't-2xl', 't-3xl', 't-4xl',
+  't-xs', 't-sm', 't-md', 't-base', 't-lg', 't-xl', 't-2xl', 't-3xl', 't-4xl', 't-5xl', 'tabs-h',
   'r-xs', 'r-sm', 'r-ctl', 'r', 'r-xl', 'r-2xl',
   'dur-fast', 'dur-fade', 'dur-base', 'dur-drawer', 'dur-slow', 'dur-reveal', 'ease-out', 'ease-drawer',
   'z-tabs', 'z-scrim', 'z-side', 'z-dialog'];
@@ -129,14 +129,16 @@ if (fs.existsSync(path.join(root, 'DESIGN.md'))) {
   ok(citados.length > 20 && sumidos.length === 0, `o DESIGN.md cita ${citados.length} tokens e todos existem no CSS` + (sumidos.length ? '\n       inexistentes: ' + sumidos.join(', ') : ''));
 }
 
-/* ---------- informativo: valores fora da escala de espaçamento (4, 8, 12, 16, 20, 24, 32, 40) ---------- */
+/* ---------- 8. ritmo: espaçamento na escala e tamanhos de texto só por token ---------- */
 {
-  const escala = new Set([0, 1, 2, 3, 4, 6, 8, 10, 12, 16, 20, 24, 32, 40, 56, 64]);
+  const escala = new Set([0, 1, 2, 3, 4, 6, 8, 10, 12, 16, 20, 24, 32, 40, 56, 64]); // 6 e 10 são metades de passo, aceitos em ajustes finos
   const fora = {};
   (semTokens.match(/(?:padding|margin|gap)[a-z-]*\s*:\s*[^;}]+/g) || []).forEach((d) => {
     (d.match(/(?<![\w.-])\d+(?:\.\d+)?px/g) || []).forEach((p) => { const n = parseFloat(p); if (!escala.has(n)) fora[p] = (fora[p] || 0) + 1; });
   });
-  info('espaçamentos fora da escala (valor: ocorrências), para o PR 2 enquadrar: ' + (JSON.stringify(fora) === '{}' ? 'nenhum' : JSON.stringify(fora)));
+  ok(JSON.stringify(fora) === '{}', 'todo espaçamento (padding, margin, gap) está na escala' + (JSON.stringify(fora) === '{}' ? '' : '\n       fora da escala (valor: ocorrências): ' + JSON.stringify(fora)));
+  const textos = [...new Set((semTokens.match(/font-size\s*:\s*\d+(?:\.\d+)?px/g) || []).map((s) => s.replace(/\s+/g, '')))];
+  ok(textos.length === 0, 'todo tamanho de texto vem de um token --t-* (só clamp() fluido pode ter px direto)' + (textos.length ? '\n       literais: ' + textos.join(', ') : ''));
 }
 
 console.log(fails ? '\n' + fails + ' FALHA(S)' : '\nTUDO OK');

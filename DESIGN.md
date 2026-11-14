@@ -71,6 +71,7 @@ Tamanhos fixos em px, com o corpo em 15 px (`font:var(--t-base)/1.55`).
 | `--t-2xl` | 26 | Valores de destaque nos cartões |
 | `--t-3xl` | 28 | Título de página (celular) |
 | `--t-4xl` | 34 | Título de página (computador) |
+| `--t-5xl` | 42 | Nome do site no painel da tela de entrada (computador) |
 
 O valor que sobrou usa `clamp(44px,13vw,84px)` na Chonburi e é ajustado por script (`fitAmount`) para sempre caber em uma linha. Números usam `font-variant-numeric: tabular-nums`. Títulos usam `text-wrap: balance` e parágrafos `text-wrap: pretty`.
 
@@ -80,7 +81,9 @@ Escala de 4: `--s-1` 4, `--s-2` 8, `--s-3` 12, `--s-4` 16, `--s-5` 20, `--s-6` 2
 
 Raios: `--r-xs` 3 (marcadores), `--r-sm` 4 (colunas), `--r-ctl` 6 (botões e campos), `--r` 8 (cartões), `--r-xl` 18 e `--r-2xl` 40 (a logo na tela de entrada).
 
-Camadas: `--z-tabs` 30, `--z-scrim` 40, `--z-side` 50, `--z-dialog` 60.
+Camadas: `--z-tabs` 30, `--z-scrim` 40, `--z-side` 50, `--z-dialog` 60. Altura da barra de abas do celular: `--tabs-h` 58.
+
+**Regra (o teste confere):** todo `padding`, `margin` e `gap` usa a escala acima (6 e 10 px são aceitos como meio passo em ajustes finos), e todo `font-size` vem de um token `--t-*`. Só `clamp()` fluido, como o do valor que sobrou, pode ter px direto.
 
 ## 5. Movimento
 
@@ -127,7 +130,7 @@ Curvas: `--ease-out` (saída suave, padrão) e `--ease-drawer` (a gaveta).
 ## 7. Acessibilidade
 
 - **Foco:** anel de 2 px em `--brand-text` com deslocamento de 2 px (`:focus-visible`). Campos trocam a borda e ganham um anel suave.
-- **Alvos de toque:** em aparelhos de toque (`pointer: coarse`), botões pequenos, passo, mês anterior/próximo e "Ocultar valores" têm 44 px. Os links soltos têm área de toque de 38 px, e as caixas de marcar têm 24 px (o mínimo do WCAG 2.5.8).
+- **Alvos de toque:** em aparelhos de toque (`pointer: coarse`), botões pequenos, passo, mês anterior/próximo e "Ocultar valores" têm 44 px. Os botões Editar/Remover **dentro da lista de lançamentos** têm 40 px, porque se repetem em toda linha. Os links soltos têm área de toque de 38 px, e as caixas de marcar têm 24 px (o mínimo do WCAG 2.5.8).
 - **Nunca só cor:** barras abaixo da meta são listradas; a diferença entre meses é escrita ("a mais", "a menos"); categorias têm legenda com valor.
 - **Rótulos:** todo campo tem `label`; todo botão só de ícone tem nome; títulos em ordem.
 - **Gráficos:** SVG com `role="img"` e descrição, mais tabela ou texto equivalente.
@@ -160,11 +163,8 @@ As capturas usam a fonte de reserva do sistema (sem o Google Fonts) para ficarem
 
 O que este sistema **ainda não** resolve, e para onde vai:
 
-- **Valores fora da escala de espaçamento:** 14 px (12 usos), 28 px (3), 18 px (3), 22 px (2), 5 px (2), 9 px (2), 36 px, 58 px e 7 px (1 cada). Ficam como estão até as telas serem redesenhadas, para a troca não mudar o que já está bom.
-- **Tamanhos de texto fora da escala:** 14,5 px, 19 px, 22 px e os tamanhos de exibição da tela de entrada.
-- **Finanças** tem cerca de 6.100 px no celular (os botões de 44 px dos lançamentos pesam nisso): lançamentos recolhidos em "ver todos" e seções recolhíveis.
-- **Cartões demais, todos com o mesmo peso:** o Início e a Finanças vão ganhar hierarquia.
+- **Finanças no celular** ainda tem cerca de 4.800 px com 22 lançamentos (eram 6.100 antes de os lançamentos ganharem valor e botões lado a lado). O que mais pesa são os próprios lançamentos (~85 px cada) e o cartão do orçamento. Só dá para encolher mais com um controle novo (por exemplo, recolher a lista), o que pede texto novo, fora do escopo "só o visual".
+- **Cartões demais, todos com o mesmo peso:** o Início ganhou ritmo, mas ainda não hierarquia entre os cartões.
 - **Prévia do extrato:** é um painel sobre a página sem foco preso nem `Esc` para fechar; deve virar um diálogo acessível.
-- **Faixa de exemplo** não fica fixa no topo.
+- **Faixa de exemplo:** fica fixa no topo no computador; no celular rola junto, porque fixa ocuparia uns 16% da tela.
 - **Gráficos da Análise:** composição em duas colunas no computador e paleta validada para daltonismo.
-- Atributos `style="--i:N"` nos cartões do `index.html` já não têm efeito (eram da cascata de entrada) e saem quando o HTML for reestruturado.
