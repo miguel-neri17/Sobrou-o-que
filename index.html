@@ -34,7 +34,7 @@
   <div class="scrim" id="scrim"></div>
 
   <!-- importar extrato: revisão antes de salvar (nada é gravado até o botão "Importar") -->
-  <section class="ext" id="extPanel" aria-labelledby="extTit" hidden>
+  <section class="ext" id="extPanel" role="dialog" aria-modal="true" aria-labelledby="extTit" hidden>
     <div class="ext-box card">
       <h2 id="extTit" tabindex="-1">Importar extrato</h2>
       <p class="hint">Saídas de dinheiro são valores negativos e viram gastos na categoria "Outros". Entradas (valores positivos) são ignoradas. Nada é salvo antes de você confirmar.</p>
@@ -165,11 +165,11 @@
       <div class="top"><div class="wrap top-row"><a class="brandlink" href="#inicio"><img src="img/logo-1.png" alt=""><span>Sobrou o Quê?</span></a><nav class="topnav" aria-label="Seções"><a href="#inicio" data-nav="inicio">Início</a><a href="#financas" data-nav="financas">Finanças</a><a href="#estudos" data-nav="estudos">Estudos</a><a href="#investimentos" data-nav="investimentos">Investimentos</a><a href="#analise" data-nav="analise">Análise</a></nav><div class="top-tools"><div data-month></div><button class="menubtn" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menu"><span class="burger" aria-hidden="true"></span></button></div></div></div>
       <div class="wrap page-head"><h1 tabindex="-1">Estudos</h1><p class="sub money" id="eSub"></p></div>
       <div class="wrap"><div class="grid two-col">
-        <div class="card wide"><h2>Horas de estudo por semana</h2><p class="hint">A linha tracejada <span class="legend-goal" aria-hidden="true"></span> marca a meta da semana. As barras mais claras ficaram abaixo dela.</p>
+        <div class="card"><h2>Horas de estudo por semana</h2><p class="hint">A linha tracejada <span class="legend-goal" aria-hidden="true"></span> marca a meta da semana. As barras mais claras ficaram abaixo dela.</p>
           <div class="cols" id="eCols"></div>
           <div class="stepper"><span>Meta semanal</span><button type="button" id="mMenos" aria-label="Diminuir meta">−</button><b class="num" id="mVal"></b><button type="button" id="mMais" aria-label="Aumentar meta">+</button></div>
         </div>
-        <div class="card wide"><h2>Horas por dia da semana</h2><p class="hint">Soma do mês, de domingo a sábado.</p>
+        <div class="card"><h2>Horas por dia da semana</h2><p class="hint">Soma do mês, de domingo a sábado.</p>
           <div class="cols" id="eDias"></div>
         </div>
         <div class="card"><h2>Registrar estudo</h2>
@@ -234,17 +234,25 @@
       <div class="wrap page-head"><h1 tabindex="-1">Análise</h1><p class="sub">Como os seus meses se comparam. Tudo calculado só com o que você registrou.</p></div>
       <div class="wrap"><div class="grid two-col">
         <div class="card wide"><h2>Saldo mês a mês</h2><p class="hint">O que sobrou (ou faltou) em cada um dos últimos 6 meses.</p>
-          <div id="anChart"></div>
-          <div class="tw"><table class="dtab"><caption class="sr">Renda, gastos e sobra por mês</caption><thead><tr><th>Mês</th><th class="r">Renda</th><th class="r">Gastos</th><th class="r">Sobra</th></tr></thead><tbody id="anRows"></tbody></table></div>
+          <div class="an-split">
+            <div id="anChart"></div>
+            <div class="tw"><table class="dtab"><caption class="sr">Renda, gastos e sobra por mês</caption><thead><tr><th>Mês</th><th class="r">Renda</th><th class="r">Gastos</th><th class="r">Sobra</th></tr></thead><tbody id="anRows"></tbody></table></div>
+          </div>
         </div>
         <div class="card wide"><h2>Comparação com o mês anterior</h2>
-          <div id="anComp"></div>
-          <h3 class="an-h" id="anCatsH" hidden>Categorias que mais mudaram</h3>
-          <ul class="list an-list" id="anCats"></ul>
+          <div class="an-split">
+            <div id="anComp"></div>
+            <div>
+              <h3 class="an-h" id="anCatsH" hidden>Categorias que mais mudaram</h3>
+              <ul class="list an-list" id="anCats"></ul>
+            </div>
+          </div>
         </div>
         <div class="card wide"><h2>Horas de estudo e notas</h2><p class="hint">Cada ponto é um mês seu: horas de estudo por semana (eixo horizontal) e nota média (eixo vertical).</p>
-          <div id="anScatter"></div>
-          <p id="anHN" class="hint"></p>
+          <div class="an-split">
+            <div id="anScatter"></div>
+            <p id="anHN" class="hint"></p>
+          </div>
         </div>
         <div class="card wide"><h2>Meta de reserva</h2><p class="hint">Quanto você quer ter guardado. O prazo usa a sua sobra média e a mesma taxa de exemplo do simulador de Investimentos.</p>
           <form id="rsForm" autocomplete="off">

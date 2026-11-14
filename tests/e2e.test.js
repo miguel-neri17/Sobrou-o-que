@@ -433,6 +433,7 @@ const submit = (w, f) => f.dispatchEvent(new w.Event('submit', { cancelable: tru
   ok(brow('Lazer') && brow('Lazer').classList.contains('bud-ok') && brow('Lazer').textContent.includes('60%'), 'categoria dentro do limite mostra a porcentagem usada');
   ok(d.querySelector('#fCats li.is-warn') && d.querySelector('#fCats li.is-warn').textContent.includes('Alimentação'), 'a barra da renda destaca a categoria que passou do orcamento');
   ok(d.querySelector('#inTips').textContent.includes('Alimentação') && d.querySelector('#inTips').textContent.includes('orçamento'), 'o inicio avisa da categoria que passou: ' + d.querySelector('#inTips').textContent);
+  ok(d.querySelector('#inTips').closest('.tip').classList.contains('is-warn'), 'o cartao de observacoes do inicio ganha o estado de aviso quando um orcamento estoura');
   addG('Show', '50', 'lazer');
   ok(brow('Lazer').classList.contains('bud-near') && bl().includes('perto do limite'), 'a partir de 80% do limite avisa "perto do limite"');
 
@@ -586,6 +587,31 @@ const submit = (w, f) => f.dispatchEvent(new w.Event('submit', { cancelable: tru
   await sleep(100);
   d.querySelector('#demoBtn').click(); await sleep(150);
   ok(w.location.hash === '#entrar' && d.querySelector('#lErr').textContent.includes('Não foi possível carregar o exemplo') && d.querySelector('#demoBar').hidden, 'sem poder gravar, avisa e continua no login');
+
+  // cenario 12: o painel do extrato e um DIALOGO acessivel (foco preso, fundo inerte, Esc, foco devolvido)
+  ({ w, d, errs } = boot((win) => { fixDate(win); }));
+  await sleep(100);
+  d.querySelector('#demoBtn').click(); await sleep(150);
+  const dlg = () => d.querySelector('#extPanel'), inerte = (s) => d.querySelector(s).hasAttribute('inert');
+  const tecla = (el, key, shift) => el.dispatchEvent(new w.KeyboardEvent('keydown', { key, shiftKey: !!shift, bubbles: true, cancelable: true }));
+  ok(dlg().getAttribute('role') === 'dialog' && dlg().getAttribute('aria-modal') === 'true' && dlg().getAttribute('aria-labelledby') === 'extTit', 'o painel do extrato declara role="dialog", aria-modal e o titulo que o nomeia');
+  ok(!inerte('main') && !inerte('#menu') && !inerte('.tabs'), 'com o dialogo fechado nada fica inerte');
+  await pickCsv('Data;Descrição;Valor\n05/05/2026;Mercado;-12,50\n');
+  ok(!dlg().hidden && inerte('main') && inerte('#menu') && inerte('.tabs') && inerte('#scrim'), 'dialogo aberto: o resto da pagina (conteudo, menu, abas, pelicula) fica inerte');
+  ok(dlg().contains(d.activeElement), 'o foco vai para dentro do dialogo ao abrir (' + (d.activeElement && d.activeElement.id) + ')');
+  const foc = Array.from(dlg().querySelectorAll('a[href],button:not([disabled]),input:not([disabled]),select:not([disabled])'));
+  const primeiro = foc[0], ultimo = foc[foc.length - 1];
+  ultimo.focus(); tecla(ultimo, 'Tab', false);
+  ok(d.activeElement === primeiro, 'Tab no ultimo controle volta ao primeiro (foco preso): ' + (d.activeElement && d.activeElement.id));
+  primeiro.focus(); tecla(primeiro, 'Tab', true);
+  ok(d.activeElement === ultimo, 'Shift+Tab no primeiro controle vai ao ultimo: ' + (d.activeElement && d.activeElement.id));
+  tecla(d.activeElement, 'Escape', false);
+  ok(dlg().hidden && !inerte('main') && !inerte('#menu') && !inerte('.tabs') && !inerte('#scrim'), 'Esc fecha e tudo volta a funcionar');
+  ok(d.activeElement && d.activeElement.tagName === 'H1' && !d.activeElement.closest('[hidden]'), 'ao fechar o foco vai para o titulo da tela visivel, e nao para o botao escondido no menu: ' + (d.activeElement && d.activeElement.tagName));
+  await pickCsv('Data;Descrição;Valor\n05/05/2026;Mercado;-12,50\n');
+  d.querySelector('#extOk').click(); await sleep(60);
+  ok(dlg().hidden && !inerte('main') && d.activeElement && d.activeElement.tagName === 'H1', 'confirmar a importacao tambem fecha, libera a pagina e devolve o foco');
+  ok(errs.length === 0, 'sem erros JS no cenario 12 ' + JSON.stringify(errs));
 
   console.log(fails ? '\n' + fails + ' FALHA(S)' : '\nTUDO OK');
   process.exit(fails ? 1 : 0);

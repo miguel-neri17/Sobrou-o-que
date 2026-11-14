@@ -141,5 +141,19 @@ if (fs.existsSync(path.join(root, 'DESIGN.md'))) {
   ok(textos.length === 0, 'todo tamanho de texto vem de um token --t-* (só clamp() fluido pode ter px direto)' + (textos.length ? '\n       literais: ' + textos.join(', ') : ''));
 }
 
+/* ---------- 9. estados, textura e composição (PR 3) ---------- */
+ok(/\.btn:disabled/.test(css) && /\.lgc \.go:disabled/.test(css), 'botão desabilitado PARECE desabilitado (.btn:disabled e .lgc .go:disabled)');
+ok(/\.rbar i\.c-outros[^{]*\{[^}]*repeating-linear-gradient/.test(css) && /\.rleg \.sw\.c-outros[^{]*\{[^}]*repeating-linear-gradient/.test(css), 'a categoria Outros tem textura listrada na barra e na legenda: não depende só da cor');
+ok(/\.tip\.is-warn\s*\{/.test(css), 'o cartão de observações tem um estado de aviso (.tip.is-warn)');
+ok(/\.ext-box[^{]*\{[^}]*max-height/.test(css) || /\.ext\s*\{[^}]*overflow-y/.test(css), 'o diálogo do extrato rola por dentro quando é mais alto que a tela');
+{
+  const html = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
+  const partes = (html.match(/class="an-split"/g) || []).length;
+  ok(partes >= 3 && /\.an-split\s*\{/.test(css) && /@media \(min-width:900px\)\{[^]*\.an-split/.test(css), `a Análise tem ${partes} blocos lado a lado no computador (.an-split), esperado 3 ou mais`);
+  ok(/id="extPanel"[^>]*role="dialog"[^>]*aria-modal="true"/.test(html) || /id="extPanel"[^>]*aria-modal="true"[^>]*role="dialog"/.test(html), 'o painel do extrato é um diálogo acessível (role="dialog" aria-modal="true")');
+  const cartoes = (html.match(/id="eCols"|id="eDias"/g) || []).length;
+  ok(!/<div class="card wide"[^>]*>\s*<h2>Horas de estudo por semana/.test(html) && !/<div class="card wide"[^>]*>\s*<h2>Horas por dia da semana/.test(html) && cartoes === 2, 'os dois gráficos de barras do Estudos não são cartões de largura total');
+}
+
 console.log(fails ? '\n' + fails + ' FALHA(S)' : '\nTUDO OK');
 process.exit(fails ? 1 : 0);

@@ -1,7 +1,7 @@
 /* Importar extrato bancário em CSV: tela de revisão. A leitura do arquivo e as contas ficam em csv.js;
    aqui só tem a tela e a gravação. Nada é salvo antes do usuário confirmar, e se a gravação falhar tudo volta como estava. */
 (function(){
-  var A=window.Sobrou,S=A.S,MON=A.MON,$=A.$,el=A.el,esc=A.esc;
+  var A=window.Sobrou,S=A.S,MON=A.MON,$=A.$,$$=A.$$,el=A.el,esc=A.esc;
 
   var MAXFILE=2*1024*1024,MAXROWS=5000,SHOW=50,MAXITEMS=5000; /* MAXITEMS é o limite por mês que o storage.js aplica ao carregar */
   var STATUS={novo:'Será importado',duplicado:'Já existe',entrada:'Entrada (ignorada)',invalido:'Inválida',fora:'Fora dos últimos 6 meses'};
@@ -38,14 +38,34 @@
     $('#extHead').checked=g.header;
     fillSelects();
     $('#extData').value=String(g.date);$('#extDesc').value=String(g.desc);$('#extVal').value=String(g.valor);
+    if(document.body.classList.contains('menu-open')) $('#menuClose').click(); /* o botão que abriu o seletor de arquivo fica dentro do menu: fecha o menu antes */
     $('#extPanel').hidden=false;
+    setInert(true);
     $('#extTit').focus();
     refresh();
   }
 
   function closePanel(){
     $('#extPanel').hidden=true;rows=[];preview=null;
-    $('#extBtn').focus();
+    setInert(false);
+    /* o foco volta ao título da tela visível: o botão de importar fica dentro do menu fechado e não pode receber foco */
+    var h=$('.screen:not([hidden]) h1');if(h) h.focus({preventScroll:true});
+  }
+
+  /* enquanto o diálogo está aberto, o resto da página fica inerte (sem foco, clique nem leitor de tela) */
+  var INERT=['main','#menu','.tabs','#scrim'];
+  function setInert(on){INERT.forEach(function(s){var e=$(s);if(e){if(on) e.setAttribute('inert','');else e.removeAttribute('inert')}})}
+
+  /* foco preso: Tab no último controle volta ao primeiro, e Shift+Tab no primeiro vai ao último */
+  function focaveis(){
+    return $$('a[href],button,input,select,textarea,[tabindex]:not([tabindex="-1"])',$('#extPanel')).filter(function(e){return !e.disabled&&!e.hidden});
+  }
+  function prender(e){
+    var l=focaveis(),p=$('#extPanel'),a=document.activeElement;
+    if(!l.length){e.preventDefault();return}
+    var primeiro=l[0],ultimo=l[l.length-1];
+    if(e.shiftKey){if(a===primeiro||!p.contains(a)){e.preventDefault();ultimo.focus()}}
+    else if(a===ultimo||!p.contains(a)){e.preventDefault();primeiro.focus()}
   }
 
   /* as três listas de coluna mostram o nome do cabeçalho, ou "Coluna N" se a primeira linha já é um gasto */
@@ -85,7 +105,11 @@
   ['#extData','#extDesc','#extVal'].forEach(function(id){$(id).addEventListener('change',refresh)});
   $('#extHead').addEventListener('change',function(){fillSelects();refresh()});
   $('#extCancel').addEventListener('click',closePanel);
-  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&!$('#extPanel').hidden) closePanel()});
+  document.addEventListener('keydown',function(e){
+    if($('#extPanel').hidden) return;
+    if(e.key==='Escape') closePanel();
+    else if(e.key==='Tab') prender(e);
+  });
 
   /* ---------- confirmar ---------- */
   $('#extOk').addEventListener('click',function(){
