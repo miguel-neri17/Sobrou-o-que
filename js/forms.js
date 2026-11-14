@@ -100,6 +100,20 @@
     A.renderAll();
   });
 
+  /* ---------- meta de reserva (aba Análise): em branco remove a meta; valor inválido não salva ---------- */
+  $('#rsForm').addEventListener('submit',function(e){
+    e.preventDefault();
+    var raw=$('#rsMeta').value.trim(),v=0;
+    if(raw!==''){
+      v=parseFloat(raw.replace(',','.'));
+      if(!(v>=0.01&&v<=1e9)){$('#rsMsg').textContent='Informe um valor maior que zero (até 1 bilhão), ou deixe em branco para remover a meta.';return}
+    }
+    var old=S.reserva;S.reserva=round2(v);
+    if(!A.saveData()){S.reserva=old;$('#rsMsg').textContent='Não foi possível salvar a meta (armazenamento cheio ou bloqueado). Nada foi alterado.';A.renderAll();return}
+    $('#rsMsg').textContent=v>0?'Meta salva.':'Meta removida.';
+    A.renderAll();
+  });
+
   /* ---------- gastos fixos: lançar no mês e remover o modelo ---------- */
   $('#fxPend').addEventListener('click',function(e){
     if(!(e.target.closest&&e.target.closest('#fxLancar'))) return;

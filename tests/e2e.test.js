@@ -462,6 +462,83 @@ const submit = (w, f) => f.dispatchEvent(new w.Event('submit', { cancelable: tru
   ok(d.querySelector('#bMsg').textContent.includes('Nada foi alterado') && JSON.stringify(stored(w, 'bud')) === before9 && !brow('Transporte'), 'falha ao gravar avisa e restaura o orcamento');
   ok(errs.length === 0, 'sem erros JS no cenario 9 ' + JSON.stringify(errs));
 
+  // cenario 10: aba Analise (saldo mes a mes, comparacao com o mes anterior, horas x nota, meta de reserva)
+  const wk = (h) => [0, 1, 2, 3].map(() => [h, 0, 0, 0, 0, 0, 0, 0]);
+  const gasto10 = (id, cat, v) => ({ id, d: 1, cat, desc: 'x', v });
+  const seed10 = { meta: 10, months: {
+    '2026-02': { renda: 0, items: [gasto10('f1', 'lazer', 200)], weeks: wk(0), nota: null, grades: [] },
+    '2026-03': { renda: 1000, items: [gasto10('m1', 'alimentacao', 300), gasto10('m2', 'lazer', 100), gasto10('m3', 'transporte', 50)], weeks: wk(8), nota: null, grades: [{ id: 'n1', subj: 'Mat', v: 6, label: '' }] },
+    '2026-04': { renda: 1000, items: [gasto10('a1', 'alimentacao', 450), gasto10('a2', 'lazer', 90), gasto10('a3', 'assinaturas', 30)], weeks: wk(10), nota: null, grades: [{ id: 'n2', subj: 'Mat', v: 7.5, label: '' }] },
+  } };
+  ({ w, d, errs } = boot((win) => {
+    fixDate(win);
+    win.localStorage.setItem('sobrou-users', JSON.stringify({ ana: 'abc123' }));
+    win.localStorage.setItem('sobrou-v2-ana', JSON.stringify(seed10));
+  }));
+  await sleep(100);
+  await login(w, d, 'ana', 'abc123');
+  w.location.hash = '#analise'; await sleep(50);
+  const an = (s) => d.querySelector(s), anT = (s) => (an(s) ? an(s).textContent : '');
+  ok(an('#analise') && !an('#analise').hidden, 'a aba Analise existe e abre pelo #analise');
+  ok(d.querySelectorAll('#analise .topnav [data-nav="analise"]').length === 1 && d.querySelectorAll('.tabs [data-nav="analise"]').length === 1, 'link para Analise na barra de cima e nas abas do celular');
+  ok(d.querySelectorAll('[data-nav="analise"][aria-current="page"]').length >= 1, 'a aba Analise fica marcada como a pagina atual');
+
+  const linhas = Array.from(d.querySelectorAll('#anRows tr'));
+  ok(linhas.length === 6, 'tabela do saldo tem uma linha por mes (6)');
+  const lm = (nome) => linhas.find((tr) => tr.textContent.includes(nome));
+  ok(lm('Mar').textContent.includes('550,00') && lm('Abr').textContent.includes('430,00') && lm('Fev').textContent.includes('200,00'), 'tabela mostra a sobra de cada mes (Fev negativa: -200,00)');
+  ok(d.querySelectorAll('#anChart svg rect.an-pos').length === 2 && d.querySelectorAll('#anChart svg rect.an-neg').length === 1, 'grafico tem uma barra por mes com registro: 2 positivas e 1 negativa');
+  ok(an('#anChart svg').getAttribute('aria-hidden') === 'true' || an('#anChart svg').getAttribute('role') === 'img', 'grafico e acessivel (a tabela traz os mesmos dados)');
+
+  ok(anT('#anComp').toLowerCase().includes('ainda não há registros'), 'mes atual vazio: avisa que nao ha o que comparar');
+  d.querySelector('#analise [data-step="-1"]').click(); // abril
+  ok(anT('#anComp').includes('570,00') && anT('#anComp').includes('120,00'), 'comparacao: gastos de abril e a diferenca contra marco: ' + anT('#anComp').slice(0, 160));
+  ok(anT('#anComp').includes('a mais') || anT('#anComp').includes('mais que'), 'a diferenca aparece em palavras (a mais), nao so em cor');
+  const cats = Array.from(d.querySelectorAll('#anCats li')).map((li) => li.textContent);
+  ok(cats.length === 3 && cats[0].includes('Alimentação') && cats[1].includes('Transporte') && cats[2].includes('Assinaturas'), 'as 3 categorias que mais mudaram, da maior para a menor diferenca');
+
+  ok(d.querySelectorAll('#anScatter svg circle').length === 2, 'grafico de horas x nota tem um ponto por mes com as duas coisas');
+  ok(anT('#anHN').toLowerCase().includes('poucos meses') && !anT('#anHN').includes('r ='), 'com menos de 4 meses avisa e nao mostra coeficiente');
+
+  const rsRes = () => anT('#rsRes'), rsMsg = () => anT('#rsMsg'), reserva = () => (stored(w, 'ana').reserva || 0);
+  ok(rsRes().includes('Defina uma meta'), 'sem meta de reserva a tela explica como comecar');
+  set('#rsMeta', '3000'); submit(w, d.querySelector('#rsForm'));
+  ok(reserva() === 3000 && rsRes().includes('490,00') && rsRes().includes('meses'), 'meta salva e prazo calculado com a sobra media (490,00): ' + rsRes().slice(0, 200));
+  set('#rsMeta', '-5'); submit(w, d.querySelector('#rsForm'));
+  ok(rsMsg().includes('Informe um valor') && reserva() === 3000, 'meta invalida recusada, a anterior continua');
+  set('#rsMeta', '999999999'); submit(w, d.querySelector('#rsForm'));
+  ok(rsRes().includes('mais de 50 anos'), 'meta que levaria mais de 50 anos e avisada');
+  set('#rsMeta', ''); submit(w, d.querySelector('#rsForm'));
+  ok(reserva() === 0 && rsRes().includes('Defina uma meta'), 'campo em branco remove a meta');
+  set('#rsMeta', '3000'); submit(w, d.querySelector('#rsForm'));
+
+  const blobs10 = [];
+  w.URL.createObjectURL = (b) => { blobs10.push(b); return 'blob:k'; }; w.URL.revokeObjectURL = () => {};
+  d.querySelector('#expBtn').click(); await sleep(50);
+  ok(JSON.parse(await readBlob(blobs10[0])).reserva === 3000, 'exportar inclui a meta de reserva');
+  await importOld(JSON.stringify({ app: 'sobrou', versao: 1, months: { [k6]: { renda: 1 } }, reserva: 500 }));
+  ok(reserva() === 500, 'importar com meta substitui a meta');
+  await importOld(JSON.stringify({ app: 'sobrou', versao: 1, months: { [k6]: { renda: 2 } } }));
+  ok(reserva() === 500, 'importar arquivo antigo (sem meta) mantem a atual');
+  await importOld(JSON.stringify({ app: 'sobrou', versao: 1, months: { [k6]: { renda: 3 } }, reserva: 'abc' }));
+  ok(reserva() === 0, 'meta invalida no arquivo vira "sem meta"');
+  const before10 = JSON.stringify(stored(w, 'ana'));
+  const realSet10 = w.Storage.prototype.setItem;
+  w.Storage.prototype.setItem = function () { throw new Error('quota'); };
+  set('#rsMeta', '800'); submit(w, d.querySelector('#rsForm'));
+  w.Storage.prototype.setItem = realSet10;
+  ok(rsMsg().includes('Nada foi alterado') && JSON.stringify(stored(w, 'ana')) === before10 && an('#rsMeta').value === '', 'falha ao gravar a meta avisa e restaura');
+  ok(errs.length === 0, 'sem erros JS no cenario 10 ' + JSON.stringify(errs));
+
+  // tela vazia: sem nenhum registro
+  ({ w, d, errs } = boot((win) => { fixDate(win); win.localStorage.setItem('sobrou-users', JSON.stringify({ novo: 'abc123' })); }));
+  await sleep(100);
+  await login(w, d, 'novo', 'abc123');
+  w.location.hash = '#analise'; await sleep(50);
+  ok(d.querySelector('#anChart').textContent.toLowerCase().includes('nenhum registro') && d.querySelector('#anChart svg') === null, 'sem registros o grafico explica em vez de desenhar vazio');
+  ok(d.querySelector('#anHN').textContent.toLowerCase().includes('pelo menos 2 meses') && d.querySelectorAll('#anScatter svg').length === 0, 'sem horas e notas a tela diz o que falta');
+  ok(d.querySelectorAll('#anRows tr').length === 6 && errs.length === 0, 'tela vazia monta a tabela sem erro ' + JSON.stringify(errs));
+
   console.log(fails ? '\n' + fails + ' FALHA(S)' : '\nTUDO OK');
   process.exit(fails ? 1 : 0);
 })().catch((e) => { console.error('ERRO NO TESTE', e); process.exit(2); });

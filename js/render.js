@@ -215,6 +215,112 @@
     });
   }
 
+  /* ---------- análise ----------
+     Os gráficos são SVG montado em texto: os valores são números e rótulos fixos, nada digitado pelo usuário entra no HTML. */
+  function renderSaldo(serie){
+    var box=$('#anChart'),tb=$('#anRows');
+    box.innerHTML='';tb.innerHTML='';
+    serie.forEach(function(t,i){
+      tb.appendChild(el('tr','','<th scope="row">'+MON[i].abbr+'/'+String(MON[i].year).slice(2)+'</th>'+(t.tem?'<td class="r money">'+money(t.renda)+'</td><td class="r money">'+money(t.gastos)+'</td><td class="r money">'+money(t.sobra)+'</td>':'<td class="r" colspan="3">sem registros</td>')));
+    });
+    var com=serie.filter(function(t){return t.tem});
+    if(!com.length){box.appendChild(el('p','hint','Nenhum registro nos últimos 6 meses ainda. Informe a renda e os gastos em Finanças para ver o gráfico.'));return}
+    var vals=com.map(function(t){return t.sobra}),pos=Math.max.apply(null,vals.concat(0)),neg=Math.max.apply(null,vals.map(function(v){return -v}).concat(0)),span=(pos+neg)||1;
+    var W=600,H=240,top=28,bot=46,ph=H-top-bot,y0=top+ph*pos/span,slot=W/serie.length,bw=Math.min(64,slot*0.6);
+    var s='<svg class="an-svg" viewBox="0 0 '+W+' '+H+'" role="img" aria-label="Sobra por mês: '+com.map(function(t){return MON[t.i].abbr+' '+money(t.sobra)}).join(', ')+'"><line class="an-axis" x1="0" x2="'+W+'" y1="'+y0.toFixed(1)+'" y2="'+y0.toFixed(1)+'"/>';
+    serie.forEach(function(t,i){
+      var cx=i*slot+slot/2;
+      s+='<text class="an-m" x="'+cx.toFixed(1)+'" y="'+(H-10)+'" text-anchor="middle">'+MON[i].abbr+'</text>';
+      if(!t.tem) return;
+      var h=Math.max(2,Math.abs(t.sobra)/span*ph),up=t.sobra>=0,y=up?y0-h:y0;
+      s+='<rect class="'+(up?'an-pos':'an-neg')+'" x="'+(cx-bw/2).toFixed(1)+'" y="'+y.toFixed(1)+'" width="'+bw.toFixed(1)+'" height="'+h.toFixed(1)+'" rx="3"/>'
+        +'<text class="an-v" x="'+cx.toFixed(1)+'" y="'+(up?y-6:y+h+15).toFixed(1)+'" text-anchor="middle">'+money(t.sobra)+'</text>';
+    });
+    box.innerHTML=s+'</svg>';
+  }
+
+  function renderComp(m,serie){
+    var box=$('#anComp'),ul=$('#anCats');
+    box.innerHTML='';ul.innerHTML='';$('#anCatsH').hidden=true;
+    if(m<1){box.appendChild(el('p','hint','Este é o primeiro mês da janela: não há mês anterior para comparar.'));return}
+    if(!serie[m].tem){box.appendChild(el('p','hint','Ainda não há registros neste mês para comparar.'));return}
+    var c=A.compara(m),ant=MON[m-1].full;
+    if(!c){box.appendChild(el('p','hint','O mês anterior ('+ant+') não tem registros, então não há o que comparar.'));return}
+    /* a diferença vai em palavras ("a mais"/"a menos") e não só em cor; good = melhor para você, warn = pior */
+    function dif(delta,fmt,maisRuim,pct){
+      if(delta===0) return '<span class="an-d">igual</span>';
+      var up=delta>0,ruim=up===maisRuim;
+      return '<span class="an-d '+(ruim?'warn':'good')+'">'+fmt(Math.abs(delta))+(up?' a mais':' a menos')+(pct!=null?' ('+(up?'+':'−')+dec.format(Math.abs(pct))+'%)':'')+'</span>';
+    }
+    function li(nome,sub,val,d){return '<li><div class="n"><b>'+nome+'</b><small>'+sub+'</small></div><div class="v"><span class="money">'+val+'</span>'+d+'</div></li>'}
+    var h='<ul class="list an-list">'
+      +li('Gastos','em '+ant+': '+money(c.gastos.ant),money(c.gastos.atual),dif(c.gastos.delta,money,true,c.gastos.pct))
+      +li('Sobra','em '+ant+': '+money(c.sobra.ant),money(c.sobra.atual),dif(c.sobra.delta,money,false,null))
+      +li('Horas de estudo','em '+ant+': '+dec.format(c.horas.ant)+' h por semana',dec.format(c.horas.atual)+' h por semana',dif(round2(c.horas.atual-c.horas.ant),function(v){return dec.format(v)+' h'},false,null));
+    if(c.nota) h+=li('Nota média','em '+ant+': '+dec.format(c.nota.ant),dec.format(c.nota.atual),dif(c.nota.delta,function(v){return dec.format(v)},false,null));
+    box.innerHTML=h+'</ul>';
+    c.cats.forEach(function(x){
+      ul.appendChild(el('li','','<div class="n"><b>'+x.n+'</b><small>'+money(x.atual)+' neste mês, '+money(x.ant)+' em '+ant+'</small></div><div class="v">'+dif(x.delta,money,true,null)+'</div>'));
+    });
+    $('#anCatsH').hidden=!c.cats.length;
+  }
+
+  function renderHN(){
+    var r=A.horasNota(),pts=r.pontos,box=$('#anScatter'),p=$('#anHN');
+    box.innerHTML='';
+    if(pts.length<2){p.textContent='Para ver a relação entre horas e nota, registre horas de estudo e uma nota em pelo menos 2 meses.';return}
+    /* os eixos se ajustam aos seus dados (num gráfico de pontos o zero não é obrigatório) para os pontos não ficarem todos juntos */
+    var W=360,H=250,L=44,R=16,T=14,B=46,hs=pts.map(function(q){return q.horas}),ns=pts.map(function(q){return q.nota});
+    var x0=Math.max(0,Math.floor(Math.min.apply(null,hs))-1),x1=Math.ceil(Math.max.apply(null,hs))+1;
+    var y0=Math.max(0,Math.floor(Math.min.apply(null,ns))-1),y1=Math.min(10,Math.ceil(Math.max.apply(null,ns))+1);
+    if(y1<=y0) y0=y1-1;
+    function X(v){return L+(v-x0)/(x1-x0)*(W-L-R)} function Y(v){return T+(1-(v-y0)/(y1-y0))*(H-T-B)}
+    var s='<svg class="an-svg an-sc" viewBox="0 0 '+W+' '+H+'" role="img" aria-label="Horas de estudo por semana e nota por mês: '+pts.map(function(q){return q.label+' '+dec.format(q.horas)+' h, nota '+dec.format(q.nota)}).join('; ')+'">'
+      +'<line class="an-axis" x1="'+L+'" x2="'+(W-R)+'" y1="'+Y(y0)+'" y2="'+Y(y0)+'"/><line class="an-axis" x1="'+L+'" x2="'+L+'" y1="'+T+'" y2="'+Y(y0)+'"/>';
+    [y0,y1].forEach(function(n){s+='<text class="an-s" x="'+(L-8)+'" y="'+(Y(n)+4)+'" text-anchor="end">'+n+'</text>'});
+    s+='<text class="an-s" x="'+(L+6)+'" y="'+(T+2)+'">nota média</text>';
+    [x0,x1].forEach(function(n){s+='<text class="an-s" x="'+X(n)+'" y="'+(H-B+18)+'" text-anchor="middle">'+n+' h</text>'});
+    s+='<text class="an-s" x="'+(L+(W-L-R)/2)+'" y="'+(H-4)+'" text-anchor="middle">horas de estudo por semana</text>';
+    pts.forEach(function(q,i){ /* o rótulo do mês alterna entre acima e abaixo do ponto, para meses vizinhos não se cobrirem */
+      var cx=X(q.horas),cy=Y(q.nota);
+      s+='<circle class="an-dot" cx="'+cx.toFixed(1)+'" cy="'+cy.toFixed(1)+'" r="6"><title>'+q.label+': '+dec.format(q.horas)+' h por semana, nota '+dec.format(q.nota)+'</title></circle>'
+        +'<text class="an-s" x="'+cx.toFixed(1)+'" y="'+(i%2?cy+20:cy-11).toFixed(1)+'" text-anchor="middle">'+q.label+'</text>';
+    });
+    box.innerHTML=s+'</svg>';
+    var aviso=' Correlação não mostra causa, e poucos meses variam muito de um ano para o outro.';
+    if(pts.length<4) p.textContent='Com poucos meses ('+pts.length+') isto é só uma observação: não dá para dizer se há relação entre horas e nota. Continue registrando.'+aviso;
+    else if(r.r===null) p.textContent='As horas (ou as notas) foram iguais em todos os meses, então não há como medir a relação.';
+    else{
+      var a=Math.abs(r.r),forca=a<0.3?'fraca':(a<0.7?'moderada':'forte');
+      p.textContent='Coeficiente de correlação: r = '+r.r.toFixed(2).replace('.',',')+' (relação '+forca+' e '+(r.r>=0?'positiva: mais horas, notas maiores':'negativa: mais horas, notas menores')+', nos seus '+pts.length+' meses).'+aviso;
+    }
+  }
+
+  function renderReserva(serie){
+    var box=$('#rsRes'),meta=S.reserva,sm=A.sobraMedia();
+    $('#rsMeta').value=meta>0?meta:'';
+    box.innerHTML='';
+    function p(t){box.appendChild(el('p','',t))}
+    if(!(meta>0)){
+      var gs=serie.filter(function(t){return t.tem}).map(function(t){return t.gastos}),media=gs.length?sum(gs)/gs.length:0;
+      p('Defina uma meta para ver em quanto tempo você chega nela.'+(media>0?' Uma referência comum é guardar 3 meses de gastos: com a sua média, seriam '+money(round2(media*3))+'.':''));
+      return;
+    }
+    if(sm===null) p('Informe a renda de pelo menos um mês em Finanças para estimar o prazo.');
+    else if(sm<=0) p('Nos meses com renda informada, a sua sobra média é de '+money(sm)+': com ela não dá para formar a reserva. Veja as maiores categorias em Finanças.');
+    else{
+      var n=A.mesesParaMeta(meta,sm,0.7);
+      if(n===null) p('Com a sua sobra média de '+money(sm)+' por mês, a meta de '+money(meta)+' levaria mais de 50 anos.');
+      else p('Guardando a sua sobra média de '+money(sm)+' por mês, com a taxa de exemplo de 0,7% ao mês, você chega a '+money(meta)+' em '+n+(n===1?' mês':' meses')+(n>=12?' ('+Math.floor(n/12)+(Math.floor(n/12)===1?' ano':' anos')+(n%12?' e '+n%12+(n%12===1?' mês':' meses'):'')+')':'')+'. A taxa é só um exemplo: rendimentos reais mudam.');
+    }
+    box.appendChild(el('a','link','Simular em Investimentos')).setAttribute('href','#investimentos');
+  }
+
+  function renderAnalise(){
+    var serie=A.serieSaldo();
+    renderSaldo(serie);renderComp(S.cur,serie);renderHN();renderReserva(serie);
+  }
+
   /* ---------- investimentos ---------- */
   function renderInvest(){
     var s=Math.max(0,Math.round(sobra(S.cur)));
@@ -234,7 +340,7 @@
   }
 
   function renderAll(){
-    renderMonthSwitch(); renderInicio(); renderFinancas(); renderEstudos(); renderInvest();
+    renderMonthSwitch(); renderInicio(); renderFinancas(); renderEstudos(); renderInvest(); renderAnalise();
   }
 
   A.renderAll=renderAll;A.renderInicio=renderInicio;A.calc=calc;A.fitAmount=fitAmount;
