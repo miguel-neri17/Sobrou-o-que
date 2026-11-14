@@ -177,7 +177,7 @@ const submit = (w, f) => f.dispatchEvent(new w.Event('submit', { cancelable: tru
   ok(dmsg().includes('Nada foi alterado') && JSON.stringify(month()) === snap, 'importacao com armazenamento cheio avisa e restaura');
   ok(d.querySelector('#fList').textContent.includes('B') || d.querySelector('#fList').textContent.length > 0, 'tela segue com os dados anteriores');
   await importText(JSON.stringify({ app: 'sobrou', versao: 1, months: { '2000-1': { renda: 5 } } }));
-  ok(dmsg().includes('últimos 6 meses') && JSON.stringify(month()) === snap, 'arquivo so com meses antigos recusado');
+  ok(dmsg().includes('últimos 12 meses') && JSON.stringify(month()) === snap, 'arquivo so com meses antigos recusado');
 
   // cenario 4: dados antigos/adulterados no localStorage e hash fraco
   const rec150 = await (async () => {
@@ -283,7 +283,7 @@ const submit = (w, f) => f.dispatchEvent(new w.Event('submit', { cancelable: tru
   await pickCsv(csv7);
   ok(!panel().hidden, 'escolher o arquivo abre o painel de revisao');
   ok(d.querySelector('#extData').value === '0' && d.querySelector('#extDesc').value === '1' && d.querySelector('#extVal').value === '2' && d.querySelector('#extHead').checked, 'colunas e cabecalho detectados sozinhos');
-  ok(sum().includes('2 gastos para importar') && sum().includes('1 entrada ignorada') && sum().includes('1 linha inválida') && sum().includes('1 fora dos últimos 6 meses'), 'resumo conta novos, entradas, invalidas e fora da janela: ' + sum());
+  ok(sum().includes('2 gastos para importar') && sum().includes('1 entrada ignorada') && sum().includes('1 linha inválida') && sum().includes('1 fora dos últimos 12 meses'), 'resumo conta novos, entradas, invalidas e fora da janela: ' + sum());
   ok(items7().length === 0, 'nada e salvo antes de confirmar');
   ok(d.querySelector('#extOk').textContent.includes('2') && !d.querySelector('#extOk').disabled, 'botao de confirmar mostra a quantidade');
 
@@ -485,7 +485,7 @@ const submit = (w, f) => f.dispatchEvent(new w.Event('submit', { cancelable: tru
   ok(d.querySelectorAll('[data-nav="analise"][aria-current="page"]').length >= 1, 'a aba Analise fica marcada como a pagina atual');
 
   const linhas = Array.from(d.querySelectorAll('#anRows tr'));
-  ok(linhas.length === 6, 'tabela do saldo tem uma linha por mes (6)');
+  ok(linhas.length === 12, 'tabela do saldo tem uma linha por mes (12)');
   const lm = (nome) => linhas.find((tr) => tr.textContent.includes(nome));
   ok(lm('Mar').textContent.includes('550,00') && lm('Abr').textContent.includes('430,00') && lm('Fev').textContent.includes('200,00'), 'tabela mostra a sobra de cada mes (Fev negativa: -200,00)');
   ok(lm('Fev').textContent.includes('sem renda') && !lm('Mar').textContent.includes('sem renda'), 'mes com gastos e sem renda avisa "sem renda" na tabela, em vez de parecer so uma sobra negativa');
@@ -539,7 +539,7 @@ const submit = (w, f) => f.dispatchEvent(new w.Event('submit', { cancelable: tru
   w.location.hash = '#analise'; await sleep(50);
   ok(d.querySelector('#anChart').textContent.toLowerCase().includes('nenhum registro') && d.querySelector('#anChart svg') === null, 'sem registros o grafico explica em vez de desenhar vazio');
   ok(d.querySelector('#anHN').textContent.toLowerCase().includes('pelo menos 2 meses') && d.querySelectorAll('#anScatter svg').length === 0, 'sem horas e notas a tela diz o que falta');
-  ok(d.querySelectorAll('#anRows tr').length === 6 && errs.length === 0, 'tela vazia monta a tabela sem erro ' + JSON.stringify(errs));
+  ok(d.querySelectorAll('#anRows tr').length === 12 && errs.length === 0, 'tela vazia monta a tabela sem erro ' + JSON.stringify(errs));
 
   // cenario 11: "Ver com dados de exemplo" (conta @exemplo, sem senha, recarregada a cada entrada) sem tocar nas contas reais
   const real11 = JSON.stringify({ meta: 10, months: { [key]: { renda: 777, items: [gasto10('r1', 'lazer', 10)], weeks: wk(0), nota: null, grades: [] } } });
@@ -560,7 +560,7 @@ const submit = (w, f) => f.dispatchEvent(new w.Event('submit', { cancelable: tru
   ok(JSON.stringify(Object.keys(dm.months)) === JSON.stringify(janela) && Object.values(dm.months).every((m) => m.renda > 0 && m.items.length > 5), 'os 6 meses do exemplo vao para a janela de meses do site (o ultimo e o mes atual)');
   ok(dm.recurring.length >= 2 && Object.keys(dm.budget).length >= 1 && dm.reserva > 0, 'exemplo traz gastos fixos, orcamento e meta de reserva');
   ok(d.querySelectorAll('#fxList li').length >= 2, 'o cartao de gastos fixos mostra os modelos do exemplo');
-  ok(d.querySelectorAll('#anRows tr').length === 6 && d.querySelectorAll('#anChart svg rect.an-neg').length === 1 && d.querySelectorAll('#anChart svg rect.an-pos').length === 5, 'a aba Analise mostra os 6 meses, com um no vermelho');
+  ok(d.querySelectorAll('#anRows tr').length === 12 && d.querySelectorAll('#anChart svg rect.an-neg').length === 1 && d.querySelectorAll('#anChart svg rect.an-pos').length === 5, 'a aba Analise tem 12 linhas e mostra os 6 meses do exemplo, com um no vermelho');
   ok(d.querySelectorAll('#anScatter svg circle').length >= 4 && d.querySelector('#anHN').textContent.includes('r ='), 'horas x nota com pontos suficientes para o coeficiente');
   ok(d.querySelector('#bList').textContent.includes('Lazer') && d.querySelector('#bList .bud-over, #bList .bud-near, #bList .bud-ok'), 'o orcamento do exemplo aparece na lista');
   w.location.hash = '#financas'; await sleep(50);
@@ -632,6 +632,27 @@ const submit = (w, f) => f.dispatchEvent(new w.Event('submit', { cancelable: tru
   escolher13('escuro');
   ok(d.documentElement.getAttribute('data-theme') === 'dark', 'se o navegador não deixa guardar, o tema ainda é aplicado nesta visita');
   ok(errs.length === 0, 'sem erros JS no cenario 13 ' + JSON.stringify(errs));
+
+  // cenario 16: historico de 12 meses (antes eram 6): da para voltar 11 meses e ver gastos antigos
+  ({ w, d, errs } = boot((win) => {
+    fixDate(win); // maio de 2026: a janela vai de junho de 2025 a maio de 2026
+    win.localStorage.setItem('sobrou-users', JSON.stringify({ his: 'abc123' }));
+    win.localStorage.setItem('sobrou-v2-his', JSON.stringify({ months: { '2025-06': { renda: 111, items: [{ id: 'a', d: 3, cat: 'lazer', desc: 'Mais antigo', v: 20 }] }, '2025-11': { renda: 222, items: [{ id: 'b', d: 4, cat: 'lazer', desc: 'Sete meses atras', v: 30 }] }, '2025-05': { renda: 999 } } }));
+  }));
+  await sleep(100);
+  await login(w, d, 'his', 'abc123');
+  w.location.hash = '#financas'; await sleep(50);
+  const voltar16 = () => d.querySelector('#financas [data-step="-1"]').click();
+  for (let i = 0; i < 6; i++) voltar16();
+  ok(d.querySelector('#fSub').textContent.includes('novembro') && d.querySelector('#fList').textContent.includes('Sete meses atras'), 'voltando 6 meses chega em novembro e mostra o gasto que antes ficava escondido');
+  for (let i = 0; i < 5; i++) voltar16();
+  ok(d.querySelector('#fSub').textContent.includes('junho') && d.querySelector('#fList').textContent.includes('Mais antigo') && d.querySelector('#financas [data-step="-1"]').disabled, 'voltando 11 meses chega ao primeiro mês da janela (junho de 2025) e o botão de voltar desliga');
+  voltar16();
+  ok(d.querySelector('#fSub').textContent.includes('junho'), 'não passa do primeiro mês da janela');
+  w.location.hash = '#analise'; await sleep(50);
+  ok(d.querySelectorAll('#anRows tr').length === 12 && d.querySelectorAll('#anChart svg rect.an-pos').length === 2, 'a Análise mostra os 12 meses, com os 2 que têm registro como barras (maio de 2025 está fora da janela)');
+  ok(d.querySelector('#anRows tr th').textContent === 'Jun/25', 'a tabela começa em junho de 2025: ' + d.querySelector('#anRows tr th').textContent);
+  ok(errs.length === 0, 'sem erros JS no cenario 16 ' + JSON.stringify(errs));
 
   console.log(fails ? '\n' + fails + ' FALHA(S)' : '\nTUDO OK');
   process.exit(fails ? 1 : 0);

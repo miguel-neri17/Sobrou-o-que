@@ -337,7 +337,7 @@ body.public main{padding-bottom:0}
 .an-pos{fill:var(--bar)}
 .an-neg{fill:var(--danger-text)}
 .an-dot{fill:var(--brand)}
-.an-v,.an-m,.an-s{font-size:var(--t-xs);fill:var(--fg);font-family:inherit}
+.an-m,.an-s{font-size:var(--t-xs);fill:var(--fg);font-family:inherit}
 .an-m,.an-s{fill:var(--muted)}
 /* tabela de dados (não vira "cartão" no celular como a .tbl, porque aqui o cabeçalho de cada coluna importa) */
 .dtab{width:100%;border-collapse:collapse;font-size:var(--t-sm)}
@@ -351,7 +351,6 @@ body.public main{padding-bottom:0}
 @media (min-width:641px){.dtab{font-size:var(--t-base)}.dtab th,.dtab td{padding:10px}}
 @media (max-width:640px){
   #anChart .an-m{font-size:var(--t-xl)} /* o SVG encolhe com a largura da tela: texto maior para continuar legível */
-  #anChart .an-v{display:none}   /* os valores estão na tabela logo abaixo */
   .an-list li{flex-direction:column;align-items:flex-start;gap:6px}
   .an-list .v{white-space:normal;flex-wrap:wrap;gap:var(--s-1) var(--s-3)}
 }
@@ -409,7 +408,7 @@ body.public main{padding-bottom:0}
   .grid.two-col{grid-template-columns:1fr 1fr}
   .an-split{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:var(--s-8);align-items:start}
   .an-split>*{min-width:0}
-  #anChart .an-m,#anChart .an-v{font-size:var(--t-base)} /* a coluna é mais estreita que o desenho (600 unidades): texto maior para continuar legível, como no celular */
+  #anChart .an-m{font-size:var(--t-base)} /* a coluna é mais estreita que o desenho (600 unidades): texto maior para continuar legível, como no celular */
   #financas .grid,#estudos .grid,#investimentos .grid{align-items:start} /* cartões de alturas bem diferentes lado a lado (Renda x Registrar gasto, simulador x lições): sem isto o mais curto esticava e deixava um vazio grande dentro */
   .grid .wide{grid-column:1/-1}
   .page-head{padding-block:var(--s-8) var(--s-1)}

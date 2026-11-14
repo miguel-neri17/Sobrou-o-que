@@ -4,7 +4,7 @@
   var A=window.Sobrou,S=A.S,MON=A.MON,$=A.$,$$=A.$$,el=A.el,esc=A.esc;
 
   var MAXFILE=2*1024*1024,MAXROWS=5000,SHOW=50,MAXITEMS=5000; /* MAXITEMS é o limite por mês que o storage.js aplica ao carregar */
-  var STATUS={novo:'Será importado',duplicado:'Já existe',entrada:'Entrada (ignorada)',invalido:'Inválida',fora:'Fora dos últimos 6 meses'};
+  var STATUS={novo:'Será importado',duplicado:'Já existe',entrada:'Entrada (ignorada)',invalido:'Inválida',fora:'Fora dos últimos '+A.MESES+' meses'};
   var rows=[],preview=null;
 
   function dmsg(t){$('#dMsg').textContent=t}
@@ -90,7 +90,7 @@
     if(c.duplicados) parts.push(plural(c.duplicados,'já existente','já existentes'));
     if(c.entradas) parts.push(plural(c.entradas,'entrada ignorada','entradas ignoradas'));
     if(c.invalidos) parts.push(plural(c.invalidos,'linha inválida','linhas inválidas'));
-    if(c.fora) parts.push(c.fora+' fora dos últimos 6 meses');
+    if(c.fora) parts.push(c.fora+' fora dos últimos '+A.MESES+' meses');
     $('#extSum').textContent=parts.join(' · ')+'.';
     var tb=$('#extList');tb.innerHTML='';
     preview.rows.slice(0,SHOW).forEach(function(r){

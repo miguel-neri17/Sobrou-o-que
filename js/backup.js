@@ -29,8 +29,8 @@
       var r=A.parseImport(String(fr.result));
       if(r.err){dmsg(r.err);return}
       var vis=MON.filter(function(x){return r.months[x.key]}).length,old=r.n-vis;
-      if(!vis){dmsg('O arquivo não tem dados dos últimos 6 meses, que são os únicos que o site mostra.');return}
-      if(!window.confirm('Importar vai SUBSTITUIR todos os dados atuais de "'+A.getUser()+'" pelos do arquivo ('+vis+' dos últimos 6 meses'+(old>0?'; mais '+old+' mês(es) antigos serão guardados, mas não aparecem nas telas':'')+'). Continuar?')){dmsg('Importação cancelada.');return}
+      if(!vis){dmsg('O arquivo não tem dados dos últimos '+A.MESES+' meses, que são os únicos que o site mostra.');return}
+      if(!window.confirm('Importar vai SUBSTITUIR todos os dados atuais de "'+A.getUser()+'" pelos do arquivo ('+vis+' dos últimos '+A.MESES+' meses'+(old>0?'; mais '+old+' mês(es) antigos serão guardados, mas não aparecem nas telas':'')+'). Continuar?')){dmsg('Importação cancelada.');return}
       var oldData=S.data,oldMeta=S.meta,oldRec=S.recurring,oldBud=S.budget,oldRes=S.reserva;
       S.data=r.months;if(r.meta!==null) S.meta=r.meta;
       if(r.recurring!==null) S.recurring=r.recurring; /* arquivo antigo, sem gastos fixos nem orçamento: mantém os atuais */
@@ -38,7 +38,7 @@
       if(r.reserva!==null) S.reserva=r.reserva;
       if(!A.saveData()){S.data=oldData;S.meta=oldMeta;S.recurring=oldRec;S.budget=oldBud;S.reserva=oldRes;dmsg('Não foi possível salvar os dados importados (armazenamento cheio ou bloqueado). Nada foi alterado.');return}
       S.cur=MON.length-1;S.aporteTocado=false;A.endEdit();A.renderAll();
-      dmsg('Dados importados: '+vis+' mês(es) dos últimos 6'+(old>0?' (mais '+old+' antigos guardados)':'')+'.');
+      dmsg('Dados importados: '+vis+' mês(es) dos últimos '+A.MESES+(old>0?' (mais '+old+' antigos guardados)':'')+'.');
     };
     fr.onerror=function(){inp.value='';dmsg('Não foi possível ler o arquivo.')};
     fr.readAsText(f);
