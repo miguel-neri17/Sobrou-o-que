@@ -112,9 +112,9 @@
           <a class="btn alt" href="#investimentos" data-focus="iAporte">Simular investimento</a>
         </div>
         <div class="grid two-col">
-          <div class="card" style="--i:2"><h2>Estudos</h2><div class="value money" id="inEstudo"></div><p class="hint" id="inEstudoHint"></p><div class="bar" style="margin-top:16px"><i id="inEstudoBar"></i></div><a class="link" href="#estudos">Ver estudos</a></div>
-          <div class="card" style="--i:3"><h2>Se você guardasse sua sobra</h2><div class="value money" id="inInv"></div><p class="hint" id="inInvHint"></p><a class="link" href="#investimentos">Aprender e simular</a></div>
-          <div class="card tip" style="--i:4"><h2>Observações</h2><div id="inTips" style="margin-top:10px"></div></div>
+          <div class="card"><h2>Estudos</h2><div class="value money" id="inEstudo"></div><p class="hint" id="inEstudoHint"></p><div class="bar" style="margin-top:16px"><i id="inEstudoBar"></i></div><a class="link" href="#estudos">Ver estudos</a></div>
+          <div class="card"><h2>Se você guardasse sua sobra</h2><div class="value money" id="inInv"></div><p class="hint" id="inInvHint"></p><a class="link" href="#investimentos">Aprender e simular</a></div>
+          <div class="card tip"><h2>Observações</h2><div id="inTips" style="margin-top:10px"></div></div>
         </div>
         <p class="note">Tudo o que você registrar fica só neste navegador. Os valores são seus e não são recomendação financeira.</p>
       </div>
@@ -125,14 +125,14 @@
       <div class="top"><div class="wrap top-row"><a class="brandlink" href="#inicio"><img src="img/logo-1.png" alt=""><span>Sobrou o Quê?</span></a><nav class="topnav" aria-label="Seções"><a href="#inicio" data-nav="inicio">Início</a><a href="#financas" data-nav="financas">Finanças</a><a href="#estudos" data-nav="estudos">Estudos</a><a href="#investimentos" data-nav="investimentos">Investimentos</a><a href="#analise" data-nav="analise">Análise</a></nav><div class="top-tools"><div data-month></div><button class="menubtn" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menu"><span class="burger" aria-hidden="true"></span></button></div></div></div>
       <div class="wrap page-head"><h1 tabindex="-1">Finanças</h1><p class="sub money" id="fSub"></p></div>
       <div class="wrap"><div class="grid two-col">
-        <div class="card" style="--i:0"><h2 id="rTitulo">Renda do mês</h2><p class="hint">Quanto entrou neste mês. É a base para calcular quanto sobrou.</p>
+        <div class="card"><h2 id="rTitulo">Renda do mês</h2><p class="hint">Quanto entrou neste mês. É a base para calcular quanto sobrou.</p>
           <form id="rForm" autocomplete="off">
             <div class="f"><label for="rRenda">Renda (R$)</label><input id="rRenda" type="number" inputmode="decimal" min="0" step="0.01" placeholder="0,00"></div>
             <button class="btn" type="submit">Salvar renda</button>
             <p class="msg" id="rMsg" role="status"></p>
           </form>
         </div>
-        <div class="card" style="--i:1"><h2 id="gTitulo">Registrar gasto</h2>
+        <div class="card"><h2 id="gTitulo">Registrar gasto</h2>
           <form id="gForm" autocomplete="off">
             <div class="f"><label for="gDesc">O que foi</label><input id="gDesc" type="text" maxlength="40" placeholder="Ex.: Lanche depois da aula" required></div>
             <div class="two">
@@ -146,8 +146,8 @@
             <p class="msg" id="gMsg" role="status"></p>
           </form>
         </div>
-        <div class="card wide" style="--i:2"><h2>Gastos fixos</h2><p class="hint">Aluguel, assinatura, passe: marque "Repetir todo mês" ao registrar o gasto. Depois, em cada mês, lance todos de uma vez, sem digitar de novo.</p><div id="fxPend"></div><ul class="list" id="fxList"></ul></div>
-        <div class="card wide" style="--i:2"><h2>Orçamento por categoria</h2><p class="hint">Defina quanto pretende gastar por mês em cada categoria. Deixe em branco para não ter limite. O site avisa quando você chega perto (80%) e quando passa.</p>
+        <div class="card wide"><h2>Gastos fixos</h2><p class="hint">Aluguel, assinatura, passe: marque "Repetir todo mês" ao registrar o gasto. Depois, em cada mês, lance todos de uma vez, sem digitar de novo.</p><div id="fxPend"></div><ul class="list" id="fxList"></ul></div>
+        <div class="card wide"><h2>Orçamento por categoria</h2><p class="hint">Defina quanto pretende gastar por mês em cada categoria. Deixe em branco para não ter limite. O site avisa quando você chega perto (80%) e quando passa.</p>
           <form id="bForm" autocomplete="off">
             <div class="bud-fields" id="bFields"></div>
             <button class="btn" type="submit">Salvar orçamento</button>
@@ -155,8 +155,8 @@
           </form>
           <div id="bList"></div>
         </div>
-        <div class="card wide" style="--i:2"><h2>Para onde foi a renda</h2><p class="hint">Cada trecho da barra é uma categoria. O trecho laranja é o que sobrou.</p><div id="fCats"></div></div>
-        <div class="card wide" style="--i:3"><h2>Lançamentos do mês</h2><div class="tw"><table class="tbl"><thead><tr><th>Dia</th><th>Descrição</th><th class="r">Valor</th><th class="r"><span class="sr">Ações</span></th></tr></thead><tbody id="fList"></tbody></table></div></div>
+        <div class="card wide"><h2>Para onde foi a renda</h2><p class="hint">Cada trecho da barra é uma categoria. O trecho laranja é o que sobrou.</p><div id="fCats"></div></div>
+        <div class="card wide"><h2>Lançamentos do mês</h2><div class="tw"><table class="tbl"><thead><tr><th>Dia</th><th>Descrição</th><th class="r">Valor</th><th class="r"><span class="sr">Ações</span></th></tr></thead><tbody id="fList"></tbody></table></div></div>
       </div></div>
     </section>
 
@@ -165,14 +165,14 @@
       <div class="top"><div class="wrap top-row"><a class="brandlink" href="#inicio"><img src="img/logo-1.png" alt=""><span>Sobrou o Quê?</span></a><nav class="topnav" aria-label="Seções"><a href="#inicio" data-nav="inicio">Início</a><a href="#financas" data-nav="financas">Finanças</a><a href="#estudos" data-nav="estudos">Estudos</a><a href="#investimentos" data-nav="investimentos">Investimentos</a><a href="#analise" data-nav="analise">Análise</a></nav><div class="top-tools"><div data-month></div><button class="menubtn" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menu"><span class="burger" aria-hidden="true"></span></button></div></div></div>
       <div class="wrap page-head"><h1 tabindex="-1">Estudos</h1><p class="sub money" id="eSub"></p></div>
       <div class="wrap"><div class="grid two-col">
-        <div class="card wide" style="--i:0"><h2>Horas de estudo por semana</h2><p class="hint">A linha tracejada <span class="legend-goal" aria-hidden="true"></span> marca a meta da semana. As barras mais claras ficaram abaixo dela.</p>
+        <div class="card wide"><h2>Horas de estudo por semana</h2><p class="hint">A linha tracejada <span class="legend-goal" aria-hidden="true"></span> marca a meta da semana. As barras mais claras ficaram abaixo dela.</p>
           <div class="cols" id="eCols"></div>
           <div class="stepper"><span>Meta semanal</span><button type="button" id="mMenos" aria-label="Diminuir meta">−</button><b class="num" id="mVal"></b><button type="button" id="mMais" aria-label="Aumentar meta">+</button></div>
         </div>
-        <div class="card wide" style="--i:1"><h2>Horas por dia da semana</h2><p class="hint">Soma do mês, de domingo a sábado.</p>
+        <div class="card wide"><h2>Horas por dia da semana</h2><p class="hint">Soma do mês, de domingo a sábado.</p>
           <div class="cols" id="eDias"></div>
         </div>
-        <div class="card" style="--i:2"><h2>Registrar estudo</h2>
+        <div class="card"><h2>Registrar estudo</h2>
           <form id="eForm" autocomplete="off">
             <div class="two">
               <div class="f"><label for="eHoras">Horas</label><input id="eHoras" type="number" inputmode="decimal" min="0.5" max="24" step="0.5" placeholder="1,5" required></div>
@@ -183,10 +183,10 @@
             <p class="msg" id="eMsg" role="status"></p>
           </form>
         </div>
-        <div class="card" style="--i:3"><h2>Desempenho do mês</h2><p class="hint" id="eNotaHint"></p>
+        <div class="card"><h2>Desempenho do mês</h2><p class="hint" id="eNotaHint"></p>
           <div class="f" style="margin-top:14px"><label for="eNotaIn">Nota média</label><input id="eNotaIn" type="text" inputmode="decimal" placeholder="Ex.: 7,5" maxlength="4"></div>
         </div>
-        <div class="card wide" style="--i:4"><h2>Notas por matéria</h2><p class="hint">Escreva o nome da matéria e a nota. As notas da mesma matéria são agrupadas e a média é calculada para você.</p>
+        <div class="card wide"><h2>Notas por matéria</h2><p class="hint">Escreva o nome da matéria e a nota. As notas da mesma matéria são agrupadas e a média é calculada para você.</p>
           <form id="nForm" autocomplete="off">
             <div class="f"><label for="nMat">Matéria</label><input id="nMat" type="text" list="nSubs" maxlength="40" placeholder="Ex.: Matemática" required><datalist id="nSubs"></datalist></div>
             <div class="two">
@@ -206,7 +206,7 @@
       <div class="top"><div class="wrap top-row"><a class="brandlink" href="#inicio"><img src="img/logo-1.png" alt=""><span>Sobrou o Quê?</span></a><nav class="topnav" aria-label="Seções"><a href="#inicio" data-nav="inicio">Início</a><a href="#financas" data-nav="financas">Finanças</a><a href="#estudos" data-nav="estudos">Estudos</a><a href="#investimentos" data-nav="investimentos">Investimentos</a><a href="#analise" data-nav="analise">Análise</a></nav><div class="top-tools"><div data-month></div><button class="menubtn" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menu"><span class="burger" aria-hidden="true"></span></button></div></div></div>
       <div class="wrap page-head"><h1 tabindex="-1">Investimentos</h1><p class="sub">Conteúdo educativo. Nada aqui é recomendação.</p></div>
       <div class="wrap"><div class="grid two-col">
-        <div class="card" style="--i:0"><h2>Simulador de aportes</h2><p class="hint" id="iHint"></p>
+        <div class="card"><h2>Simulador de aportes</h2><p class="hint" id="iHint"></p>
           <form id="iForm" autocomplete="off" onsubmit="return false">
             <div class="f"><label for="iAporte">Quanto guardar por mês (R$)</label><input id="iAporte" type="number" inputmode="decimal" min="0" step="1"></div>
             <div class="two">
@@ -217,7 +217,7 @@
           <div class="result" id="iRes" aria-live="polite"></div>
           <p class="hint" style="margin-top:14px">A taxa é só um exemplo para estudar. Rendimentos reais mudam e podem ser negativos.</p>
         </div>
-        <div class="card" style="--i:1"><h2>Aprenda o básico</h2>
+        <div class="card"><h2>Aprenda o básico</h2>
           <div style="margin-top:14px">
             <details><summary>Reserva de emergência</summary><div class="body"><p>É um dinheiro separado para imprevistos, como um conserto, uma consulta ou uma semana sem renda.</p><p>Costuma ficar onde dá para sacar rápido e sem perder valor de repente. A ideia é segurança, não ganhar muito.</p></div></details>
             <details><summary>Juros compostos</summary><div class="body"><p>Juros compostos são juros sobre juros: o rendimento de um mês entra na base do mês seguinte.</p><p>Por isso o tempo pesa tanto. Mude os meses no simulador ao lado e veja o montante crescer mais rápido no fim do que no começo.</p></div></details>
@@ -233,20 +233,20 @@
       <div class="top"><div class="wrap top-row"><a class="brandlink" href="#inicio"><img src="img/logo-1.png" alt=""><span>Sobrou o Quê?</span></a><nav class="topnav" aria-label="Seções"><a href="#inicio" data-nav="inicio">Início</a><a href="#financas" data-nav="financas">Finanças</a><a href="#estudos" data-nav="estudos">Estudos</a><a href="#investimentos" data-nav="investimentos">Investimentos</a><a href="#analise" data-nav="analise">Análise</a></nav><div class="top-tools"><div data-month></div><button class="menubtn" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menu"><span class="burger" aria-hidden="true"></span></button></div></div></div>
       <div class="wrap page-head"><h1 tabindex="-1">Análise</h1><p class="sub">Como os seus meses se comparam. Tudo calculado só com o que você registrou.</p></div>
       <div class="wrap"><div class="grid two-col">
-        <div class="card wide" style="--i:0"><h2>Saldo mês a mês</h2><p class="hint">O que sobrou (ou faltou) em cada um dos últimos 6 meses.</p>
+        <div class="card wide"><h2>Saldo mês a mês</h2><p class="hint">O que sobrou (ou faltou) em cada um dos últimos 6 meses.</p>
           <div id="anChart"></div>
           <div class="tw"><table class="dtab"><caption class="sr">Renda, gastos e sobra por mês</caption><thead><tr><th>Mês</th><th class="r">Renda</th><th class="r">Gastos</th><th class="r">Sobra</th></tr></thead><tbody id="anRows"></tbody></table></div>
         </div>
-        <div class="card wide" style="--i:1"><h2>Comparação com o mês anterior</h2>
+        <div class="card wide"><h2>Comparação com o mês anterior</h2>
           <div id="anComp"></div>
           <h3 class="an-h" id="anCatsH" hidden>Categorias que mais mudaram</h3>
           <ul class="list an-list" id="anCats"></ul>
         </div>
-        <div class="card wide" style="--i:2"><h2>Horas de estudo e notas</h2><p class="hint">Cada ponto é um mês seu: horas de estudo por semana (eixo horizontal) e nota média (eixo vertical).</p>
+        <div class="card wide"><h2>Horas de estudo e notas</h2><p class="hint">Cada ponto é um mês seu: horas de estudo por semana (eixo horizontal) e nota média (eixo vertical).</p>
           <div id="anScatter"></div>
           <p id="anHN" class="hint"></p>
         </div>
-        <div class="card wide" style="--i:3"><h2>Meta de reserva</h2><p class="hint">Quanto você quer ter guardado. O prazo usa a sua sobra média e a mesma taxa de exemplo do simulador de Investimentos.</p>
+        <div class="card wide"><h2>Meta de reserva</h2><p class="hint">Quanto você quer ter guardado. O prazo usa a sua sobra média e a mesma taxa de exemplo do simulador de Investimentos.</p>
           <form id="rsForm" autocomplete="off">
             <div class="f"><label for="rsMeta">Meta de reserva (R$)</label><input id="rsMeta" type="number" inputmode="decimal" min="0.01" step="0.01" placeholder="Sem meta"></div>
             <button class="btn" type="submit">Salvar meta</button>
