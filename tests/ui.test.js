@@ -204,6 +204,30 @@ async function abrir(browser, w, h, renda) {
     await page.close();
   }
 
+  // ---------- prévia do extrato com categoria: no celular cada linha é um cartão, sem rolagem lateral nem seletor cortado ----------
+  for (const larg of [390, 320]) {
+    const fs = require('fs'), os = require('os');
+    const hoje = new Date(), mm = String(hoje.getMonth() + 1).padStart(2, '0'), yy = hoje.getFullYear();
+    const arq = path.join(os.tmpdir(), 'sobrou-ui-categorias.csv');
+    fs.writeFileSync(arq, 'Data;Descrição;Valor\n' + ['COMPRA NO DEBITO IFOOD *RESTAURANTE 1234;-34,90', 'UBER *TRIP HELP.UBER.COM;-18,40', 'PIX ENVIADO FULANO DA SILVA;-50,00'].map((l, i) => '0' + (i + 2) + '/' + mm + '/' + yy + ';' + l).join('\n') + '\n', 'utf8');
+    const ctxE = await browser.createBrowserContext();
+    const pE = await ctxE.newPage();
+    await pE.setViewport({ width: larg, height: 800, deviceScaleFactor: 1, isMobile: true, hasTouch: true });
+    await pE.goto(SITE, { waitUntil: 'networkidle2' });
+    await pE.click('#demoBtn'); await pE.waitForFunction(() => location.hash === '#inicio');
+    await (await pE.$('#extFile')).uploadFile(arq);
+    await pE.waitForSelector('#extPanel:not([hidden]) .ext-cat', { timeout: 5000 });
+    const m = await pE.evaluate(() => {
+      const tw = document.querySelector('.ext .tw').getBoundingClientRect();
+      const sels = Array.from(document.querySelectorAll('.ext-cat')).map((s) => s.getBoundingClientRect());
+      return { lateral: document.documentElement.scrollWidth > document.documentElement.clientWidth || document.querySelector('.ext .tw').scrollWidth > document.querySelector('.ext .tw').clientWidth,
+        cortado: sels.some((r) => r.left < tw.left - 1 || r.right > tw.right + 1), pequeno: sels.some((r) => r.height < 44), n: sels.length,
+        cabecalho: getComputedStyle(document.querySelector('.ext .dtab thead')).display };
+    });
+    ok(!m.lateral && !m.cortado && !m.pequeno && m.n === 3 && m.cabecalho === 'none', 'extrato a ' + larg + ' px: cartões sem rolagem lateral, seletores inteiros e com 44 px de altura (' + JSON.stringify(m) + ')');
+    await ctxE.close();
+  }
+
   // ---------- computador: Estudos e Análise em colunas, e empilhados no celular ----------
   for (const [larg, lado] of [[1280, true], [390, false]]) {
     const ctxC = await browser.createBrowserContext();
