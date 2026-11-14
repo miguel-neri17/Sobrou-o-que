@@ -487,6 +487,7 @@ const submit = (w, f) => f.dispatchEvent(new w.Event('submit', { cancelable: tru
   ok(linhas.length === 6, 'tabela do saldo tem uma linha por mes (6)');
   const lm = (nome) => linhas.find((tr) => tr.textContent.includes(nome));
   ok(lm('Mar').textContent.includes('550,00') && lm('Abr').textContent.includes('430,00') && lm('Fev').textContent.includes('200,00'), 'tabela mostra a sobra de cada mes (Fev negativa: -200,00)');
+  ok(lm('Fev').textContent.includes('sem renda') && !lm('Mar').textContent.includes('sem renda'), 'mes com gastos e sem renda avisa "sem renda" na tabela, em vez de parecer so uma sobra negativa');
   ok(d.querySelectorAll('#anChart svg rect.an-pos').length === 2 && d.querySelectorAll('#anChart svg rect.an-neg').length === 1, 'grafico tem uma barra por mes com registro: 2 positivas e 1 negativa');
   ok(an('#anChart svg').getAttribute('aria-hidden') === 'true' || an('#anChart svg').getAttribute('role') === 'img', 'grafico e acessivel (a tabela traz os mesmos dados)');
 
@@ -503,7 +504,7 @@ const submit = (w, f) => f.dispatchEvent(new w.Event('submit', { cancelable: tru
   const rsRes = () => anT('#rsRes'), rsMsg = () => anT('#rsMsg'), reserva = () => (stored(w, 'ana').reserva || 0);
   ok(rsRes().includes('Defina uma meta'), 'sem meta de reserva a tela explica como comecar');
   set('#rsMeta', '3000'); submit(w, d.querySelector('#rsForm'));
-  ok(reserva() === 3000 && rsRes().includes('490,00') && rsRes().includes('meses'), 'meta salva e prazo calculado com a sobra media (490,00): ' + rsRes().slice(0, 200));
+  ok(reserva() === 3000 && rsRes().includes('490,00') && rsRes().includes('meses') && rsRes().includes('0,7%'), 'meta salva e prazo calculado com a sobra media (490,00): ' + rsRes().slice(0, 200));
   set('#rsMeta', '-5'); submit(w, d.querySelector('#rsForm'));
   ok(rsMsg().includes('Informe um valor') && reserva() === 3000, 'meta invalida recusada, a anterior continua');
   set('#rsMeta', '999999999'); submit(w, d.querySelector('#rsForm'));

@@ -4,6 +4,9 @@
   var A=window.Sobrou,S=A.S,MON=A.MON,CATS=A.CATS,DIAS=A.DIAS,DIAS_C=A.DIAS_C,now=A.now,$=A.$,$$=A.$$,el=A.el,esc=A.esc,dec=A.dec,sum=A.sum,norm=A.norm,
       M=A.M,money=A.money,total=A.total,sobra=A.sobra,byCat=A.byCat,notaMes=A.notaMes,weekTotals=A.weekTotals,dayTotals=A.dayTotals,avgWeeks=A.avgWeeks,fv=A.fv,mlabel=A.mlabel,round2=A.round2;
 
+  var TX=A.TAXA_EXEMPLO,TXT=dec.format(TX)+'%'; /* taxa de exemplo e seu texto ("0,7%"), de um lugar só */
+  $('#iTaxa').value=TX;
+
   function reduceMotion(){return !!(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches)}
 
   /* mostra o valor; na primeira abertura do início ele "conta" de zero até o valor (a única animação por conta própria) */
@@ -94,8 +97,8 @@
     $('#inEstudoHint').textContent='Meta de '+S.meta+' h por semana.'+(notaMes(m)!=null?' Nota média do mês: '+dec.format(notaMes(m)).replace('.',',')+'.':'');
     $('#inEstudoBar').style.setProperty('--w',Math.min(1,avg/S.meta).toFixed(3));
     var p=Math.max(0,s);
-    $('#inInv').textContent=money(fv(p,0.7,12));
-    $('#inInvHint').textContent=p>0?'Guardando '+money(p)+' por mês durante 12 meses, com uma taxa de exemplo de 0,7% ao mês.':'Informe a renda e registre os gastos em Finanças para ver uma simulação com a sua sobra.';
+    $('#inInv').textContent=money(fv(p,TX,12));
+    $('#inInvHint').textContent=p>0?'Guardando '+money(p)+' por mês durante 12 meses, com uma taxa de exemplo de '+TXT+' ao mês.':'Informe a renda e registre os gastos em Finanças para ver uma simulação com a sua sobra.';
     var tips=[],bc=byCat(m);
     if(d.renda<=0&&t<=0&&avg<=0){
       tips.push('Comece informando a renda do mês na aba Finanças. Depois, registre seus gastos e suas horas de estudo.');
@@ -221,7 +224,7 @@
     var box=$('#anChart'),tb=$('#anRows');
     box.innerHTML='';tb.innerHTML='';
     serie.forEach(function(t,i){
-      tb.appendChild(el('tr','','<th scope="row">'+MON[i].abbr+'/'+String(MON[i].year).slice(2)+'</th>'+(t.tem?'<td class="r money">'+money(t.renda)+'</td><td class="r money">'+money(t.gastos)+'</td><td class="r money">'+money(t.sobra)+'</td>':'<td class="r" colspan="3">sem registros</td>')));
+      tb.appendChild(el('tr','','<th scope="row">'+MON[i].abbr+'/'+String(MON[i].year).slice(2)+'</th>'+(t.tem?'<td class="r'+(t.renda>0?' money">'+money(t.renda):'">sem renda')+'</td><td class="r money">'+money(t.gastos)+'</td><td class="r money">'+money(t.sobra)+'</td>':'<td class="r" colspan="3">sem registros</td>')));
     });
     var com=serie.filter(function(t){return t.tem});
     if(!com.length){box.appendChild(el('p','hint','Nenhum registro nos últimos 6 meses ainda. Informe a renda e os gastos em Finanças para ver o gráfico.'));return}
@@ -315,9 +318,9 @@
     if(sm===null) p('Informe a renda de pelo menos um mês em Finanças para estimar o prazo.');
     else if(sm<=0) p('Nos meses com renda informada, a sua sobra média é de '+money(sm)+': com ela não dá para formar a reserva. Veja as maiores categorias em Finanças.');
     else{
-      var n=A.mesesParaMeta(meta,sm,0.7);
+      var n=A.mesesParaMeta(meta,sm,TX);
       if(n===null) p('Com a sua sobra média de '+money(sm)+' por mês, a meta de '+money(meta)+' levaria mais de 50 anos.');
-      else p('Guardando a sua sobra média de '+money(sm)+' por mês, com a taxa de exemplo de 0,7% ao mês, você chega a '+money(meta)+' em '+n+(n===1?' mês':' meses')+(n>=12?' ('+Math.floor(n/12)+(Math.floor(n/12)===1?' ano':' anos')+(n%12?' e '+n%12+(n%12===1?' mês':' meses'):'')+')':'')+'. A taxa é só um exemplo: rendimentos reais mudam.');
+      else p('Guardando a sua sobra média de '+money(sm)+' por mês, com a taxa de exemplo de '+TXT+' ao mês, você chega a '+money(meta)+' em '+n+(n===1?' mês':' meses')+(n>=12?' ('+Math.floor(n/12)+(Math.floor(n/12)===1?' ano':' anos')+(n%12?' e '+n%12+(n%12===1?' mês':' meses'):'')+')':'')+'. A taxa é só um exemplo: rendimentos reais mudam.');
     }
     box.appendChild(el('a','link','Simular em Investimentos')).setAttribute('href','#investimentos');
   }

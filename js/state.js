@@ -10,6 +10,7 @@
     {k:'estudos',n:'Material de estudo'},
     {k:'outros',n:'Outros'}
   ];
+  A.TAXA_EXEMPLO=0.7; /* % ao mês: a taxa de exemplo do simulador, do início e da meta de reserva (só para estudar, não é rendimento real) */
   A.DIAS=['Domingo','Segunda-feira','Terça-feira','Quarta-feira','Quinta-feira','Sexta-feira','Sábado'];
   A.DIAS_C=['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'];
 

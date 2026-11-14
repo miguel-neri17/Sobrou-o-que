@@ -1,5 +1,5 @@
 // Tira capturas de tela do site em um navegador real.
-// Uso: npm run screenshots -- <rotulo> <largura> <altura> [light|dark] [cheio|negativo|vazio]
+// Uso: npm run screenshots -- <rotulo> <largura> <altura> [light|dark] [cheio|negativo|vazio|exemplo]
 const puppeteer = require('puppeteer-core');
 const fs = require('fs');
 const path = require('path');
@@ -53,12 +53,16 @@ function dados(estado) {
   await page.evaluate(() => { location.hash = '#cadastro'; }); await sleep(300);
   await shot('2-cadastro');
 
-  // cria a conta pelo formulario
-  await page.type('#cUser', 'ana'); await page.type('#cPass', 'segredo1'); await page.type('#cPass2', 'segredo1');
-  await page.click('#cForm .go');
+  if (estado === 'exemplo') { // entra pelo botão "Ver com dados de exemplo": estudante simulado com 6 meses de dados
+    await page.evaluate(() => { location.hash = '#entrar'; }); await sleep(300);
+    await page.click('#demoBtn');
+  } else { // cria a conta pelo formulario
+    await page.type('#cUser', 'ana'); await page.type('#cPass', 'segredo1'); await page.type('#cPass2', 'segredo1');
+    await page.click('#cForm .go');
+  }
   await page.waitForFunction(() => location.hash === '#inicio', { timeout: 15000 });
 
-  const d = dados(estado);
+  const d = estado === 'exemplo' ? null : dados(estado);
   if (d) {
     await page.evaluate((json) => { localStorage.setItem('sobrou-v2-ana', json); }, JSON.stringify(d));
     await page.reload({ waitUntil: 'networkidle2' });
@@ -66,7 +70,7 @@ function dados(estado) {
   await sleep(400);
   await shot('3-inicio');
   await page.evaluate(() => window.scrollTo(0, 0)); await shot('3v-inicio', false);
-  for (const [n, h] of [['4-financas', '#financas'], ['5-estudos', '#estudos'], ['6-investimentos', '#investimentos']]) {
+  for (const [n, h] of [['4-financas', '#financas'], ['5-estudos', '#estudos'], ['6-investimentos', '#investimentos'], ['8-analise', '#analise']]) {
     await page.evaluate((x) => { location.hash = x; }, h);
     await sleep(300);
     await shot(n);
