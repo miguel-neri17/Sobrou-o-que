@@ -18,6 +18,7 @@ Painel pessoal para estudantes: anote o que **entra e sai**, as **horas de estud
 ## Como experimentar
 
 - **Sem instalar nada:** abra a [demonstração](https://miguel-neri17.github.io/Sobrou-o-que/) e clique em **Ver com dados de exemplo**. Você entra, sem senha, como um estudante simulado com 6 meses de dados. O que você mudar nele some ao sair.
+- **Como aplicativo (instalar e usar sem internet):** na demonstração, o navegador oferece **Instalar** (Chrome e Edge) ou **Adicionar à tela inicial** (Safari). Depois da primeira visita o app abre sem internet. Isso só funciona pelo endereço do site: abrir o `index.html` com duplo clique não instala nada. **Cuidado:** os dados ficam no armazenamento do navegador, e o app instalado pode ter um armazenamento separado do site aberto numa aba (no iPhone isso é o normal). Para levar os dados de um para o outro, use **Exportar** e **Importar**.
 - **No seu computador:** baixe o repositório e abra o `index.html` com duplo clique. Não precisa de servidor nem de instalação.
 
 ## O que o app faz
@@ -82,6 +83,8 @@ O [GitHub Actions](.github/workflows/ci.yml) roda tudo a cada push e a cada pull
 ## Estrutura
 
 ```
+manifest.webmanifest  nome, cores e ícones para instalar como aplicativo
+sw.js                 service worker: guarda os arquivos para abrir sem internet (lista conferida por test:design)
 index.html            todas as telas (abas por #hash) e a ordem dos scripts
 style.css             estilos, com modo claro e escuro, todos a partir de tokens (cor, espaço, tipo, raio, movimento)
 PRODUCT.md            para quem é o app, o que a pessoa quer fazer, tom e princípios
@@ -99,7 +102,7 @@ js/                   um arquivo por responsabilidade, carregados como scripts c
 fonts/                as fontes (Chonburi e IBM Plex Sans) e suas licenças: o site não pede nada a servidores de fora
 dados/                bases simuladas, dicionário de dados e geradores (Python)
 tests/                testes em Node (jsdom) e em Python
-scripts/              capturas de tela e busca do navegador para os testes
+scripts/              capturas de tela, ícones do app (icones.js) e busca do navegador para os testes
 docs/screenshots/     imagens do README
 ```
 

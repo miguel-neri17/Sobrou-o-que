@@ -228,6 +228,40 @@ async function abrir(browser, w, h, renda) {
     await ctxE.close();
   }
 
+  // ---------- PWA: depois da primeira visita, o app abre SEM internet (service worker, por http: ele não existe em file://) ----------
+  {
+    const http = require('http'), fs = require('fs');
+    const raiz = path.resolve(__dirname, '..');
+    const TIPOS = { '.html': 'text/html; charset=utf-8', '.css': 'text/css', '.js': 'application/javascript', '.woff2': 'font/woff2', '.png': 'image/png', '.webmanifest': 'application/manifest+json' };
+    const srv = http.createServer((rq, rs) => {
+      const f = path.join(raiz, decodeURIComponent(rq.url.split('?')[0]).replace(/^\/+/, '') || 'index.html');
+      if (!f.startsWith(raiz) || !fs.existsSync(f) || !fs.statSync(f).isFile()) { rs.writeHead(404); rs.end(); return; }
+      rs.writeHead(200, { 'Content-Type': TIPOS[path.extname(f)] || 'application/octet-stream' }); fs.createReadStream(f).pipe(rs);
+    });
+    await new Promise((r) => srv.listen(0, '127.0.0.1', r));
+    const url = 'http://127.0.0.1:' + srv.address().port + '/';
+    const ctxP = await browser.createBrowserContext();
+    const pP = await ctxP.newPage();
+    const falhas = [], errosP = [];
+    pP.on('pageerror', (e) => errosP.push(e.message));
+    pP.on('requestfailed', (r) => falhas.push(r.url().split('/').pop()));
+    await pP.setViewport({ width: 390, height: 844 });
+    await pP.goto(url, { waitUntil: 'networkidle2' });
+    const sw = await pP.evaluate(async () => { const r = await navigator.serviceWorker.ready; return { ativo: !!r.active, guardados: (await (await caches.open('sobrou-v1')).keys()).length, tipo: (await fetch('manifest.webmanifest')).headers.get('content-type') }; });
+    ok(sw.ativo && sw.guardados >= 24, 'service worker ativo e com os arquivos do app guardados (' + sw.guardados + ' arquivos)');
+    ok(/manifest\+json|application\/json/.test(sw.tipo), 'o manifesto é servido com o tipo certo (' + sw.tipo + ')');
+    await pP.setOfflineMode(true);
+    falhas.length = 0;
+    await pP.reload({ waitUntil: 'load' });
+    ok(await pP.evaluate(() => !!document.querySelector('#demoBtn') && getComputedStyle(document.querySelector('.lg-name')).fontFamily.includes('Chonburi')), 'SEM internet, recarregar a página mostra o app com o estilo e as fontes');
+    await pP.click('#demoBtn'); await pP.waitForFunction(() => location.hash === '#inicio', { timeout: 10000 });
+    await pP.evaluate(() => { location.hash = '#analise'; }); await pP.waitForSelector('#anRows tr', { timeout: 10000 });
+    ok(await pP.evaluate(() => document.querySelectorAll('#anChart svg rect').length > 0), 'SEM internet, entrar com o exemplo e abrir a Análise funciona');
+    ok(falhas.length === 0 && errosP.length === 0, 'SEM internet: nenhuma requisição falhou e nenhum erro de JavaScript (' + JSON.stringify(falhas.concat(errosP)) + ')');
+    await pP.setOfflineMode(false);
+    await ctxP.close(); srv.close();
+  }
+
   // ---------- computador: Estudos e Análise em colunas, e empilhados no celular ----------
   for (const [larg, lado] of [[1280, true], [390, false]]) {
     const ctxC = await browser.createBrowserContext();
