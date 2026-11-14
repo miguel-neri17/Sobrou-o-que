@@ -27,6 +27,9 @@
   /* meta de reserva (R$) vinda de fora: de 0,01 a 1e9; qualquer outra coisa vira 0 = sem meta */
   function cleanReserva(v){var n=num(v,0.01,1e9);return n===null?0:round2(n)}
 
+  /* data do último backup vinda do navegador: número entre 1 e amanhã; qualquer outra coisa vira 0 */
+  function cleanBackup(v){var n=num(v,1,Date.now()+864e5);return n===null?0:Math.floor(n)}
+
   /* regras de categoria aprendidas (descrição normalizada -> categoria) vindas de fora. A chave tem de ser exatamente o que
      regraKey() gera (letras minúsculas e espaços, até 30): qualquer outra coisa é descartada, o que também barra "__proto__".
      A categoria tem de existir. No máximo A.MAX_REGRAS, ficando as últimas. */
@@ -107,7 +110,7 @@
   function ukey(){var u=A.getUser();return u?KEY_PREFIX+u:null}
 
   function loadData(){
-    S.data={};S.meta=10;S.recurring=[];S.budget={};S.reserva=0;S.guardado=0;S.regras={};var k=ukey();if(!k) return;
+    S.data={};S.meta=10;S.recurring=[];S.budget={};S.reserva=0;S.guardado=0;S.regras={};S.backupEm=0;var k=ukey();if(!k) return;
     try{
       var d=JSON.parse(localStorage.getItem(k)||'null');
       if(d&&isObj(d.months)){
@@ -117,6 +120,7 @@
         S.reserva=cleanReserva(d.reserva);
         S.guardado=cleanReserva(d.guardado);
         S.regras=cleanRegras(d.regras);
+        S.backupEm=cleanBackup(d.backupEm);
         var mt=num(d.meta,2,30);if(mt!==null) S.meta=Math.round(mt);
       }
     }catch(e){}
@@ -125,7 +129,8 @@
   /* devolve false se o navegador não deixou gravar (armazenamento cheio ou bloqueado) */
   function saveData(){
     var k=ukey();if(!k) return false;
-    try{localStorage.setItem(k,JSON.stringify({months:S.data,meta:S.meta,recurring:S.recurring,budget:S.budget,reserva:S.reserva,guardado:S.guardado,regras:S.regras}));return true}catch(e){return false}
+    if(!S.backupEm) S.backupEm=Date.now(); /* a contagem do lembrete de backup começa no primeiro salvamento */
+    try{localStorage.setItem(k,JSON.stringify({months:S.data,meta:S.meta,recurring:S.recurring,budget:S.budget,reserva:S.reserva,guardado:S.guardado,regras:S.regras,backupEm:S.backupEm}));return true}catch(e){return false}
   }
 
   A.KEY_PREFIX=KEY_PREFIX;A.MAX_RECURRING=MAX_RECURRING;A.cleanBudget=cleanBudget;A.cleanRegras=cleanRegras;A.cleanReserva=cleanReserva;

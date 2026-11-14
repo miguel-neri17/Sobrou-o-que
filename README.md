@@ -31,7 +31,7 @@ Painel pessoal para estudantes: anote o que **entra e sai**, as **horas de estud
 - **Estudos:** horas por semana e por dia da semana (as horas somam, e dá para **corrigir ou apagar** o total de um dia), com **meta semanal** em linha tracejada, e notas por matéria com média automática.
 - **Investimentos:** simulador de aportes mensais (juros compostos) e quatro textos curtos de educação financeira. A taxa é só um exemplo para estudar.
 - **Análise:** saldo mês a mês dos **últimos 12 meses** (gráfico e tabela; meses mais antigos continuam guardados, só não aparecem), comparação com o mês anterior (em palavras: "a mais", "a menos"), horas de estudo × nota com os seus meses, e **meta de reserva**: você informa quanto já guardou, vê o progresso em barra e em quantos meses chega nela (o prazo conta só o que falta, com a sua sobra média).
-- **Dados:** **exportar e importar** tudo em um arquivo `.json`, sem senha dentro.
+- **Dados:** **exportar e importar** tudo em um arquivo `.json`, sem senha dentro. Depois de 30 dias sem exportar, o Início **lembra de fazer uma cópia** (uma linha em Observações; exportar zera a contagem).
 - **Contas:** cada pessoa tem seus próprios dados no navegador, protegidos por login.
 - **Interface:** abas embaixo no celular, links no topo no computador, modo claro e escuro que seguem o sistema, com um seletor de **Aparência** (Sistema, Claro ou Escuro) no menu.
 
@@ -117,7 +117,7 @@ docs/screenshots/     imagens do README
 ## Avisos
 
 - As categorias aprendidas na importação são **descrições de lojas do seu extrato**, guardadas só neste navegador e incluídas no arquivo que você exporta. Elas aparecem no arquivo em texto simples, então não compartilhe o arquivo exportado sem querer. A tela de importação tem o botão para esquecê-las.
-- Os seus registros ficam **só neste navegador**. Limpar os dados do navegador apaga tudo, então exporte um arquivo de vez em quando.
+- Os seus registros ficam **só neste navegador**. Limpar os dados do navegador apaga tudo, então exporte um arquivo de vez em quando (o Início avisa depois de 30 dias). O app guarda só a data do último backup, não o arquivo.
 - O login só separa os dados de cada pessoa **neste navegador**. Quem tiver acesso ao aparelho ainda consegue ler o `localStorage`, então ele **não protege** contra isso. Não use uma senha que você usa em outros lugares.
 - O simulador e a meta de reserva usam uma taxa de **exemplo** para estudar. Rendimentos reais mudam e podem ser negativos, e nada aqui é recomendação financeira.
 - Os dados de `dados/` e o estudante de exemplo são **fictícios**.

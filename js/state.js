@@ -10,6 +10,7 @@
     {k:'estudos',n:'Material de estudo'},
     {k:'outros',n:'Outros'}
   ];
+  A.BACKUP_DIAS=30; /* depois de tantos dias sem exportar, o Início lembra de fazer uma cópia dos dados */
   A.TAXA_EXEMPLO=0.7; /* % ao mês: a taxa de exemplo do simulador, do início e da meta de reserva (só para estudar, não é rendimento real) */
   A.DIAS=['Domingo','Segunda-feira','Terça-feira','Quarta-feira','Quinta-feira','Sexta-feira','Sábado'];
   A.DIAS_C=['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'];
@@ -33,6 +34,7 @@
      recurring: modelos de gasto fixo ("repetir todo mês"), {id,desc,v,d,cat}; os gastos lançados a partir deles guardam o id em "rid"
      budget: limite mensal em R$ por categoria, {categoria: valor}; categoria sem entrada = sem limite
      reserva: meta de reserva em R$ (0 = sem meta), usada na aba Análise | guardado: quanto a pessoa já guardou para a meta, em R$ (0 = nada)
+     backupEm: quando a pessoa exportou os dados pela última vez, em milissegundos (0 = a contagem do lembrete ainda não começou)
      regras: categorias aprendidas na importação de extrato {descrição normalizada: categoria} (ver csv.js) */
-  A.S={cur:A.MON.length-1,hidden:false,meta:10,aporteTocado:false,editing:null,intro:false,data:{},recurring:[],budget:{},reserva:0,guardado:0,regras:{}};
+  A.S={cur:A.MON.length-1,hidden:false,meta:10,aporteTocado:false,editing:null,intro:false,data:{},recurring:[],budget:{},reserva:0,guardado:0,regras:{},backupEm:0};
 })();
