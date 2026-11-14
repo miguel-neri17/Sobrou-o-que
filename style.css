@@ -7,7 +7,7 @@
   --brand-text:#1A634F;   /* verde usado como texto sobre fundo claro */
   --sobra:#F2A541;        /* laranja do projeto: usado só para "o que sobrou" */
   /* uma cor por categoria de gasto (família do verde, para o laranja da sobra se destacar) */
-  --c-alimentacao:#1F6F5C;--c-transporte:#58A08C;--c-lazer:#2D4F5E;--c-assinaturas:#94BDB0;--c-estudos:#3F8C9F;--c-outros:#8C9A95;
+  --c-alimentacao:#1F6F5C;--c-transporte:#58A08C;--c-lazer:#2D4F5E;--c-assinaturas:#94BDB0;--c-estudos:#3F8C9F;--c-outros:#9C8F7E;
   --c-sobra:var(--sobra);
   --bar:var(--brand);     /* barras de estudo que bateram a meta */
   --bar-low:#708E85;      /* barras abaixo da meta: 3,06:1 contra a trilha, e também listradas, para não depender só da cor */
@@ -42,11 +42,11 @@
   --display:"Chonburi","Iowan Old Style",Georgia,serif;  /* só no valor que sobrou, títulos e nome do site */
 }
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
-  --c-alimentacao:#3FA88E;--c-transporte:#7BC4B0;--c-lazer:#6A9DB3;--c-assinaturas:#B6D8CD;--c-estudos:#5BB4C8;--c-outros:#8C9A95;--bar:#3FA88E;--bar-low:#5B766F;
+  --c-alimentacao:#3FA88E;--c-transporte:#7BC4B0;--c-lazer:#6A9DB3;--c-assinaturas:#B6D8CD;--c-estudos:#5BB4C8;--c-outros:#B3A999;--bar:#3FA88E;--bar-low:#5B766F;
   --bg:#0E1311;--surface:#151D1A;--soft:#1E2824;--line:#2B3732;--field-line:#68736F;--fg:#E8EEEB;--muted:#9AA7A1;
   --brand:#277462;--on-brand-2:#DDEDE7;--brand-text:#6CCDB2;--danger-text:#FF9A9A;color-scheme:dark}}
 :root[data-theme="dark"]{
-  --c-alimentacao:#3FA88E;--c-transporte:#7BC4B0;--c-lazer:#6A9DB3;--c-assinaturas:#B6D8CD;--c-estudos:#5BB4C8;--c-outros:#8C9A95;--bar:#3FA88E;--bar-low:#5B766F;
+  --c-alimentacao:#3FA88E;--c-transporte:#7BC4B0;--c-lazer:#6A9DB3;--c-assinaturas:#B6D8CD;--c-estudos:#5BB4C8;--c-outros:#B3A999;--bar:#3FA88E;--bar-low:#5B766F;
   --bg:#0E1311;--surface:#151D1A;--soft:#1E2824;--line:#2B3732;--field-line:#68736F;--fg:#E8EEEB;--muted:#9AA7A1;
   --brand:#277462;--on-brand-2:#DDEDE7;--brand-text:#6CCDB2;--danger-text:#FF9A9A;color-scheme:dark}
 
@@ -123,6 +123,7 @@ body.menu-open .scrim{opacity:1;pointer-events:auto}
 .btn:active{transform:scale(.97)}
 .btn.alt{background:var(--surface);color:var(--fg);border:1px solid var(--field-line)}
 .btn.sm{min-height:36px;padding:0 var(--s-3);font-size:var(--t-md)}
+.btn:disabled,.btn:disabled:hover,.lgc .go:disabled,.lgc .go:disabled:hover{opacity:.5;cursor:default;transform:none} /* desabilitado PARECE desabilitado */
 @media (hover:hover) and (pointer:fine){.btn:hover{opacity:.92}.btn.alt:hover{background:var(--soft);opacity:1}}
 form .btn{justify-self:start}
 .quick{display:flex;flex-wrap:wrap;gap:10px;padding-top:var(--s-5)}
@@ -138,6 +139,7 @@ form .btn{justify-self:start}
 .value{font-size:var(--t-2xl);font-weight:600;letter-spacing:-.01em;line-height:1.15;margin-top:10px}
 .amount{font-size:clamp(34px,8vw,44px);font-weight:600;letter-spacing:-.02em;line-height:1.1;margin-top:var(--s-1)}
 .tip{background:var(--soft);border-color:transparent}
+.tip.is-warn{background:color-mix(in srgb,var(--danger) 10%,var(--surface));border-color:color-mix(in srgb,var(--danger) 35%,var(--line))} /* há orçamento estourado ou gastos acima da renda */
 .tip p+p{margin-top:10px}
 .note{color:var(--muted);font-size:var(--t-sm);padding:var(--s-5) 0 0}
 
@@ -294,6 +296,8 @@ body.public main{padding-bottom:0}
 @keyframes grow{from{clip-path:inset(0 100% 0 0)}to{clip-path:inset(0 0 0 0)}}
 .c-alimentacao{--seg:var(--c-alimentacao)}.c-transporte{--seg:var(--c-transporte)}.c-lazer{--seg:var(--c-lazer)}
 .c-assinaturas{--seg:var(--c-assinaturas)}.c-estudos{--seg:var(--c-estudos)}.c-outros{--seg:var(--c-outros)}.c-sobra{--seg:var(--c-sobra)}
+/* "Outros" é o único trecho neutro e o mais fácil de confundir com os verdes: ganha textura, para não depender só da cor */
+.rbar i.c-outros,.rleg .sw.c-outros{background:repeating-linear-gradient(135deg,var(--c-outros) 0 4px,color-mix(in srgb,var(--c-outros) 55%,var(--surface)) 4px 8px)}
 /* importar extrato (painel de revisão sobre a página; acabamento visual fica para a fase de design) */
 .ext{position:fixed;inset:0;z-index:var(--z-dialog);background:var(--scrim);overflow-y:auto;padding:var(--s-4);display:flex;justify-content:center;align-items:flex-start}
 .ext-box{width:100%;max-width:760px;margin:0 auto}
@@ -323,7 +327,9 @@ body.public main{padding-bottom:0}
 /* tabela de dados (não vira "cartão" no celular como a .tbl, porque aqui o cabeçalho de cada coluna importa) */
 .dtab{width:100%;border-collapse:collapse;font-size:var(--t-sm)}
 .dtab th,.dtab td{padding:10px 6px;border-bottom:1px solid var(--line);text-align:left;font-weight:400;vertical-align:top;overflow-wrap:anywhere}
-.dtab thead th{font-weight:500;color:var(--muted)}
+.dtab thead th{font-weight:500;color:var(--muted);white-space:nowrap}
+.ext .dtab td:nth-child(-n+2){white-space:nowrap} /* na prévia do extrato, Nº e Data não quebram no meio ("02/11/" e "2026") */
+.ext .dtab td:last-child{overflow-wrap:normal} /* e a Situação quebra só nos espaços ("Será" / "importado"), nunca no meio da palavra */
 .dtab tbody th{font-weight:500;white-space:nowrap}
 .dtab tr:last-child th,.dtab tr:last-child td{border-bottom:0}
 .dtab .r{text-align:right;white-space:nowrap}
@@ -334,6 +340,8 @@ body.public main{padding-bottom:0}
   .an-list li{flex-direction:column;align-items:flex-start;gap:6px}
   .an-list .v{white-space:normal;flex-wrap:wrap;gap:var(--s-1) var(--s-3)}
 }
+/* blocos de dois lados: empilhados no celular, lado a lado no computador (ver o @media de 900 px) */
+.an-split{display:grid;gap:var(--s-4)}
 .an-h{font-size:var(--t-lg);font-weight:600;margin:var(--s-6) 0 0}
 .an-d{font-size:var(--t-md);font-weight:500}
 .an-d.warn{color:var(--danger-text)}
@@ -384,6 +392,9 @@ body.public main{padding-bottom:0}
   .topnav a{display:block;padding:10px var(--s-4);border-radius:var(--r-ctl);text-decoration:none;font-size:var(--t-base);color:var(--fg);transition:background-color var(--dur-fast) var(--ease-out)}
   .topnav a[aria-current="page"]{background:var(--soft);color:var(--brand-text);font-weight:600}
   .grid.two-col{grid-template-columns:1fr 1fr}
+  .an-split{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:var(--s-8);align-items:start}
+  .an-split>*{min-width:0}
+  #anChart .an-m,#anChart .an-v{font-size:var(--t-base)} /* a coluna é mais estreita que o desenho (600 unidades): texto maior para continuar legível, como no celular */
   #financas .grid,#estudos .grid,#investimentos .grid{align-items:start} /* cartões de alturas bem diferentes lado a lado (Renda x Registrar gasto, simulador x lições): sem isto o mais curto esticava e deixava um vazio grande dentro */
   .grid .wide{grid-column:1/-1}
   .page-head{padding-block:var(--s-8) var(--s-1)}

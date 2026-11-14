@@ -34,7 +34,18 @@ Este documento descreve o visual **como ele é hoje**, a partir do `style.css`, 
 | Fundo branco da logo | `--tile` | `#FFFFFF` | `#FFFFFF` |
 | Película atrás de menu e diálogo | `--scrim` | `rgba(10,20,17,.5)` | igual |
 
-**Categorias de gasto** (família do verde, para o laranja da sobra se destacar): `--c-alimentacao`, `--c-transporte`, `--c-lazer`, `--c-assinaturas`, `--c-estudos`, `--c-outros`, e `--c-sobra` (o laranja). Elas **sempre vêm com legenda e valor em texto**, porque algumas ficam abaixo de 3:1 contra o cartão no tema claro (assinaturas 2,1:1, outros 2,9:1). Nunca use a cor de categoria sozinha para transmitir informação.
+**Categorias de gasto** (família do verde, para o laranja da sobra se destacar): `--c-alimentacao`, `--c-transporte`, `--c-lazer`, `--c-assinaturas`, `--c-estudos`, `--c-outros`, e `--c-sobra` (o laranja). Elas **sempre vêm com legenda e valor em texto**, porque algumas ficam abaixo de 3:1 contra o cartão no tema claro (assinaturas 2,1:1). Nunca use a cor de categoria sozinha para transmitir informação. `--c-outros` é um **cinza quente** (`#9C8F7E` no claro, `#B3A999` no escuro) com **textura listrada** na barra da renda e na legenda, porque é o único trecho neutro e era o mais fácil de confundir com os verdes.
+
+**Paleta de categorias validada com o validador da skill `dataviz`** (`validate_palette.js`, com as 7 cores do app). Resultado, sem maquiagem:
+
+| Verificação | Resultado | Por quê é aceito |
+|---|---|---|
+| Contraste contra a superfície | aviso em 4 cores no claro (3,0 a 2,0:1) | Toda cor tem legenda com valor em texto |
+| Faixa de luminosidade e croma mínimo | **falha** (os verdes "leem como cinza") | A paleta é **calma de propósito**: uma família de verdes para o laranja da sobra se destacar. É a identidade do app, e foi decidido preservá-la |
+| Separação entre tons vizinhos, todos os pares | **falha** (pior par: 7,9 no claro e 6,3 no escuro, para um piso de 15) | A barra ordena por valor, então qualquer par pode ficar vizinho. Compensado por: legenda na **mesma ordem** da barra, valor em texto, linha de 2 px entre os trechos e a textura em "Outros" |
+| O pior par antes do ajuste | 6,5 (claro) e 5,5 (escuro), sempre envolvendo o cinza de "Outros" | Corrigido trocando o cinza por um cinza quente |
+
+Para repetir: `node validate_palette.js "#1F6F5C,#58A08C,#2D4F5E,#94BDB0,#3F8C9F,#9C8F7E,#F2A541" --mode light --pairs all` (e `--mode dark` com as cores do escuro). Chegar ao piso de 15 em todos os pares exigiria uma paleta de matizes bem diferentes, o que trocaria a identidade.
 
 **Regra:** nenhuma cor escrita direto numa regra do CSS. Tudo vem de um token (o teste confere).
 
@@ -122,10 +133,15 @@ Curvas: `--ease-out` (saída suave, padrão) e `--ease-drawer` (a gaveta).
 | Barra da renda | `.rbar` | um trecho por categoria; `.reveal` na entrada |
 | Barras de estudo | `.col` | sólida = bateu a meta; **listrada** = abaixo da meta |
 | Gráficos | `.an-svg` | SVG, sempre com tabela ou texto equivalente |
+| Blocos de dois lados | `.an-split` | empilhados no celular; lado a lado a partir de 900 px (Análise: gráfico e tabela, comparação e categorias, pontos e texto) |
+| Diálogo do extrato | `#extPanel`, `.ext` | `role="dialog"`, `aria-modal`, foco preso, `Esc` fecha, fundo inerte, foco volta ao título da tela |
+| Cartão de observações | `.tip`, `.tip.is-warn` | `is-warn` quando há orçamento estourado ou gastos acima da renda |
 | Abas (celular) / links (computador) | `.tabs`, `.topnav` | normal, atual (`aria-current`), foco |
 | Faixa de exemplo | `.demo-bar` | visível só na conta de exemplo |
 
-**Estados que ainda faltam** (vão para os próximos PRs): estado *carregando* e *erro* padronizados nos botões e campos; *desabilitado* só existe em alguns botões; estados vazios existem, mas cada tela escreve o seu.
+**Desabilitado** parece desabilitado: `.btn:disabled` e `.lgc .go:disabled` ficam com metade da opacidade, sem a mão do cursor e sem o afundar do toque (antes ficavam idênticos ao botão ativo).
+
+**Estados que ainda faltam:** *carregando* e *erro* padronizados nos botões e campos (hoje o login só desabilita o botão e mostra a mensagem); estados vazios existem, mas cada tela escreve o seu.
 
 ## 7. Acessibilidade
 
@@ -164,7 +180,8 @@ As capturas usam a fonte de reserva do sistema (sem o Google Fonts) para ficarem
 O que este sistema **ainda não** resolve, e para onde vai:
 
 - **Finanças no celular** ainda tem cerca de 4.800 px com 22 lançamentos (eram 6.100 antes de os lançamentos ganharem valor e botões lado a lado). O que mais pesa são os próprios lançamentos (~85 px cada) e o cartão do orçamento. Só dá para encolher mais com um controle novo (por exemplo, recolher a lista), o que pede texto novo, fora do escopo "só o visual".
-- **Cartões demais, todos com o mesmo peso:** o Início ganhou ritmo, mas ainda não hierarquia entre os cartões.
-- **Prévia do extrato:** é um painel sobre a página sem foco preso nem `Esc` para fechar; deve virar um diálogo acessível.
+- **Cartões do Início:** ganharam ritmo e o cartão de observações muda quando há aviso, mas os três cartões ainda têm o mesmo peso visual.
 - **Faixa de exemplo:** fica fixa no topo no computador; no celular rola junto, porque fixa ocuparia uns 16% da tela.
-- **Gráficos da Análise:** composição em duas colunas no computador e paleta validada para daltonismo.
+- **Paleta de categorias:** continua abaixo do piso do validador nos pares de tons vizinhos (ver a seção 2). É uma decisão de identidade, compensada por legenda, valor em texto, separador e textura, e não uma correção que falte.
+- **Tabela de prévia do extrato:** em 390 e 320 px ela rola alguns pixels **dentro** do próprio quadro (a página não rola).
+- **Estados carregando e erro** padronizados.

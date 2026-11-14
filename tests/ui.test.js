@@ -183,6 +183,49 @@ async function abrir(browser, w, h, renda) {
     await ctxF.close();
   }
 
+  // ---------- diálogo do extrato no Chrome real: o foco não escapa nem com muitos Tab ----------
+  {
+    const fs = require('fs'), os = require('os');
+    const hoje = new Date(), dd = '05/' + String(hoje.getMonth() + 1).padStart(2, '0') + '/' + hoje.getFullYear();
+    const arq = path.join(os.tmpdir(), 'sobrou-ui-extrato.csv');
+    fs.writeFileSync(arq, 'Data;Descrição;Valor\n' + dd + ';Mercado;-12,50\n', 'utf8');
+    ({ page, errs } = await abrir(browser, 1280, 800, 1800));
+    await (await page.$('#extFile')).uploadFile(arq);
+    await page.waitForSelector('#extPanel:not([hidden])', { timeout: 5000 });
+    const dentro = () => page.evaluate(() => !!(document.activeElement && document.activeElement.closest('#extPanel')));
+    let escapou = 0;
+    for (let i = 0; i < 14; i++) { await page.keyboard.press('Tab'); if (!(await dentro())) escapou++; }
+    for (let i = 0; i < 8; i++) { await page.keyboard.down('Shift'); await page.keyboard.press('Tab'); await page.keyboard.up('Shift'); if (!(await dentro())) escapou++; }
+    ok(escapou === 0, 'diálogo do extrato: em 22 Tab e Shift+Tab o foco nunca saiu dele (saiu ' + escapou + ' vezes)');
+    ok(await page.evaluate(() => document.querySelector('main').inert === true && document.querySelector('.tabs').inert === true), 'diálogo aberto: o conteúdo e as abas estão realmente inertes no navegador');
+    await page.keyboard.press('Escape'); await sleep(100);
+    const depois = await page.evaluate(() => ({ fechado: document.querySelector('#extPanel').hidden, inerte: document.querySelector('main').inert, ativo: document.activeElement.tagName }));
+    ok(depois.fechado && !depois.inerte && depois.ativo === 'H1', 'Esc fecha, libera a página e o foco cai no título da tela (' + JSON.stringify(depois) + ')');
+    await page.close();
+  }
+
+  // ---------- computador: Estudos e Análise em colunas, e empilhados no celular ----------
+  for (const [larg, lado] of [[1280, true], [390, false]]) {
+    const ctxC = await browser.createBrowserContext();
+    const pC = await ctxC.newPage();
+    await pC.setViewport({ width: larg, height: 900, deviceScaleFactor: 1, isMobile: larg < 700, hasTouch: larg < 700 });
+    await pC.goto(SITE, { waitUntil: 'networkidle2' });
+    await pC.click('#demoBtn'); await pC.waitForFunction(() => location.hash === '#inicio');
+    await pC.evaluate(() => { location.hash = '#estudos'; }); await sleep(400);
+    const est = await pC.evaluate(() => { const r = (s) => document.querySelector(s).closest('.card').getBoundingClientRect(); const a = r('#eCols'), b = r('#eDias'); return { mesmaLinha: Math.abs(a.top - b.top) < 3, larguraA: Math.round(a.width) }; });
+    ok(est.mesmaLinha === lado, 'Estudos a ' + larg + ' px: os dois gráficos de barras ' + (lado ? 'ficam lado a lado' : 'ficam empilhados') + ' (largura de um: ' + est.larguraA + ' px)');
+    await pC.evaluate(() => { location.hash = '#analise'; }); await sleep(500);
+    const an = await pC.evaluate(() => { const g = document.querySelector('#anChart svg').getBoundingClientRect(), t = document.querySelector('#anRows').closest('table').getBoundingClientRect(); return { lado: Math.abs(g.top - t.top) < 40 && t.left > g.right - 4, lateral: document.documentElement.scrollWidth > document.documentElement.clientWidth }; });
+    ok(an.lado === lado && !an.lateral, 'Análise a ' + larg + ' px: gráfico de saldo e tabela ' + (lado ? 'lado a lado' : 'empilhados') + ', sem rolagem lateral');
+    await ctxC.close();
+  }
+
+  // ---------- botão desabilitado parece desabilitado ----------
+  ({ page, errs } = await abrir(browser, 390, 844, 1800));
+  const des = await page.evaluate(() => { const b = document.querySelector('#extOk'); b.disabled = true; const s = getComputedStyle(b); return { op: parseFloat(s.opacity), cursor: s.cursor }; });
+  ok(des.op < 1 && des.cursor !== 'pointer', 'botão desabilitado fica esmaecido e sem mãozinha (opacidade ' + des.op + ', cursor ' + des.cursor + ')');
+  await page.close();
+
   // ---------- "reduzir movimento": nada anima ----------
   ({ page, errs } = await abrir(browser, 390, 844, 1800));
   await page.emulateMediaFeatures([{ name: 'prefers-reduced-motion', value: 'reduce' }]);
