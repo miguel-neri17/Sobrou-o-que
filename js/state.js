@@ -27,6 +27,8 @@
   /* cur: índice do mês em exibição | hidden: valores ocultos | meta: horas de estudo por semana
      aporteTocado: o usuário mexeu no valor do simulador | editing: id do gasto em edição
      intro: o usuário acabou de entrar, então o início anima o valor uma vez
-     data: dados do usuário logado, por mês (chave "AAAA-MM") */
-  A.S={cur:A.MON.length-1,hidden:false,meta:10,aporteTocado:false,editing:null,intro:false,data:{}};
+     data: dados do usuário logado, por mês (chave "AAAA-MM")
+     recurring: modelos de gasto fixo ("repetir todo mês"), {id,desc,v,d,cat}; os gastos lançados a partir deles guardam o id em "rid"
+     budget: limite mensal em R$ por categoria, {categoria: valor}; categoria sem entrada = sem limite */
+  A.S={cur:A.MON.length-1,hidden:false,meta:10,aporteTocado:false,editing:null,intro:false,data:{},recurring:[],budget:{}};
 })();

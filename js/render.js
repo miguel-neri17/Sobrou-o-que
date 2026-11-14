@@ -57,6 +57,7 @@
     var bc=byCat(m),r=M(m).renda,t=total(m),base=Math.max(r,t);
     box.innerHTML='';
     if(base<=0){box.appendChild(el('p','rcap','Nada registrado neste mês ainda. Informe a renda e adicione os gastos em Finanças.'));return}
+    var ov={};A.budgetStatus(m).forEach(function(x){if(x.state==='over') ov[x.k]=1}); /* categorias que passaram do orçamento ficam em destaque */
     var segs=CATS.filter(function(c){return bc[c.k]>0}).sort(function(a,b){return bc[b.k]-bc[a.k]}).map(function(c){return {k:c.k,n:c.n,v:bc[c.k]}});
     if(r>t) segs.push({k:'sobra',n:'Sobrou',v:round2(r-t)});
     var bar=el('div','rbar'+(o.reveal?' reveal':''));
@@ -68,7 +69,7 @@
     if(cap&&(!o.compact||r<=0)) box.appendChild(el('p','rcap',cap));
     var ul=el('ul','rleg'+(o.compact?' compact':''));
     segs.forEach(function(s){
-      var p=s.v/base*100,cls=(s.k==='sobra'?'is-sobra':'')+(s.k==='lazer'&&r>0&&p>20?' is-warn':'');
+      var p=s.v/base*100,cls=(s.k==='sobra'?'is-sobra':'')+((s.k==='lazer'&&r>0&&p>20)||ov[s.k]?' is-warn':'');
       ul.appendChild(el('li',cls.trim(),'<span class="sw c-'+s.k+'"></span><span class="nm">'+s.n+'</span><span class="vl">'+(o.compact?'':'<span class="money">'+money(s.v)+'</span>')+'<small class="num">'+dec.format(p)+'%</small></span>'));
     });
     box.appendChild(ul);
@@ -109,8 +110,41 @@
       if(avg<=0) tips.push('Nenhuma hora de estudo registrada neste mês ainda.');
       else if(avg<S.meta) tips.push('A média foi de '+dec.format(avg)+' h por semana, abaixo da meta de '+S.meta+' h.');
     }
+    /* categoria que passou do orçamento vem primeiro: é o aviso mais acionável */
+    tips=A.budgetStatus(m).filter(function(x){return x.state==='over'}).map(function(x){return 'O orçamento de '+x.n+' passou em '+money(x.over)+' neste mês.'}).concat(tips);
     if(!tips.length) tips.push('Gastos e estudos dentro do esperado neste mês. Continue registrando para comparar com os próximos.');
     $('#inTips').innerHTML=tips.slice(0,2).map(function(x){return '<p>'+x+'</p>'}).join('');
+  }
+
+  /* ---------- gastos fixos: quantos faltam lançar no mês e a lista dos modelos ---------- */
+  function renderFixos(m){
+    var p=A.fixosPend(m),n=p.length,box=$('#fxPend'),ul=$('#fxList'),catName={};
+    CATS.forEach(function(c){catName[c.k]=c.n});
+    box.innerHTML='';ul.innerHTML='';
+    if(!S.recurring.length){box.appendChild(el('p','hint','Nenhum gasto fixo ainda. Ao registrar um gasto, marque "Repetir todo mês".'));return}
+    if(n){
+      box.appendChild(el('p','','<b>'+n+(n===1?' gasto fixo ainda não lançado':' gastos fixos ainda não lançados')+' em '+MON[m].full+'.</b>'));
+      box.appendChild(el('button','btn','Lançar '+(n===1?'o gasto fixo':'os '+n+' gastos fixos')+' em '+MON[m].full)).id='fxLancar';
+      $('#fxLancar').type='button';
+    }else box.appendChild(el('p','hint','Todos os gastos fixos já foram lançados em '+MON[m].full+'.'));
+    S.recurring.forEach(function(t){
+      var nm=esc(t.desc);
+      ul.appendChild(el('li','','<div class="n"><span class="nm">'+nm+'</span><small>'+catName[t.cat]+' · dia '+t.d+'</small></div><div class="v num"><span class="money">'+money(t.v)+'</span><button class="rm" type="button" data-fxdel="'+t.id+'" aria-label="Remover o gasto fixo '+nm+'">Remover</button></div>'));
+    });
+  }
+
+  /* ---------- orçamento por categoria: campos de limite e o gasto do mês contra cada limite ---------- */
+  function renderBudget(m){
+    var box=$('#bList'),st=A.budgetStatus(m);
+    CATS.forEach(function(c){var inp=$('#bud-'+c.k);if(inp) inp.value=S.budget[c.k]>0?S.budget[c.k]:''});
+    box.innerHTML='';
+    if(!st.length){box.appendChild(el('p','hint','Nenhum limite definido ainda. Preencha os campos acima e salve.'));return}
+    var ul=el('ul','');
+    st.forEach(function(x){
+      var pct=Math.round(x.pct),txt=x.state==='over'?'Passou do limite em '+money(x.over)+' ('+pct+'%)':(x.state==='near'?'Perto do limite: ':'')+pct+'% usado';
+      ul.appendChild(el('li','bud-'+x.state,'<div class="bud-h"><span class="nm">'+x.n+'</span><small>'+txt+'</small></div><p class="hint"><span class="money">'+money(x.spent)+'</span> de <span class="money">'+money(x.limit)+'</span></p><div class="bar"><i style="--w:'+Math.min(1,x.spent/x.limit).toFixed(3)+'"></i></div>'));
+    });
+    box.appendChild(ul);
   }
 
   /* ---------- finanças ---------- */
@@ -120,12 +154,14 @@
     $('#rRenda').value=d.renda>0?d.renda:'';
     $('#rTitulo').textContent='Renda de '+MON[m].full;
     rendaBar($('#fCats'),m,{});
+    renderFixos(m);
+    renderBudget(m);
     var tb=$('#fList'); tb.innerHTML='';
     var catName={};CATS.forEach(function(c){catName[c.k]=c.n});
     if(!d.items.length){tb.appendChild(el('tr','','<td class="empty" colspan="4">Nenhum gasto registrado neste mês. Use o formulário acima para adicionar o primeiro.</td>'));return}
     d.items.slice().sort(function(a,b){return b.d-a.d}).forEach(function(i){
       var nm=esc(i.desc);
-      tb.appendChild(el('tr','','<td class="d num">'+String(i.d).padStart(2,'0')+'</td><td><b>'+nm+'</b><small>'+catName[i.cat]+'</small></td><td class="r money">−'+money(i.v)+'</td>'+
+      tb.appendChild(el('tr','','<td class="d num">'+String(i.d).padStart(2,'0')+'</td><td><b>'+nm+'</b><small>'+catName[i.cat]+(i.rid?' · fixo':'')+'</small></td><td class="r money">−'+money(i.v)+'</td>'+
         '<td class="r acts"><button class="rm" type="button" data-edit="'+i.id+'" aria-label="Editar '+nm+'">Editar</button><button class="rm" type="button" data-gdel="'+i.id+'" aria-label="Remover '+nm+'">Remover</button></td>'));
     });
   }

@@ -22,5 +22,7 @@ jobs:
       - run: python -m unittest discover -s tests -p "test_*.py"
       # navegador simulado (jsdom): fluxo de contas, gastos, importação e exportação
       - run: npm test
+      # leitor de extrato CSV (funções puras: separadores, aspas, valores, datas, duplicados)
+      - run: npm run test:csv
       # navegador real (o Chrome já vem instalado no runner): layout, abas, menu, animação, rolagem lateral
       - run: npm run test:ui

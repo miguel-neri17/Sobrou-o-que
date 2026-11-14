@@ -272,6 +272,23 @@ body.public main{padding-bottom:0}
 @keyframes grow{from{clip-path:inset(0 100% 0 0)}to{clip-path:inset(0 0 0 0)}}
 .c-alimentacao{--seg:var(--c-alimentacao)}.c-transporte{--seg:var(--c-transporte)}.c-lazer{--seg:var(--c-lazer)}
 .c-assinaturas{--seg:var(--c-assinaturas)}.c-estudos{--seg:var(--c-estudos)}.c-outros{--seg:var(--c-outros)}.c-sobra{--seg:var(--c-sobra)}
+/* importar extrato (painel de revisão sobre a página; acabamento visual fica para a fase de design) */
+.ext{position:fixed;inset:0;z-index:60;background:rgba(0,0,0,.45);overflow-y:auto;padding:16px;display:flex;justify-content:center;align-items:flex-start}
+.ext-box{width:100%;max-width:760px;margin:0 auto}
+.ext-cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin-top:14px}
+.ext-head,.chk{display:flex;align-items:center;gap:8px;margin-top:12px}
+.chk{margin:4px 0 14px}
+.ext-sum{font-weight:600;margin:14px 0 8px}
+.ext-acts{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+.ext .tw{max-height:320px;overflow:auto}
+.bud-fields{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin:14px 0}
+#bList ul{list-style:none;margin:16px 0 0;padding:0}
+#bList li{padding:10px 0;border-top:1px solid var(--line)}
+#bList .bud-h{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+#bList .bud-over small{color:var(--danger-text);font-weight:600}
+#bList .bud-near small{font-weight:600}
+.ext-duplicado td,.ext-entrada td,.ext-fora td{color:var(--muted)}
+.ext-invalido td{color:var(--danger-text)}
 .rcap{color:var(--muted);font-size:14px;margin-top:10px}
 .rleg{list-style:none;margin:10px 0 0;padding:0}
 .rleg li{display:grid;grid-template-columns:14px 1fr auto;align-items:center;gap:10px;padding:9px 0;border-top:1px solid var(--line);font-size:15px}

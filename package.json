@@ -9,9 +9,10 @@
   },
   "scripts": {
     "test": "node tests/e2e.test.js",
+    "test:csv": "node tests/csv.test.js",
     "test:ui": "node tests/ui.test.js",
     "test:dados": "python -m unittest discover -s tests -p \"test_*.py\"",
-    "test:all": "npm test && npm run test:ui && npm run test:dados",
+    "test:all": "npm test && npm run test:csv && npm run test:ui && npm run test:dados",
     "screenshots": "node scripts/screenshots.js"
   },
   "devDependencies": {

@@ -264,6 +264,204 @@ const submit = (w, f) => f.dispatchEvent(new w.Event('submit', { cancelable: tru
   ok(d.querySelector('#rRenda').value === '20', 'mes nas duas formas: a forma AAAA-MM prevalece (renda ' + d.querySelector('#rRenda').value + ')');
   ok(errs.length === 0, 'sem erros JS no cenario 6 ' + JSON.stringify(errs));
 
+  // cenario 7: importar extrato bancario em CSV (saida = valor negativo), com revisao antes de salvar
+  ({ w, d, errs } = boot((win) => {
+    fixDate(win);
+    win.localStorage.setItem('sobrou-users', JSON.stringify({ ext: 'abc123' }));
+  }));
+  await sleep(100);
+  await login(w, d, 'ext', 'abc123');
+  const pickCsv = async (t) => {
+    const inp = d.querySelector('#extFile');
+    Object.defineProperty(inp, 'files', { value: [new w.File([t], 'extrato.csv', { type: 'text/csv' })], configurable: true });
+    inp.dispatchEvent(new w.Event('change')); await sleep(150);
+  };
+  const panel = () => d.querySelector('#extPanel'), sum = () => d.querySelector('#extSum').textContent, items7 = () => (stored(w, 'ext') ? Object.values(stored(w, 'ext').months).flatMap((m) => m.items) : []);
+  const csv7 = 'Data;Descrição;Valor\n05/05/2026;Mercado;-12,50\n06/05/2026;Salário;1000,00\n07/05/2026;Cinema;-30,00\n01/01/2020;Antigo;-9\n31/02/2026;X;-1\n';
+  ok(d.querySelector('#extBtn') && panel().hidden, 'botao de importar extrato existe e o painel comeca fechado');
+
+  await pickCsv(csv7);
+  ok(!panel().hidden, 'escolher o arquivo abre o painel de revisao');
+  ok(d.querySelector('#extData').value === '0' && d.querySelector('#extDesc').value === '1' && d.querySelector('#extVal').value === '2' && d.querySelector('#extHead').checked, 'colunas e cabecalho detectados sozinhos');
+  ok(sum().includes('2 gastos para importar') && sum().includes('1 entrada ignorada') && sum().includes('1 linha inválida') && sum().includes('1 fora dos últimos 6 meses'), 'resumo conta novos, entradas, invalidas e fora da janela: ' + sum());
+  ok(items7().length === 0, 'nada e salvo antes de confirmar');
+  ok(d.querySelector('#extOk').textContent.includes('2') && !d.querySelector('#extOk').disabled, 'botao de confirmar mostra a quantidade');
+
+  d.querySelector('#extOk').click(); await sleep(50);
+  const it7 = items7();
+  ok(panel().hidden && it7.length === 2 && it7.every((i) => i.cat === 'outros' && i.id) && it7.some((i) => i.desc === 'Mercado' && i.v === 12.5 && i.d === 5) && it7.some((i) => i.desc === 'Cinema' && i.v === 30 && i.d === 7), 'confirmar salva so as saidas, como positivo, categoria outros');
+  ok(Object.keys(stored(w, 'ext').months).join() === k6, 'gastos salvos no mes AAAA-MM certo');
+  ok(d.querySelector('#dMsg').textContent.includes('2 gastos importados'), 'avisa quantos foram importados: ' + d.querySelector('#dMsg').textContent);
+  w.location.hash = '#financas'; await sleep(50);
+  ok(d.querySelector('#fList').textContent.includes('Mercado') && d.querySelector('#fList').textContent.includes('Cinema'), 'tela de financas mostra os gastos importados');
+
+  await pickCsv(csv7);
+  ok(sum().includes('0 gastos para importar') && sum().includes('2 já existentes') && d.querySelector('#extOk').disabled, 'reimportar o mesmo extrato marca tudo como ja existente e bloqueia a confirmacao: ' + sum());
+  d.querySelector('#extVal').value = '1'; d.querySelector('#extVal').dispatchEvent(new w.Event('change'));
+  ok(sum().includes('0 gastos para importar') && sum().includes('inválida'), 'trocar a coluna de valor refaz a previa');
+  d.querySelector('#extCancel').click();
+  ok(panel().hidden && items7().length === 2, 'cancelar fecha o painel sem alterar nada');
+
+  await pickCsv('');
+  ok(panel().hidden && d.querySelector('#dMsg').textContent.includes('vazio'), 'arquivo vazio recusado');
+  await pickCsv('x'.repeat(2.1 * 1024 * 1024));
+  ok(panel().hidden && d.querySelector('#dMsg').textContent.includes('grande demais'), 'arquivo grande demais recusado');
+
+  // extrato em Windows-1252 (comum em banco): "Descrição" gravada em 1 byte por letra, sem UTF-8 valido
+  const latin1 = Uint8Array.from(Array.from('Data;Descrição;Valor\n10/05/2026;Pão de açúcar;-8,00\n'), (ch) => ch.charCodeAt(0));
+  const inpL = d.querySelector('#extFile');
+  Object.defineProperty(inpL, 'files', { value: [new w.File([latin1], 'banco.csv', { type: 'text/csv' })], configurable: true });
+  inpL.dispatchEvent(new w.Event('change')); await sleep(300);
+  ok(!panel().hidden && d.querySelector('#extDesc').textContent.includes('Descrição') && d.querySelector('#extList').textContent.includes('Pão de açúcar'), 'CSV em Windows-1252 e relido e os acentos saem certos');
+  d.querySelector('#extCancel').click();
+
+  const before7 = JSON.stringify(stored(w, 'ext'));
+  await pickCsv('Data;Descrição;Valor\n08/05/2026;Padaria;-5,00\n');
+  const realSet7 = w.Storage.prototype.setItem;
+  w.Storage.prototype.setItem = function () { throw new Error('quota'); };
+  d.querySelector('#extOk').click(); await sleep(50);
+  w.Storage.prototype.setItem = realSet7;
+  ok(d.querySelector('#dMsg').textContent.includes('Nada foi alterado') && JSON.stringify(stored(w, 'ext')) === before7 && items7().length === 2, 'falha ao gravar avisa e restaura os dados');
+  ok(d.querySelector('#fList').textContent.includes('Mercado') && !d.querySelector('#fList').textContent.includes('Padaria'), 'tela volta ao estado anterior depois da falha');
+  d.querySelector('#extCancel').click();
+
+  await pickCsv('Data;Descrição;Valor\n09/05/2026;<img src=x onerror=1>;-1,00\n');
+  ok(d.querySelector('#extList img') === null, 'previa nao injeta HTML');
+  d.querySelector('#extOk').click(); await sleep(50);
+  ok(d.querySelector('#fList img') === null && d.querySelector('#fList').textContent.includes('<img src=x onerror=1>'), 'gasto importado com HTML aparece como texto');
+  ok(errs.length === 0, 'sem erros JS no cenario 7 ' + JSON.stringify(errs));
+
+  // cenario 8: gastos fixos (recorrentes): "repetir todo mes" cria um modelo; lancar nos outros meses sem duplicar
+  ({ w, d, errs } = boot((win) => {
+    fixDate(win);
+    win.localStorage.setItem('sobrou-users', JSON.stringify({ fix: 'abc123' }));
+  }));
+  await sleep(100);
+  await login(w, d, 'fix', 'abc123');
+  w.location.hash = '#financas'; await sleep(50);
+  const rec8 = () => stored(w, 'fix').recurring, mon8 = (k) => (stored(w, 'fix').months[k] || { items: [] }).items;
+  const addFixo = (desc, val, dia, fixo) => { set('#gDesc', desc); set('#gVal', val); set('#gDia', dia); set('#gCat', 'outros'); d.querySelector('#gFixo').checked = fixo; submit(w, d.querySelector('#gForm')); };
+  const pend = () => d.querySelector('#fxPend').textContent;
+  const prev = () => d.querySelector('#financas [data-step="-1"]').click();
+
+  addFixo('Aluguel', '500', '5', true);
+  ok(rec8().length === 1 && rec8()[0].desc === 'Aluguel' && rec8()[0].v === 500 && rec8()[0].d === 5 && rec8()[0].cat === 'outros' && /^[A-Za-z0-9_-]+$/.test(rec8()[0].id), 'marcar "repetir todo mes" cria o modelo de gasto fixo');
+  ok(mon8(k6).length === 1 && mon8(k6)[0].rid === rec8()[0].id, 'o gasto do mes fica ligado ao modelo (rid)');
+  ok(d.querySelector('#gFixo').checked === false, 'a caixa desmarca depois de salvar');
+  ok(d.querySelector('#fxList').textContent.includes('Aluguel') && d.querySelector('#fxList').textContent.includes('dia 5'), 'lista de gastos fixos mostra o modelo');
+  ok(pend().includes('já foram lançados') && !d.querySelector('#fxLancar'), 'no mes em que foi criado nao ha nada a lancar');
+  ok(d.querySelector('#fList small').textContent.includes('fixo'), 'o lancamento fixo e marcado como fixo na lista');
+  addFixo('Aula de inglês', '90', '', false);
+  ok(rec8().length === 1, 'sem a caixa marcada nao cria modelo');
+  addFixo('Seguro', '40', '31', true);
+  ok(rec8().length === 2, 'segundo gasto fixo criado');
+
+  prev(); // abril (30 dias)
+  ok(pend().includes('2 gastos fixos') && d.querySelector('#fxLancar'), 'em outro mes mostra quantos fixos faltam lancar: ' + pend());
+  d.querySelector('#fxLancar').click();
+  const abr = mon8('2026-04');
+  ok(abr.length === 2 && abr.every((i) => i.rid) && abr.map((i) => i.d).sort((a, b) => a - b).join() === '5,30', 'lanca os dois; o dia 31 vira 30 em abril: ' + abr.map((i) => i.d));
+  ok(d.querySelector('#gMsg').textContent.includes('2 gastos fixos lançados') && pend().includes('já foram lançados') && !d.querySelector('#fxLancar'), 'avisa o que lancou e nao deixa lancar de novo');
+  prev(); // marco (31 dias)
+  d.querySelector('#fxLancar').click();
+  ok(mon8('2026-03').some((i) => i.desc === 'Seguro' && i.d === 31), 'em mes de 31 dias o dia 31 se mantem');
+  ok(mon8('2026-03').length === 2 && mon8('2026-04').length === 2, 'nada foi duplicado');
+  d.querySelector('#financas [data-step="1"]').click(); d.querySelector('#financas [data-step="1"]').click(); // volta a maio
+
+  const eb8 = Array.from(d.querySelectorAll('#fList tr')).find((tr) => tr.textContent.includes('Aluguel')).querySelector('[data-edit]');
+  eb8.click();
+  ok(d.querySelector('#gFixo').disabled, 'durante a edicao a caixa de repetir fica desabilitada');
+  set('#gVal', '520'); submit(w, d.querySelector('#gForm'));
+  const al = mon8(k6).find((i) => i.desc === 'Aluguel');
+  ok(al.v === 520 && al.rid === rec8()[0].id && rec8()[0].v === 500 && !d.querySelector('#gFixo').disabled, 'editar o gasto mantem o vinculo e nao muda o modelo');
+
+  w.confirm = () => false;
+  d.querySelector('[data-fxdel]').click();
+  ok(rec8().length === 2, 'cancelar a confirmacao nao remove o modelo');
+  w.confirm = () => true;
+  d.querySelector('[data-fxdel]').click();
+  ok(rec8().length === 1 && rec8()[0].desc === 'Seguro' && mon8('2026-04').length === 2, 'remover o modelo nao apaga gastos ja lancados');
+  prev(); prev(); prev(); // fevereiro
+  ok(pend().includes('1 gasto fixo') && d.querySelector('#fxLancar'), 'a contagem acompanha os modelos que sobraram: ' + pend());
+
+  // exportar / importar levam os gastos fixos
+  const blobs8 = [];
+  w.URL.createObjectURL = (b) => { blobs8.push(b); return 'blob:y'; }; w.URL.revokeObjectURL = () => {};
+  d.querySelector('#expBtn').click(); await sleep(50);
+  const ex8 = JSON.parse(await readBlob(blobs8[0]));
+  ok(Array.isArray(ex8.recurring) && ex8.recurring.length === 1 && ex8.recurring[0].desc === 'Seguro' && ex8.versao === 1, 'exportar inclui os gastos fixos (versao do arquivo continua 1)');
+  await importOld(JSON.stringify({ app: 'sobrou', versao: 1, months: { [k6]: { renda: 1 } }, recurring: [{ id: 'r1', desc: 'Academia', v: 90, d: 10, cat: 'lazer' }] }));
+  ok(rec8().length === 1 && rec8()[0].desc === 'Academia' && rec8()[0].cat === 'lazer', 'importar com gastos fixos substitui os modelos');
+  await importOld(JSON.stringify({ app: 'sobrou', versao: 1, months: { [k6]: { renda: 2 } } }));
+  ok(rec8().length === 1 && rec8()[0].desc === 'Academia', 'importar arquivo antigo (sem gastos fixos) mantem os modelos atuais');
+
+  // arquivo hostil: texto, id, valor, dia e categoria sao saneados; limite de 100 modelos
+  await importOld(JSON.stringify({ app: 'sobrou', versao: 1, months: { [k6]: { renda: 3 } }, recurring: [
+    { id: '"><img src=x onerror=1>', desc: '<b>x</b>'.repeat(20), v: '12', d: 99, cat: 'hack' },
+    { id: 'neg', desc: 'negativo', v: -5, d: 3 }, 'lixo', null,
+    { id: 'dup', desc: 'A', v: 1, d: 1, cat: 'lazer' }, { id: 'dup', desc: 'B', v: 2, d: 2, cat: 'lazer' }] }));
+  const hs = rec8();
+  ok(hs.length === 3 && hs.every((x) => /^[A-Za-z0-9_-]{1,60}$/.test(x.id)) && new Set(hs.map((x) => x.id)).size === 3, 'modelos hostis: invalidos descartados, ids seguros e unicos (' + hs.length + ')');
+  ok(hs[0].desc.length === 40 && hs[0].v === 12 && hs[0].d === 1 && hs[0].cat === 'outros', 'modelos hostis: texto cortado, dia e categoria normalizados');
+  w.location.hash = '#inicio'; await sleep(30); w.location.hash = '#financas'; await sleep(30);
+  ok(d.querySelector('#fxList img') === null && d.querySelector('#fxList b') === null, 'lista de fixos nao injeta HTML');
+  const muitos = Array.from({ length: 150 }, (_, i) => ({ id: 'm' + i, desc: 'F' + i, v: 1, d: 1, cat: 'outros' }));
+  await importOld(JSON.stringify({ app: 'sobrou', versao: 1, months: { [k6]: { renda: 4 } }, recurring: muitos }));
+  ok(rec8().length === 100, 'limite de 100 gastos fixos');
+  ok(errs.length === 0, 'sem erros JS no cenario 8 ' + JSON.stringify(errs));
+
+  // cenario 9: orcamento por categoria (limite mensal; avisa quando perto e quando passa)
+  ({ w, d, errs } = boot((win) => {
+    fixDate(win);
+    win.localStorage.setItem('sobrou-users', JSON.stringify({ bud: 'abc123' }));
+  }));
+  await sleep(100);
+  await login(w, d, 'bud', 'abc123');
+  w.location.hash = '#financas'; await sleep(50);
+  const addG = (desc, val, cat) => { set('#gDesc', desc); set('#gVal', val); set('#gDia', '3'); set('#gCat', cat); submit(w, d.querySelector('#gForm')); };
+  const bud9 = () => stored(w, 'bud').budget || {};
+  const saveBud = (o) => { Object.keys(o).forEach((k) => set('#bud-' + k, o[k])); submit(w, d.querySelector('#bForm')); };
+  const bl = () => d.querySelector('#bList').textContent.toLowerCase();
+  const brow = (nome) => Array.from(d.querySelectorAll('#bList li')).find((li) => li.textContent.includes(nome));
+
+  ok(d.querySelectorAll('#bFields input').length === 6, 'um campo de limite por categoria');
+  addG('Mercado', '300', 'alimentacao'); addG('Cinema', '120', 'lazer');
+  ok(bl().includes('nenhum limite'), 'sem orcamento definido a lista explica como comecar');
+  saveBud({ alimentacao: '250', lazer: '200' });
+  ok(JSON.stringify(bud9()) === JSON.stringify({ alimentacao: 250, lazer: 200 }), 'salvar guarda so os limites preenchidos: ' + JSON.stringify(bud9()));
+  ok(brow('Alimentação') && brow('Alimentação').classList.contains('bud-over') && bl().includes('passou do limite'), 'categoria acima do limite aparece como "passou do limite"');
+  ok(brow('Lazer') && brow('Lazer').classList.contains('bud-ok') && brow('Lazer').textContent.includes('60%'), 'categoria dentro do limite mostra a porcentagem usada');
+  ok(d.querySelector('#fCats li.is-warn') && d.querySelector('#fCats li.is-warn').textContent.includes('Alimentação'), 'a barra da renda destaca a categoria que passou do orcamento');
+  ok(d.querySelector('#inTips').textContent.includes('Alimentação') && d.querySelector('#inTips').textContent.includes('orçamento'), 'o inicio avisa da categoria que passou: ' + d.querySelector('#inTips').textContent);
+  addG('Show', '50', 'lazer');
+  ok(brow('Lazer').classList.contains('bud-near') && bl().includes('perto do limite'), 'a partir de 80% do limite avisa "perto do limite"');
+
+  saveBud({ transporte: '100', lazer: '-1' });
+  ok(d.querySelector('#bMsg').textContent.includes('inválido') && bud9().transporte === undefined && bud9().lazer === 200, 'limite invalido recusa tudo e nao salva nada pela metade');
+  saveBud({ transporte: '', lazer: '0' });
+  ok(d.querySelector('#bMsg').textContent.includes('inválido') && bud9().lazer === 200, 'limite zero e invalido (para tirar o limite, deixe em branco)');
+  saveBud({ lazer: '', alimentacao: '250' });
+  ok(bud9().lazer === undefined && bud9().alimentacao === 250 && !brow('Lazer'), 'campo em branco remove o limite da categoria');
+
+  // exportar / importar levam o orcamento
+  const blobs9 = [];
+  w.URL.createObjectURL = (b) => { blobs9.push(b); return 'blob:z'; }; w.URL.revokeObjectURL = () => {};
+  d.querySelector('#expBtn').click(); await sleep(50);
+  const ex9 = JSON.parse(await readBlob(blobs9[0]));
+  ok(ex9.budget && ex9.budget.alimentacao === 250 && ex9.versao === 1, 'exportar inclui o orcamento (versao do arquivo continua 1)');
+  await importOld(JSON.stringify({ app: 'sobrou', versao: 1, months: { [k6]: { renda: 1 } }, budget: { contas: 80, hack: 5, outros: '12', alimentacao: -1, transporte: 'abc', __proto__: { lazer: 9 } } }));
+  ok(JSON.stringify(bud9()) === JSON.stringify({ assinaturas: 80, outros: 12 }), 'importar saneia o orcamento: categoria antiga contas vira assinaturas, invalidos caem: ' + JSON.stringify(bud9()));
+  await importOld(JSON.stringify({ app: 'sobrou', versao: 1, months: { [k6]: { renda: 2 } } }));
+  ok(JSON.stringify(bud9()) === JSON.stringify({ assinaturas: 80, outros: 12 }), 'importar arquivo antigo (sem orcamento) mantem o atual');
+
+  const before9 = JSON.stringify(stored(w, 'bud'));
+  const realSet9 = w.Storage.prototype.setItem;
+  w.Storage.prototype.setItem = function () { throw new Error('quota'); };
+  saveBud({ transporte: '100' });
+  w.Storage.prototype.setItem = realSet9;
+  ok(d.querySelector('#bMsg').textContent.includes('Nada foi alterado') && JSON.stringify(stored(w, 'bud')) === before9 && !brow('Transporte'), 'falha ao gravar avisa e restaura o orcamento');
+  ok(errs.length === 0, 'sem erros JS no cenario 9 ' + JSON.stringify(errs));
+
   console.log(fails ? '\n' + fails + ' FALHA(S)' : '\nTUDO OK');
   process.exit(fails ? 1 : 0);
 })().catch((e) => { console.error('ERRO NO TESTE', e); process.exit(2); });
