@@ -258,6 +258,7 @@ async function abrir(browser, w, h, renda) {
     const cor = () => pT.evaluate(() => getComputedStyle(document.body).backgroundColor);
     const attr = () => pT.evaluate(() => document.documentElement.getAttribute('data-theme'));
     const escolher = async (valor) => {
+      await pT.waitForSelector('.screen:not([hidden]) .menubtn', { timeout: 10000 }); // após recarregar, a tela demora a reaparecer (CI é mais lento)
       await pT.evaluate(() => { document.querySelector('.screen:not([hidden]) .menubtn').click(); }); await sleep(350);
       await pT.click('input[name="tema"][value="' + valor + '"] + span'); await sleep(120);
       await pT.evaluate(() => { document.querySelector('#menuClose').click(); }); await sleep(300);
@@ -274,6 +275,45 @@ async function abrir(browser, w, h, renda) {
     ok(await cor() === ESCURO && await attr() === null, 'Sistema: volta a seguir o sistema (escuro, neste caso) e remove o atributo');
     ok(await pT.evaluate(() => document.querySelector('input[name="tema"]:checked').value) === 'sistema', 'o seletor mostra a opção escolhida');
     await ctxT.close();
+  }
+
+  // ---------- navegador antigo (sem color-mix): as alternativas de cor sólida preservam a informação ----------
+  // Simula o que Safari < 16.2, Chrome < 111 e Firefox < 113 fazem: descartam toda declaração que usa color-mix().
+  {
+    // 1) a condição @supports (color: color-mix(...)) vira FALSA, como num navegador antigo; 2) toda declaração com color-mix() é descartada
+    const css = require('fs').readFileSync(path.resolve(__dirname, '..', 'style.css'), 'utf8')
+      .replace(/@supports\s*\(\s*color\s*:\s*color-mix\([^)]*\)\s*\)/g, '@supports (not (display:block))')
+      .replace(/[a-z-]+\s*:[^;{}]*color-mix\([^;{}]*;?/gi, '');
+    const ctxO = await browser.createBrowserContext();
+    const pO = await ctxO.newPage();
+    await pO.setViewport({ width: 390, height: 844 });
+    await pO.emulateMediaFeatures([{ name: 'prefers-color-scheme', value: 'light' }, { name: 'prefers-reduced-motion', value: 'reduce' }]);
+    await pO.goto(SITE, { waitUntil: 'networkidle2' });
+    await pO.evaluate(() => Array.from(document.styleSheets).filter((s) => s.href && /style\.css$/.test(s.href)).forEach((s) => { s.disabled = true; }));
+    await pO.addStyleTag({ content: css });
+    ok(!/color-mix/.test(css.replace(/\/\*[\s\S]*?\*\//g, '')), '(preparo) a folha de estilo simulada não tem nenhum color-mix (fora de comentários)');
+    await pO.click('#demoBtn'); await pO.waitForFunction(() => location.hash === '#inicio');
+    await pO.waitForSelector('.rbar i.c-outros', { timeout: 10000 });
+    const outros = await pO.$eval('.rbar i.c-outros',(e) => getComputedStyle(e).backgroundColor);
+    ok(outros === 'rgb(156, 143, 126)', 'sem color-mix, "Outros" continua com o cinza quente próprio (' + outros + ')');
+    await pO.evaluate(() => { location.hash = '#estudos'; }); await pO.waitForSelector('#mMais', { visible: true, timeout: 10000 });
+    for (let i = 0; i < 6; i++) await pO.click('#mMais');
+    await sleep(300);
+    const barras = await pO.evaluate(() => ({ baixa: getComputedStyle(document.querySelector('.col.low .t i')).backgroundColor, ok: (document.querySelector('.col:not(.low) .t i') ? getComputedStyle(document.querySelector('.col:not(.low) .t i')).backgroundColor : 'nenhuma bateu a meta') }));
+    ok(barras.baixa === 'rgb(112, 142, 133)' && barras.baixa !== barras.ok, 'sem color-mix, a barra abaixo da meta continua DIFERENTE da que bateu a meta (' + barras.baixa + ')');
+    await pO.evaluate(() => { location.hash = '#financas'; }); await pO.waitForSelector('#gDesc', { visible: true, timeout: 10000 });
+    await pO.focus('#gDesc');
+    const anel = await pO.$eval('#gDesc', (e) => getComputedStyle(e).boxShadow);
+    ok(anel !== 'none', 'sem color-mix, o campo em foco ainda mostra um anel (' + anel.slice(0, 40) + ')');
+    await pO.evaluate(() => { const d = JSON.parse(localStorage.getItem('sobrou-v2-@exemplo')); d.budget = { lazer: 50 }; localStorage.setItem('sobrou-v2-@exemplo', JSON.stringify(d)); });
+    await pO.reload({ waitUntil: 'networkidle2' });
+    await pO.evaluate(() => Array.from(document.styleSheets).filter((s) => s.href && /style\.css$/.test(s.href)).forEach((s) => { s.disabled = true; }));
+    await pO.addStyleTag({ content: css });
+    await pO.waitForFunction(() => location.hash === '#financas'); await pO.evaluate(() => { location.hash = '#inicio'; }); await sleep(400);
+    await pO.waitForFunction(() => { const e = document.querySelector('#inTips'); return e && e.closest('.tip') && e.closest('.tip').classList.contains('is-warn'); }, { timeout: 10000 }).catch(() => {}); // se nunca aparecer, o ok() abaixo falha com a mensagem certa
+    const aviso = await pO.$eval('#inTips',(e) => { const t = e.closest('.tip'); return { warn: t.classList.contains('is-warn'), borda: getComputedStyle(t).borderTopColor }; });
+    ok(aviso.warn && aviso.borda === 'rgb(194, 59, 59)', 'sem color-mix, o cartão de aviso ainda se destaca pela borda (' + aviso.borda + ')');
+    await ctxO.close();
   }
 
   // ---------- "reduzir movimento": nada anima ----------
