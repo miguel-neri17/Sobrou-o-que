@@ -199,7 +199,15 @@
     var sd=$('#eDia'),oldd=sd.value; sd.innerHTML='';
     DIAS.forEach(function(n,i){var o=document.createElement('option');o.value=i;o.textContent=n;sd.appendChild(o)});
     sd.value=oldd||String(now.getDay());
+    eAtual();
   }
+
+  /* quanto já está registrado na semana e no dia escolhidos (para saber o que "substituir" vai trocar) */
+  function eAtual(){
+    var h=(M(S.cur).weeks[Number($('#eSem').value)]||[])[Number($('#eDia').value)]||0;
+    $('#eAtual').textContent='Já registrado neste dia: '+dec.format(h)+' h.';
+  }
+  A.eAtual=eAtual;
 
   function renderNotas(){
     var g=M(S.cur).grades,box=$('#nList');box.innerHTML='';

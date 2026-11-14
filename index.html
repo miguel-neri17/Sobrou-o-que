@@ -46,7 +46,7 @@
   <section class="ext" id="extPanel" role="dialog" aria-modal="true" aria-labelledby="extTit" hidden>
     <div class="ext-box card">
       <h2 id="extTit" tabindex="-1">Importar extrato</h2>
-      <p class="hint">Saídas de dinheiro são valores negativos e viram gastos na categoria "Outros". Entradas (valores positivos) são ignoradas. Nada é salvo antes de você confirmar.</p>
+      <p class="hint">Saídas de dinheiro são valores negativos e viram gastos. Entradas (valores positivos) são ignoradas. A categoria é sugerida pela descrição e você pode trocá-la em cada linha; o que você trocar fica lembrado neste navegador para as próximas importações. Nada é salvo antes de você confirmar.</p>
       <div class="ext-cols">
         <div class="f"><label for="extData">Coluna da data</label><select id="extData"></select></div>
         <div class="f"><label for="extDesc">Coluna da descrição</label><select id="extDesc"></select></div>
@@ -54,8 +54,9 @@
       </div>
       <label class="ext-head"><input type="checkbox" id="extHead"> A primeira linha é o cabeçalho</label>
       <p class="ext-sum" id="extSum" role="status" aria-live="polite"></p>
-      <div class="tw"><table class="dtab"><thead><tr><th>Nº</th><th>Data</th><th>Descrição</th><th class="r">Valor</th><th>Situação</th></tr></thead><tbody id="extList"></tbody></table></div>
+      <div class="tw"><table class="dtab"><thead><tr><th>Nº</th><th>Data</th><th>Descrição</th><th class="r">Valor</th><th>Categoria</th><th>Situação</th></tr></thead><tbody id="extList"></tbody></table></div>
       <p class="hint" id="extMore"></p>
+      <p class="hint ext-regras"><span id="extRegras"></span> <button class="link" type="button" id="extForget" hidden>Esquecer as regras aprendidas</button></p>
       <div class="ext-acts"><button class="btn" type="button" id="extOk">Importar</button><button class="btn alt" type="button" id="extCancel">Cancelar</button></div>
     </div>
   </section>
@@ -188,7 +189,9 @@
               <div class="f"><label for="eSem">Semana</label><select id="eSem"></select></div>
             </div>
             <div class="f"><label for="eDia">Dia da semana</label><select id="eDia"></select></div>
-            <button class="btn" type="submit">Adicionar horas</button>
+            <p class="hint" id="eAtual"></p>
+            <label class="chk"><input type="checkbox" id="eSubst"> Substituir o total deste dia (em vez de somar). Use 0 para apagar.</label>
+            <button class="btn" type="submit">Salvar horas</button>
             <p class="msg" id="eMsg" role="status"></p>
           </form>
         </div>
