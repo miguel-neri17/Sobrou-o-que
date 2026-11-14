@@ -20,6 +20,7 @@ function boot(pre, cr) {
     beforeParse(w) {
       Object.defineProperty(w, 'crypto', { value: cr || wc });
       w.TextEncoder = TextEncoder;
+      w.TextDecoder = TextDecoder;
       w.confirm = () => true;
       w.scrollTo = () => {};
       w.addEventListener('error', (e) => errs.push(e.message));
@@ -844,6 +845,48 @@ const submit = (w, f) => f.dispatchEvent(new w.Event('submit', { cancelable: tru
   w.Storage.prototype.setItem = set17;
   ok(d.querySelector('#dMsg').textContent.includes('gerado') && errs.length === 0, 'se o navegador não deixar gravar a data, o arquivo é gerado mesmo assim, sem erro: ' + d.querySelector('#dMsg').textContent);
   ok(errs.length === 0, 'sem erros JS no cenario 17 ' + JSON.stringify(errs));
+
+  // cenario 18: exportar com senha (cifra o arquivo, AES-GCM) e importar arquivo protegido
+  ({ w, d, errs } = boot((win) => {
+    fixDate(win);
+    win.localStorage.setItem('sobrou-users', JSON.stringify({ pw: 'abc123' }));
+    win.localStorage.setItem('sobrou-v2-pw', JSON.stringify({ months: { [k6]: { renda: 1000, items: [{ id: 'a', d: 2, cat: 'lazer', desc: 'Segredo do Zé', v: 30 }] } }, reserva: 2000 }));
+  }));
+  await sleep(100);
+  await login(w, d, 'pw', 'abc123');
+  const blobs18 = []; w.URL.createObjectURL = (b) => { blobs18.push(b); return 'blob:p'; }; w.URL.revokeObjectURL = () => {};
+  const ate18 = async (f) => { for (let i = 0; i < 100 && !f(); i++) await sleep(100); };
+  const msg18 = () => d.querySelector('#dMsg').textContent, desc18 = () => (stored(w, 'pw').months[k6].items[0] || {}).desc;
+  const exporta18 = async (senha) => { const n = blobs18.length; d.querySelector('#dMsg').textContent = ''; set('#arqSenha', senha); d.querySelector('#expBtn').click(); await ate18(() => blobs18.length > n || msg18().includes('pelo menos')); return blobs18.length > n ? await readBlob(blobs18[blobs18.length - 1]) : null; };
+  ok(d.querySelector('#arqSenha') && d.querySelector('#arqSenha').type === 'password' && d.querySelector('label[for="arqSenha"]'), 'o menu tem o campo de senha do arquivo (tipo senha, com rótulo)');
+  const plano18 = JSON.parse(await exporta18(''));
+  ok(plano18.months && !plano18.cifrado, 'sem senha, o arquivo continua em texto simples, como antes');
+  ok((await exporta18('abc')) === null && msg18().includes('pelo menos 8'), 'senha curta é recusada e nenhum arquivo é gerado: ' + msg18());
+  const SENHA = 'sênha-forte-ção';
+  const txt18 = await exporta18(SENHA), cif18 = JSON.parse(txt18);
+  ok(cif18.app === 'sobrou' && cif18.cifrado && cif18.cifrado.alg === 'AES-GCM' && cif18.cifrado.i === 600000 && typeof cif18.dados === 'string' && !cif18.months, 'com senha, o arquivo é cifrado (AES-GCM, 600 mil iterações) e não tem a estrutura dos dados');
+  ok(!txt18.includes('Segredo') && !txt18.includes('lazer') && !txt18.includes('1000'), 'nada legível dos dados aparece no arquivo cifrado');
+  ok(msg18().includes('protegido') && d.querySelector('#arqSenha').value === '', 'avisa que está protegido e limpa o campo da senha');
+  ok((await exporta18(SENHA)) !== txt18, 'cada exportação usa sal e vetor novos (dois arquivos iguais não saem iguais)');
+  await importOld(JSON.stringify({ app: 'sobrou', versao: 1, months: { [k6]: { renda: 5, items: [{ id: 'z', d: 1, cat: 'outros', desc: 'Outro', v: 1 }] } } }));
+  ok(desc18() === 'Outro', '(preparo) os dados foram trocados por outros');
+  await importOld(txt18);
+  ok(msg18().includes('protegido por senha') && desc18() === 'Outro', 'arquivo protegido sem senha digitada: explica o que fazer e não altera nada: ' + msg18());
+  set('#arqSenha', 'senha-errada-1'); await importOld(txt18); await ate18(() => msg18().includes('incorreta'));
+  ok(msg18().includes('Senha incorreta') && desc18() === 'Outro', 'senha errada: avisa e não altera nada: ' + msg18());
+  const adulterado = JSON.parse(txt18); adulterado.dados = adulterado.dados.slice(0, 20) + (adulterado.dados[20] === 'A' ? 'B' : 'A') + adulterado.dados.slice(21);
+  set('#arqSenha', SENHA); await importOld(JSON.stringify(adulterado)); await ate18(() => msg18().includes('alterado'));
+  ok(msg18().includes('alterado') && desc18() === 'Outro', 'arquivo adulterado é detectado (o AES-GCM autentica) e nada muda: ' + msg18());
+  for (const [nome, mexe] of [['iterações absurdas (travaria o navegador)', (c) => { c.cifrado.i = 900000000; }], ['iterações em texto', (c) => { c.cifrado.i = 'x'; }], ['sal de tamanho errado', (c) => { c.cifrado.s = 'AAAA'; }], ['vetor de tamanho errado', (c) => { c.cifrado.n = 'AAAA'; }], ['dados que não são texto', (c) => { c.dados = 5; }], ['algoritmo desconhecido', (c) => { c.cifrado.alg = 'AES-CBC'; }]]) {
+    const c = JSON.parse(txt18); mexe(c); set('#arqSenha', SENHA); await importOld(JSON.stringify(c)); await sleep(100);
+    ok(msg18().includes('danificado') && desc18() === 'Outro', 'arquivo protegido com ' + nome + ' é recusado sem tentar abrir: ' + msg18());
+  }
+  set('#arqSenha', SENHA); await importOld(txt18); await ate18(() => msg18().includes('Dados importados'));
+  ok(msg18().includes('Dados importados') && desc18() === 'Segredo do Zé' && stored(w, 'pw').reserva === 2000, 'senha certa (com acento): os dados voltam como estavam: ' + msg18());
+  ok(d.querySelector('#arqSenha').value === '', 'depois de importar, o campo da senha é limpo');
+  set('#arqSenha', 'qualquer-coisa-1'); await importOld(JSON.stringify({ app: 'sobrou', versao: 1, months: { [k6]: { renda: 7 } } }));
+  ok(msg18().includes('Dados importados'), 'arquivo comum continua importando normalmente mesmo com senha digitada');
+  ok(errs.length === 0, 'sem erros JS no cenario 18 ' + JSON.stringify(errs));
 
   console.log(fails ? '\n' + fails + ' FALHA(S)' : '\nTUDO OK');
   process.exit(fails ? 1 : 0);

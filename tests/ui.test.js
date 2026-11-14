@@ -228,6 +228,39 @@ async function abrir(browser, w, h, renda) {
     await ctxE.close();
   }
 
+  // ---------- exportar com senha no Chrome real (WebCrypto de verdade): cifra, recusa senha errada e abre com a certa ----------
+  {
+    const fs = require('fs'), os = require('os');
+    const ctxS = await browser.createBrowserContext();
+    const pS = await ctxS.newPage();
+    const errosS = [];
+    pS.on('pageerror', (e) => errosS.push(e.message));
+    pS.on('dialog', (dg) => dg.accept());
+    await pS.setViewport({ width: 1280, height: 800 });
+    await pS.goto(SITE, { waitUntil: 'networkidle2' });
+    await pS.click('#demoBtn'); await pS.waitForFunction(() => location.hash === '#inicio');
+    const SENHA = 'sênha-forte-ção';
+    await pS.evaluate((s) => { window.URL.createObjectURL = (b) => { window.__arq = b; return 'blob:x'; }; document.querySelector('#arqSenha').value = s; document.querySelector('#expBtn').click(); }, SENHA);
+    await pS.waitForFunction(() => window.__arq, { timeout: 15000 });
+    const txt = await pS.evaluate(() => window.__arq.text());
+    const j = JSON.parse(txt);
+    ok(j.cifrado && j.cifrado.alg === 'AES-GCM' && !txt.includes('Alimentação') && !txt.includes('"months"'), 'Chrome: o arquivo exportado com senha é cifrado e não mostra nada legível dos dados');
+    const arq = path.join(os.tmpdir(), 'sobrou-ui-protegido.json');
+    fs.writeFileSync(arq, txt, 'utf8');
+    const importa = async (senha) => {
+      await pS.evaluate((s) => { document.querySelector('#dMsg').textContent = ''; document.querySelector('#arqSenha').value = s; }, senha);
+      await (await pS.$('#impFile')).uploadFile(arq);
+      await pS.waitForFunction(() => document.querySelector('#dMsg').textContent !== '', { timeout: 15000 });
+      return pS.evaluate(() => document.querySelector('#dMsg').textContent);
+    };
+    const errada = await importa('senha-errada-1');
+    ok(errada.includes('Senha incorreta'), 'Chrome: senha errada é recusada (' + errada + ')');
+    const certa = await importa(SENHA);
+    ok(certa.includes('Dados importados') && (await pS.evaluate(() => document.querySelector('#arqSenha').value)) === '', 'Chrome: a senha certa abre o arquivo e o campo é limpo (' + certa + ')');
+    ok(errosS.length === 0, 'Chrome: sem erros de JavaScript ao proteger e abrir o arquivo ' + JSON.stringify(errosS));
+    await ctxS.close();
+  }
+
   // ---------- PWA: depois da primeira visita, o app abre SEM internet (service worker, por http: ele não existe em file://) ----------
   {
     const http = require('http'), fs = require('fs');
