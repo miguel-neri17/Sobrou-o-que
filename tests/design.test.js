@@ -204,5 +204,42 @@ ok(/\.ext-box[^{]*\{[^}]*max-height/.test(css) || /\.ext\s*\{[^}]*overflow-y/.te
   ok(sem.length === 0, 'toda declaração com color-mix() tem uma alternativa sem ele antes (ou fica em @supports)' + (sem.length ? '\n       sem alternativa: ' + sem.join(' | ') : ''));
 }
 
+/* ---------- 12. PWA: manifesto, ícones, cores e a lista de arquivos do service worker ---------- */
+{
+  const html = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
+  const existe = (p) => fs.existsSync(path.join(root, p));
+  let man = null;
+  try { man = JSON.parse(fs.readFileSync(path.join(root, 'manifest.webmanifest'), 'utf8')); } catch (e) { /* abaixo */ }
+  ok(!!man, 'manifest.webmanifest existe e é um JSON válido');
+  if (man) {
+    ok(man.name && man.short_name && man.lang === 'pt-BR' && man.display === 'standalone' && man.start_url === './' && man.scope === './', 'manifesto: nome, idioma, abre sem barra do navegador e usa caminhos relativos (o site roda em um subcaminho do GitHub Pages)');
+    ok(man.theme_color.toUpperCase() === claro.brand.toUpperCase() && man.background_color.toUpperCase() === claro.bg.toUpperCase(), 'manifesto: theme_color é o verde da marca e background_color é o fundo claro, iguais aos tokens');
+    const tam = (f) => { const b = fs.readFileSync(path.join(root, f)); return b.readUInt32BE(16) + 'x' + b.readUInt32BE(20); };
+    const icones = man.icons || [];
+    ok([192, 512].every((n) => icones.some((i) => i.sizes === n + 'x' + n && i.type === 'image/png' && existe(i.src) && tam(i.src) === n + 'x' + n)), 'manifesto: ícones de 192 e 512 px existem e têm o tamanho declarado');
+    ok(icones.some((i) => /maskable/.test(i.purpose || '')), 'manifesto: tem um ícone "maskable" (o Android recorta em círculo sem cortar o desenho)');
+  }
+  ok(/<link rel="manifest" href="manifest\.webmanifest">/.test(html), 'index.html liga o manifesto');
+  const temaMeta = [...html.matchAll(/<meta name="theme-color" content="(#[0-9A-Fa-f]{6})"(?: media="\(prefers-color-scheme: (light|dark)\)")?>/g)];
+  ok(temaMeta.length === 2 && temaMeta.some((m) => m[2] === 'light' && m[1].toUpperCase() === claro.bg.toUpperCase()) && temaMeta.some((m) => m[2] === 'dark' && m[1].toUpperCase() === temas.escuro.bg.toUpperCase()), 'theme-color da barra do navegador acompanha o fundo claro e o escuro (iguais aos tokens)');
+  const touch = /<link rel="apple-touch-icon" href="([^"]+)">/.exec(html);
+  ok(touch && existe(touch[1]), 'ícone para a tela inicial do iPhone (apple-touch-icon) existe');
+
+  // a lista de arquivos guardados para uso sem internet tem de cobrir tudo o que o app carrega
+  const swTxt = existe('sw.js') ? fs.readFileSync(path.join(root, 'sw.js'), 'utf8') : '';
+  ok(swTxt !== '', 'sw.js (service worker) existe');
+  const lista = /const ARQUIVOS\s*=\s*\[([\s\S]*?)\]/.exec(swTxt);
+  const guardados = lista ? [...lista[1].matchAll(/'([^']+)'/g)].map((m) => m[1]) : [];
+  const usados = new Set(['./', 'manifest.webmanifest']);
+  [...html.matchAll(/<script src="([^"]+)"/g), ...html.matchAll(/<link rel="stylesheet" href="([^"]+)"/g), ...html.matchAll(/<img[^>]* src="([^"]+)"/g)].forEach((m) => usados.add(m[1]));
+  [...css.matchAll(/url\(["']?([^)"']+)["']?\)/g)].forEach((m) => { if (!/^(data:|https?:)/.test(m[1])) usados.add(m[1]); });
+  if (man) (man.icons || []).forEach((i) => usados.add(i.src));
+  const faltam = [...usados].filter((u) => !guardados.includes(u));
+  ok(guardados.length > 0 && faltam.length === 0, 'service worker: guarda todos os arquivos que o app usa (scripts, estilo, fontes, imagens, ícones, manifesto)' + (faltam.length ? '\n       faltam: ' + faltam.join(', ') : ''));
+  const sobram = guardados.filter((g) => g !== './' && !existe(g));
+  ok(sobram.length === 0, 'service worker: nenhum arquivo da lista deixou de existir (um só arquivo faltando faz a instalação inteira falhar)' + (sobram.length ? '\n       não existem: ' + sobram.join(', ') : ''));
+  ok(/'serviceWorker' in navigator/.test(fs.readFileSync(path.join(root, 'js', 'main.js'), 'utf8')), 'main.js registra o service worker só onde ele existe');
+}
+
 console.log(fails ? '\n' + fails + ' FALHA(S)' : '\nTUDO OK');
 process.exit(fails ? 1 : 0);
