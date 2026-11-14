@@ -293,7 +293,8 @@ async function abrir(browser, w, h, renda) {
     await pO.addStyleTag({ content: css });
     ok(!/color-mix/.test(css.replace(/\/\*[\s\S]*?\*\//g, '')), '(preparo) a folha de estilo simulada não tem nenhum color-mix (fora de comentários)');
     await pO.click('#demoBtn'); await pO.waitForFunction(() => location.hash === '#inicio');
-    const outros = await pO.$eval('.rbar i.c-outros', (e) => getComputedStyle(e).backgroundColor);
+    await pO.waitForSelector('.rbar i.c-outros', { timeout: 10000 });
+    const outros = await pO.$eval('.rbar i.c-outros',(e) => getComputedStyle(e).backgroundColor);
     ok(outros === 'rgb(156, 143, 126)', 'sem color-mix, "Outros" continua com o cinza quente próprio (' + outros + ')');
     await pO.evaluate(() => { location.hash = '#estudos'; }); await pO.waitForSelector('#mMais', { visible: true, timeout: 10000 });
     for (let i = 0; i < 6; i++) await pO.click('#mMais');
@@ -309,7 +310,8 @@ async function abrir(browser, w, h, renda) {
     await pO.evaluate(() => Array.from(document.styleSheets).filter((s) => s.href && /style\.css$/.test(s.href)).forEach((s) => { s.disabled = true; }));
     await pO.addStyleTag({ content: css });
     await pO.waitForFunction(() => location.hash === '#financas'); await pO.evaluate(() => { location.hash = '#inicio'; }); await sleep(400);
-    const aviso = await pO.$eval('#inTips', (e) => { const t = e.closest('.tip'); return { warn: t.classList.contains('is-warn'), borda: getComputedStyle(t).borderTopColor }; });
+    await pO.waitForFunction(() => { const e = document.querySelector('#inTips'); return e && e.closest('.tip') && e.closest('.tip').classList.contains('is-warn'); }, { timeout: 10000 }).catch(() => {}); // se nunca aparecer, o ok() abaixo falha com a mensagem certa
+    const aviso = await pO.$eval('#inTips',(e) => { const t = e.closest('.tip'); return { warn: t.classList.contains('is-warn'), borda: getComputedStyle(t).borderTopColor }; });
     ok(aviso.warn && aviso.borda === 'rgb(194, 59, 59)', 'sem color-mix, o cartão de aviso ainda se destaca pela borda (' + aviso.borda + ')');
     await ctxO.close();
   }
