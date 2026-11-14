@@ -514,16 +514,50 @@ const submit = (w, f) => f.dispatchEvent(new w.Event('submit', { cancelable: tru
   ok(reserva() === 0 && rsRes().includes('Defina uma meta'), 'campo em branco remove a meta');
   set('#rsMeta', '3000'); submit(w, d.querySelector('#rsForm'));
 
+  // progresso real: quanto a pessoa já guardou (antes só havia a estimativa de prazo pela sobra média)
+  const guardado = () => (stored(w, 'ana').guardado || 0), barW = () => { const i = d.querySelector('#rsRes .bar i'); return i ? i.style.getPropertyValue('--w') : null; };
+  const prazo = () => Number((/em (\d+) m[eê]s/.exec(rsRes()) || [])[1]);
+  const n0 = prazo();
+  ok(d.querySelector('#rsGuardado') && !rsRes().includes('já guardou') && barW() === null && n0 > 0, 'sem valor guardado não aparece progresso, e o prazo cobre a meta inteira (' + n0 + ' meses)');
+  set('#rsGuardado', '1000'); submit(w, d.querySelector('#rsForm'));
+  ok(guardado() === 1000 && reserva() === 3000, 'o valor já guardado é salvo junto com a meta');
+  ok(rsRes().includes('já guardou') && rsRes().includes('1.000,00') && rsRes().includes('33%') && barW() === '0.333', 'mostra o progresso real, 1.000 de 3.000 (33%), com a barra no tamanho certo: ' + rsRes().slice(0, 160));
+  ok(prazo() > 0 && prazo() < n0, 'o prazo conta só o que falta: com 1.000 guardados cai de ' + n0 + ' para ' + prazo() + ' meses');
+  set('#rsGuardado', '3000'); submit(w, d.querySelector('#rsForm'));
+  ok(rsRes().includes('Meta atingida') && barW() === '1.000' && !/em \d+ m[eê]s/.test(rsRes()), 'guardado igual à meta: "Meta atingida", barra cheia e sem prazo');
+  set('#rsGuardado', '5000'); submit(w, d.querySelector('#rsForm'));
+  ok(rsRes().includes('Meta atingida') && barW() === '1.000' && !rsRes().includes('166'), 'guardado acima da meta: barra e texto não passam de 100%');
+  for (const ruim of ['-5', '2000000000']) {
+    set('#rsGuardado', ruim); submit(w, d.querySelector('#rsForm'));
+    ok(rsMsg().includes('Informe') && guardado() === 5000, `valor guardado inválido (${ruim}) é recusado e o anterior continua: ${rsMsg()}`);
+  }
+  set('#rsGuardado', ''); submit(w, d.querySelector('#rsForm'));
+  ok(guardado() === 0 && barW() === null, 'campo em branco zera o valor guardado');
+  set('#rsMeta', ''); set('#rsGuardado', '200'); submit(w, d.querySelector('#rsForm'));
+  ok(guardado() === 200 && reserva() === 0 && rsRes().includes('Defina uma meta'), 'dá para guardar o valor mesmo sem meta definida');
+  set('#rsMeta', '3000'); set('#rsGuardado', '1000'); submit(w, d.querySelector('#rsForm'));
+  const antesG = JSON.stringify(stored(w, 'ana')), setG = w.Storage.prototype.setItem;
+  w.Storage.prototype.setItem = function () { throw new Error('quota'); };
+  set('#rsGuardado', '2500'); submit(w, d.querySelector('#rsForm'));
+  w.Storage.prototype.setItem = setG;
+  ok(rsMsg().includes('Nada foi alterado') && JSON.stringify(stored(w, 'ana')) === antesG && an('#rsGuardado').value === '1000', 'falha ao gravar mantém o valor guardado anterior na tela e nos dados');
+
   const blobs10 = [];
   w.URL.createObjectURL = (b) => { blobs10.push(b); return 'blob:k'; }; w.URL.revokeObjectURL = () => {};
   d.querySelector('#expBtn').click(); await sleep(50);
-  ok(JSON.parse(await readBlob(blobs10[0])).reserva === 3000, 'exportar inclui a meta de reserva');
+  ok(JSON.parse(await readBlob(blobs10[0])).reserva === 3000 && JSON.parse(await readBlob(blobs10[0])).guardado === 1000, 'exportar inclui a meta de reserva e o valor já guardado');
   await importOld(JSON.stringify({ app: 'sobrou', versao: 1, months: { [k6]: { renda: 1 } }, reserva: 500 }));
   ok(reserva() === 500, 'importar com meta substitui a meta');
   await importOld(JSON.stringify({ app: 'sobrou', versao: 1, months: { [k6]: { renda: 2 } } }));
   ok(reserva() === 500, 'importar arquivo antigo (sem meta) mantem a atual');
   await importOld(JSON.stringify({ app: 'sobrou', versao: 1, months: { [k6]: { renda: 3 } }, reserva: 'abc' }));
   ok(reserva() === 0, 'meta invalida no arquivo vira "sem meta"');
+  await importOld(JSON.stringify({ app: 'sobrou', versao: 1, months: { [k6]: { renda: 3 } }, guardado: 120 }));
+  ok(guardado() === 120, 'importar com valor guardado substitui o atual');
+  await importOld(JSON.stringify({ app: 'sobrou', versao: 1, months: { [k6]: { renda: 4 } } }));
+  ok(guardado() === 120, 'importar arquivo antigo (sem valor guardado) mantém o atual');
+  await importOld(JSON.stringify({ app: 'sobrou', versao: 1, months: { [k6]: { renda: 5 } }, guardado: 'abc' }));
+  ok(guardado() === 0, 'valor guardado inválido no arquivo vira zero');
   const before10 = JSON.stringify(stored(w, 'ana'));
   const realSet10 = w.Storage.prototype.setItem;
   w.Storage.prototype.setItem = function () { throw new Error('quota'); };

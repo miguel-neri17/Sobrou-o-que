@@ -108,8 +108,13 @@
       v=parseFloat(raw.replace(',','.'));
       if(!(v>=0.01&&v<=1e9)){$('#rsMsg').textContent='Informe um valor maior que zero (até 1 bilhão), ou deixe em branco para remover a meta.';return}
     }
-    var old=S.reserva;S.reserva=round2(v);
-    if(!A.saveData()){S.reserva=old;$('#rsMsg').textContent='Não foi possível salvar a meta (armazenamento cheio ou bloqueado). Nada foi alterado.';A.renderAll();return}
+    var rawG=$('#rsGuardado').value.trim(),g=0;
+    if(rawG!==''){
+      g=parseFloat(rawG.replace(',','.'));
+      if(!(g>=0&&g<=1e9)){$('#rsMsg').textContent='Informe quanto você já guardou (0 ou mais, até 1 bilhão), ou deixe em branco.';return}
+    }
+    var old=S.reserva,oldG=S.guardado;S.reserva=round2(v);S.guardado=round2(g);
+    if(!A.saveData()){S.reserva=old;S.guardado=oldG;$('#rsMsg').textContent='Não foi possível salvar a meta (armazenamento cheio ou bloqueado). Nada foi alterado.';A.renderAll();return}
     $('#rsMsg').textContent=v>0?'Meta salva.':'Meta removida.';
     A.renderAll();
   });
