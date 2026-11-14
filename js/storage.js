@@ -7,7 +7,35 @@
   function blank(){return {renda:0,items:[],weeks:[zw(),zw(),zw(),zw()],nota:null,grades:[]}}
 
   /* o id vai para atributos HTML (data-edit, data-del): só aceita caracteres seguros e únicos */
-  function cleanId(x,seen){var id=typeof x==='string'&&/^[A-Za-z0-9_-]{1,60}$/.test(x)?x:'';if(!id||seen[id])id=uid();seen[id]=1;return id}
+  var SAFE_ID=/^[A-Za-z0-9_-]{1,60}$/,MAX_RECURRING=100;
+  function cleanId(x,seen){var id=typeof x==='string'&&SAFE_ID.test(x)?x:'';if(!id||seen[id])id=uid();seen[id]=1;return id}
+  /* "contas" é o nome antigo de "assinaturas"; categoria desconhecida vira "outros" */
+  function cleanCat(c){var c0=c==='contas'?'assinaturas':c;return CATS.some(function(x){return x.k===c0})?c0:'outros'}
+
+  /* orçamento vindo de fora: lê só as categorias conhecidas (nunca as chaves do arquivo), valor de 0,01 a 1e9.
+     "contas" (nome antigo) vale para "assinaturas". */
+  function cleanBudget(o){
+    var out={};
+    if(!isObj(o)) return out;
+    CATS.forEach(function(c){
+      var v=num(o[c.k]!==undefined?o[c.k]:(c.k==='assinaturas'?o.contas:undefined),0.01,1e9);
+      if(v!==null) out[c.k]=round2(v);
+    });
+    return out;
+  }
+
+  /* modelos de gasto fixo vindos de fora: descarta o inválido, sanea ids e textos, no máximo MAX_RECURRING */
+  function cleanRecurring(a){
+    var out=[],seen={};
+    if(!Array.isArray(a)) return out;
+    for(var n=0;n<a.length&&out.length<MAX_RECURRING;n++){
+      var x=a[n];if(!isObj(x)) continue;
+      var v=num(x.v,0.01,1e9),d=num(x.d,1,31),desc=str(x.desc,40);
+      if(v===null||!desc) continue;
+      out.push({id:cleanId(x.id,seen),desc:desc,v:round2(v),d:d===null?1:Math.floor(d),cat:cleanCat(x.cat)});
+    }
+    return out;
+  }
 
   function cleanMonth(m){
     var o=blank(),r=num(m.renda,0,1e9),seenI={},seenG={};
@@ -16,9 +44,9 @@
       if(!isObj(i)) return;
       var v=num(i.v,0.01,1e9),d=num(i.d,1,31),desc=str(i.desc,40);
       if(v===null||!desc) return;
-      var c0=i.cat==='contas'?'assinaturas':i.cat; /* "contas" é o nome antigo de "assinaturas" */
-      var cat=CATS.some(function(c){return c.k===c0})?c0:'outros';
-      o.items.push({id:cleanId(i.id,seenI),d:d===null?1:Math.floor(d),cat:cat,desc:desc,v:round2(v)});
+      var it={id:cleanId(i.id,seenI),d:d===null?1:Math.floor(d),cat:cleanCat(i.cat),desc:desc,v:round2(v)};
+      if(typeof i.rid==='string'&&SAFE_ID.test(i.rid)) it.rid=i.rid; /* vínculo com o modelo de gasto fixo */
+      o.items.push(it);
     });
     if(Array.isArray(m.weeks)&&m.weeks.length===4){
       o.weeks=m.weeks.map(function(w){
@@ -56,17 +84,20 @@
     var months=readMonths(j.months,240),n=Object.keys(months).length;
     if(!n) return {err:'O arquivo não tem nenhum mês com dados.'};
     var meta=num(j.meta,2,30);
-    return {months:months,meta:meta===null?null:Math.round(meta),n:n};
+    /* recurring: null = o arquivo não trouxe gastos fixos (exportação antiga), então os atuais ficam */
+    return {months:months,meta:meta===null?null:Math.round(meta),recurring:Array.isArray(j.recurring)?cleanRecurring(j.recurring):null,budget:isObj(j.budget)?cleanBudget(j.budget):null,n:n};
   }
 
   function ukey(){var u=A.getUser();return u?'sobrou-v2-'+u:null}
 
   function loadData(){
-    S.data={};S.meta=10;var k=ukey();if(!k) return;
+    S.data={};S.meta=10;S.recurring=[];S.budget={};var k=ukey();if(!k) return;
     try{
       var d=JSON.parse(localStorage.getItem(k)||'null');
       if(d&&isObj(d.months)){
         S.data=readMonths(d.months,Infinity);
+        S.recurring=cleanRecurring(d.recurring);
+        S.budget=cleanBudget(d.budget);
         var mt=num(d.meta,2,30);if(mt!==null) S.meta=Math.round(mt);
       }
     }catch(e){}
@@ -75,8 +106,9 @@
   /* devolve false se o navegador não deixou gravar (armazenamento cheio ou bloqueado) */
   function saveData(){
     var k=ukey();if(!k) return false;
-    try{localStorage.setItem(k,JSON.stringify({months:S.data,meta:S.meta}));return true}catch(e){return false}
+    try{localStorage.setItem(k,JSON.stringify({months:S.data,meta:S.meta,recurring:S.recurring,budget:S.budget}));return true}catch(e){return false}
   }
 
+  A.MAX_RECURRING=MAX_RECURRING;A.cleanBudget=cleanBudget;
   A.zw=zw;A.blank=blank;A.cleanMonth=cleanMonth;A.parseImport=parseImport;A.loadData=loadData;A.saveData=saveData;
 })();

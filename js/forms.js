@@ -27,7 +27,7 @@
   var sel=$('#gCat'); CATS.forEach(function(c){var o=document.createElement('option');o.value=c.k;o.textContent=c.n;sel.appendChild(o)});
 
   function endEdit(){
-    S.editing=null;$('#gForm').reset();
+    S.editing=null;$('#gForm').reset();$('#gFixo').disabled=false;
     $('#gTitulo').textContent='Registrar gasto';$('#gSubmit').textContent='Adicionar gasto';$('#gCancel').hidden=true;
   }
 
@@ -45,9 +45,16 @@
       endEdit();
     }else{
       if(!ok) dia=S.cur===MON.length-1?now.getDate():1;
-      M(S.cur).items.push({id:uid(),d:dia,cat:$('#gCat').value,desc:desc,v:v});A.saveData();
-      $('#gDesc').value='';$('#gVal').value='';$('#gDia').value='';
-      msg='Gasto adicionado em '+MON[S.cur].full+'.';
+      var item={id:uid(),d:dia,cat:$('#gCat').value,desc:desc,v:v},fixoMsg='';
+      if($('#gFixo').checked){ /* "repetir todo mês": guarda um modelo e liga o gasto a ele (rid) */
+        if(S.recurring.length<A.MAX_RECURRING){
+          var t={id:uid(),desc:desc,v:v,d:dia,cat:item.cat};S.recurring.push(t);item.rid=t.id;
+          fixoMsg=' Ele também ficou como gasto fixo.';
+        }else fixoMsg=' Limite de '+A.MAX_RECURRING+' gastos fixos atingido: este não foi marcado como fixo.';
+      }
+      M(S.cur).items.push(item);A.saveData();
+      $('#gDesc').value='';$('#gVal').value='';$('#gDia').value='';$('#gFixo').checked=false;
+      msg='Gasto adicionado em '+MON[S.cur].full+'.'+fixoMsg;
     }
     $('#gMsg').textContent=msg;
     A.renderAll();
@@ -61,6 +68,7 @@
     if(b.hasAttribute('data-edit')){
       S.editing=id;
       $('#gDesc').value=it.desc;$('#gVal').value=it.v;$('#gDia').value=it.d;$('#gCat').value=it.cat;
+      $('#gFixo').checked=false;$('#gFixo').disabled=true; /* editar um gasto não cria nem muda modelo de gasto fixo */
       $('#gTitulo').textContent='Editar gasto';$('#gSubmit').textContent='Salvar alteração';$('#gCancel').hidden=false;
       $('#gMsg').textContent='';$('#gDesc').focus();
     }else{
@@ -70,6 +78,46 @@
       $('#gMsg').textContent='Gasto removido.';
       A.renderAll();
     }
+  });
+
+  /* ---------- orçamento por categoria ----------
+     Um campo de limite por categoria (em branco = sem limite). Se algum valor for inválido, nada é salvo. */
+  CATS.forEach(function(c){
+    $('#bFields').appendChild(A.el('div','f','<label for="bud-'+c.k+'">'+c.n+' (R$ por mês)</label><input id="bud-'+c.k+'" type="number" inputmode="decimal" min="0.01" step="0.01" placeholder="Sem limite">'));
+  });
+  $('#bForm').addEventListener('submit',function(e){
+    e.preventDefault();
+    var nb={};
+    for(var i=0;i<CATS.length;i++){
+      var raw=$('#bud-'+CATS[i].k).value.trim();if(raw==='') continue;
+      var v=parseFloat(raw.replace(',','.'));
+      if(!(v>=0.01&&v<=1e9)){$('#bMsg').textContent='Limite inválido em '+CATS[i].n+': use um valor maior que zero, ou deixe em branco para ficar sem limite.';return}
+      nb[CATS[i].k]=round2(v);
+    }
+    var old=S.budget;S.budget=nb;
+    if(!A.saveData()){S.budget=old;$('#bMsg').textContent='Não foi possível salvar o orçamento (armazenamento cheio ou bloqueado). Nada foi alterado.';A.renderAll();return}
+    $('#bMsg').textContent=Object.keys(nb).length?'Orçamento salvo.':'Orçamento removido: nenhum limite definido.';
+    A.renderAll();
+  });
+
+  /* ---------- gastos fixos: lançar no mês e remover o modelo ---------- */
+  $('#fxPend').addEventListener('click',function(e){
+    if(!(e.target.closest&&e.target.closest('#fxLancar'))) return;
+    var add=A.lancarFixos(S.cur);if(!add.length) return;
+    if(!A.saveData()){
+      M(S.cur).items=M(S.cur).items.filter(function(x){return add.indexOf(x)<0});
+      $('#gMsg').textContent='Não foi possível salvar os gastos fixos (armazenamento cheio ou bloqueado). Nada foi alterado.';
+    }else $('#gMsg').textContent=add.length+(add.length===1?' gasto fixo lançado':' gastos fixos lançados')+' em '+MON[S.cur].full+'.';
+    A.renderAll();
+  });
+  $('#fxList').addEventListener('click',function(e){
+    var b=e.target.closest&&e.target.closest('[data-fxdel]');if(!b) return;
+    var id=b.getAttribute('data-fxdel'),t=S.recurring.filter(function(x){return x.id===id})[0];if(!t) return;
+    if(!window.confirm('Remover o gasto fixo "'+t.desc+'"? Os gastos que já foram lançados continuam nos meses.')) return;
+    var old=S.recurring;S.recurring=old.filter(function(x){return x.id!==id});
+    if(!A.saveData()){S.recurring=old;$('#gMsg').textContent='Não foi possível salvar (armazenamento cheio ou bloqueado). Nada foi alterado.'}
+    else $('#gMsg').textContent='Gasto fixo removido.';
+    A.renderAll();
   });
 
   /* ---------- estudos ---------- */

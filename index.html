@@ -24,12 +24,32 @@
       <button class="btn alt sm" type="button" id="expBtn">Exportar dados</button>
       <button class="btn alt sm" type="button" id="impBtn">Importar dados</button>
       <input type="file" id="impFile" accept=".json,application/json" hidden>
+      <button class="btn alt sm" type="button" id="extBtn">Importar extrato (CSV)</button>
+      <input type="file" id="extFile" accept=".csv,.txt,text/csv,text/plain" hidden>
       <p class="side-note" id="dMsg" role="status"></p>
     </div>
     <button class="btn alt logout" type="button" id="sairSide">Sair</button>
     <p class="side-note">Seus registros ficam só neste navegador.</p>
   </aside>
   <div class="scrim" id="scrim"></div>
+
+  <!-- importar extrato: revisão antes de salvar (nada é gravado até o botão "Importar") -->
+  <section class="ext" id="extPanel" aria-labelledby="extTit" hidden>
+    <div class="ext-box card">
+      <h2 id="extTit" tabindex="-1">Importar extrato</h2>
+      <p class="hint">Saídas de dinheiro são valores negativos e viram gastos na categoria "Outros". Entradas (valores positivos) são ignoradas. Nada é salvo antes de você confirmar.</p>
+      <div class="ext-cols">
+        <div class="f"><label for="extData">Coluna da data</label><select id="extData"></select></div>
+        <div class="f"><label for="extDesc">Coluna da descrição</label><select id="extDesc"></select></div>
+        <div class="f"><label for="extVal">Coluna do valor</label><select id="extVal"></select></div>
+      </div>
+      <label class="ext-head"><input type="checkbox" id="extHead"> A primeira linha é o cabeçalho</label>
+      <p class="ext-sum" id="extSum" role="status" aria-live="polite"></p>
+      <div class="tw"><table class="tbl"><thead><tr><th>Linha</th><th>Data</th><th>Descrição</th><th class="r">Valor</th><th>Situação</th></tr></thead><tbody id="extList"></tbody></table></div>
+      <p class="hint" id="extMore"></p>
+      <div class="ext-acts"><button class="btn" type="button" id="extOk">Importar</button><button class="btn alt" type="button" id="extCancel">Cancelar</button></div>
+    </div>
+  </section>
 
   <main>
     <!-- ================= LOGIN ================= -->
@@ -117,10 +137,20 @@
               <div class="f"><label for="gDia">Dia (opcional)</label><input id="gDia" type="number" inputmode="numeric" min="1" max="31" step="1" placeholder="Hoje"></div>
             </div>
             <div class="f"><label for="gCat">Categoria</label><select id="gCat"></select></div>
+            <label class="chk"><input type="checkbox" id="gFixo"> Repetir todo mês (gasto fixo)</label>
             <button class="btn" type="submit" id="gSubmit">Adicionar gasto</button>
             <button class="btn alt" type="button" id="gCancel" hidden>Cancelar edição</button>
             <p class="msg" id="gMsg" role="status"></p>
           </form>
+        </div>
+        <div class="card wide" style="--i:2"><h2>Gastos fixos</h2><p class="hint">Aluguel, assinatura, passe: marque "Repetir todo mês" ao registrar o gasto. Depois, em cada mês, lance todos de uma vez, sem digitar de novo.</p><div id="fxPend"></div><ul class="list" id="fxList"></ul></div>
+        <div class="card wide" style="--i:2"><h2>Orçamento por categoria</h2><p class="hint">Defina quanto pretende gastar por mês em cada categoria. Deixe em branco para não ter limite. O site avisa quando você chega perto (80%) e quando passa.</p>
+          <form id="bForm" autocomplete="off">
+            <div class="bud-fields" id="bFields"></div>
+            <button class="btn" type="submit">Salvar orçamento</button>
+            <p class="msg" id="bMsg" role="status"></p>
+          </form>
+          <div id="bList"></div>
         </div>
         <div class="card wide" style="--i:2"><h2>Para onde foi a renda</h2><p class="hint">Cada trecho da barra é uma categoria. O trecho laranja é o que sobrou.</p><div id="fCats"></div></div>
         <div class="card wide" style="--i:3"><h2>Lançamentos do mês</h2><div class="tw"><table class="tbl"><thead><tr><th>Dia</th><th>Descrição</th><th class="r">Valor</th><th class="r"><span class="sr">Ações</span></th></tr></thead><tbody id="fList"></tbody></table></div></div>
@@ -215,6 +245,8 @@
 <script src="js/render.js"></script>
 <script src="js/forms.js"></script>
 <script src="js/backup.js"></script>
+<script src="js/csv.js"></script>
+<script src="js/extrato.js"></script>
 <script src="js/nav.js"></script>
 <script src="js/main.js"></script>
 
