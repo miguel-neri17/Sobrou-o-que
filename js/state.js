@@ -31,6 +31,7 @@
      data: dados do usuário logado, por mês (chave "AAAA-MM")
      recurring: modelos de gasto fixo ("repetir todo mês"), {id,desc,v,d,cat}; os gastos lançados a partir deles guardam o id em "rid"
      budget: limite mensal em R$ por categoria, {categoria: valor}; categoria sem entrada = sem limite
-     reserva: meta de reserva em R$ (0 = sem meta), usada na aba Análise */
-  A.S={cur:A.MON.length-1,hidden:false,meta:10,aporteTocado:false,editing:null,intro:false,data:{},recurring:[],budget:{},reserva:0};
+     reserva: meta de reserva em R$ (0 = sem meta), usada na aba Análise
+     regras: categorias aprendidas na importação de extrato {descrição normalizada: categoria} (ver csv.js) */
+  A.S={cur:A.MON.length-1,hidden:false,meta:10,aporteTocado:false,editing:null,intro:false,data:{},recurring:[],budget:{},reserva:0,regras:{}};
 })();

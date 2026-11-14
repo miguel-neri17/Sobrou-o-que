@@ -6,6 +6,16 @@
   var MAXFILE=2*1024*1024,MAXROWS=5000,SHOW=50,MAXITEMS=5000; /* MAXITEMS é o limite por mês que o storage.js aplica ao carregar */
   var STATUS={novo:'Será importado',duplicado:'Já existe',entrada:'Entrada (ignorada)',invalido:'Inválida',fora:'Fora dos últimos 6 meses'};
   var rows=[],preview=null;
+  /* categorias que a pessoa trocou na revisão: {nº da linha: {cat, rk}}. Vale só se a linha ainda é a mesma
+     descrição (rk) depois de trocar as colunas. Só estas trocas viram regra aprendida ao confirmar. */
+  var over={};
+  function catDe(r){var o=over[r.line];return o&&o.rk===r.rk?o.cat:r.cat}
+  function catOptions(sel){return A.CATS.map(function(c){return '<option value="'+c.k+'"'+(c.k===sel?' selected':'')+'>'+esc(c.n)+'</option>'}).join('')}
+  function regrasInfo(){
+    var n=Object.keys(S.regras||{}).length;
+    $('#extRegras').textContent=n?'Regras de categoria aprendidas neste navegador: '+n+'.':'Nenhuma regra de categoria aprendida ainda.';
+    $('#extForget').hidden=!n;
+  }
 
   function dmsg(t){$('#dMsg').textContent=t}
   function plural(n,um,varios){return n+' '+(n===1?um:varios)}
@@ -31,6 +41,7 @@
   });
 
   function openPanel(text){
+    over={};
     rows=A.parseCSV(text);
     if(!rows.length){dmsg('O arquivo está vazio ou não parece um CSV.');return}
     if(rows.length>MAXROWS+1){dmsg('O arquivo tem linhas demais (máximo de '+MAXROWS+').');return}
@@ -46,7 +57,7 @@
   }
 
   function closePanel(){
-    $('#extPanel').hidden=true;rows=[];preview=null;
+    $('#extPanel').hidden=true;rows=[];preview=null;over={};
     setInert(false);
     /* o foco volta ao título da tela visível: o botão de importar fica dentro do menu fechado e não pode receber foco */
     var h=$('.screen:not([hidden]) h1');if(h) h.focus({preventScroll:true});
@@ -85,8 +96,15 @@
   /* ---------- prévia ---------- */
   function refresh(){
     var map={header:$('#extHead').checked,date:Number($('#extData').value),desc:Number($('#extDesc').value),valor:Number($('#extVal').value)};
-    preview=A.buildExtrato(rows,map,{months:MON.map(function(m){return m.key}),existing:function(k){return S.data[k]?S.data[k].items:[]}});
-    var c=preview.counts,parts=[plural(c.novos,'gasto','gastos')+' para importar'];
+    preview=A.buildExtrato(rows,map,{months:MON.map(function(m){return m.key}),existing:function(k){return S.data[k]?S.data[k].items:[]},regras:S.regras});
+    var c=preview.counts,pf=preview.porFonte,parts=[plural(c.novos,'gasto','gastos')+' para importar'];
+    if(c.novos){
+      var cs=[];
+      if(pf.aprendida) cs.push(plural(pf.aprendida,'aprendida','aprendidas'));
+      if(pf.palavra) cs.push(pf.palavra+' por palavra-chave');
+      if(pf.padrao) cs.push(pf.padrao+' em Outros');
+      parts.push('categorias: '+cs.join(', '));
+    }
     if(c.duplicados) parts.push(plural(c.duplicados,'já existente','já existentes'));
     if(c.entradas) parts.push(plural(c.entradas,'entrada ignorada','entradas ignoradas'));
     if(c.invalidos) parts.push(plural(c.invalidos,'linha inválida','linhas inválidas'));
@@ -95,9 +113,10 @@
     var tb=$('#extList');tb.innerHTML='';
     preview.rows.slice(0,SHOW).forEach(function(r){
       var src=rows[r.line-1]||[];
-      tb.appendChild(el('tr','ext-'+r.status,'<td class="num">'+r.line+'</td><td>'+esc(src[map.date]===undefined?'':src[map.date])+'</td><td>'+esc(src[map.desc]===undefined?'':src[map.desc])+'</td><td class="r num">'+esc(src[map.valor]===undefined?'':src[map.valor])+'</td><td>'+STATUS[r.status]+'</td>'));
+      tb.appendChild(el('tr','ext-'+r.status,'<td class="num">'+r.line+'</td><td>'+esc(src[map.date]===undefined?'':src[map.date])+'</td><td>'+esc(src[map.desc]===undefined?'':src[map.desc])+'</td><td class="r num">'+esc(src[map.valor]===undefined?'':src[map.valor])+'</td><td>'+(r.status==='novo'?'<select class="ext-cat" data-line="'+r.line+'" aria-label="Categoria da linha '+r.line+'">'+catOptions(catDe(r))+'</select>':'')+'</td><td>'+STATUS[r.status]+'</td>'));
     });
-    $('#extMore').textContent=preview.rows.length>SHOW?'Mostrando as primeiras '+SHOW+' de '+preview.rows.length+' linhas. O resumo conta todas.':'';
+    $('#extMore').textContent=preview.rows.length>SHOW?'Mostrando as primeiras '+SHOW+' de '+preview.rows.length+' linhas. O resumo conta todas, e as demais entram com a categoria sugerida.':'';
+    regrasInfo();
     $('#extOk').disabled=!c.novos;
     $('#extOk').textContent=c.novos?'Importar '+plural(c.novos,'gasto','gastos'):'Nada para importar';
   }
@@ -105,6 +124,17 @@
   ['#extData','#extDesc','#extVal'].forEach(function(id){$(id).addEventListener('change',refresh)});
   $('#extHead').addEventListener('change',function(){fillSelects();refresh()});
   $('#extCancel').addEventListener('click',closePanel);
+  $('#extList').addEventListener('change',function(e){
+    var s=e.target;if(!s.classList||!s.classList.contains('ext-cat')||!preview) return;
+    var line=Number(s.getAttribute('data-line')),r=preview.rows.filter(function(x){return x.line===line})[0];
+    if(r&&A.CATS.some(function(c){return c.k===s.value})) over[line]={cat:s.value,rk:r.rk};
+  });
+  $('#extForget').addEventListener('click',function(){
+    if(!window.confirm('Esquecer todas as regras de categoria aprendidas? Os gastos já salvos não mudam.')) return;
+    var old=S.regras;S.regras={};
+    if(!A.saveData()){S.regras=old;$('#extRegras').textContent='Não foi possível salvar (armazenamento cheio ou bloqueado). Nada foi alterado.';return}
+    refresh();
+  });
   document.addEventListener('keydown',function(e){
     if($('#extPanel').hidden) return;
     if(e.key==='Escape') closePanel();
@@ -121,18 +151,28 @@
       var cur=S.data[keys[i]]?S.data[keys[i]].items.length:0;
       if(cur+add[keys[i]].length>MAXITEMS){dmsg('Esse extrato faria um mês passar de '+MAXITEMS+' gastos. Nada foi alterado.');return}
     }
+    /* aprende só o que a pessoa trocou: uma regra por descrição (a última troca vale) */
+    var oldRegras=S.regras,novasRegras=S.regras,mudou={};
+    preview.rows.forEach(function(r){
+      if(r.status!=='novo'||!r.rk) return;
+      var c=catDe(r);
+      if(c!==r.cat){novasRegras=A.aprender(novasRegras,r.rk,c);mudou[r.rk]=1}
+    });
+    var nRegras=Object.keys(mudou).length;
+    S.regras=novasRegras;
     keys.forEach(function(k){
       had[k]=!!S.data[k];if(!had[k]) S.data[k]=A.blank();
       old[k]=S.data[k].items;
-      S.data[k].items=old[k].concat(add[k].map(function(r){return {id:A.uid(),d:r.d,cat:'outros',desc:r.desc,v:r.v}}));
+      S.data[k].items=old[k].concat(add[k].map(function(r){return {id:A.uid(),d:r.d,cat:catDe(r),desc:r.desc,v:r.v}}));
     });
     if(!A.saveData()){
+      S.regras=oldRegras;
       keys.forEach(function(k){if(had[k]) S.data[k].items=old[k];else delete S.data[k]});
       dmsg('Não foi possível salvar o extrato (armazenamento cheio ou bloqueado). Nada foi alterado.');
       return;
     }
     var n=preview.counts.novos,dup=preview.counts.duplicados;
     closePanel();A.renderAll();
-    dmsg(plural(n,'gasto importado','gastos importados')+(dup?' ('+plural(dup,'já existia','já existiam')+').':'.'));
+    dmsg(plural(n,'gasto importado','gastos importados')+(dup?' ('+plural(dup,'já existia','já existiam')+').':'.')+(nRegras?' Categorias lembradas: '+plural(nRegras,'regra','regras')+'.':''));
   });
 })();
