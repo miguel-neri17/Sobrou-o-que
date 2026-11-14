@@ -289,7 +289,7 @@ const submit = (w, f) => f.dispatchEvent(new w.Event('submit', { cancelable: tru
 
   d.querySelector('#extOk').click(); await sleep(50);
   const it7 = items7();
-  ok(panel().hidden && it7.length === 2 && it7.every((i) => i.cat === 'outros' && i.id) && it7.some((i) => i.desc === 'Mercado' && i.v === 12.5 && i.d === 5) && it7.some((i) => i.desc === 'Cinema' && i.v === 30 && i.d === 7), 'confirmar salva so as saidas, como positivo, categoria outros');
+  ok(panel().hidden && it7.length === 2 && it7.every((i) => i.id) && it7.some((i) => i.desc === 'Mercado' && i.v === 12.5 && i.d === 5 && i.cat === 'alimentacao') && it7.some((i) => i.desc === 'Cinema' && i.v === 30 && i.d === 7 && i.cat === 'lazer'), 'confirmar salva so as saidas, como positivo, com a categoria sugerida (Mercado = alimentacao, Cinema = lazer)');
   ok(Object.keys(stored(w, 'ext').months).join() === k6, 'gastos salvos no mes AAAA-MM certo');
   ok(d.querySelector('#dMsg').textContent.includes('2 gastos importados'), 'avisa quantos foram importados: ' + d.querySelector('#dMsg').textContent);
   w.location.hash = '#financas'; await sleep(50);
@@ -632,6 +632,92 @@ const submit = (w, f) => f.dispatchEvent(new w.Event('submit', { cancelable: tru
   escolher13('escuro');
   ok(d.documentElement.getAttribute('data-theme') === 'dark', 'se o navegador não deixa guardar, o tema ainda é aplicado nesta visita');
   ok(errs.length === 0, 'sem erros JS no cenario 13 ' + JSON.stringify(errs));
+
+  // cenario 14: o extrato sugere a categoria (aprendida > palavra-chave > Outros), a pessoa troca na revisão e o app aprende
+  ({ w, d, errs } = boot((win) => {
+    fixDate(win);
+    win.localStorage.setItem('sobrou-users', JSON.stringify({ cat: 'abc123' }));
+  }));
+  await sleep(100);
+  await login(w, d, 'cat', 'abc123');
+  const pick14 = async (t) => {
+    const inp = d.querySelector('#extFile');
+    Object.defineProperty(inp, 'files', { value: [new w.File([t], 'extrato.csv', { type: 'text/csv' })], configurable: true });
+    inp.dispatchEvent(new w.Event('change')); await sleep(150);
+  };
+  const sels14 = () => Array.from(d.querySelectorAll('#extList .ext-cat'));
+  const troca14 = (i, v) => { const s = sels14()[i]; s.value = v; s.dispatchEvent(new w.Event('change', { bubbles: true })); };
+  const regras14 = () => (stored(w, 'cat') && stored(w, 'cat').regras) || {};
+  const itens14 = () => (stored(w, 'cat') ? Object.values(stored(w, 'cat').months).flatMap((m) => m.items) : []);
+  const csv14 = 'Data;Descrição;Valor\n05/05/2026;UBER *TRIP;-20,00\n06/05/2026;Padaria do Ze;-8,00\n07/05/2026;Coisa Rara;-3,00\n08/05/2026;Salário;100,00\n';
+
+  await pick14(csv14);
+  ok(sels14().length === 3 && sels14().every((s) => s.getAttribute('aria-label')) && sels14()[0].options.length === 6, 'cada gasto novo tem uma lista de categorias com nome acessível (entrada não tem)');
+  ok(sels14().map((s) => s.value).join() === 'transporte,alimentacao,outros', 'sugestão por palavra-chave (Uber, Padaria) e Outros para o que não é reconhecido: ' + sels14().map((s) => s.value));
+  ok(d.querySelector('#extSum').textContent.includes('2 por palavra-chave') && d.querySelector('#extSum').textContent.includes('1 em Outros'), 'o resumo conta de onde veio cada sugestão: ' + d.querySelector('#extSum').textContent);
+  ok(regras14().padaria === undefined && Object.keys(regras14()).length === 0, 'antes de importar nada foi aprendido');
+  troca14(1, 'lazer'); troca14(2, 'estudos');
+  d.querySelector('#extOk').click(); await sleep(50);
+  ok(itens14().find((i) => i.desc === 'UBER *TRIP').cat === 'transporte' && itens14().find((i) => i.desc === 'Padaria do Ze').cat === 'lazer' && itens14().find((i) => i.desc === 'Coisa Rara').cat === 'estudos', 'o gasto é salvo com a categoria escolhida na revisão');
+  ok(JSON.stringify(regras14()) === JSON.stringify({ 'padaria do ze': 'lazer', 'coisa rara': 'estudos' }), 'só as categorias que a pessoa trocou viram regra (Uber, que ela não mexeu, não): ' + JSON.stringify(regras14()));
+  ok(d.querySelector('#dMsg').textContent.includes('2 regras'), 'avisa quantas regras aprendeu: ' + d.querySelector('#dMsg').textContent);
+
+  await pick14('Data;Descrição;Valor\n09/05/2026;PADARIA DO ZE 77;-9,00\n10/05/2026;coisa  rara;-1,00\n11/05/2026;Outra Coisa;-2,00\n');
+  ok(sels14().map((s) => s.value).join() === 'lazer,estudos,outros', 'na importação seguinte a regra aprendida vence a palavra-chave, mesmo com número e caixa diferentes: ' + sels14().map((s) => s.value));
+  ok(d.querySelector('#extSum').textContent.includes('2 aprendidas'), 'o resumo conta as regras aprendidas: ' + d.querySelector('#extSum').textContent);
+  troca14(0, 'alimentacao');
+  d.querySelector('#extCancel').click();
+  ok(JSON.stringify(regras14()) === JSON.stringify({ 'padaria do ze': 'lazer', 'coisa rara': 'estudos' }), 'cancelar não aprende nada');
+
+  await pick14('Data;Descrição;Valor\n12/05/2026;Padaria do Ze;-4,00\n');
+  troca14(0, 'alimentacao');
+  d.querySelector('#extOk').click(); await sleep(50);
+  ok(regras14()['padaria do ze'] === 'alimentacao' && Object.keys(regras14()).join() === 'coisa rara,padaria do ze', 'corrigir uma regra existente troca a categoria e a deixa como a mais recente');
+
+  await pick14('Data;Descrição;Valor\n13/05/2026;Sorveteria Nova;-5,00\n');
+  const antes14 = JSON.stringify(stored(w, 'cat'));
+  troca14(0, 'lazer');
+  const setReal14 = w.Storage.prototype.setItem;
+  w.Storage.prototype.setItem = function () { throw new Error('quota'); };
+  d.querySelector('#extOk').click(); await sleep(50);
+  w.Storage.prototype.setItem = setReal14;
+  ok(d.querySelector('#dMsg').textContent.includes('Nada foi alterado') && JSON.stringify(stored(w, 'cat')) === antes14, 'se a gravação falha, nem o gasto nem a regra são salvos');
+  d.querySelector('#extCancel').click();
+  await pick14('Data;Descrição;Valor\n13/05/2026;Sorveteria Nova;-5,00\n');
+  ok(sels14()[0].value === 'alimentacao', 'a regra que não foi salva também não vale na memória (voltou a sugestão normal)');
+  d.querySelector('#extCancel').click();
+
+  // exportar e importar: as regras viajam no arquivo, vêm validadas, e arquivo antigo (sem regras) não apaga as atuais
+  const blobs14 = []; w.URL.createObjectURL = (b) => { blobs14.push(b); return 'blob:x'; }; w.URL.revokeObjectURL = () => {};
+  d.querySelector('#expBtn').click(); await sleep(100);
+  const exp14 = JSON.parse(await readBlob(blobs14[0]));
+  ok(JSON.stringify(exp14.regras) === JSON.stringify(regras14()), 'exportar inclui as regras aprendidas');
+  await importOld(JSON.stringify({ app: 'sobrou', versao: 1, months: { [k6]: { renda: 1 } } }));
+  ok(Object.keys(regras14()).length === 2, 'importar arquivo antigo (sem regras) mantém as atuais');
+  await importOld(JSON.stringify({ app: 'sobrou', versao: 1, months: { [k6]: { renda: 2 } }, regras: { 'loja boa': 'lazer', 'constructor': 'estudos', '__proto__': 'lazer', 'Chave Ruim!': 'lazer', 'sem cat': 'nao-existe', ['x'.repeat(40)]: 'lazer' } }));
+  ok(JSON.stringify(regras14()) === JSON.stringify({ 'loja boa': 'lazer', 'constructor': 'estudos' }), 'importar com regras substitui as atuais e descarta chave estranha, categoria inexistente e chave longa: ' + JSON.stringify(regras14()));
+  await importOld(JSON.stringify({ app: 'sobrou', versao: 1, months: { [k6]: { renda: 3 } }, regras: 'abc' }));
+  ok(Object.keys(regras14()).length === 0, 'regras inválidas no arquivo viram "nenhuma regra"');
+  ({ w, d, errs } = boot((win) => { fixDate(win); win.localStorage.setItem('sobrou-users', JSON.stringify({ cat: 'abc123' })); win.localStorage.setItem('sobrou-v2-cat', JSON.stringify({ months: { [k6]: { renda: 4 } }, regras: { 'loja boa': 'lazer', 'ruim!': 'lazer', 'constructor': 'estudos' } })); }));
+  await sleep(100);
+  await login(w, d, 'cat', 'abc123');
+  await pick14('Data;Descrição;Valor\n14/05/2026;Constructor;-5,00\n15/05/2026;Loja Boa;-1,00\n');
+  ok(sels14().map((s) => s.value).join() === 'estudos,lazer', 'ao carregar do navegador, as regras também são validadas (sem chave com símbolo) e funcionam: ' + sels14().map((s) => s.value));
+
+  // esquecer as regras aprendidas
+  ok(!d.querySelector('#extForget').hidden && d.querySelector('#extRegras').textContent.includes('2'), 'o painel mostra quantas regras foram aprendidas e oferece esquecê-las');
+  w.confirm = () => false; d.querySelector('#extForget').click(); await sleep(30);
+  ok(d.querySelector('#extRegras').textContent.includes('2') && !d.querySelector('#extForget').hidden, 'esquecer pede confirmação e, se a pessoa recusa, mantém as regras');
+  w.confirm = () => true; d.querySelector('#extForget').click(); await sleep(30);
+  ok(Object.keys(regras14()).length === 0 && d.querySelector('#extForget').hidden, 'confirmando, as regras são apagadas e o botão some');
+  ok(sels14().map((s) => s.value).join() === 'outros,outros', 'a prévia aberta volta a sugerir sem as regras apagadas: ' + sels14().map((s) => s.value));
+  d.querySelector('#extCancel').click();
+
+  // a descrição não injeta HTML na lista de categorias
+  await pick14('Data;Descrição;Valor\n16/05/2026;<img src=x onerror=1>;-1,00\n');
+  ok(d.querySelector('#extList img') === null && sels14().length === 1, 'a prévia com categoria não injeta HTML');
+  d.querySelector('#extCancel').click();
+  ok(errs.length === 0, 'sem erros JS no cenario 14 ' + JSON.stringify(errs));
 
   console.log(fails ? '\n' + fails + ' FALHA(S)' : '\nTUDO OK');
   process.exit(fails ? 1 : 0);
