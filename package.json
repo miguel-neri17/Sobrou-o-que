@@ -5,7 +5,7 @@
   "private": true,
   "license": "MIT",
   "engines": {
-    "node": ">=18"
+    "node": ">=22.12"
   },
   "scripts": {
     "test": "node tests/e2e.test.js",
@@ -19,7 +19,7 @@
     "visual": "node scripts/visual.js"
   },
   "devDependencies": {
-    "jsdom": "22.1.0",
-    "puppeteer-core": "22.15.0"
+    "jsdom": "26.1.0",
+    "puppeteer-core": "25.17.0"
   }
 }
