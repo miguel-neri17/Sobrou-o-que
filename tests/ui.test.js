@@ -226,6 +226,56 @@ async function abrir(browser, w, h, renda) {
   ok(des.op < 1 && des.cursor !== 'pointer', 'botão desabilitado fica esmaecido e sem mãozinha (opacidade ' + des.op + ', cursor ' + des.cursor + ')');
   await page.close();
 
+  // ---------- privacidade: nada sai do navegador, nem as fontes ----------
+  {
+    const ctxP = await browser.createBrowserContext();
+    const pP = await ctxP.newPage();
+    await pP.setViewport({ width: 390, height: 844 });
+    const externas = [];
+    pP.on('request', (rq) => { const u = rq.url(); if (!/^(file:|data:|blob:|about:)/.test(u)) externas.push(u); });
+    await pP.goto(SITE, { waitUntil: 'networkidle2' });
+    await pP.click('#demoBtn'); await pP.waitForFunction(() => location.hash === '#inicio');
+    for (const t of ['financas', 'estudos', 'investimentos', 'analise', 'inicio']) { await pP.evaluate((x) => { location.hash = '#' + x; }, t); await sleep(250); }
+    ok(externas.length === 0, 'privacidade: durante o uso o navegador não faz nenhum pedido a servidores de fora (' + externas.length + ' pedidos' + (externas.length ? ': ' + externas.slice(0, 3).join(' | ') : '') + ')');
+    const fontes = await pP.evaluate(async () => {
+      await document.fonts.ready;
+      const a = await document.fonts.load('15px "IBM Plex Sans"'), b = await document.fonts.load('28px Chonburi');
+      return { plex: a.length > 0, chonburi: b.length > 0, carregadas: Array.from(document.fonts).filter((f) => f.status === 'loaded').map((f) => f.family.replace(/"/g, '')) };
+    });
+    ok(fontes.plex && fontes.chonburi, 'as duas fontes carregam do próprio projeto (' + JSON.stringify(fontes.carregadas) + ')');
+    await ctxP.close();
+  }
+
+  // ---------- tema: sistema, claro e escuro ----------
+  {
+    const CLARO = 'rgb(242, 244, 243)', ESCURO = 'rgb(14, 19, 17)';
+    const ctxT = await browser.createBrowserContext();
+    const pT = await ctxT.newPage();
+    await pT.setViewport({ width: 390, height: 844, isMobile: true, hasTouch: true });
+    await pT.emulateMediaFeatures([{ name: 'prefers-color-scheme', value: 'light' }]);
+    await pT.goto(SITE, { waitUntil: 'networkidle2' });
+    await pT.click('#demoBtn'); await pT.waitForFunction(() => location.hash === '#inicio');
+    const cor = () => pT.evaluate(() => getComputedStyle(document.body).backgroundColor);
+    const attr = () => pT.evaluate(() => document.documentElement.getAttribute('data-theme'));
+    const escolher = async (valor) => {
+      await pT.evaluate(() => { document.querySelector('.screen:not([hidden]) .menubtn').click(); }); await sleep(350);
+      await pT.click('input[name="tema"][value="' + valor + '"] + span'); await sleep(120);
+      await pT.evaluate(() => { document.querySelector('#menuClose').click(); }); await sleep(300);
+    };
+    ok(await cor() === CLARO, 'sistema claro: o app aparece claro');
+    await escolher('escuro');
+    ok(await cor() === ESCURO && await attr() === 'dark', 'Escuro: o app fica escuro mesmo com o sistema claro');
+    await pT.reload({ waitUntil: 'networkidle2' }); await sleep(200);
+    ok(await cor() === ESCURO, 'a escolha é lembrada ao recarregar a página');
+    await pT.emulateMediaFeatures([{ name: 'prefers-color-scheme', value: 'dark' }]);
+    await escolher('claro');
+    ok(await cor() === CLARO && await attr() === 'light', 'Claro: o app fica claro mesmo com o sistema escuro');
+    await escolher('sistema');
+    ok(await cor() === ESCURO && await attr() === null, 'Sistema: volta a seguir o sistema (escuro, neste caso) e remove o atributo');
+    ok(await pT.evaluate(() => document.querySelector('input[name="tema"]:checked').value) === 'sistema', 'o seletor mostra a opção escolhida');
+    await ctxT.close();
+  }
+
   // ---------- "reduzir movimento": nada anima ----------
   ({ page, errs } = await abrir(browser, 390, 844, 1800));
   await page.emulateMediaFeatures([{ name: 'prefers-reduced-motion', value: 'reduce' }]);

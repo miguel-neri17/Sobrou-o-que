@@ -3,11 +3,10 @@
 //   npm run visual -- capturar <nome>            retratos de 6 telas x celular e computador x claro e escuro
 //   npm run visual -- comparar <nomeA> <nomeB>   lista o que ficou diferente entre dois conjuntos
 // Os conjuntos ficam em shots/visual/<nome>/ (pasta ignorada pelo git). Usa a conta de exemplo, com "reduzir movimento"
-// ligado e SEM as fontes da internet (Google Fonts): elas ora carregam, ora não, e isso mudava conjuntos inteiros entre
-// rodadas da mesma versão. Com a fonte de reserva sempre, o resultado é determinístico, e qualquer diferença vem do CSS.
-// Limite conhecido: a Análise no computador claro (desk-light-analise) às vezes oscila sozinha, mesmo sem mudar nada.
+// ligado. As fontes vêm do próprio projeto (pasta fonts/), então a aparência é a mesma que a pessoa vê e não depende de rede.
+// (Antes as fontes vinham do Google Fonts, que ora carregava, ora não, e isso mudava conjuntos inteiros entre rodadas.)
+// Limite conhecido: a Análise no computador (em um tema ou em outro) às vezes oscila sozinha, mesmo sem mudar nada.
 // Uma diferença ISOLADA nela deve ser confirmada capturando de novo; várias telas diferentes ao mesmo tempo indicam mudança real.
-// Para ver a aparência real, com as fontes, use  npm run screenshots.
 const fs = require('fs');
 const path = require('path');
 const crypto = require('crypto');
@@ -51,8 +50,6 @@ fs.mkdirSync(OUT, { recursive: true });
       await page.emulateMediaFeatures([{ name: 'prefers-color-scheme', value: tema }, { name: 'prefers-reduced-motion', value: 'reduce' }]);
       const errs = [];
       page.on('pageerror', (e) => errs.push(e.message));
-      await page.setRequestInterception(true);
-      page.on('request', (rq) => (/fonts\.(googleapis|gstatic)\.com/.test(rq.url()) ? rq.abort() : rq.continue()));
       await page.goto(SITE, { waitUntil: 'networkidle2' });
       await page.evaluate(() => document.fonts.ready); await sleep(500);
       const shot = async (nome) => { const f = path.join(OUT, `${cfg}-${tema}-${nome}.png`); await page.screenshot({ path: f, fullPage: true }); manifest[path.basename(f)] = hash(f); };
@@ -63,7 +60,7 @@ fs.mkdirSync(OUT, { recursive: true });
       for (const t of ['inicio', 'financas', 'estudos', 'investimentos', 'analise']) {
         await page.evaluate((x) => { location.hash = '#' + x; }, t);
         await page.evaluate(() => document.fonts.ready);
-        await sleep(1100); // tempo para fontes de reserva e SVG assentarem
+        await sleep(1100); // tempo para as fontes e o SVG assentarem
         await shot(t);
       }
       if (errs.length) console.log(cfg, tema, 'ERROS JS:', errs);

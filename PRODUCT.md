@@ -55,7 +55,7 @@ Um painel pessoal para estudantes. A pessoa anota o que **entra e sai**, as **ho
 - **HTML, CSS e JS puros**, sem build, abrindo com duplo clique. Nada de biblioteca de interface.
 - Funciona de **320 a 1280 px** sem rolagem lateral, com **modo claro e escuro** automáticos.
 - Respeita **"reduzir movimento"** do sistema.
-- As fontes vêm do Google Fonts; sem elas o app continua legível com a fonte de reserva do sistema.
+- **Nada sai do navegador, nem as fontes:** Chonburi e IBM Plex Sans ficam na pasta `fonts/` do projeto (ver `fonts/LICENSE.md`), e o site não faz nenhum pedido a servidores de fora. Um teste no navegador real confere isso.
 
 ## Como saber se está bom
 
