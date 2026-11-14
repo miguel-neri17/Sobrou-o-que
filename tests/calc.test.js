@@ -30,6 +30,15 @@ function mes(A, i, { renda = 0, gastos = [], horas = 0, notas = [] } = {}) {
   A.S.data[A.MON[i].key] = m;
 }
 
+// ---------- chave de mês (AAAA-MM; o formato antigo AAAA-M ainda é lido) ----------
+{
+  const U = carregar();
+  eq(['2026-05', '2026-5', '2026-12', '2026-1'].map((k) => U.normMonthKey(k)), ['2026-05', '2026-05', '2026-12', '2026-01'], 'normMonthKey: aceita AAAA-MM e o formato antigo AAAA-M, sempre devolvendo AAAA-MM');
+  eq(['2026-13', '2026-00', '2026-0', '2026-005', '2026-5 ', ' 2026-05', '26-05', '2026/05', '2026-05-01', 'abc', '', '2026-', '-05'].map((k) => U.normMonthKey(k)), new Array(13).fill(null), 'normMonthKey: mês fora de 1 a 12, com sobra, outro separador ou lixo é inválido');
+  eq([U.normMonthKey(null), U.normMonthKey(undefined), U.normMonthKey(202605), U.normMonthKey({})], [null, null, null, null], 'normMonthKey: o que não é texto de mês é inválido, sem erro');
+  eq(U.monthKey(2026, 5), '2026-05', 'monthKey: mês de 1 a 12 vira AAAA-MM');
+}
+
 // ---------- serieSaldo ----------
 let A = carregar();
 mes(A, 3, { renda: 1000, gastos: [['alimentacao', 300], ['lazer', 100]] });

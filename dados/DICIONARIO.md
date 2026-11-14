@@ -117,9 +117,9 @@ Só precisa do Python 3.10 ou mais novo, sem instalar nada.
 
 ## Decisões pendentes para a equipe
 
-1. **Nome da categoria:** o Blueprint diz `assinaturas`, e o site hoje usa `contas` ("Contas e assinaturas"). Usei `assinaturas`. Qual vale?
-2. **Formato do mês:** `AAAA-MM` aqui (com zero), e `AAAA-M` no site. Padronizar em `AAAA-MM`?
-3. **`nao_informado` como categoria** para gastos sem categoria: o painel deve mostrá-la nos gráficos?
+1. ~~**Nome da categoria**~~ **Decidido: `assinaturas`.** O app usa esse nome (rótulo "Assinaturas") e converte o antigo `contas` ao carregar dados ou importar arquivos.
+2. ~~**Formato do mês**~~ **Decidido: `AAAA-MM`.** O app usa esse formato e ainda lê o antigo `AAAA-M` (que vira `AAAA-MM` ao carregar).
+3. **`nao_informado` como categoria** para gastos sem categoria: o painel deve mostrá-la nos gráficos? (Hoje, no estudante de exemplo do app, `gerar_demo.py` a converte em `outros`, com a descrição "Sem categoria".)
 4. **Tamanho:** 150 estudantes por 6 meses (`2026-05` a `2026-10`). Está bom?
 5. **Cada valor da tabela abaixo** precisa ser confirmado ou corrigido pela equipe com a sua justificativa. Em especial: faixas de renda (e o salário mínimo vigente), proporção de cada nível de ensino e a relação entre horas e nota.
 6. **Quantos meses fecham negativos:** hoje cerca de 4% dos meses. Se a equipe achar pouco, ajuste `gastos.propensao_a_gastar_dp`.
