@@ -108,8 +108,13 @@
       v=parseFloat(raw.replace(',','.'));
       if(!(v>=0.01&&v<=1e9)){$('#rsMsg').textContent='Informe um valor maior que zero (até 1 bilhão), ou deixe em branco para remover a meta.';return}
     }
-    var old=S.reserva;S.reserva=round2(v);
-    if(!A.saveData()){S.reserva=old;$('#rsMsg').textContent='Não foi possível salvar a meta (armazenamento cheio ou bloqueado). Nada foi alterado.';A.renderAll();return}
+    var rawG=$('#rsGuardado').value.trim(),g=0;
+    if(rawG!==''){
+      g=parseFloat(rawG.replace(',','.'));
+      if(!(g>=0&&g<=1e9)){$('#rsMsg').textContent='Informe quanto você já guardou (0 ou mais, até 1 bilhão), ou deixe em branco.';return}
+    }
+    var old=S.reserva,oldG=S.guardado;S.reserva=round2(v);S.guardado=round2(g);
+    if(!A.saveData()){S.reserva=old;S.guardado=oldG;$('#rsMsg').textContent='Não foi possível salvar a meta (armazenamento cheio ou bloqueado). Nada foi alterado.';A.renderAll();return}
     $('#rsMsg').textContent=v>0?'Meta salva.':'Meta removida.';
     A.renderAll();
   });
@@ -137,13 +142,19 @@
   /* ---------- estudos ---------- */
   $('#eForm').addEventListener('submit',function(e){
     e.preventDefault();
-    var h=parseFloat($('#eHoras').value),w=parseInt($('#eSem').value,10),di=parseInt($('#eDia').value,10);
-    if(!(h>0)){$('#eMsg').textContent='Informe as horas estudadas.';return}
-    var wk=M(S.cur).weeks[w];wk[di]=Math.round((wk[di]+h)*2)/2;A.saveData();
-    $('#eHoras').value='';
-    $('#eMsg').textContent='Horas adicionadas: '+DIAS[di]+', semana '+(w+1)+'.';
+    var h=parseFloat($('#eHoras').value),w=parseInt($('#eSem').value,10),di=parseInt($('#eDia').value,10),sub=$('#eSubst').checked;
+    if(!(sub?h>=0:h>0)||h>24){$('#eMsg').textContent=sub?'Informe de 0 a 24 horas.':'Informe de 0,5 a 24 horas.';return}
+    var wk=M(S.cur).weeks[w],old=wk[di];
+    wk[di]=Math.round((sub?h:old+h)*2)/2;
+    if(!A.saveData()){wk[di]=old;$('#eMsg').textContent='Não foi possível salvar (armazenamento cheio ou bloqueado). Nada foi alterado.';return}
+    $('#eHoras').value='';$('#eSubst').checked=false;modoHoras();
+    $('#eMsg').textContent=(sub?'Total de ':'Horas adicionadas: ')+DIAS[di]+', semana '+(w+1)+(sub?': '+A.dec.format(wk[di])+' h.':'.');
     A.renderAll();
   });
+  /* substituir aceita 0 (apagar); somar exige pelo menos meia hora */
+  function modoHoras(){$('#eHoras').min=$('#eSubst').checked?'0':'0.5'}
+  $('#eSubst').addEventListener('change',modoHoras);
+  ['#eSem','#eDia'].forEach(function(id){$(id).addEventListener('change',A.eAtual)});
 
   $('#nForm').addEventListener('submit',function(e){
     e.preventDefault();

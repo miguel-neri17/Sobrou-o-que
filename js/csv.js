@@ -119,8 +119,53 @@
      então dois cafés iguais no mesmo arquivo continuam sendo dois gastos. */
   function sig(d,desc,v){return d+'|'+A.norm(desc)+'|'+A.round2(v).toFixed(2)}
 
+  /* ---------- categoria sugerida ----------
+     Ordem: 1) regra aprendida (o que a própria pessoa já corrigiu antes), 2) palavra-chave do dicionário, 3) "Outros".
+     O dicionário só tem nomes que quase sempre indicam a mesma categoria; o que for ambíguo (um "PIX" para uma pessoa,
+     "mensalidade", "farmácia") fica de fora de propósito e cai em "Outros". Palavra inteira: "mercado" não casa com
+     "MercadoLivre". Vence a palavra-chave MAIS LONGA ("uber eats" é Alimentação, não Transporte). */
+  var MAX_REGRAS=500;
+  var PALAVRAS={
+    alimentacao:['ifood','rappi','uber eats','ubereats','mercado','supermercado','hipermercado','atacadao','assai','carrefour','padaria','acougue','hortifruti','sacolao','restaurante','lanchonete','pizzaria','hamburgueria','sorveteria','cafeteria','cafe','mcdonalds','burger king','subway','habibs','giraffas','starbucks','lanche','pastelaria','marmita'],
+    transporte:['uber','cabify','99app','99pop','99 taxi','taxi','onibus','metro','cptm','sptrans','bilhete unico','sem parar','conectcar','estacionamento','posto','combustivel','gasolina','shell','ipiranga','petrobras','pedagio'],
+    lazer:['cinema','cinemark','kinoplex','ingresso','ingressos','teatro','sympla','ticketmaster','balada','boliche','parque','steam','playstation','xbox','nintendo','bar'],
+    assinaturas:['netflix','spotify','amazon prime','prime video','disney','disney plus','hbo','hbo max','globoplay','deezer','youtube premium','icloud','google one','apple com bill','claro','vivo','tim'],
+    estudos:['livraria','saraiva','papelaria','kalunga','xerox','copiadora','udemy','coursera','alura','faculdade','matricula','apostila','curso']
+  };
+  function semAcento(s){return String(s).normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase()}
+  function validaCat(c){return typeof c==='string'&&A.CATS.some(function(x){return x.k===c})}
+
+  /* a "chave da regra": a descrição sem acento, sem número, sem pontuação e sem palavras que só enchem o extrato
+     ("COMPRA NO DEBITO"), para a mesma loja casar mesmo com valor, data ou código diferente. Vazia = nada para aprender. */
+  var RUIDO={compra:1,no:1,debito:1,credito:1,cartao:1,pix:1,enviado:1,recebido:1,pagamento:1,pag:1,transferencia:1,transf:1,parcela:1,parc:1};
+  function regraKey(desc){
+    var t=semAcento(desc).replace(/[^a-z]+/g,' ').split(' ').filter(function(w){return w.length>=2&&!Object.prototype.hasOwnProperty.call(RUIDO,w)}); /* hasOwnProperty: "constructor" e "tostring" não são ruído */
+    return t.join(' ').slice(0,30).trim();
+  }
+
+  function sugerirCategoria(desc,regras){
+    var rk=regraKey(desc);
+    if(rk&&regras&&Object.prototype.hasOwnProperty.call(regras,rk)&&validaCat(regras[rk])) return {cat:regras[rk],fonte:'aprendida'};
+    var txt=' '+semAcento(desc).replace(/[^a-z0-9]+/g,' ').trim()+' ',best=null,bl=0;
+    Object.keys(PALAVRAS).forEach(function(cat){
+      PALAVRAS[cat].forEach(function(w){if(w.length>bl&&txt.indexOf(' '+w+' ')>=0){best=cat;bl=w.length}});
+    });
+    return best?{cat:best,fonte:'palavra'}:{cat:'outros',fonte:'padrao'};
+  }
+
+  /* devolve um mapa NOVO com a regra no fim (a mais recente); passando de MAX_REGRAS, as mais antigas saem */
+  function aprender(regras,rk,cat){
+    var out={},ks=Object.keys(regras||{});
+    ks.forEach(function(k){if(k!==rk) out[k]=regras[k]});
+    if(!rk||!validaCat(cat)) return regras?Object.assign({},regras):{};
+    out[rk]=cat;
+    ks=Object.keys(out);
+    while(ks.length>MAX_REGRAS) delete out[ks.shift()];
+    return out;
+  }
+
   function buildExtrato(rows,map,opts){
-    var out=[],c={total:0,novos:0,duplicados:0,entradas:0,invalidos:0,fora:0},have={};
+    var out=[],c={total:0,novos:0,duplicados:0,entradas:0,invalidos:0,fora:0},have={},pf={aprendida:0,palavra:0,padrao:0};
     function used(key){
       if(!have[key]){have[key]={};(opts.existing(key)||[]).forEach(function(i){var s=sig(i.d,i.desc,i.v);have[key][s]=(have[key][s]||0)+1})}
       return have[key];
@@ -140,12 +185,16 @@
       else{
         var u=used(o.key),s=sig(o.d,desc,o.v);
         if(u[s]>0){u[s]--;o.status='duplicado';c.duplicados++}
-        else{o.status='novo';c.novos++}
+        else{
+          var sg=sugerirCategoria(desc,opts.regras);
+          o.status='novo';c.novos++;o.cat=sg.cat;o.fonte=sg.fonte;o.rk=regraKey(desc);pf[sg.fonte]++;
+        }
       }
       out.push(o);
     }
-    return {rows:out,counts:c};
+    return {rows:out,counts:c,porFonte:pf};
   }
 
+  A.MAX_REGRAS=MAX_REGRAS;A.regraKey=regraKey;A.sugerirCategoria=sugerirCategoria;A.aprender=aprender;
   A.parseCSV=parseCSV;A.parseMoney=parseMoney;A.parseDate=parseDate;A.guessColumns=guessColumns;A.buildExtrato=buildExtrato;
 })();

@@ -25,12 +25,12 @@ Painel pessoal para estudantes: anote o que **entra e sai**, as **horas de estud
 - **Início:** o valor que sobrou no mês é o protagonista. Se os gastos passam da renda, vira "Faltou…" em vermelho. Abaixo, a **barra da renda** (um trecho por categoria e um laranja para o que sobrou) e observações, como "o orçamento de Lazer passou em R$ X".
 - **Finanças:**
   - renda do mês e gastos por categoria (adicionar, **editar** e **remover**);
-  - **importar extrato do banco em CSV**, com uma tela de revisão antes de salvar: detecta separador, acentos, valores (`R$ 1.234,56`, `-12,50`, `(45,00)`) e datas, avisa o que é duplicado ou inválido, e reimportar o mesmo extrato não duplica nada;
+  - **importar extrato do banco em CSV**, com uma tela de revisão antes de salvar: detecta separador, acentos, valores (`R$ 1.234,56`, `-12,50`, `(45,00)`) e datas, avisa o que é duplicado ou inválido, e reimportar o mesmo extrato não duplica nada. **A categoria de cada gasto é sugerida pela descrição** (por palavras-chave como "UBER" ou "NETFLIX" e, antes disso, pelo que você já corrigiu em importações anteriores); você troca a categoria de qualquer linha antes de importar, e o que trocar fica lembrado neste navegador (dá para esquecer tudo na própria tela). O que não é reconhecido fica em "Outros";
   - **gastos fixos**: marque "Repetir todo mês" ao registrar um gasto e lance todos de uma vez em cada mês, sem digitar de novo;
   - **orçamento por categoria**: um limite mensal por categoria, com aviso ao chegar perto (80%) e ao passar.
-- **Estudos:** horas por semana e por dia da semana, com **meta semanal** em linha tracejada, e notas por matéria com média automática.
+- **Estudos:** horas por semana e por dia da semana (as horas somam, e dá para **corrigir ou apagar** o total de um dia), com **meta semanal** em linha tracejada, e notas por matéria com média automática.
 - **Investimentos:** simulador de aportes mensais (juros compostos) e quatro textos curtos de educação financeira. A taxa é só um exemplo para estudar.
-- **Análise:** saldo mês a mês (gráfico e tabela), comparação com o mês anterior (em palavras: "a mais", "a menos"), horas de estudo × nota com os seus meses, e **meta de reserva**: em quantos meses você chega nela com a sua sobra média.
+- **Análise:** saldo mês a mês dos **últimos 12 meses** (gráfico e tabela; meses mais antigos continuam guardados, só não aparecem), comparação com o mês anterior (em palavras: "a mais", "a menos"), horas de estudo × nota com os seus meses, e **meta de reserva**: você informa quanto já guardou, vê o progresso em barra e em quantos meses chega nela (o prazo conta só o que falta, com a sua sobra média).
 - **Dados:** **exportar e importar** tudo em um arquivo `.json`, sem senha dentro.
 - **Contas:** cada pessoa tem seus próprios dados no navegador, protegidos por login.
 - **Interface:** abas embaixo no celular, links no topo no computador, modo claro e escuro que seguem o sistema, com um seletor de **Aparência** (Sistema, Claro ou Escuro) no menu.
@@ -71,7 +71,7 @@ npm run test:all
 | Comando | O que roda |
 |---|---|
 | `npm test` | Fluxos completos em navegador simulado (jsdom): contas, gastos, importação e exportação, migração de formatos, extrato CSV, gastos fixos, orçamento, análise e conta de exemplo |
-| `npm run test:csv` | Leitor de extrato: separadores, aspas, valores, datas e duplicados |
+| `npm run test:csv` | Leitor de extrato: separadores, aspas, valores, datas, duplicados e sugestão e aprendizado de categorias |
 | `npm run test:calc` | Contas da aba Análise: saldo por mês, comparação, horas × nota e prazo da meta |
 | `npm run test:design` | Sistema visual: contraste das cores nos dois temas (WCAG 2.2), movimento centralizado e "reduzir movimento", nenhuma cor solta fora dos tokens e `DESIGN.md` em dia com o CSS |
 | `npm run test:ui` | Layout, abas, menu, animação, "reduzir movimento", alvos de toque e rolagem lateral em um navegador real |
@@ -116,6 +116,7 @@ docs/screenshots/     imagens do README
 
 ## Avisos
 
+- As categorias aprendidas na importação são **descrições de lojas do seu extrato**, guardadas só neste navegador e incluídas no arquivo que você exporta. Elas aparecem no arquivo em texto simples, então não compartilhe o arquivo exportado sem querer. A tela de importação tem o botão para esquecê-las.
 - Os seus registros ficam **só neste navegador**. Limpar os dados do navegador apaga tudo, então exporte um arquivo de vez em quando.
 - O login só separa os dados de cada pessoa **neste navegador**. Quem tiver acesso ao aparelho ainda consegue ler o `localStorage`, então ele **não protege** contra isso. Não use uma senha que você usa em outros lugares.
 - O simulador e a meta de reserva usam uma taxa de **exemplo** para estudar. Rendimentos reais mudam e podem ser negativos, e nada aqui é recomendação financeira.

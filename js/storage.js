@@ -27,6 +27,18 @@
   /* meta de reserva (R$) vinda de fora: de 0,01 a 1e9; qualquer outra coisa vira 0 = sem meta */
   function cleanReserva(v){var n=num(v,0.01,1e9);return n===null?0:round2(n)}
 
+  /* regras de categoria aprendidas (descrição normalizada -> categoria) vindas de fora. A chave tem de ser exatamente o que
+     regraKey() gera (letras minúsculas e espaços, até 30): qualquer outra coisa é descartada, o que também barra "__proto__".
+     A categoria tem de existir. No máximo A.MAX_REGRAS, ficando as últimas. */
+  var RE_REGRA=/^[a-z][a-z ]{0,29}$/;
+  function cleanRegras(o){
+    var out={},ks;
+    if(!isObj(o)) return out;
+    ks=Object.keys(o).filter(function(k){return RE_REGRA.test(k)&&CATS.some(function(c){return c.k===o[k]})});
+    ks.slice(-(A.MAX_REGRAS||500)).forEach(function(k){out[k]=o[k]});
+    return out;
+  }
+
   /* modelos de gasto fixo vindos de fora: descarta o inválido, sanea ids e textos, no máximo MAX_RECURRING */
   function cleanRecurring(a){
     var out=[],seen={};
@@ -88,14 +100,14 @@
     if(!n) return {err:'O arquivo não tem nenhum mês com dados.'};
     var meta=num(j.meta,2,30);
     /* recurring: null = o arquivo não trouxe gastos fixos (exportação antiga), então os atuais ficam */
-    return {months:months,meta:meta===null?null:Math.round(meta),recurring:Array.isArray(j.recurring)?cleanRecurring(j.recurring):null,budget:isObj(j.budget)?cleanBudget(j.budget):null,reserva:j.reserva===undefined?null:cleanReserva(j.reserva),n:n};
+    return {months:months,meta:meta===null?null:Math.round(meta),recurring:Array.isArray(j.recurring)?cleanRecurring(j.recurring):null,budget:isObj(j.budget)?cleanBudget(j.budget):null,reserva:j.reserva===undefined?null:cleanReserva(j.reserva),guardado:j.guardado===undefined?null:cleanReserva(j.guardado),regras:j.regras===undefined?null:cleanRegras(j.regras),n:n};
   }
 
   var KEY_PREFIX='sobrou-v2-'; /* a chave de cada pessoa no localStorage é este prefixo + o login */
   function ukey(){var u=A.getUser();return u?KEY_PREFIX+u:null}
 
   function loadData(){
-    S.data={};S.meta=10;S.recurring=[];S.budget={};S.reserva=0;var k=ukey();if(!k) return;
+    S.data={};S.meta=10;S.recurring=[];S.budget={};S.reserva=0;S.guardado=0;S.regras={};var k=ukey();if(!k) return;
     try{
       var d=JSON.parse(localStorage.getItem(k)||'null');
       if(d&&isObj(d.months)){
@@ -103,6 +115,8 @@
         S.recurring=cleanRecurring(d.recurring);
         S.budget=cleanBudget(d.budget);
         S.reserva=cleanReserva(d.reserva);
+        S.guardado=cleanReserva(d.guardado);
+        S.regras=cleanRegras(d.regras);
         var mt=num(d.meta,2,30);if(mt!==null) S.meta=Math.round(mt);
       }
     }catch(e){}
@@ -111,9 +125,9 @@
   /* devolve false se o navegador não deixou gravar (armazenamento cheio ou bloqueado) */
   function saveData(){
     var k=ukey();if(!k) return false;
-    try{localStorage.setItem(k,JSON.stringify({months:S.data,meta:S.meta,recurring:S.recurring,budget:S.budget,reserva:S.reserva}));return true}catch(e){return false}
+    try{localStorage.setItem(k,JSON.stringify({months:S.data,meta:S.meta,recurring:S.recurring,budget:S.budget,reserva:S.reserva,guardado:S.guardado,regras:S.regras}));return true}catch(e){return false}
   }
 
-  A.KEY_PREFIX=KEY_PREFIX;A.MAX_RECURRING=MAX_RECURRING;A.cleanBudget=cleanBudget;A.cleanReserva=cleanReserva;
+  A.KEY_PREFIX=KEY_PREFIX;A.MAX_RECURRING=MAX_RECURRING;A.cleanBudget=cleanBudget;A.cleanRegras=cleanRegras;A.cleanReserva=cleanReserva;
   A.zw=zw;A.blank=blank;A.cleanMonth=cleanMonth;A.parseImport=parseImport;A.loadData=loadData;A.saveData=saveData;
 })();

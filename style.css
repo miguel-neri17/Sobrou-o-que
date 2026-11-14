@@ -60,7 +60,8 @@
 html{scrollbar-color:var(--field-line) var(--bg)}
 body{background:var(--bg);color:var(--fg);font:var(--t-base)/1.55 var(--font);-webkit-text-size-adjust:100%;accent-color:var(--brand);caret-color:var(--brand-text)}
 p,li{text-wrap:pretty} /* evita uma palavra sozinha na última linha */
-::selection{background:color-mix(in srgb,var(--brand) 30%,var(--surface));color:var(--fg)}
+::selection{background:var(--brand-text);color:var(--surface)}
+@supports (color:color-mix(in srgb,red,blue)){::selection{background:color-mix(in srgb,var(--brand) 30%,var(--surface));color:var(--fg)}} /* a versão suave só onde color-mix existe */
 .num,.money{font-variant-numeric:tabular-nums}
 h1,h2,h3,p{margin:0}
 h1,h2{text-wrap:balance}
@@ -154,7 +155,7 @@ form .btn{justify-self:start}
 .value{font-size:var(--t-2xl);font-weight:600;letter-spacing:-.01em;line-height:1.15;margin-top:10px}
 .amount{font-size:clamp(34px,8vw,44px);font-weight:600;letter-spacing:-.02em;line-height:1.1;margin-top:var(--s-1)}
 .tip{background:var(--soft);border-color:transparent}
-.tip.is-warn{background:color-mix(in srgb,var(--danger) 10%,var(--surface));border-color:color-mix(in srgb,var(--danger) 35%,var(--line))} /* há orçamento estourado ou gastos acima da renda */
+.tip.is-warn{background:var(--soft);background:color-mix(in srgb,var(--danger) 10%,var(--surface));border-color:var(--danger);border-color:color-mix(in srgb,var(--danger) 35%,var(--line))} /* há orçamento estourado ou gastos acima da renda */
 .tip p+p{margin-top:10px}
 .note{color:var(--muted);font-size:var(--t-sm);padding:var(--s-5) 0 0}
 
@@ -207,7 +208,7 @@ form .btn{justify-self:start}
 .col{flex:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;height:100%;min-width:0}
 .col .t{position:relative;width:100%;flex:1;display:flex;align-items:flex-end;background:var(--soft);border-radius:var(--r-sm);overflow:hidden}
 .col .t i{display:block;width:100%;height:100%;background:var(--bar);transform-origin:bottom;transform:scaleY(var(--h,0));transition:transform var(--dur-slow) var(--ease-out)}
-.col.low .t i{background:repeating-linear-gradient(135deg,var(--bar-low) 0 6px,color-mix(in srgb,var(--bar-low) 55%,var(--soft)) 6px 12px)} /* listrada: "abaixo da meta" não depende só do tom */
+.col.low .t i{background:var(--bar-low);background:repeating-linear-gradient(135deg,var(--bar-low) 0 6px,color-mix(in srgb,var(--bar-low) 55%,var(--soft)) 6px 12px)} /* listrada: "abaixo da meta" não depende só do tom */
 /* marca da meta semanal: uma linha tracejada na altura da meta, em cada coluna */
 .col.goal .t::after{content:"";position:absolute;left:0;right:0;bottom:calc(var(--g,0)*100%);border-top:2px dashed var(--fg);opacity:.7;pointer-events:none}
 .legend-goal{display:inline-block;width:18px;border-top:2px dashed var(--fg);vertical-align:middle;margin:0 var(--s-1) 3px;opacity:.7}
@@ -220,7 +221,7 @@ form{display:grid;gap:var(--s-4);margin-top:var(--s-4)}
 .f label{font-size:var(--t-md);font-weight:500}
 .f input,.f select{width:100%;border:1px solid var(--field-line);border-radius:var(--r-ctl);background:var(--surface);padding:0 var(--s-3);min-height:44px;color:var(--fg)}
 .f input::placeholder{color:var(--muted)}
-.f input:focus,.f select:focus{outline:none;border-color:var(--brand-text);box-shadow:0 0 0 3px color-mix(in srgb,var(--brand-text) 25%,transparent)}
+.f input:focus,.f select:focus{outline:none;border-color:var(--brand-text);box-shadow:0 0 0 2px var(--brand-text);box-shadow:0 0 0 3px color-mix(in srgb,var(--brand-text) 25%,transparent)}
 .f input[readonly]{background:var(--soft)}
 .two{display:grid;grid-template-columns:1fr 1fr;gap:var(--s-4)}
 .msg{min-height:1.4em;font-size:var(--t-md);color:var(--brand-text);font-weight:500}
@@ -277,7 +278,7 @@ body.public main{padding-bottom:0}
 .lgc .fld label{font-size:var(--t-md);font-weight:500}
 .lgc input{width:100%;min-height:46px;border:1px solid var(--field-line);border-radius:var(--r-ctl);background:var(--surface);color:var(--fg);padding:0 var(--s-3)}
 .lgc input::placeholder{color:var(--muted)}
-.lgc input:focus{outline:none;border-color:var(--brand-text);box-shadow:0 0 0 3px color-mix(in srgb,var(--brand-text) 25%,transparent)}
+.lgc input:focus{outline:none;border-color:var(--brand-text);box-shadow:0 0 0 2px var(--brand-text);box-shadow:0 0 0 3px color-mix(in srgb,var(--brand-text) 25%,transparent)}
 .lgc .go{width:100%;min-height:46px;border:0;border-radius:var(--r-ctl);background:var(--brand);color:var(--on-brand);font-weight:500;font-size:var(--t-base);cursor:pointer;transition:transform var(--dur-fast) var(--ease-out),opacity var(--dur-fast) var(--ease-out)}
 .lgc .go:active{transform:scale(.98)}
 @media (hover:hover) and (pointer:fine){.lgc .go:hover{opacity:.92}}
@@ -312,7 +313,7 @@ body.public main{padding-bottom:0}
 .c-alimentacao{--seg:var(--c-alimentacao)}.c-transporte{--seg:var(--c-transporte)}.c-lazer{--seg:var(--c-lazer)}
 .c-assinaturas{--seg:var(--c-assinaturas)}.c-estudos{--seg:var(--c-estudos)}.c-outros{--seg:var(--c-outros)}.c-sobra{--seg:var(--c-sobra)}
 /* "Outros" é o único trecho neutro e o mais fácil de confundir com os verdes: ganha textura, para não depender só da cor */
-.rbar i.c-outros,.rleg .sw.c-outros{background:repeating-linear-gradient(135deg,var(--c-outros) 0 4px,color-mix(in srgb,var(--c-outros) 55%,var(--surface)) 4px 8px)}
+.rbar i.c-outros,.rleg .sw.c-outros{background:var(--c-outros);background:repeating-linear-gradient(135deg,var(--c-outros) 0 4px,color-mix(in srgb,var(--c-outros) 55%,var(--surface)) 4px 8px)}
 /* importar extrato (painel de revisão sobre a página; acabamento visual fica para a fase de design) */
 .ext{position:fixed;inset:0;z-index:var(--z-dialog);background:var(--scrim);overflow-y:auto;padding:var(--s-4);display:flex;justify-content:center;align-items:flex-start}
 .ext-box{width:100%;max-width:760px;margin:0 auto}
@@ -337,21 +338,40 @@ body.public main{padding-bottom:0}
 .an-pos{fill:var(--bar)}
 .an-neg{fill:var(--danger-text)}
 .an-dot{fill:var(--brand)}
-.an-v,.an-m,.an-s{font-size:var(--t-xs);fill:var(--fg);font-family:inherit}
+.an-m,.an-s{font-size:var(--t-xs);fill:var(--fg);font-family:inherit}
 .an-m,.an-s{fill:var(--muted)}
 /* tabela de dados (não vira "cartão" no celular como a .tbl, porque aqui o cabeçalho de cada coluna importa) */
 .dtab{width:100%;border-collapse:collapse;font-size:var(--t-sm)}
 .dtab th,.dtab td{padding:10px 6px;border-bottom:1px solid var(--line);text-align:left;font-weight:400;vertical-align:top;overflow-wrap:anywhere}
 .dtab thead th{font-weight:500;color:var(--muted);white-space:nowrap}
 .ext .dtab td:nth-child(-n+2){white-space:nowrap} /* na prévia do extrato, Nº e Data não quebram no meio ("02/11/" e "2026") */
+.ext-cat{width:100%;min-width:9.5em;min-height:44px;border:1px solid var(--field-line);border-radius:var(--r-ctl);background:var(--surface);color:var(--fg);padding:0 var(--s-2);font:inherit}
+.ext-cat:focus-visible{outline:2px solid var(--brand-text);outline-offset:1px}
+.ext-regras .link{margin:0;padding:var(--s-2) 0;border:0;background:none;font:inherit;font-weight:500;color:var(--brand-text);text-decoration:underline;cursor:pointer;min-height:44px}
 .ext .dtab td:last-child{overflow-wrap:normal} /* e a Situação quebra só nos espaços ("Será" / "importado"), nunca no meio da palavra */
 .dtab tbody th{font-weight:500;white-space:nowrap}
 .dtab tr:last-child th,.dtab tr:last-child td{border-bottom:0}
 .dtab .r{text-align:right;white-space:nowrap}
 @media (min-width:641px){.dtab{font-size:var(--t-base)}.dtab th,.dtab td{padding:10px}}
+/* prévia do extrato no celular: 6 colunas não cabem, então cada linha vira um cartão (Nº, data e valor em cima; descrição, categoria e situação embaixo) */
+@media (max-width:640px){
+  .ext .tw{max-height:55vh} /* os cartões são altos: dá mais espaço à lista, mantendo os botões à vista */
+  .ext .dtab thead{display:none}
+  .ext .dtab,.ext .dtab tbody{display:block}
+  .ext .dtab tr{display:grid;grid-template-columns:auto 1fr auto;gap:var(--s-1) var(--s-3);align-items:baseline;padding:var(--s-3) 0;border-bottom:1px solid var(--line)}
+  .ext .dtab td{display:block;padding:0;border:0}
+  .ext .dtab td:empty{display:none}
+  .ext .dtab td:nth-child(1){grid-column:1;grid-row:1}
+  .ext .dtab td:nth-child(2){grid-column:2;grid-row:1}
+  .ext .dtab td:nth-child(4){grid-column:3;grid-row:1}
+  .ext .dtab td:nth-child(3),.ext .dtab td:nth-child(5),.ext .dtab td:nth-child(6){grid-column:1/-1}
+  .ext .dtab td:nth-child(3){grid-row:2;overflow-wrap:anywhere}
+  .ext .dtab td:nth-child(5){grid-row:3;margin-top:var(--s-1)}
+  .ext .dtab td:nth-child(6){grid-row:4;color:var(--muted)}
+  .ext .dtab tr:last-child{border-bottom:0}
+}
 @media (max-width:640px){
   #anChart .an-m{font-size:var(--t-xl)} /* o SVG encolhe com a largura da tela: texto maior para continuar legível */
-  #anChart .an-v{display:none}   /* os valores estão na tabela logo abaixo */
   .an-list li{flex-direction:column;align-items:flex-start;gap:6px}
   .an-list .v{white-space:normal;flex-wrap:wrap;gap:var(--s-1) var(--s-3)}
 }
@@ -409,7 +429,7 @@ body.public main{padding-bottom:0}
   .grid.two-col{grid-template-columns:1fr 1fr}
   .an-split{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:var(--s-8);align-items:start}
   .an-split>*{min-width:0}
-  #anChart .an-m,#anChart .an-v{font-size:var(--t-base)} /* a coluna é mais estreita que o desenho (600 unidades): texto maior para continuar legível, como no celular */
+  #anChart .an-m{font-size:var(--t-base)} /* a coluna é mais estreita que o desenho (600 unidades): texto maior para continuar legível, como no celular */
   #financas .grid,#estudos .grid,#investimentos .grid{align-items:start} /* cartões de alturas bem diferentes lado a lado (Renda x Registrar gasto, simulador x lições): sem isto o mais curto esticava e deixava um vazio grande dentro */
   .grid .wide{grid-column:1/-1}
   .page-head{padding-block:var(--s-8) var(--s-1)}
