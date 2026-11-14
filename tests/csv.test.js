@@ -8,7 +8,7 @@ const root = path.resolve(__dirname, '..');
 const box = { Intl };
 box.window = box;
 vm.createContext(box);
-['js/util.js', 'js/csv.js'].forEach((f) => vm.runInContext(fs.readFileSync(path.join(root, f), 'utf8'), box, { filename: f }));
+['js/util.js', 'js/state.js', 'js/csv.js'].forEach((f) => vm.runInContext(fs.readFileSync(path.join(root, f), 'utf8'), box, { filename: f }));
 const A = box.Sobrou;
 
 let fails = 0;
@@ -73,6 +73,50 @@ r = build('Data;Descrição;Valor\n05/03/2026;Enorme;-2.000.000.000,00\n05/03/20
 eq([r.counts.invalidos, r.counts.novos], [1, 1], 'buildExtrato: valor acima de 1 bilhão é inválido (o storage descartaria ao carregar), 1 bilhão ainda passa');
 r = build('Data;Descrição;Valor\n05/03/2026;Mercado;-12,50\n', { header: true, date: 0, desc: 1, valor: 7 });
 eq(r.counts.invalidos, 1, 'buildExtrato: coluna que não existe na linha deixa a linha inválida');
+
+// ---------- categorização: chave da regra, sugestão por palavras-chave e aprendizado ----------
+eq(A.regraKey('COMPRA NO DEBITO IFOOD *RESTAURANTE 1234'), 'ifood restaurante', 'regraKey: tira ruído de banco, números e pontuação');
+eq(A.regraKey('Padaria São João'), 'padaria sao joao', 'regraKey: sem acentos e em minúsculas');
+eq(A.regraKey('PIX ENVIADO 12/03 ***'), '', 'regraKey: descrição só de ruído e números não gera chave (nada para aprender)');
+eq(A.regraKey('A'.repeat(80)).length <= 30, true, 'regraKey: no máximo 30 caracteres');
+eq(A.regraKey('Constructor toString valueOf'), 'constructor tostring valueof', 'regraKey: nome igual a propriedade de objeto ("constructor") não é tratado como ruído');
+eq(/^[a-z0-9 ]*$/.test(A.regraKey('__proto__ <b>x</b> "é"')), true, 'regraKey: só letras, números e espaço (seguro como chave de objeto)');
+
+const sug = (d, reg) => { const s = A.sugerirCategoria(d, reg || {}); return [s.cat, s.fonte]; };
+eq(sug('UBER *TRIP'), ['transporte', 'palavra'], 'sugerir: Uber é Transporte');
+eq(sug('UBER EATS'), ['alimentacao', 'palavra'], 'sugerir: a palavra mais específica vence (Uber Eats é Alimentação)');
+eq(sug('COMPRA IFOOD*PIZZARIA'), ['alimentacao', 'palavra'], 'sugerir: iFood é Alimentação');
+eq(sug('NETFLIX.COM'), ['assinaturas', 'palavra'], 'sugerir: Netflix é Assinaturas');
+eq(sug('Posto Shell Centro'), ['transporte', 'palavra'], 'sugerir: posto de combustível é Transporte');
+eq(sug('Açougue Boa Carne'), ['alimentacao', 'palavra'], 'sugerir: acento no extrato não atrapalha');
+eq(sug('KALUNGA PAPELARIA'), ['estudos', 'palavra'], 'sugerir: papelaria é Material de estudo');
+eq(sug('CINEMARK INGRESSO'), ['lazer', 'palavra'], 'sugerir: cinema é Lazer');
+eq(sug('PIX ENVIADO FULANO DA SILVA'), ['outros', 'padrao'], 'sugerir: o que não é reconhecido fica em Outros');
+eq(sug('MERCADOLIVRE*PEDIDO'), ['outros', 'padrao'], 'sugerir: só casa palavra inteira (MercadoLivre não é "mercado")');
+eq(sug('Constructor Ltda', {}), ['outros', 'padrao'], 'sugerir: nome como "constructor" não pega propriedade do objeto');
+eq(sug('NETFLIX.COM', { 'netflix com': 'lazer' }), ['lazer', 'aprendida'], 'sugerir: a regra aprendida vence a palavra-chave');
+eq(sug('PADARIA DO ZE 55', { 'padaria do ze': 'lazer' }), ['lazer', 'aprendida'], 'sugerir: a regra aprendida casa mesmo com número diferente no extrato');
+eq(sug('UBER *TRIP', { 'uber trip': 'inexistente' }), ['transporte', 'palavra'], 'sugerir: regra com categoria inválida é ignorada');
+
+const r0 = {};
+const r1 = A.aprender(r0, 'padaria do ze', 'alimentacao');
+eq([Object.keys(r0).length, r1['padaria do ze']], [0, 'alimentacao'], 'aprender: devolve um mapa novo e não altera o original');
+eq(Object.keys(A.aprender(r1, '', 'lazer')).length, 1, 'aprender: chave vazia não vira regra');
+eq(Object.keys(A.aprender(r1, 'x', 'nao-existe')).length, 1, 'aprender: categoria inválida não vira regra');
+let big = {}; for (let i = 0; i < 505; i++) big = A.aprender(big, 'loja ' + String.fromCharCode(97 + (i % 26)) + String.fromCharCode(97 + Math.floor(i / 26)), 'lazer');
+eq([Object.keys(big).length, 'loja aa' in big, 'loja' + ' ' + String.fromCharCode(97 + (504 % 26)) + String.fromCharCode(97 + Math.floor(504 / 26)) in big], [A.MAX_REGRAS, false, true], 'aprender: guarda no máximo ' + A.MAX_REGRAS + ' regras, descartando as mais antigas');
+eq(Object.keys(A.aprender(A.aprender({ a: 'lazer', b: 'lazer' }, 'a', 'estudos'), 'c', 'lazer')).join(','), 'b,a,c', 'aprender: corrigir uma regra existente a move para o fim (a mais recente)');
+
+// buildExtrato devolve a categoria sugerida de cada gasto novo
+{
+  const rr = A.buildExtrato(A.parseCSV('Data;Descrição;Valor\n05/03/2026;UBER *TRIP;-20,00\n06/03/2026;Padaria do Ze;-8,00\n07/03/2026;Coisa Rara;-3,00\n08/03/2026;Salário;100,00\n'),
+    { header: true, date: 0, desc: 1, valor: 2 }, { months: mes, existing: () => [], regras: { 'padaria do ze': 'alimentacao' } });
+  eq(rr.rows.filter((x) => x.status === 'novo').map((x) => [x.cat, x.fonte, x.rk]),
+    [['transporte', 'palavra', 'uber trip'], ['alimentacao', 'aprendida', 'padaria do ze'], ['outros', 'padrao', 'coisa rara']], 'buildExtrato: cada gasto novo traz categoria, origem da sugestão e chave da regra');
+  eq(rr.porFonte, { aprendida: 1, palavra: 1, padrao: 1 }, 'buildExtrato: conta quantos vieram de regra aprendida, palavra-chave e padrão');
+  const sem = A.buildExtrato(A.parseCSV('Data;Descrição;Valor\n05/03/2026;UBER *TRIP;-20,00\n'), { header: true, date: 0, desc: 1, valor: 2 }, { months: mes, existing: () => [] });
+  eq(sem.rows[0].cat, 'transporte', 'buildExtrato: sem opts.regras funciona (só palavras-chave)');
+}
 
 console.log(fails ? '\n' + fails + ' FALHA(S)' : '\nTUDO OK');
 process.exit(fails ? 1 : 0);

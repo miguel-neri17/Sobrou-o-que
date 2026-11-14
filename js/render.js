@@ -199,7 +199,15 @@
     var sd=$('#eDia'),oldd=sd.value; sd.innerHTML='';
     DIAS.forEach(function(n,i){var o=document.createElement('option');o.value=i;o.textContent=n;sd.appendChild(o)});
     sd.value=oldd||String(now.getDay());
+    eAtual();
   }
+
+  /* quanto já está registrado na semana e no dia escolhidos (para saber o que "substituir" vai trocar) */
+  function eAtual(){
+    var h=(M(S.cur).weeks[Number($('#eSem').value)]||[])[Number($('#eDia').value)]||0;
+    $('#eAtual').textContent='Já registrado neste dia: '+dec.format(h)+' h.';
+  }
+  A.eAtual=eAtual;
 
   function renderNotas(){
     var g=M(S.cur).grades,box=$('#nList');box.innerHTML='';
@@ -229,7 +237,7 @@
       tb.appendChild(el('tr','','<th scope="row">'+MON[i].abbr+'/'+String(MON[i].year).slice(2)+'</th>'+(t.tem?'<td class="r'+(t.renda>0?' money">'+money(t.renda):'">sem renda')+'</td><td class="r money">'+money(t.gastos)+'</td><td class="r money">'+money(t.sobra)+'</td>':'<td class="r" colspan="3">sem registros</td>')));
     });
     var com=serie.filter(function(t){return t.tem});
-    if(!com.length){box.appendChild(el('p','hint','Nenhum registro nos últimos 6 meses ainda. Informe a renda e os gastos em Finanças para ver o gráfico.'));return}
+    if(!com.length){box.appendChild(el('p','hint','Nenhum registro nos últimos '+A.MESES+' meses ainda. Informe a renda e os gastos em Finanças para ver o gráfico.'));return}
     var vals=com.map(function(t){return t.sobra}),pos=Math.max.apply(null,vals.concat(0)),neg=Math.max.apply(null,vals.map(function(v){return -v}).concat(0)),span=(pos+neg)||1;
     var W=600,H=240,top=28,bot=46,ph=H-top-bot,y0=top+ph*pos/span,slot=W/serie.length,bw=Math.min(64,slot*0.6);
     var s='<svg class="an-svg" viewBox="0 0 '+W+' '+H+'" role="img" aria-label="Sobra por mês: '+com.map(function(t){return MON[t.i].abbr+' '+money(t.sobra)}).join(', ')+'"><line class="an-axis" x1="0" x2="'+W+'" y1="'+y0.toFixed(1)+'" y2="'+y0.toFixed(1)+'"/>';
@@ -238,8 +246,7 @@
       s+='<text class="an-m" x="'+cx.toFixed(1)+'" y="'+(H-10)+'" text-anchor="middle">'+MON[i].abbr+'</text>';
       if(!t.tem) return;
       var h=Math.max(2,Math.abs(t.sobra)/span*ph),up=t.sobra>=0,y=up?y0-h:y0;
-      s+='<rect class="'+(up?'an-pos':'an-neg')+'" x="'+(cx-bw/2).toFixed(1)+'" y="'+y.toFixed(1)+'" width="'+bw.toFixed(1)+'" height="'+h.toFixed(1)+'" rx="3"/>'
-        +'<text class="an-v" x="'+cx.toFixed(1)+'" y="'+(up?y-6:y+h+15).toFixed(1)+'" text-anchor="middle">'+money(t.sobra)+'</text>';
+      s+='<rect class="'+(up?'an-pos':'an-neg')+'" x="'+(cx-bw/2).toFixed(1)+'" y="'+y.toFixed(1)+'" width="'+bw.toFixed(1)+'" height="'+h.toFixed(1)+'" rx="3"/>'; /* o valor de cada mês está na tabela e no aria-label: 12 rótulos não cabem sobre as barras */
     });
     box.innerHTML=s+'</svg>';
   }

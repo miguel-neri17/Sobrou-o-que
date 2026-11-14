@@ -172,5 +172,37 @@ ok(/\.ext-box[^{]*\{[^}]*max-height/.test(css) || /\.ext\s*\{[^}]*overflow-y/.te
   ok(lic && fs.existsSync(path.join(root, 'fonts', 'LICENSE.md')), 'as licenças das fontes (SIL OFL, dos autores) acompanham os arquivos em fonts/');
 }
 
+/* ---------- 11. navegadores sem color-mix(): toda declaração com ele tem uma alternativa ---------- */
+// color-mix() só existe no Safari 16.2, Chrome 111 e Firefox 113 em diante. Num navegador mais antigo a declaração inteira é
+// descartada, e sem alternativa a propriedade volta ao valor da regra anterior (por exemplo, a barra "abaixo da meta" ficaria
+// idêntica à que bateu a meta). Regra: antes de cada declaração com color-mix(), a MESMA propriedade tem de ter um valor sem
+// ele na mesma regra, ou a regra inteira fica dentro de um @supports (color: color-mix(...)).
+{
+  function semSupports(txt) { // remove blocos @supports que testam color-mix, com as chaves balanceadas
+    let out = '', i = 0;
+    while (i < txt.length) {
+      const m = /@supports\s*\(\s*color\s*:\s*color-mix/.exec(txt.slice(i));
+      if (!m) { out += txt.slice(i); break; }
+      out += txt.slice(i, i + m.index);
+      let j = i + m.index + m[0].length;
+      while (j < txt.length && txt[j] !== '{') j++;
+      let d = 1; j++;
+      while (j < txt.length && d > 0) { if (txt[j] === '{') d++; else if (txt[j] === '}') d--; j++; }
+      i = j;
+    }
+    return out;
+  }
+  const limpo = semSupports(css.replace(/\/\*[\s\S]*?\*\//g, ''));
+  const sem = [];
+  (limpo.match(/[^{}]+\{[^{}]*\}/g) || []).forEach((regra) => {
+    const [sel, corpo] = [regra.slice(0, regra.indexOf('{')).trim(), regra.slice(regra.indexOf('{') + 1, regra.lastIndexOf('}'))];
+    const decls = corpo.split(';').map((d) => d.trim()).filter(Boolean).map((d) => ({ p: d.slice(0, d.indexOf(':')).trim(), v: d.slice(d.indexOf(':') + 1) }));
+    decls.forEach((d, i) => {
+      if (/color-mix\(/.test(d.v) && !decls.slice(0, i).some((x) => x.p === d.p && !/color-mix\(/.test(x.v))) sem.push(`${sel} { ${d.p} }`);
+    });
+  });
+  ok(sem.length === 0, 'toda declaração com color-mix() tem uma alternativa sem ele antes (ou fica em @supports)' + (sem.length ? '\n       sem alternativa: ' + sem.join(' | ') : ''));
+}
+
 console.log(fails ? '\n' + fails + ' FALHA(S)' : '\nTUDO OK');
 process.exit(fails ? 1 : 0);

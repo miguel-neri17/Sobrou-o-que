@@ -129,7 +129,7 @@ Curvas: `--ease-out` (saída suave, padrão) e `--ease-drawer` (a gaveta).
 | Cartão | `.card` | estático; `.tip` é a variante de apoio |
 | Lista | `.list` | uma linha por item, divisória fina |
 | Tabela de lançamentos | `.tbl` | vira bloco por linha no celular (esconde o cabeçalho) |
-| Tabela de dados | `.dtab` | mantém o cabeçalho no celular (Análise e prévia do extrato) |
+| Tabela de dados | `.dtab` | mantém o cabeçalho no celular (Análise). A prévia do extrato vira uma lista de cartões no celular (sem cabeçalho; cada seletor de categoria tem `aria-label` com o número da linha) |
 | Barra de progresso | `.bar` | animada ao mudar |
 | Barra da renda | `.rbar` | um trecho por categoria; `.reveal` na entrada |
 | Barras de estudo | `.col` | sólida = bateu a meta; **listrada** = abaixo da meta |
@@ -184,5 +184,5 @@ O que este sistema **ainda não** resolve, e para onde vai:
 - **Cartões do Início:** ganharam ritmo e o cartão de observações muda quando há aviso, mas os três cartões ainda têm o mesmo peso visual.
 - **Faixa de exemplo:** fica fixa no topo no computador; no celular rola junto, porque fixa ocuparia uns 16% da tela.
 - **Paleta de categorias:** continua abaixo do piso do validador nos pares de tons vizinhos (ver a seção 2). É uma decisão de identidade, compensada por legenda, valor em texto, separador e textura, e não uma correção que falte.
-- **Tabela de prévia do extrato:** em 390 e 320 px ela rola alguns pixels **dentro** do próprio quadro (a página não rola).
+- **Prévia do extrato:** no celular cada linha é um cartão (6 colunas não cabiam: o seletor de categoria ficava cortado), sem rolagem lateral em 390 e 320 px; o quadro rola só na vertical.
 - **Estados carregando e erro** padronizados.
