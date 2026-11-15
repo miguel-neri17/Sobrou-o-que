@@ -241,5 +241,20 @@ ok(/\.ext-box[^{]*\{[^}]*max-height/.test(css) || /\.ext\s*\{[^}]*overflow-y/.te
   ok(/'serviceWorker' in navigator/.test(fs.readFileSync(path.join(root, 'js', 'main.js'), 'utf8')), 'main.js registra o service worker só onde ele existe');
 }
 
+/* ---------- 13. aba do navegador e prévia do link (WhatsApp, e-mail, redes) ---------- */
+{
+  const html = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
+  const BASE = 'https://miguel-neri17.github.io/Sobrou-o-que/';
+  const fav = /<link rel="icon" type="image\/png" href="([^"]+)">/.exec(html);
+  ok(fav && fs.existsSync(path.join(root, fav[1])), 'favicon: a aba do navegador tem o ícone do app (e o arquivo existe)');
+  const desc = /<meta name="description" content="([^"]+)">/.exec(html);
+  ok(desc && desc[1].length >= 50 && desc[1].length <= 160, 'meta description existe e cabe no resultado de busca (50 a 160 caracteres): ' + (desc ? desc[1].length : 0));
+  const og = {};
+  [...html.matchAll(/<meta property="og:([a-z_:]+)" content="([^"]+)">/g)].forEach((m) => { og[m[1]] = m[2]; });
+  ok(og.type === 'website' && og.locale === 'pt_BR' && og.site_name && og.title && og.description === (desc && desc[1]), 'prévia do link: tipo, idioma, nome do site, título e a mesma descrição');
+  ok(og.url === BASE && og.image && og.image.startsWith(BASE) && fs.existsSync(path.join(root, og.image.slice(BASE.length))), 'prévia do link: endereço e imagem são absolutos (o WhatsApp exige) e a imagem existe no projeto');
+  ok(/<meta name="twitter:card" content="summary">/.test(html), 'prévia em redes que usam o formato "summary"');
+}
+
 console.log(fails ? '\n' + fails + ' FALHA(S)' : '\nTUDO OK');
 process.exit(fails ? 1 : 0);

@@ -130,13 +130,16 @@ Curvas: `--ease-out` (saída suave, padrão) e `--ease-drawer` (a gaveta).
 | Lista | `.list` | uma linha por item, divisória fina |
 | Tabela de lançamentos | `.tbl` | vira bloco por linha no celular (esconde o cabeçalho) |
 | Tabela de dados | `.dtab` | mantém o cabeçalho no celular (Análise). A prévia do extrato vira uma lista de cartões no celular (sem cabeçalho; cada seletor de categoria tem `aria-label` com o número da linha) |
-| Barra de progresso | `.bar` | animada ao mudar |
+| Barra de progresso | `.bar` | animada ao mudar; usada no orçamento, nas horas de estudo (Início) e no progresso da meta de reserva ("Você já guardou X de Y"; cheia, com "Meta atingida", nunca passa de 100%) |
 | Barra da renda | `.rbar` | um trecho por categoria; `.reveal` na entrada |
 | Barras de estudo | `.col` | sólida = bateu a meta; **listrada** = abaixo da meta |
 | Gráficos | `.an-svg` | SVG, sempre com tabela ou texto equivalente |
 | Blocos de dois lados | `.an-split` | empilhados no celular; lado a lado a partir de 900 px (Análise: gráfico e tabela, comparação e categorias, pontos e texto) |
 | Diálogo do extrato | `#extPanel`, `.ext` | `role="dialog"`, `aria-modal`, foco preso, `Esc` fecha, fundo inerte, foco volta ao título da tela |
-| Cartão de observações | `.tip`, `.tip.is-warn` | `is-warn` quando há orçamento estourado ou gastos acima da renda |
+| Cartão de observações | `.tip`, `.tip.is-warn` | `is-warn` quando há orçamento estourado ou gastos acima da renda. Mostra no máximo 2 linhas; o lembrete de backup (30 dias sem exportar) vem primeiro e **não** aciona `is-warn` |
+| Seletor de categoria (extrato) | `.ext-cat` | uma lista por gasto novo na prévia; 44 px de altura, `aria-label` "Categoria da linha N"; foco com `outline` (não depende de `color-mix`) |
+| Caixa "Substituir o total deste dia" | `.chk` no formulário de horas | desmarcada por padrão e desmarca sozinha depois de salvar, para não sobrescrever sem querer |
+| Senha do arquivo (opcional) | `#arqSenha` no menu | campo `.f` de tipo senha, com rótulo e nota (`.side-note`); limpa depois de usado |
 | Abas (celular) / links (computador) | `.tabs`, `.topnav` | normal, atual (`aria-current`), foco |
 | Faixa de exemplo | `.demo-bar` | visível só na conta de exemplo |
 
@@ -156,6 +159,12 @@ Curvas: `--ease-out` (saída suave, padrão) e `--ease-drawer` (a gaveta).
 ## 8. Superfícies do navegador
 
 Caixas de marcar e botões nativos usam `accent-color` na cor da marca; o cursor de texto usa `caret-color`; a barra de rolagem usa `scrollbar-color`; a seleção de texto tem `::selection` tingida de verde; e `color-scheme` é declarado nos dois temas, para os controles nativos nascerem no tema certo.
+
+## 8b. Aba do navegador, link compartilhado e app instalável
+
+A aba usa o logotipo (`img/logo-1.png`) como `favicon`. O link compartilhado (WhatsApp, e-mail) mostra título, descrição e o ícone de 512 px por `og:` tags com endereço **absoluto**. Para instalar, `manifest.webmanifest` declara `theme_color` = verde da marca e `background_color` = fundo claro (os mesmos valores dos tokens `--brand` e `--bg`), ícones de 192 e 512 px "maskable" (o desenho ocupa ~62% do quadro, para o recorte circular do Android não cortá-lo) e `apple-touch-icon` de 180 px. Os dois `theme-color` do `index.html` acompanham o fundo claro e o escuro. Os PNG saem de `scripts/icones.js` a partir de `img/logo-2.png`; o de 512 é uma **ampliação** (o logotipo só existe em 300 px), nítido porque o desenho é chapado. O `test:design` confere tudo isso, inclusive que as cores do manifesto são iguais às dos tokens.
+
+**Navegadores antigos.** Todo `color-mix()` tem antes uma linha de cor sólida (ou fica dentro de `@supports`): sem isso, em Safari anterior ao 16.2, Chrome anterior ao 111 e Firefox anterior ao 113, a barra "abaixo da meta" ficaria igual à que bateu a meta e o anel de foco sumiria. O `test:design` exige a alternativa e o `test:ui` simula o navegador antigo no Chrome real.
 
 ## 9. Como verificar
 

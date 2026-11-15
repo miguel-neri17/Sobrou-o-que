@@ -1,33 +1,46 @@
 #!/usr/bin/env python3
-"""Converte um estudante simulado das bases tratadas (dados/esperado/) para o formato do app e escreve js/demo.js.
+"""Converte um estudante simulado das bases tratadas para o formato do app e escreve js/demo.js.
 
 É o que o botão "Ver com dados de exemplo" carrega. O arquivo js/demo.js existe porque o site abre com duplo clique
 (file://), e o navegador não deixa um site assim ler os CSVs.
 
+O exemplo tem 12 meses, a janela do app. As bases oficiais (dados/esperado/) têm 6, e o tamanho delas é uma decisão
+pendente da equipe (item 4 do dicionário), então este script NÃO as altera: ele gera, numa pasta temporária, uma versão
+de 12 meses da mesma população (mesma semente e mesmas premissas, só com geral.meses=12) e escolhe o estudante nela.
+Nos 6 meses em comum a renda de todos os estudantes é idêntica; gastos, horas e notas não, porque o sorteio deles muda
+quando há mais meses. Por isso o exemplo é "um estudante da mesma população", e não o E135 exato das bases de 6 meses.
+Se a equipe adotar 12 meses nas premissas, rode com --esperado dados/esperado e os dois passam a coincidir.
+
 Uso:
-    python dados/gerar_demo.py              # regenera js/demo.js
+    python dados/gerar_demo.py              # regenera js/demo.js (12 meses, versão gerada na hora)
     python dados/gerar_demo.py --estudante E023   # força outro estudante (padrão: escolhido por regra)
+    python dados/gerar_demo.py --esperado dados/esperado   # usa uma pasta de bases já tratadas, com os meses que ela tiver
 
 O estudante padrão é escolhido por uma regra, e não à mão, para o exemplo mostrar os recursos do app:
-6 meses completos, exatamente 1 mês no vermelho, sobra média positiva, 5 a 12 horas de estudo por semana,
+todos os meses completos, exatamente 1 mês no vermelho, sobra média positiva, 5 a 12 horas de estudo por semana,
 pelo menos 2 gastos fixos e relação entre horas e nota que não seja negativa (as bases simulam que mais horas
 elevam a nota de leve, premissa efeitos.horas_na_nota; um exemplo que mostrasse "mais horas, notas menores"
-pareceria defeito do site, e com 6 meses isso é só acaso do sorteio). Entre os que cumprem, vale a maior sobra
+pareceria defeito do site, e com poucos meses isso é só acaso do sorteio). Entre os que cumprem, vale a maior sobra
 média (desempate: menor código).
 
 Só usa a biblioteca padrão do Python. Os dados são fictícios.
 """
 import argparse
+import contextlib
 import csv
+import importlib.util
+import io
 import json
 import math
 import sys
+import tempfile
 from collections import defaultdict
 from pathlib import Path
 
 RAIZ = Path(__file__).resolve().parent.parent
 ESPERADO = RAIZ / "dados" / "esperado"
 SAIDA = RAIZ / "js" / "demo.js"
+MESES_EXEMPLO = 12  # a janela de meses do app (A.MESES em js/state.js)
 
 ROTULO = {"alimentacao": "Alimentação", "transporte": "Transporte", "lazer": "Lazer",
           "assinaturas": "Assinatura", "estudos": "Material de estudo", "outros": "Outros",
@@ -45,6 +58,23 @@ MATERIAS = {"matematica": "Matemática", "portugues": "Português", "historia": 
             "programacao": "Programação", "banco_de_dados": "Banco de dados", "redes": "Redes", "gestao": "Gestão",
             "calculo": "Cálculo", "estatistica": "Estatística", "algoritmos": "Algoritmos"}
 HORAS_TIPICAS = (5, 12)  # horas de estudo por semana: "a maioria estuda entre 5 e 15" (Blueprint), sem os extremos
+
+
+def gerar_bases_do_exemplo(destino, meses=MESES_EXEMPLO):
+    """Gera em `destino` as mesmas bases (mesma semente e premissas) com `meses` meses e devolve a pasta esperado/.
+    Não toca em dados/bases nem em dados/esperado. Carrega o gerador pelo caminho do arquivo, para funcionar de qualquer lugar."""
+    espec = importlib.util.spec_from_file_location("gerar_bases", RAIZ / "dados" / "gerar_bases.py")
+    gb = importlib.util.module_from_spec(espec)
+    espec.loader.exec_module(gb)
+    with contextlib.redirect_stdout(io.StringIO()):  # o gerador imprime um diagnóstico que aqui só atrapalha
+        gb.main(["--saida", str(destino), "--definir", f"geral.meses={meses}"])
+    return Path(destino) / "esperado"
+
+
+def construir_padrao(estudante=None):
+    """O exemplo que vai para o app: o estudante escolhido na versão de 12 meses das bases."""
+    with tempfile.TemporaryDirectory() as tmp:
+        return construir(gerar_bases_do_exemplo(tmp), estudante)
 
 
 def _ler(pasta, nome):
@@ -120,7 +150,7 @@ def _escolher(pasta, meses):
 
 
 def construir(pasta=ESPERADO, estudante=None):
-    """Devolve o estudante de exemplo no formato do app: renda, gastos, horas e notas dos 6 meses,
+    """Devolve o estudante de exemplo no formato do app: renda, gastos, horas e notas de todos os meses da pasta,
     gastos fixos (modelos), orçamento e meta de reserva."""
     meses = sorted({r["mes_referencia"] for r in _ler(pasta, "renda")})
     cod = estudante or _escolher(pasta, meses)
@@ -178,25 +208,26 @@ def para_js(demo):
     topo = {k: demo[k] for k in ("estudante", "nivel", "meta", "reserva", "budget", "recurring")}
     cabeca = json.dumps(topo, ensure_ascii=False, separators=(",", ":"))[:-1]
     meses = ",\n".join(json.dumps(m, ensure_ascii=False, separators=(",", ":")) for m in demo["months"])
-    return (f"/* GERADO por dados/gerar_demo.py a partir de dados/esperado/ (estudante simulado {demo['estudante']}).\n"
+    n = len(demo["months"])
+    return (f"/* GERADO por dados/gerar_demo.py (estudante simulado {demo['estudante']}, {n} meses, da mesma população e das mesmas premissas das bases).\n"
             "   Não edite à mão: rode  python dados/gerar_demo.py\n"
-            "   Os 6 meses estão em ordem: o primeiro vai para o mês mais antigo da janela do site, o último para o mês atual. */\n"
+            f"   Os {n} meses estão em ordem: o primeiro vai para o mês mais antigo da janela do site, o último para o mês atual. */\n"
             f"(function(){{window.Sobrou=window.Sobrou||{{}};window.Sobrou.DEMO={cabeca},\"months\":[\n{meses}\n]}};}})();\n")
 
 
 def main(argv=None):
-    ap = argparse.ArgumentParser(description="Gera js/demo.js (estudante de exemplo) a partir de dados/esperado/.")
-    ap.add_argument("--esperado", default=str(ESPERADO), help="pasta com as bases tratadas")
+    ap = argparse.ArgumentParser(description="Gera js/demo.js (estudante de exemplo, 12 meses).")
+    ap.add_argument("--esperado", help="pasta com bases já tratadas (padrão: gera uma versão de 12 meses das bases, sem alterá-las)")
     ap.add_argument("--saida", default=str(SAIDA), help="arquivo js a escrever")
     ap.add_argument("--estudante", help="código do estudante (padrão: escolhido pela regra do exemplo)")
     args = ap.parse_args(argv)
     if hasattr(sys.stdout, "reconfigure"):
         sys.stdout.reconfigure(encoding="utf-8")  # o console do Windows usa outra codificação e estragaria os acentos
-    demo = construir(args.esperado, args.estudante)
+    demo = construir(args.esperado, args.estudante) if args.esperado else construir_padrao(args.estudante)
     Path(args.saida).write_text(para_js(demo), encoding="utf-8", newline="\n")
     sobras = [m["renda"] - sum(it["v"] for it in m["items"]) for m in demo["months"]]
     print(f"{args.saida}: estudante {demo['estudante']} ({demo['nivel']}), {sum(len(m['items']) for m in demo['months'])} gastos, "
-          f"{len(demo['recurring'])} fixos, sobra média R$ {sum(sobras) / 6:.2f}")
+          f"{len(demo['recurring'])} fixos, sobra média R$ {sum(sobras) / len(sobras):.2f}")
 
 
 if __name__ == "__main__":

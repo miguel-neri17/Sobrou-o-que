@@ -583,7 +583,7 @@ const submit = (w, f) => f.dispatchEvent(new w.Event('submit', { cancelable: tru
     win.localStorage.setItem('sobrou-v2-real', real11);
   }));
   await sleep(100);
-  const janela = Array.from({ length: 6 }, (_, i) => { const dt = new Date(now.getFullYear(), now.getMonth() - 5 + i, 1); return dt.getFullYear() + '-' + String(dt.getMonth() + 1).padStart(2, '0'); });
+  const janela = Array.from({ length: 12 }, (_, i) => { const dt = new Date(now.getFullYear(), now.getMonth() - 11 + i, 1); return dt.getFullYear() + '-' + String(dt.getMonth() + 1).padStart(2, '0'); });
   const ex11 = () => JSON.parse(w.localStorage.getItem('sobrou-v2-@exemplo'));
   ok(w.location.hash === '#entrar' && d.querySelector('#demoBtn') && d.querySelector('#demoBar').hidden, 'tela de login tem o botao de exemplo e a faixa de aviso comeca escondida');
 
@@ -592,21 +592,26 @@ const submit = (w, f) => f.dispatchEvent(new w.Event('submit', { cancelable: tru
   ok(!d.querySelector('#demoBar').hidden && d.querySelector('#demoBar').textContent.toLowerCase().includes('dados de exemplo'), 'faixa avisa que sao dados de exemplo');
   ok(d.querySelector('[data-who]').textContent === 'Exemplo', 'a conta aparece como "Exemplo", nao como @exemplo');
   const dm = ex11();
-  ok(JSON.stringify(Object.keys(dm.months)) === JSON.stringify(janela) && Object.values(dm.months).every((m) => m.renda > 0 && m.items.length > 5), 'os 6 meses do exemplo vao para a janela de meses do site (o ultimo e o mes atual)');
+  ok(JSON.stringify(Object.keys(dm.months)) === JSON.stringify(janela) && Object.values(dm.months).every((m) => m.renda > 0 && m.items.length > 5), 'os 12 meses do exemplo preenchem a janela de meses do site (o ultimo e o mes atual)');
   ok(dm.recurring.length >= 2 && Object.keys(dm.budget).length >= 1 && dm.reserva > 0, 'exemplo traz gastos fixos, orcamento e meta de reserva');
   ok(d.querySelectorAll('#fxList li').length >= 2, 'o cartao de gastos fixos mostra os modelos do exemplo');
-  ok(d.querySelectorAll('#anRows tr').length === 12 && d.querySelectorAll('#anChart svg rect.an-neg').length === 1 && d.querySelectorAll('#anChart svg rect.an-pos').length === 5, 'a aba Analise tem 12 linhas e mostra os 6 meses do exemplo, com um no vermelho');
+  ok(d.querySelectorAll('#anRows tr').length === 12 && d.querySelectorAll('#anChart svg rect.an-neg').length === 1 && d.querySelectorAll('#anChart svg rect.an-pos').length === 11, 'a aba Analise tem 12 linhas e mostra os 12 meses do exemplo, com um no vermelho');
   ok(d.querySelectorAll('#anScatter svg circle').length >= 4 && d.querySelector('#anHN').textContent.includes('r ='), 'horas x nota com pontos suficientes para o coeficiente');
+  // com 12 pontos os rótulos de todos os meses se sobrepunham: só o primeiro e o último aparecem escritos; todos seguem nos tooltips
+  const pontos11 = Array.from(d.querySelectorAll('#anScatter svg circle title')).map((t) => t.textContent.split(':')[0]);
+  const rotulos11 = Array.from(d.querySelectorAll('#anScatter svg text.an-s')).map((t) => t.textContent).filter((t) => /^[A-Z][a-zç]{2}(\/[A-Z][a-zç]{2})*$/.test(t));
+  ok(pontos11.length > 8 && rotulos11.length === 2 && rotulos11[0].startsWith(pontos11[0]) && rotulos11[1].startsWith(pontos11[pontos11.length - 1]), 'com mais de 8 pontos, só o primeiro e o último mês têm o nome escrito (' + rotulos11 + '), e todos os pontos têm tooltip (' + pontos11.length + ')');
+  ok(d.querySelector('#anScatter svg').getAttribute('aria-label').includes(pontos11[3]), 'e o texto do gráfico para leitor de tela continua listando todos os meses');
   ok(d.querySelector('#bList').textContent.includes('Lazer') && d.querySelector('#bList .bud-over, #bList .bud-near, #bList .bud-ok'), 'o orcamento do exemplo aparece na lista');
   w.location.hash = '#financas'; await sleep(50);
   ok(d.querySelectorAll('#fList tr').length > 5 && !d.querySelector('#fList .empty'), 'tela de financas tem os gastos do mes atual do exemplo');
 
   set('#gDesc', 'Teste meu'); set('#gVal', '5'); set('#gCat', 'outros'); submit(w, d.querySelector('#gForm'));
-  ok(ex11().months[janela[5]].items.some((i) => i.desc === 'Teste meu'), '(preparo) o que se faz no exemplo e salvo enquanto se usa');
+  ok(ex11().months[janela[janela.length - 1]].items.some((i) => i.desc === 'Teste meu'), '(preparo) o que se faz no exemplo e salvo enquanto se usa');
   d.querySelector('#sairSide').click(); await sleep(50);
   ok(w.location.hash === '#entrar' && d.querySelector('#demoBar').hidden, 'sair volta ao login e esconde a faixa');
   d.querySelector('#demoBtn').click(); await sleep(150);
-  ok(!ex11().months[janela[5]].items.some((i) => i.desc === 'Teste meu'), 'entrar de novo recarrega o exemplo do zero (o que foi mudado some)');
+  ok(!ex11().months[janela[janela.length - 1]].items.some((i) => i.desc === 'Teste meu'), 'entrar de novo recarrega o exemplo do zero (o que foi mudado some)');
 
   ok(w.localStorage.getItem('sobrou-v2-real') === real11 && !JSON.parse(w.localStorage.getItem('sobrou-users'))['@exemplo'], 'a conta real e a lista de contas nao foram tocadas pelo exemplo');
   d.querySelector('#sairSide').click(); await sleep(50);

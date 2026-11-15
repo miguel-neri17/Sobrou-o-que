@@ -17,7 +17,7 @@ Painel pessoal para estudantes: anote o que **entra e sai**, as **horas de estud
 
 ## Como experimentar
 
-- **Sem instalar nada:** abra a [demonstração](https://miguel-neri17.github.io/Sobrou-o-que/) e clique em **Ver com dados de exemplo**. Você entra, sem senha, como um estudante simulado com 6 meses de dados. O que você mudar nele some ao sair.
+- **Sem instalar nada:** abra a [demonstração](https://miguel-neri17.github.io/Sobrou-o-que/) e clique em **Ver com dados de exemplo**. Você entra, sem senha, como um estudante simulado com 12 meses de dados. O que você mudar nele some ao sair.
 - **Como aplicativo (instalar e usar sem internet):** na demonstração, o navegador oferece **Instalar** (Chrome e Edge) ou **Adicionar à tela inicial** (Safari). Depois da primeira visita o app abre sem internet. Isso só funciona pelo endereço do site: abrir o `index.html` com duplo clique não instala nada. **Cuidado:** os dados ficam no armazenamento do navegador, e o app instalado pode ter um armazenamento separado do site aberto numa aba (no iPhone isso é o normal). Para levar os dados de um para o outro, use **Exportar** e **Importar**.
 - **No seu computador:** baixe o repositório e abra o `index.html` com duplo clique. Não precisa de servidor nem de instalação.
 

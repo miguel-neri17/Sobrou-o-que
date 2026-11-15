@@ -303,8 +303,12 @@
       if(g) g.labels.push(q.label); else grupos.push({cx:cx,cy:cy,labels:[q.label]});
       s+='<circle class="an-dot" cx="'+cx.toFixed(1)+'" cy="'+cy.toFixed(1)+'" r="6"><title>'+q.label+': '+dec.format(q.horas)+' h por semana, nota '+dec.format(q.nota)+'</title></circle>';
     });
+    /* com mais de 8 pontos os nomes não cabem: só o primeiro e o último mês ficam escritos (o resto está no tooltip e no aria-label) */
+    var ext=[pts[0].label,pts[pts.length-1].label];
     grupos.forEach(function(k,i){
-      s+='<text class="an-s" x="'+k.cx.toFixed(1)+'" y="'+(i%2?k.cy+20:k.cy-11).toFixed(1)+'" text-anchor="middle">'+k.labels.join('/')+'</text>';
+      var ls=pts.length>8?k.labels.filter(function(l){return ext.indexOf(l)>=0}):k.labels;
+      if(!ls.length) return;
+      s+='<text class="an-s" x="'+k.cx.toFixed(1)+'" y="'+(i%2?k.cy+20:k.cy-11).toFixed(1)+'" text-anchor="middle">'+ls.join('/')+'</text>';
     });
     box.innerHTML=s+'</svg>';
     var aviso=' Correlação não mostra causa, e poucos meses variam muito de um ano para o outro.';
