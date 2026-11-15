@@ -1,11 +1,13 @@
 """Testes do conversor dos dados de exemplo (dados/gerar_demo.py).
 
-O conversor lê dados/esperado/ (as bases já tratadas) e escreve js/demo.js, o estudante simulado que o botão
-"Ver com dados de exemplo" carrega. Rodam com:  python -m unittest discover -s tests -p "test_*.py"
+O conversor lê as bases já tratadas e escreve js/demo.js, o estudante simulado que o botão "Ver com dados de
+exemplo" carrega. O exemplo tem 12 meses (a janela do app) e sai de uma versão de 12 meses das mesmas bases
+(mesma semente e premissas, geral.meses=12), gerada numa pasta temporária: dados/bases e dados/esperado não mudam. Rodam com:  python -m unittest discover -s tests -p "test_*.py"
 Só usam a biblioteca padrão do Python.
 """
 import importlib.util
 import re
+import tempfile
 import unittest
 from pathlib import Path
 
@@ -14,7 +16,8 @@ _ESPEC = importlib.util.spec_from_file_location("gerar_demo", RAIZ / "dados" / "
 gd = importlib.util.module_from_spec(_ESPEC)
 _ESPEC.loader.exec_module(gd)
 
-ESPERADO = RAIZ / "dados" / "esperado"
+ESPERADO = RAIZ / "dados" / "esperado"  # as bases oficiais (6 meses)
+MESES = 12
 CATEGORIAS = {"alimentacao", "transporte", "lazer", "assinaturas", "estudos", "outros"}
 ID_SEGURO = re.compile(r"^[A-Za-z0-9_-]{1,60}$")  # o mesmo que o storage.js aceita
 
@@ -30,13 +33,19 @@ def acima_do_limite(demo, i):
 class TestDemo(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        cls.demo = gd.construir(ESPERADO)
+        cls._tmp = tempfile.TemporaryDirectory()
+        cls.pasta = gd.gerar_bases_do_exemplo(cls._tmp.name)  # a pasta esperado/ da versão de 12 meses
+        cls.demo = gd.construir(cls.pasta)
+
+    @classmethod
+    def tearDownClass(cls):
+        cls._tmp.cleanup()
 
     def test_estrutura(self):
         d = self.demo
         self.assertRegex(d["estudante"], r"^E\d{3}$")
         self.assertIn(d["nivel"], {"universitario", "tecnico", "medio"})
-        self.assertEqual(len(d["months"]), 6)
+        self.assertEqual(len(d["months"]), MESES)
         self.assertTrue(2 <= d["meta"] <= 30)
         self.assertTrue(d["reserva"] > 0)
         self.assertIsInstance(d["budget"], dict)
@@ -83,15 +92,16 @@ class TestDemo(unittest.TestCase):
         d = self.demo
         sobras = [m["renda"] - sum(it["v"] for it in m["items"]) for m in d["months"]]
         self.assertEqual(sum(1 for s in sobras if s < 0), 1, "exatamente um mês no vermelho")
-        self.assertGreater(sum(sobras) / 6, 0, "mas a sobra média é positiva")
+        self.assertGreater(sum(sobras) / MESES, 0, "mas a sobra média é positiva")
         self.assertGreaterEqual(len(d["recurring"]), 2, "gastos fixos para a 2b")
         for t in d["recurring"]:
             n = sum(1 for m in d["months"] for it in m["items"] if it.get("rid") == t["id"])
-            self.assertEqual(n, 6, "cada gasto fixo aparece nos 6 meses")
+            self.assertEqual(n, MESES, "cada gasto fixo aparece em todos os meses")
         self.assertTrue(d["budget"], "orçamento definido")
-        self.assertTrue(any(acima_do_limite(d, i) for i in range(6)), "ao menos um mês passa do orçamento")
+        self.assertTrue(any(acima_do_limite(d, i) for i in range(MESES)), "ao menos um mês passa do orçamento")
         com_nota = sum(1 for m in d["months"] if m["grades"] and any(any(w) for w in m["weeks"]))
         self.assertGreaterEqual(com_nota, 4, "meses com horas e nota para o gráfico e o coeficiente da Análise")
+        self.assertEqual(com_nota, MESES, "e, no exemplo, todos os meses têm os dois")
 
     def test_materias_com_acento_e_nome_de_gente(self):
         """As bases guardam matérias sem acento (programacao, ingles...). No app elas aparecem para a pessoa,
@@ -109,14 +119,14 @@ class TestDemo(unittest.TestCase):
         "mais horas, notas menores" pareceria defeito do site, então o estudante é escolhido com relação não negativa."""
         horas = [sum(sum(w) for w in m["weeks"]) / 4 for m in self.demo["months"]]
         notas = [sum(g["v"] for g in m["grades"]) / len(m["grades"]) for m in self.demo["months"]]
-        mh, mn = sum(horas) / 6, sum(notas) / 6
+        mh, mn = sum(horas) / MESES, sum(notas) / MESES
         cov = sum((h - mh) * (n - mn) for h, n in zip(horas, notas))
         self.assertGreaterEqual(cov, 0)
 
     def test_bate_com_as_bases(self):
         import csv
         def linhas(nome):
-            with open(ESPERADO / f"{nome}.csv", encoding="utf-8", newline="") as f:
+            with open(self.pasta / f"{nome}.csv", encoding="utf-8", newline="") as f:
                 return list(csv.DictReader(f))
 
         gastos = {}
@@ -135,7 +145,20 @@ class TestDemo(unittest.TestCase):
             self.assertLessEqual(abs(media - horas[meses[i]]), 0.25 + 1e-9, "horas por semana, em meias horas")
 
     def test_deterministico(self):
-        self.assertEqual(gd.construir(ESPERADO), self.demo)
+        self.assertEqual(gd.construir_padrao(), self.demo)
+
+    def test_estende_as_bases_oficiais(self):
+        """A versão de 12 meses é a mesma população das bases oficiais: nos 6 meses em comum, as rendas de TODOS os
+        estudantes são idênticas. (Gastos, horas e notas não são: o sorteio deles muda quando há mais meses. Por isso o
+        exemplo é "um estudante da mesma população", e não o mesmo E135 das bases de 6 meses; isso está dito no dicionário.)"""
+        import csv
+        def renda(pasta):
+            with open(pasta / "renda.csv", encoding="utf-8", newline="") as f:
+                return {(r["codigo_estudante"], r["mes_referencia"]): r["renda"] for r in csv.DictReader(f)}
+        oficial, doze = renda(ESPERADO), renda(self.pasta)
+        self.assertGreater(len(oficial), 800)
+        self.assertEqual({k: v for k, v in doze.items() if k in oficial}, oficial)
+        self.assertEqual(len({m for _, m in doze}), MESES)
 
     def test_demo_js_esta_atualizado(self):
         """js/demo.js é gerado: se as bases ou o conversor mudarem, rode  python dados/gerar_demo.py"""

@@ -166,8 +166,9 @@ async function abrir(browser, w, h, renda) {
   ok(errs.length === 0, 'sem erros no console (movimento e toque) ' + JSON.stringify(errs));
   await page.close();
 
-  // ---------- Finanças no celular: com os lançamentos do exemplo, a tela não pode passar de 4.900 px ----------
-  // (antes do PR 2 eram 6.082 px: cada lançamento empilhava valor e botões embaixo da descrição)
+  // ---------- Finanças no celular: cada lançamento do exemplo é uma linha compacta (até 90 px) ----------
+  // (antes do PR 2 cada lançamento empilhava valor e botões embaixo da descrição e a tela chegava a 6.082 px; medir por linha, e
+  // não a tela inteira, não depende de quantos lançamentos o exemplo tem)
   for (const largura of [390, 320]) {
     const ctxF = await browser.createBrowserContext();
     const pF = await ctxF.newPage();
@@ -177,8 +178,8 @@ async function abrir(browser, w, h, renda) {
     await pF.waitForFunction(() => location.hash === '#inicio');
     await pF.evaluate(() => { location.hash = '#financas'; }); await sleep(500);
     // mede a tela (#financas), e não a página: a faixa de exemplo só existe na conta de exemplo
-    const m = await pF.evaluate(() => ({ h: Math.round(document.querySelector('#financas').getBoundingClientRect().height), lateral: document.documentElement.scrollWidth > document.documentElement.clientWidth, linhas: document.querySelectorAll('#fList tr').length }));
-    if (largura === 390) ok(m.linhas >= 20 && m.h <= 4900, 'Finanças no celular com ' + m.linhas + ' lançamentos tem ' + m.h + ' px (limite: 4.900; antes do PR 2: 6.0xx)');
+    const m = await pF.evaluate(() => ({ h: Math.round(document.querySelector('#financas').getBoundingClientRect().height), lateral: document.documentElement.scrollWidth > document.documentElement.clientWidth, linhas: document.querySelectorAll('#fList tr').length, maxLinha: Math.round(Math.max(...Array.from(document.querySelectorAll('#fList tr')).map((e) => e.getBoundingClientRect().height))) }));
+    if (largura === 390) ok(m.linhas >= 20 && m.maxLinha <= 90, 'Finanças no celular: ' + m.linhas + ' lançamentos, a linha mais alta tem ' + m.maxLinha + ' px (limite: 90) e a tela inteira ' + m.h + ' px');
     ok(!m.lateral, 'Finanças a ' + largura + ' px sem rolagem lateral');
     await ctxF.close();
   }

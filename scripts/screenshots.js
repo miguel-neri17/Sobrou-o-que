@@ -53,7 +53,7 @@ function dados(estado) {
   await page.evaluate(() => { location.hash = '#cadastro'; }); await sleep(300);
   await shot('2-cadastro');
 
-  if (estado === 'exemplo') { // entra pelo botão "Ver com dados de exemplo": estudante simulado com 6 meses de dados
+  if (estado === 'exemplo') { // entra pelo botão "Ver com dados de exemplo": estudante simulado com 12 meses de dados
     await page.evaluate(() => { location.hash = '#entrar'; }); await sleep(300);
     await page.click('#demoBtn');
   } else { // cria a conta pelo formulario

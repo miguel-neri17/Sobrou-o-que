@@ -109,18 +109,20 @@ Com isso dá para conferir **cada erro** (o painel pegou?) e **o resultado** (os
 python dados/gerar_bases.py                  # regenera dados/bases, dados/esperado e dados/gabarito_erros.csv
 python dados/gerar_bases.py --sem-erros      # sem erros plantados
 python dados/gerar_bases.py --documentar     # imprime a tabela de premissas
-python dados/gerar_demo.py                   # regenera js/demo.js, o estudante do botão "Ver com dados de exemplo"
+python dados/gerar_demo.py                   # regenera js/demo.js, o estudante do botão "Ver com dados de exemplo" (12 meses; veja a nota abaixo)
 python -m unittest discover -s tests -p "test_*.py"    # testes do gerador e do conversor do exemplo
 ```
 
 Só precisa do Python 3.10 ou mais novo, sem instalar nada.
+
+> **Nota sobre o estudante de exemplo do app.** O app mostra 12 meses, e `bases/` e `esperado/` têm 6 (decisão 4 abaixo). Para o exemplo não ficar com metade vazia, `gerar_demo.py` gera numa pasta temporária uma versão de 12 meses da **mesma população** (mesma semente e mesmas premissas, só `geral.meses=12`) e escolhe o estudante pela mesma regra. Resultado: nos 6 meses em comum a **renda** de todos os estudantes é idêntica à das bases, mas **gastos, horas e notas mudam** (o sorteio deles muda quando há mais meses), então o exemplo é "um estudante da mesma população" e não o E135 exato de `bases/`. Isso não altera nenhum arquivo de `dados/`. Se a equipe adotar 12 meses (`geral.meses` em `premissas.json`), rode `python dados/gerar_demo.py --esperado dados/esperado` e os dois passam a coincidir.
 
 ## Decisões pendentes para a equipe
 
 1. ~~**Nome da categoria**~~ **Decidido: `assinaturas`.** O app usa esse nome (rótulo "Assinaturas") e converte o antigo `contas` ao carregar dados ou importar arquivos.
 2. ~~**Formato do mês**~~ **Decidido: `AAAA-MM`.** O app usa esse formato e ainda lê o antigo `AAAA-M` (que vira `AAAA-MM` ao carregar).
 3. **`nao_informado` como categoria** para gastos sem categoria: o painel deve mostrá-la nos gráficos? (Hoje, no estudante de exemplo do app, `gerar_demo.py` a converte em `outros`, com a descrição "Sem categoria".)
-4. **Tamanho:** 150 estudantes por 6 meses (`2026-05` a `2026-10`). Está bom?
+4. **Tamanho:** 150 estudantes por 6 meses (`2026-05` a `2026-10`). Está bom? (O app mostra 12 meses; veja a nota acima. Com `geral.meses=12` as bases iriam de `2026-05` a `2027-04`.)
 5. **Cada valor da tabela abaixo** precisa ser confirmado ou corrigido pela equipe com a sua justificativa. Em especial: faixas de renda (e o salário mínimo vigente), proporção de cada nível de ensino e a relação entre horas e nota.
 6. **Quantos meses fecham negativos:** hoje cerca de 4% dos meses. Se a equipe achar pouco, ajuste `gastos.propensao_a_gastar_dp`.
 
