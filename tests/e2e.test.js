@@ -597,6 +597,11 @@ const submit = (w, f) => f.dispatchEvent(new w.Event('submit', { cancelable: tru
   ok(d.querySelectorAll('#fxList li').length >= 2, 'o cartao de gastos fixos mostra os modelos do exemplo');
   ok(d.querySelectorAll('#anRows tr').length === 12 && d.querySelectorAll('#anChart svg rect.an-neg').length === 1 && d.querySelectorAll('#anChart svg rect.an-pos').length === 11, 'a aba Analise tem 12 linhas e mostra os 12 meses do exemplo, com um no vermelho');
   ok(d.querySelectorAll('#anScatter svg circle').length >= 4 && d.querySelector('#anHN').textContent.includes('r ='), 'horas x nota com pontos suficientes para o coeficiente');
+  // com 12 pontos os rótulos de todos os meses se sobrepunham: só o primeiro e o último aparecem escritos; todos seguem nos tooltips
+  const pontos11 = Array.from(d.querySelectorAll('#anScatter svg circle title')).map((t) => t.textContent.split(':')[0]);
+  const rotulos11 = Array.from(d.querySelectorAll('#anScatter svg text.an-s')).map((t) => t.textContent).filter((t) => /^[A-Z][a-zç]{2}(\/[A-Z][a-zç]{2})*$/.test(t));
+  ok(pontos11.length > 8 && rotulos11.length === 2 && rotulos11[0].startsWith(pontos11[0]) && rotulos11[1].startsWith(pontos11[pontos11.length - 1]), 'com mais de 8 pontos, só o primeiro e o último mês têm o nome escrito (' + rotulos11 + '), e todos os pontos têm tooltip (' + pontos11.length + ')');
+  ok(d.querySelector('#anScatter svg').getAttribute('aria-label').includes(pontos11[3]), 'e o texto do gráfico para leitor de tela continua listando todos os meses');
   ok(d.querySelector('#bList').textContent.includes('Lazer') && d.querySelector('#bList .bud-over, #bList .bud-near, #bList .bud-ok'), 'o orcamento do exemplo aparece na lista');
   w.location.hash = '#financas'; await sleep(50);
   ok(d.querySelectorAll('#fList tr').length > 5 && !d.querySelector('#fList .empty'), 'tela de financas tem os gastos do mes atual do exemplo');
